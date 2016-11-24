@@ -11,6 +11,7 @@ public class SearchResult
 {
 	private String title;
 	private String id;
+	private ContentType type;
 	private String videoThumbnail;
 	private String radioThumbnail;
 }

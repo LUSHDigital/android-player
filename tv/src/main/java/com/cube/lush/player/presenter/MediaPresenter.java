@@ -19,7 +19,7 @@ import lombok.Data;
  */
 public class MediaPresenter extends Presenter
 {
-	private static int CARD_WIDTH = 320;
+	private static int CARD_WIDTH = 400;
 	private static int CARD_HEIGHT = 180;
 
 	@Override public ViewHolder onCreateViewHolder(ViewGroup parent)

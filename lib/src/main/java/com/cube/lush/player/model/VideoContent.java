@@ -7,10 +7,7 @@ import lombok.Data;
  * @project lush-player-android-client
  */
 @Data
-public class VideoContent
+public class VideoContent extends MediaContent
 {
-	private String title;
-	private String id;
-	private String description;
-	private String date;
+	// Add any extra fields if the API response changes
 }

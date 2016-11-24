@@ -7,13 +7,8 @@ import lombok.Data;
  * @project lush-player-android-client
  */
 @Data
-public class RadioContent
+public class RadioContent extends MediaContent
 {
-	private String title;
 	private String file;
-	private String id;
-	private String description;
-	private String date;
-	private String thumbnail;
 	private String duration;
 }

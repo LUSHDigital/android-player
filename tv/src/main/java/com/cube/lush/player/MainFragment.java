@@ -6,6 +6,7 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.view.View;
 
 /**
  * Created by tim on 24/11/2016.
@@ -31,6 +32,15 @@ public class MainFragment extends BrowseFragment
 
 		setBrandColor(getResources().getColor(R.color.primary));
 		setSearchAffordanceColor(getResources().getColor(R.color.primary_dark));
+
+		setOnSearchClickedListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View view)
+			{
+				getActivity().onSearchRequested();
+			}
+		});
 	}
 
 	private void initialiseData()

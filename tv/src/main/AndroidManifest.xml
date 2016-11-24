@@ -6,6 +6,8 @@
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.software.leanback" android:required="true" />
 
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+
 	<application
 		android:allowBackup="true"
 		android:icon="@mipmap/ic_launcher"
@@ -24,6 +26,10 @@
 				<category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
 			</intent-filter>
 		</activity>
+
+		<activity
+			android:name=".SearchActivity"
+		/>
 	</application>
 
 </manifest>

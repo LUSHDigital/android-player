@@ -13,6 +13,8 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 
+import com.cube.lush.player.model.MediaContent;
+
 import java.io.Serializable;
 
 /**
@@ -54,7 +56,7 @@ public class MainFragment extends BrowseFragment
 			@Override
 			public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row)
 			{
-				if (item instanceof Serializable)
+				if (item instanceof MediaContent)
 				{
 					Intent intent = new Intent(itemViewHolder.view.getContext(), MediaDetailsActivity.class);
 					intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA, (Serializable)item);

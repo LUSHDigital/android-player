@@ -3,10 +3,12 @@
 	package="com.cube.lush.player"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 >
-    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+	<uses-feature android:name="android.hardware.microphone" android:required="false"/>
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-feature android:name="android.software.leanback" android:required="true" />
 
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.INTERNET"/>
 
 	<application
 		android:allowBackup="true"
@@ -30,6 +32,11 @@
 		<activity
 			android:name=".SearchActivity"
 		/>
+
+		<activity
+			android:name=".PlaybackActivity"
+		/>
+
 	</application>
 
 </manifest>

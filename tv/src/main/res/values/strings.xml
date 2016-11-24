@@ -1,3 +1,6 @@
 <resources>
 	<string name="app_name">lush-player-android-client</string>
+
+	<!-- Brightcove account details -->
+	<string name="brightcove_account_id">123456789</string>
 </resources>

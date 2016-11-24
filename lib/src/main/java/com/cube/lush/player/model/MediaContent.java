@@ -9,7 +9,7 @@ import lombok.Data;
  * @project lush-player-android-client
  */
 @Data
-public abstract class MediaContent implements Serializable
+public class MediaContent implements Serializable
 {
 	private String title;
 	private String id;

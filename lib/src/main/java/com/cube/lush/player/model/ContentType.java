@@ -8,7 +8,7 @@ import lombok.Getter;
  * @project lush-player-android-client
  */
 @AllArgsConstructor
-enum ContentType
+public enum ContentType
 {
 	TV("tv"),
 	RADIO("radio");

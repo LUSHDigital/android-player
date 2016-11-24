@@ -4,5 +4,7 @@
     <color name="primary">#ff3333</color>
     <color name="primary_dark">#ff0000</color>
     <color name="primary_light">#cc0000</color>
+    
+    <color name="black">#000000</color>
 
 </resources>

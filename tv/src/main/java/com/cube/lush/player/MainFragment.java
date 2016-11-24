@@ -14,8 +14,15 @@ import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.VideoContent;
+import com.cube.lush.player.presenter.MediaPresenter;
 
 import java.io.Serializable;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by tim on 24/11/2016.
@@ -23,6 +30,7 @@ import java.io.Serializable;
 public class MainFragment extends BrowseFragment
 {
 	private ArrayObjectAdapter mMainAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+	private ArrayObjectAdapter mediaAdapter;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
@@ -30,6 +38,7 @@ public class MainFragment extends BrowseFragment
 		super.onActivityCreated(savedInstanceState);
 		initialiseUI();
 		initialiseData();
+		getVideos();
 	}
 
 	private void initialiseUI()
@@ -68,11 +77,35 @@ public class MainFragment extends BrowseFragment
 
 	private void initialiseData()
 	{
-        mMainAdapter.add(new ListRow(new HeaderItem("Featured"), new ArrayObjectAdapter()));
-        mMainAdapter.add(new ListRow(new HeaderItem("Most watched"), new ArrayObjectAdapter()));
-        mMainAdapter.add(new ListRow(new HeaderItem("Trending"), new ArrayObjectAdapter()));
-        mMainAdapter.add(new ListRow(new HeaderItem("Live"), new ArrayObjectAdapter()));
-        mMainAdapter.add(new ListRow(new HeaderItem("Channels"), new ArrayObjectAdapter()));
+		MediaPresenter mediaPresenter = new MediaPresenter();
+		mediaAdapter = new ArrayObjectAdapter(mediaPresenter);
+
+		mMainAdapter.add(new ListRow(new HeaderItem("Featured"), mediaAdapter));
+        mMainAdapter.add(new ListRow(new HeaderItem("Most watched"), mediaAdapter));
+        mMainAdapter.add(new ListRow(new HeaderItem("Trending"), mediaAdapter));
+        mMainAdapter.add(new ListRow(new HeaderItem("Live"), mediaAdapter));
+        mMainAdapter.add(new ListRow(new HeaderItem("Channels"), mediaAdapter));
         setAdapter(mMainAdapter);
+	}
+
+	private void getVideos()
+	{
+		MainApplication.getAPI().listVideos().enqueue(new Callback<List<VideoContent>>()
+		{
+			@Override public void onResponse(Call<List<VideoContent>> call, Response<List<VideoContent>> response)
+			{
+				if (response.isSuccessful())
+				{
+					List<VideoContent> videos = response.body();
+					mediaAdapter.clear();
+					mediaAdapter.addAll(0, videos);
+				}
+			}
+
+			@Override public void onFailure(Call<List<VideoContent>> call, Throwable t)
+			{
+				mediaAdapter.clear();
+			}
+		});
 	}
 }

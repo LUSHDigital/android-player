@@ -62,7 +62,7 @@ public class MediaPresenter extends Presenter
 		}
 		else
 		{
-			cardView.setTitleText("");
+			cardView.setContentText("");
 		}
 
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);

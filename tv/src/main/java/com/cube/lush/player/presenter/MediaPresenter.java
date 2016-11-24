@@ -1,7 +1,6 @@
 package com.cube.lush.player.presenter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import lombok.Data;
 
@@ -46,8 +46,7 @@ public class MediaPresenter extends Presenter
 		cardView.setContentText(mediaContent.getDescription());
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 
-		Drawable mainImageDrawable = ContextCompat.getDrawable(cardView.getContext(), R.mipmap.ic_launcher);
-		cardView.setMainImage(mainImageDrawable);
+		ImageLoader.getInstance().displayImage(mediaContent.getThumbnail(), cardView.getMainImageView());
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

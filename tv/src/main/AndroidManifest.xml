@@ -37,6 +37,10 @@
 			android:name=".PlaybackActivity"
 		/>
 
+		<activity
+			android:name=".MediaDetailsActivity"
+		/>
+
 	</application>
 
 </manifest>

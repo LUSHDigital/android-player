@@ -1,14 +1,19 @@
 package com.cube.lush.player;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.DetailsFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.DetailsOverviewRow;
 import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
+import android.view.View;
 
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.presenter.MediaDetailsPresenter;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA;
 
@@ -37,5 +42,32 @@ public class MediaDetailsFragment extends DetailsFragment
 		mDetailsRow = new DetailsOverviewRow(item);
 		mAdapter.add(mDetailsRow);
 		setAdapter(mAdapter);
+
+		ImageLoader.getInstance().loadImage(((MediaContent) item).getThumbnail(), new ImageLoadingListener()
+		{
+			@Override
+			public void onLoadingStarted(String imageUri, View view)
+			{
+
+			}
+
+			@Override
+			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+			{
+
+			}
+
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+			{
+				mDetailsRow.setImageBitmap(getActivity(), loadedImage);
+			}
+
+			@Override
+			public void onLoadingCancelled(String imageUri, View view)
+			{
+
+			}
+		});
 	}
 }

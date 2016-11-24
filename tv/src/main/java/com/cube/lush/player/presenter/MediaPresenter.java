@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -42,8 +43,28 @@ public class MediaPresenter extends Presenter
 		MediaViewHolder mediaViewHolder = (MediaViewHolder)viewHolder;
 		ImageCardView cardView = mediaViewHolder.getCardView();
 
-		cardView.setTitleText(mediaContent.getTitle());
-		cardView.setContentText(mediaContent.getDescription());
+		String title = mediaContent.getTitle();
+
+		if (!TextUtils.isEmpty(title))
+		{
+			cardView.setTitleText(title);
+		}
+		else
+		{
+			cardView.setTitleText("");
+		}
+
+		String description = mediaContent.getDescription();
+
+		if (!TextUtils.isEmpty(description))
+		{
+			cardView.setContentText(description);
+		}
+		else
+		{
+			cardView.setTitleText("");
+		}
+
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 
 		ImageLoader.getInstance().displayImage(mediaContent.getThumbnail(), cardView.getMainImageView());

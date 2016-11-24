@@ -29,4 +29,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.0.1'
     compile 'com.android.support:leanback-v17:25.0.1'
     compile 'com.brightcove.player:exoplayer:4.11.1'
+
+    compile project(":lib")
 }

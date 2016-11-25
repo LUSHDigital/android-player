@@ -1,5 +1,7 @@
 package com.cube.lush.player.model;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -7,7 +9,7 @@ import lombok.Data;
  * @project lush-player-android-client
  */
 @Data
-public class MediaContent
+public class MediaContent implements Serializable
 {
 	private String title;
 	private String id;

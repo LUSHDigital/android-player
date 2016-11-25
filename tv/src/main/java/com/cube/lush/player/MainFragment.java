@@ -1,16 +1,23 @@
 package com.cube.lush.player;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.OnItemViewClickedListener;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.Row;
+import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 
-import com.cube.lush.player.presenter.MediaPresenter;
+import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.VideoContent;
+import com.cube.lush.player.presenter.MediaPresenter;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,6 +57,20 @@ public class MainFragment extends BrowseFragment
 			public void onClick(View view)
 			{
 				getActivity().onSearchRequested();
+			}
+		});
+
+		setOnItemViewClickedListener(new OnItemViewClickedListener()
+		{
+			@Override
+			public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item, RowPresenter.ViewHolder rowViewHolder, Row row)
+			{
+				if (item instanceof MediaContent)
+				{
+					Intent intent = new Intent(itemViewHolder.view.getContext(), MediaDetailsActivity.class);
+					intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA, (Serializable)item);
+					startActivity(intent);
+				}
 			}
 		});
 	}

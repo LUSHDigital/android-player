@@ -44,6 +44,10 @@
 			android:name=".MediaDetailsActivity"
 		/>
 
+		<activity
+			android:name=".ChannelActivity"
+		/>
+
 	</application>
 
 </manifest>

@@ -61,6 +61,8 @@ public class MediaPresenter extends Presenter
 			cardView.setContentText("");
 		}
 
+		cardView.setBadgeImage(cardView.getContext().getResources().getDrawable(R.drawable.ic_radio_white_36dp));
+
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 
 		ImageLoader.getInstance().displayImage(mediaContent.getThumbnail(), cardView.getMainImageView());

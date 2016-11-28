@@ -6,9 +6,7 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 
-import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.VideoContent;
-import com.cube.lush.player.presenter.ChannelPresenter;
 import com.cube.lush.player.presenter.MediaPresenter;
 
 import java.util.Arrays;
@@ -21,7 +19,7 @@ import retrofit2.Response;
 /**
  * Created by tim on 24/11/2016.
  */
-public class MainFragment extends LushBrowseFragment
+public class ChannelFragment extends LushBrowseFragment
 {
 	private ArrayObjectAdapter mMediaAdapter;
 
@@ -35,21 +33,16 @@ public class MainFragment extends LushBrowseFragment
 
 	private void initialiseData()
 	{
-		// Setup "Home" menu item
+		// Setup "TV" menu item
 		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		ListRow homeRow = new ListRow(new HeaderItem("Home"), mMediaAdapter);
+		ListRow tvRow = new ListRow(new HeaderItem("TV"), mMediaAdapter);
 
-		// Setup "Live" menu item
-		ListRow liveRow = new ListRow(new HeaderItem("Live"), mMediaAdapter);
-
-		// Setup "Channels" menu item
-		ArrayObjectAdapter channelAdapter = new ArrayObjectAdapter(new ChannelPresenter());
-		channelAdapter.addAll(0, Arrays.asList(Channel.values()));
-		ListRow channelsRow = new ListRow(new HeaderItem("Channels"), channelAdapter);
+		// Setup "Radio" menu item
+		ListRow radioRow = new ListRow(new HeaderItem("Radio"), mMediaAdapter);
 
 		// Create and populate the main adapter
 		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-		mainAdapter.addAll(0, Arrays.asList(homeRow, liveRow, channelsRow));
+		mainAdapter.addAll(0, Arrays.asList(tvRow, radioRow));
         setAdapter(mainAdapter);
 	}
 

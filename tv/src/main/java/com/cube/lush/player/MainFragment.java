@@ -24,24 +24,27 @@ import java.util.List;
  */
 public class MainFragment extends LushBrowseFragment
 {
-	private ArrayObjectAdapter mMediaAdapter;
+	private ArrayObjectAdapter mediaAdapter;
+	private ArrayObjectAdapter liveAdapter;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
 		initialiseData();
-		getVideos();
+		getMediaContent();
+		getLiveContent();
 	}
 
 	private void initialiseData()
 	{
 		// Setup "Home" menu item
-		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		ListRow homeRow = new ListRow(new HeaderItem("Home"), mMediaAdapter);
+		mediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		ListRow homeRow = new ListRow(new HeaderItem("Home"), mediaAdapter);
 
 		// Setup "Live" menu item
-		ListRow liveRow = new ListRow(new HeaderItem("Live"), mMediaAdapter);
+		liveAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		ListRow liveRow = new ListRow(new HeaderItem("Live"), liveAdapter);
 
 		// Setup "Channels" menu item
 		ArrayObjectAdapter channelAdapter = new ArrayObjectAdapter(new ChannelPresenter());
@@ -54,7 +57,7 @@ public class MainFragment extends LushBrowseFragment
         setAdapter(mainAdapter);
 	}
 
-	private void getVideos()
+	private void getMediaContent()
 	{
 		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
 		{
@@ -62,13 +65,33 @@ public class MainFragment extends LushBrowseFragment
 			{
 				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
 
-				mMediaAdapter.clear();
-				mMediaAdapter.addAll(0, items);
+				mediaAdapter.clear();
+				mediaAdapter.addAll(0, items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				mMediaAdapter.clear();
+				mediaAdapter.clear();
+			}
+		});
+	}
+
+	private void getLiveContent()
+	{
+		// TODO: Change to get Live Content instead of media
+		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
+		{
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			{
+				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
+
+				liveAdapter.clear();
+				liveAdapter.addAll(0, items);
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				liveAdapter.clear();
 			}
 		});
 	}

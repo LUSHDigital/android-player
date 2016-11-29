@@ -16,7 +16,7 @@ public class MediaDetailsPresenter extends AbstractDetailsDescriptionPresenter
 		{
 			MediaContent media = (MediaContent) item;
             vh.getTitle().setText(media.getTitle());
-            vh.getSubtitle().setText(media.getDate());
+            vh.getSubtitle().setText(media.getDate().toString());
             vh.getBody().setText(media.getDescription());
 		}
 	}

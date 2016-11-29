@@ -1,46 +1,50 @@
 package com.cube.lush.player;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 
+import com.cube.lush.player.handler.ResponseHandler;
+import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.Channel;
-import com.cube.lush.player.model.VideoContent;
+import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.presenter.ChannelPresenter;
 import com.cube.lush.player.presenter.MediaPresenter;
+import com.cube.lush.player.util.MediaSorter;
 
 import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by tim on 24/11/2016.
  */
 public class MainFragment extends LushBrowseFragment
 {
-	private ArrayObjectAdapter mMediaAdapter;
+	private ArrayObjectAdapter mediaAdapter;
+	private ArrayObjectAdapter liveAdapter;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
 		initialiseData();
-		getVideos();
+		getMediaContent();
+		getLiveContent();
 	}
 
 	private void initialiseData()
 	{
 		// Setup "Home" menu item
-		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		ListRow homeRow = new ListRow(new HeaderItem("Home"), mMediaAdapter);
+		mediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		ListRow homeRow = new ListRow(new HeaderItem("Home"), mediaAdapter);
 
 		// Setup "Live" menu item
-		ListRow liveRow = new ListRow(new HeaderItem("Live"), mMediaAdapter);
+		liveAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		ListRow liveRow = new ListRow(new HeaderItem("Live"), liveAdapter);
 
 		// Setup "Channels" menu item
 		ArrayObjectAdapter channelAdapter = new ArrayObjectAdapter(new ChannelPresenter());
@@ -53,23 +57,41 @@ public class MainFragment extends LushBrowseFragment
         setAdapter(mainAdapter);
 	}
 
-	private void getVideos()
+	private void getMediaContent()
 	{
-		MainApplication.getAPI().listVideos().enqueue(new Callback<List<VideoContent>>()
+		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
 		{
-			@Override public void onResponse(Call<List<VideoContent>> call, Response<List<VideoContent>> response)
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
-				if (response.isSuccessful())
-				{
-					List<VideoContent> videos = response.body();
-					mMediaAdapter.clear();
-					mMediaAdapter.addAll(0, videos);
-				}
+				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
+
+				mediaAdapter.clear();
+				mediaAdapter.addAll(0, items);
 			}
 
-			@Override public void onFailure(Call<List<VideoContent>> call, Throwable t)
+			@Override public void onFailure(@Nullable Throwable t)
 			{
-				mMediaAdapter.clear();
+				mediaAdapter.clear();
+			}
+		});
+	}
+
+	private void getLiveContent()
+	{
+		// TODO: Change to get Live Content instead of media
+		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
+		{
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			{
+				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
+
+				liveAdapter.clear();
+				liveAdapter.addAll(0, items);
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				liveAdapter.clear();
 			}
 		});
 	}

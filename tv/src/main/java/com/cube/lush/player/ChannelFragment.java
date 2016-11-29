@@ -6,6 +6,7 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 
+import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.VideoContent;
 import com.cube.lush.player.presenter.MediaPresenter;
 
@@ -21,6 +22,7 @@ import retrofit2.Response;
  */
 public class ChannelFragment extends LushBrowseFragment
 {
+	private Channel mChannel;
 	private ArrayObjectAdapter mMediaAdapter;
 
 	@Override
@@ -29,6 +31,13 @@ public class ChannelFragment extends LushBrowseFragment
 		super.onActivityCreated(savedInstanceState);
 		initialiseData();
 		getVideos();
+	}
+
+	@Override
+	protected void initialiseUI()
+	{
+		super.initialiseUI();
+		mChannel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
 	}
 
 	private void initialiseData()

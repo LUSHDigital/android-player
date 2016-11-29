@@ -1,20 +1,18 @@
 package com.cube.lush.player;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 
+import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.VideoContent;
 import com.cube.lush.player.presenter.MediaPresenter;
 
 import java.util.Arrays;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by tim on 24/11/2016.
@@ -48,19 +46,15 @@ public class ChannelFragment extends LushBrowseFragment
 
 	private void getVideos()
 	{
-		MainApplication.getAPI().listVideos().enqueue(new Callback<List<VideoContent>>()
+		MediaManager.getInstance().getVideos(MainApplication.getAPI(), new MediaManager.ResponseHandler<VideoContent>()
 		{
-			@Override public void onResponse(Call<List<VideoContent>> call, Response<List<VideoContent>> response)
+			@Override public void onSuccess(List<VideoContent> items)
 			{
-				if (response.isSuccessful())
-				{
-					List<VideoContent> videos = response.body();
-					mMediaAdapter.clear();
-					mMediaAdapter.addAll(0, videos);
-				}
+				mMediaAdapter.clear();
+				mMediaAdapter.addAll(0, items);
 			}
 
-			@Override public void onFailure(Call<List<VideoContent>> call, Throwable t)
+			@Override public void onFailure(@Nullable Throwable t)
 			{
 				mMediaAdapter.clear();
 			}

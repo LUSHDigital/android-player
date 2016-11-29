@@ -21,9 +21,8 @@ public interface LushAPI
 {
 	String TV_API_VERSION = "1";
 
-
 	@GET("lushtvapi/v" + TV_API_VERSION + "/views/playlist")
-	Call<List<MediaContent>> getCategory(@Header("channel") String channel);
+	Call<List<MediaContent>> getChannel(@Header("channel") String channel);
 
 	@GET("lushtvapi/v" + TV_API_VERSION + "/views/playlist")
 	Call<List<MediaContent>> getPlaylist(@Header("offset") String offset);

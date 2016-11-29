@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.model.VideoContent;
@@ -26,24 +27,70 @@ public class MediaManager
 {
 	@Getter(lazy = true) private static final MediaManager instance = new MediaManager();
 
-	public interface MediaResponseHandler
+	public interface ResponseHandler<T>
 	{
-		void onSuccess(List<? extends MediaContent> content);
+		void onSuccess(@Nullable List<T> items);
 		void onFailure(@Nullable Throwable t);
 	}
 
 	/**
 	 * Gets all of the videos and radios from the API
-	 *
-	 * @param api
-	 * @param handler
+	 * @param api to use
+	 * @param handler to handle the response
 	 */
-	public void getVideos(@NonNull final LushAPI api, @NonNull final MediaResponseHandler handler)
+	public void getMedia(@NonNull final LushAPI api, @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		final List<MediaContent> contents = Collections.synchronizedList(new ArrayList<MediaContent>());
-		final int NUMBER_OF_API_CALLS = 2;
-		final CountDownLatch countdown = new CountDownLatch(NUMBER_OF_API_CALLS);
+		final List<MediaContent> list = Collections.synchronizedList(new ArrayList<MediaContent>());
+		final CountDownLatch countdown = new CountDownLatch(2);
 
+		getVideos(api, new ResponseHandler<VideoContent>()
+		{
+			@Override public void onSuccess(List<VideoContent> items)
+			{
+				list.addAll(items);
+
+				countdown.countDown();
+
+				if (countdown.getCount() == 0)
+				{
+					handler.onSuccess(list);
+				}
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				handler.onFailure(t);
+			}
+		});
+
+		getRadios(api, new ResponseHandler<RadioContent>()
+		{
+			@Override public void onSuccess(List<RadioContent> items)
+			{
+				list.addAll(items);
+
+				countdown.countDown();
+
+				if (countdown.getCount() == 0)
+				{
+					handler.onSuccess(list);
+				}
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				handler.onFailure(t);
+			}
+		});
+	}
+
+	/**
+	 * Get all of the videos
+	 * @param api to use
+	 * @param handler to handle the response
+	 */
+	public void getVideos(@NonNull final LushAPI api, @NonNull final ResponseHandler<VideoContent> handler)
+	{
 		final Call<List<VideoContent>> videoCall = api.listVideos();
 		videoCall.enqueue(new Callback<List<VideoContent>>()
 		{
@@ -53,16 +100,8 @@ public class MediaManager
 				{
 					handler.onFailure(null);
 				}
-				else
-				{
-					contents.addAll(videoResponse.body());
-					countdown.countDown();
-				}
 
-				if (countdown.getCount() == 0)
-				{
-					handler.onSuccess(contents);
-				}
+				handler.onSuccess(videoResponse.body());
 			}
 
 			@Override public void onFailure(Call<List<VideoContent>> call, Throwable t)
@@ -70,29 +109,86 @@ public class MediaManager
 				handler.onFailure(t);
 			}
 		});
+	}
 
-		Call<List<RadioContent>> radioCall = api.listRadios();
+	/**
+	 * Get all of the radio videos
+	 * @param api to use
+	 * @param handler to handle the response
+	 */
+	public void getRadios(@NonNull final LushAPI api, @NonNull final ResponseHandler<RadioContent> handler)
+	{
+		final Call<List<RadioContent>> radioCall = api.listRadios();
 		radioCall.enqueue(new Callback<List<RadioContent>>()
 		{
-			@Override public void onResponse(Call<List<RadioContent>> call, final Response<List<RadioContent>> radioResponse)
+			@Override public void onResponse(final Call<List<RadioContent>> call, final Response<List<RadioContent>> radioResponse)
 			{
 				if (!radioResponse.isSuccessful())
 				{
 					handler.onFailure(null);
 				}
-				else
-				{
-					contents.addAll(radioResponse.body());
-					countdown.countDown();
-				}
 
-				if (countdown.getCount() == 0)
-				{
-					handler.onSuccess(contents);
-				}
+				handler.onSuccess(radioResponse.body());
 			}
 
 			@Override public void onFailure(Call<List<RadioContent>> call, Throwable t)
+			{
+				handler.onFailure(t);
+			}
+		});
+	}
+
+	/**
+	 * Gets all of the channel content
+	 * @param api to use
+	 * @param channel that you want content for
+	 * @param handler to handle the result of getting the content
+	 *
+	 * @return
+	 */
+	public void getChannelContent(@NonNull final LushAPI api, @NonNull final Channel channel, @NonNull final ResponseHandler<MediaContent> handler)
+	{
+		Call<List<MediaContent>> channelCall = api.getChannel(channel.getId());
+
+		channelCall.enqueue(new Callback<List<MediaContent>>()
+		{
+			@Override public void onResponse(Call<List<MediaContent>> call, Response<List<MediaContent>> channelResponse)
+			{
+				if (!channelResponse.isSuccessful())
+				{
+					handler.onFailure(null);
+				}
+
+				handler.onSuccess(channelResponse.body());
+			}
+
+			@Override public void onFailure(Call<List<MediaContent>> call, Throwable t)
+			{
+				handler.onFailure(t);
+			}
+		});
+	}
+
+	/**
+	 * Gets all of the live content
+	 */
+	public void getLiveContent(@NonNull final LushAPI api, @NonNull final String offset, @NonNull final ResponseHandler<MediaContent> handler)
+	{
+		Call<List<MediaContent>> playlistCall = api.getPlaylist(offset);
+
+		playlistCall.enqueue(new Callback<List<MediaContent>>()
+		{
+			@Override public void onResponse(Call<List<MediaContent>> call, Response<List<MediaContent>> mediaResponse)
+			{
+				if (!mediaResponse.isSuccessful())
+				{
+					handler.onFailure(null);
+				}
+
+				handler.onSuccess(mediaResponse.body());
+			}
+
+			@Override public void onFailure(Call<List<MediaContent>> call, Throwable t)
 			{
 				handler.onFailure(t);
 			}

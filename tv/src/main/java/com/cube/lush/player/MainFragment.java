@@ -10,9 +10,10 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.Channel;
-import com.cube.lush.player.model.VideoContent;
+import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.presenter.ChannelPresenter;
 import com.cube.lush.player.presenter.MediaPresenter;
+import com.cube.lush.player.util.MediaSorter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,10 +55,12 @@ public class MainFragment extends LushBrowseFragment
 
 	private void getVideos()
 	{
-		MediaManager.getInstance().getVideos(MainApplication.getAPI(), new MediaManager.ResponseHandler<VideoContent>()
+		MediaManager.getInstance().getMedia(MainApplication.getAPI(), new MediaManager.ResponseHandler<MediaContent>()
 		{
-			@Override public void onSuccess(@NonNull List<VideoContent> items)
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
+				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
+
 				mMediaAdapter.clear();
 				mMediaAdapter.addAll(0, items);
 			}

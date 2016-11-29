@@ -2,7 +2,6 @@ package com.cube.lush.player;
 
 import android.app.Application;
 
-import com.cube.lush.player.api.LushAPI;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -15,8 +14,6 @@ import com.squareup.leakcanary.LeakCanary;
  */
 public class MainApplication extends Application
 {
-	private static LushAPI api;
-
 	@Override public void onCreate()
 	{
 		super.onCreate();
@@ -29,7 +26,7 @@ public class MainApplication extends Application
 		}
 		LeakCanary.install(this);
 
-		api = LushContent.initialise();
+		LushContent.initialise();
 		setupImageLoader();
 	}
 
@@ -48,10 +45,5 @@ public class MainApplication extends Application
 			.build();
 
 		ImageLoader.getInstance().init(imageLoaderConfiguration);
-	}
-
-	public static LushAPI getAPI()
-	{
-		return api;
 	}
 }

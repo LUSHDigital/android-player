@@ -3,6 +3,7 @@ package com.cube.lush.player.manager;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.model.SearchResult;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class SearchManager
 		this.api = api;
 	}
 
-	public void search(@NonNull final String searchTerm, @NonNull final MediaManager.ResponseHandler<SearchResult> handler)
+	public void search(@NonNull final String searchTerm, @NonNull final ResponseHandler<SearchResult> handler)
 	{
 		Call<List<SearchResult>> searchCall = api.search(searchTerm);
 

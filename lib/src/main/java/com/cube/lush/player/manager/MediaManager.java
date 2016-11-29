@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.RadioContent;
@@ -36,12 +37,6 @@ public class MediaManager
 	private MediaManager(@NonNull LushAPI api)
 	{
 		this.api = api;
-	}
-
-	public interface ResponseHandler<T>
-	{
-		void onSuccess(@NonNull List<T> items);
-		void onFailure(@Nullable Throwable t);
 	}
 
 	/**

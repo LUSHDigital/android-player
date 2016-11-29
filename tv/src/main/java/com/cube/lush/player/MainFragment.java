@@ -8,6 +8,7 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 
+import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
@@ -55,7 +56,7 @@ public class MainFragment extends LushBrowseFragment
 
 	private void getVideos()
 	{
-		MediaManager.getInstance().getMedia(new MediaManager.ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{

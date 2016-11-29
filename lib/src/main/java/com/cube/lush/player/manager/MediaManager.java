@@ -25,7 +25,18 @@ import retrofit2.Response;
  */
 public class MediaManager
 {
-	@Getter(lazy = true) private static final MediaManager instance = new MediaManager();
+	@Getter private static MediaManager instance;
+	private LushAPI api;
+
+	public static void initialise(@NonNull LushAPI api)
+	{
+		instance = new MediaManager(api);
+	}
+
+	private MediaManager(@NonNull LushAPI api)
+	{
+		this.api = api;
+	}
 
 	public interface ResponseHandler<T>
 	{
@@ -36,15 +47,14 @@ public class MediaManager
 	/**
 	 * Gets all of the media content, which is videos and radios
 	 *
-	 * @param api
 	 * @param handler
 	 */
-	public void getMedia(@NonNull final LushAPI api, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getMedia(@NonNull final ResponseHandler<MediaContent> handler)
 	{
 		final List<MediaContent> list = Collections.synchronizedList(new ArrayList<MediaContent>());
 		final CountDownLatch countdown = new CountDownLatch(2);
 
-		getVideos(api, new ResponseHandler<VideoContent>()
+		getVideos(new ResponseHandler<VideoContent>()
 		{
 			@Override public void onSuccess(@NonNull List<VideoContent> items)
 			{
@@ -64,7 +74,7 @@ public class MediaManager
 			}
 		});
 
-		getRadios(api, new ResponseHandler<RadioContent>()
+		getRadios(new ResponseHandler<RadioContent>()
 		{
 			@Override public void onSuccess(@NonNull List<RadioContent> items)
 			{
@@ -88,10 +98,9 @@ public class MediaManager
 	/**
 	 * Gets all of the video content
 	 *
-	 * @param api
 	 * @param handler
 	 */
-	public void getVideos(@NonNull final LushAPI api, @NonNull final ResponseHandler<VideoContent> handler)
+	public void getVideos(@NonNull final ResponseHandler<VideoContent> handler)
 	{
 		final Call<List<VideoContent>> videoCall = api.listVideos();
 		videoCall.enqueue(new Callback<List<VideoContent>>()
@@ -116,10 +125,9 @@ public class MediaManager
 	/**
 	 * Gets all of the radio content
 	 *
-	 * @param api
 	 * @param handler
 	 */
-	public void getRadios(@NonNull final LushAPI api, @NonNull final ResponseHandler<RadioContent> handler)
+	public void getRadios(@NonNull final ResponseHandler<RadioContent> handler)
 	{
 		final Call<List<RadioContent>> radioCall = api.listRadios();
 		radioCall.enqueue(new Callback<List<RadioContent>>()
@@ -144,23 +152,21 @@ public class MediaManager
 	/**
 	 * Gets all of the channel content for a given channel object
 	 *
-	 * @param api
 	 * @param channel
 	 * @param handler
 	 */
-	public void getChannelContent(@NonNull final LushAPI api, @NonNull final Channel channel, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getChannelContent(@NonNull final Channel channel, @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		getChannelContent(api, channel.getId(), handler);
+		getChannelContent(channel.getId(), handler);
 	}
 
 	/**
 	 * Gets all of the channel content for a given channel id
 	 *
-	 * @param api
 	 * @param channelId
 	 * @param handler
 	 */
-	public void getChannelContent(@NonNull final LushAPI api, @NonNull final String channelId, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getChannelContent(@NonNull final String channelId, @NonNull final ResponseHandler<MediaContent> handler)
 	{
 		Call<List<MediaContent>> channelCall = api.getChannel(channelId);
 
@@ -186,22 +192,20 @@ public class MediaManager
 	/**
 	 * Gets all of the live content with in offset of 0
 	 *
-	 * @param api
 	 * @param handler
 	 */
-	public void getLiveContent(@NonNull final LushAPI api, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getLiveContent(@NonNull final ResponseHandler<MediaContent> handler)
 	{
-		getLiveContent(api, "0", handler);
+		getLiveContent("0", handler);
 	}
 
 	/**
 	 * Gets all of the live content with a variable offset
 	 *
-	 * @param api
 	 * @param offset
 	 * @param handler
 	 */
-	public void getLiveContent(@NonNull final LushAPI api, @NonNull final String offset, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getLiveContent(@NonNull final String offset, @NonNull final ResponseHandler<MediaContent> handler)
 	{
 		Call<List<MediaContent>> playlistCall = api.getPlaylist(offset);
 

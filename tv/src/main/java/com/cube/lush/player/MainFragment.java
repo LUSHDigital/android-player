@@ -55,7 +55,7 @@ public class MainFragment extends LushBrowseFragment
 
 	private void getVideos()
 	{
-		MediaManager.getInstance().getMedia(MainApplication.getAPI(), new MediaManager.ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getMedia(new MediaManager.ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{

@@ -47,7 +47,7 @@ public class ChannelFragment extends LushBrowseFragment
 
 	private void getVideos()
 	{
-		MediaManager.getInstance().getVideos(MainApplication.getAPI(), new MediaManager.ResponseHandler<VideoContent>()
+		MediaManager.getInstance().getVideos(new MediaManager.ResponseHandler<VideoContent>()
 		{
 			@Override public void onSuccess(@NonNull List<VideoContent> items)
 			{

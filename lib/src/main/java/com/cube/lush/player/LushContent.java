@@ -18,7 +18,10 @@ public class LushContent
 	 */
 	public static LushAPI initialise()
 	{
-		Gson gson = new GsonBuilder().registerTypeAdapter(String.class, new HtmlStringAdapter()).create();
+		Gson gson = new GsonBuilder()
+			.registerTypeAdapter(String.class, new HtmlStringAdapter())
+			.setDateFormat("dd/MM/yyyy")
+			.create();
 		Converter.Factory converterFactory = GsonConverterFactory.create(gson);
 
 		Retrofit retrofit = new Retrofit.Builder()

@@ -34,9 +34,10 @@ public class MediaManager
 	}
 
 	/**
-	 * Gets all of the videos and radios from the API
-	 * @param api to use
-	 * @param handler to handle the response
+	 * Gets all of the media content, which is videos and radios
+	 *
+	 * @param api
+	 * @param handler
 	 */
 	public void getMedia(@NonNull final LushAPI api, @NonNull final ResponseHandler<MediaContent> handler)
 	{
@@ -85,9 +86,10 @@ public class MediaManager
 	}
 
 	/**
-	 * Get all of the videos
-	 * @param api to use
-	 * @param handler to handle the response
+	 * Gets all of the video content
+	 *
+	 * @param api
+	 * @param handler
 	 */
 	public void getVideos(@NonNull final LushAPI api, @NonNull final ResponseHandler<VideoContent> handler)
 	{
@@ -112,9 +114,10 @@ public class MediaManager
 	}
 
 	/**
-	 * Get all of the radio videos
-	 * @param api to use
-	 * @param handler to handle the response
+	 * Gets all of the radio content
+	 *
+	 * @param api
+	 * @param handler
 	 */
 	public void getRadios(@NonNull final LushAPI api, @NonNull final ResponseHandler<RadioContent> handler)
 	{
@@ -139,16 +142,27 @@ public class MediaManager
 	}
 
 	/**
-	 * Gets all of the channel content
-	 * @param api to use
-	 * @param channel that you want content for
-	 * @param handler to handle the result of getting the content
+	 * Gets all of the channel content for a given channel object
 	 *
-	 * @return
+	 * @param api
+	 * @param channel
+	 * @param handler
 	 */
 	public void getChannelContent(@NonNull final LushAPI api, @NonNull final Channel channel, @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		Call<List<MediaContent>> channelCall = api.getChannel(channel.getId());
+		getChannelContent(api, channel.getId(), handler);
+	}
+
+	/**
+	 * Gets all of the channel content for a given channel id
+	 *
+	 * @param api
+	 * @param channelId
+	 * @param handler
+	 */
+	public void getChannelContent(@NonNull final LushAPI api, @NonNull final String channelId, @NonNull final ResponseHandler<MediaContent> handler)
+	{
+		Call<List<MediaContent>> channelCall = api.getChannel(channelId);
 
 		channelCall.enqueue(new Callback<List<MediaContent>>()
 		{
@@ -170,7 +184,22 @@ public class MediaManager
 	}
 
 	/**
-	 * Gets all of the live content
+	 * Gets all of the live content with in offset of 0
+	 *
+	 * @param api
+	 * @param handler
+	 */
+	public void getLiveContent(@NonNull final LushAPI api, @NonNull final ResponseHandler<MediaContent> handler)
+	{
+		getLiveContent(api, "0", handler);
+	}
+
+	/**
+	 * Gets all of the live content with a variable offset
+	 *
+	 * @param api
+	 * @param offset
+	 * @param handler
 	 */
 	public void getLiveContent(@NonNull final LushAPI api, @NonNull final String offset, @NonNull final ResponseHandler<MediaContent> handler)
 	{

@@ -29,7 +29,7 @@ public class MediaManager
 
 	public interface ResponseHandler<T>
 	{
-		void onSuccess(@Nullable List<T> items);
+		void onSuccess(@NonNull List<T> items);
 		void onFailure(@Nullable Throwable t);
 	}
 
@@ -46,7 +46,7 @@ public class MediaManager
 
 		getVideos(api, new ResponseHandler<VideoContent>()
 		{
-			@Override public void onSuccess(List<VideoContent> items)
+			@Override public void onSuccess(@NonNull List<VideoContent> items)
 			{
 				list.addAll(items);
 
@@ -66,7 +66,7 @@ public class MediaManager
 
 		getRadios(api, new ResponseHandler<RadioContent>()
 		{
-			@Override public void onSuccess(List<RadioContent> items)
+			@Override public void onSuccess(@NonNull List<RadioContent> items)
 			{
 				list.addAll(items);
 
@@ -96,7 +96,7 @@ public class MediaManager
 		final Call<List<VideoContent>> videoCall = api.listVideos();
 		videoCall.enqueue(new Callback<List<VideoContent>>()
 		{
-			@Override public void onResponse(Call<List<VideoContent>> call, Response<List<VideoContent>> videoResponse)
+			@Override public void onResponse(@NonNull final Call<List<VideoContent>> call, @NonNull final Response<List<VideoContent>> videoResponse)
 			{
 				if (!videoResponse.isSuccessful())
 				{
@@ -106,7 +106,7 @@ public class MediaManager
 				handler.onSuccess(videoResponse.body());
 			}
 
-			@Override public void onFailure(Call<List<VideoContent>> call, Throwable t)
+			@Override public void onFailure(@Nullable final Call<List<VideoContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -124,7 +124,7 @@ public class MediaManager
 		final Call<List<RadioContent>> radioCall = api.listRadios();
 		radioCall.enqueue(new Callback<List<RadioContent>>()
 		{
-			@Override public void onResponse(final Call<List<RadioContent>> call, final Response<List<RadioContent>> radioResponse)
+			@Override public void onResponse(@NonNull final Call<List<RadioContent>> call, @NonNull final Response<List<RadioContent>> radioResponse)
 			{
 				if (!radioResponse.isSuccessful())
 				{
@@ -134,7 +134,7 @@ public class MediaManager
 				handler.onSuccess(radioResponse.body());
 			}
 
-			@Override public void onFailure(Call<List<RadioContent>> call, Throwable t)
+			@Override public void onFailure(@Nullable final Call<List<RadioContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -166,7 +166,7 @@ public class MediaManager
 
 		channelCall.enqueue(new Callback<List<MediaContent>>()
 		{
-			@Override public void onResponse(Call<List<MediaContent>> call, Response<List<MediaContent>> channelResponse)
+			@Override public void onResponse(@NonNull final Call<List<MediaContent>> call, @NonNull final Response<List<MediaContent>> channelResponse)
 			{
 				if (!channelResponse.isSuccessful())
 				{
@@ -176,7 +176,7 @@ public class MediaManager
 				handler.onSuccess(channelResponse.body());
 			}
 
-			@Override public void onFailure(Call<List<MediaContent>> call, Throwable t)
+			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -207,7 +207,7 @@ public class MediaManager
 
 		playlistCall.enqueue(new Callback<List<MediaContent>>()
 		{
-			@Override public void onResponse(Call<List<MediaContent>> call, Response<List<MediaContent>> mediaResponse)
+			@Override public void onResponse(@NonNull final Call<List<MediaContent>> call, @NonNull final Response<List<MediaContent>> mediaResponse)
 			{
 				if (!mediaResponse.isSuccessful())
 				{
@@ -217,7 +217,7 @@ public class MediaManager
 				handler.onSuccess(mediaResponse.body());
 			}
 
-			@Override public void onFailure(Call<List<MediaContent>> call, Throwable t)
+			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}

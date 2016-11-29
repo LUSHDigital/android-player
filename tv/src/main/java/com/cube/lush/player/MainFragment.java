@@ -1,6 +1,7 @@
 package com.cube.lush.player;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -9,7 +10,7 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.Channel;
-import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.VideoContent;
 import com.cube.lush.player.presenter.ChannelPresenter;
 import com.cube.lush.player.presenter.MediaPresenter;
 
@@ -53,12 +54,12 @@ public class MainFragment extends LushBrowseFragment
 
 	private void getVideos()
 	{
-		MediaManager.getInstance().getVideos(MainApplication.getAPI(), new MediaManager.ResponseHandler()
+		MediaManager.getInstance().getVideos(MainApplication.getAPI(), new MediaManager.ResponseHandler<VideoContent>()
 		{
-			@Override public void onSuccess(List<? extends MediaContent> content)
+			@Override public void onSuccess(@NonNull List<VideoContent> items)
 			{
 				mMediaAdapter.clear();
-				mMediaAdapter.addAll(0, content);
+				mMediaAdapter.addAll(0, items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)

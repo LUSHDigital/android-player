@@ -12,7 +12,6 @@ import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
 import android.support.v17.leanback.widget.OnActionClickedListener;
 import android.support.v17.leanback.widget.PlaybackControlsRow;
 import android.support.v17.leanback.widget.Presenter;
-import android.util.Log;
 import android.view.View;
 
 import com.cube.lush.player.model.MediaContent;

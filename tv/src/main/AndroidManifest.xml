@@ -17,7 +17,7 @@
 		android:icon="@mipmap/ic_launcher"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
-		android:theme="@style/Theme.Leanback"
+		android:theme="@style/AppTheme"
 		android:name=".MainApplication"
 	>
 		<activity
@@ -42,6 +42,10 @@
 
 		<activity
 			android:name=".MediaDetailsActivity"
+		/>
+
+		<activity
+			android:name=".ChannelActivity"
 		/>
 
 	</application>

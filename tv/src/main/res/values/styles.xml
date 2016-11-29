@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="AppTheme"
-		   parent="@style/Theme.Leanback">
+	<style name="AppTheme" parent="@style/Theme.Leanback">
+        <item name="imageCardViewStyle">@style/AppImageCardViewStyle</item>
 	</style>
+	<style name="AppImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="cardBackground">@color/primary</item>
+        <item name="infoAreaBackground">@color/primary</item>
+        <item name="lbImageCardViewType">Title|Content|IconOnLeft</item>
+   </style>
 </resources>

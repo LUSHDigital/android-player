@@ -2,13 +2,16 @@ package com.cube.lush.player;
 
 import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
+import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.ListRow;
-import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.PageRow;
 
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.VideoContent;
 import com.cube.lush.player.presenter.ChannelPresenter;
+import com.cube.lush.player.presenter.HomeRowPresenter;
 import com.cube.lush.player.presenter.MediaPresenter;
 
 import java.util.Arrays;
@@ -40,7 +43,8 @@ public class MainFragment extends LushBrowseFragment
 		ListRow homeRow = new ListRow(new HeaderItem("Home"), mMediaAdapter);
 
 		// Setup "Live" menu item
-		ListRow liveRow = new ListRow(new HeaderItem("Live"), mMediaAdapter);
+		getMainFragmentRegistry().registerFragment(PageRow.class, new MediaDetailsFragmentFragmentFactory());
+		PageRow liveRow = new PageRow(new HeaderItem("Live"));
 
 		// Setup "Channels" menu item
 		ArrayObjectAdapter channelAdapter = new ArrayObjectAdapter(new ChannelPresenter());
@@ -48,7 +52,10 @@ public class MainFragment extends LushBrowseFragment
 		ListRow channelsRow = new ListRow(new HeaderItem("Channels"), channelAdapter);
 
 		// Create and populate the main adapter
-		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+		ClassPresenterSelector mainPresenterSelector = new ClassPresenterSelector();
+		mainPresenterSelector.addClassPresenter(ListRow.class, new HomeRowPresenter());
+		mainPresenterSelector.addClassPresenter(PageRow.class, new InvisibleRowPresenter());
+		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(mainPresenterSelector);
 		mainAdapter.addAll(0, Arrays.asList(homeRow, liveRow, channelsRow));
         setAdapter(mainAdapter);
 	}
@@ -72,5 +79,14 @@ public class MainFragment extends LushBrowseFragment
 				mMediaAdapter.clear();
 			}
 		});
+	}
+
+	private static class MediaDetailsFragmentFragmentFactory extends FragmentFactory<MediaDetailsFragment>
+	{
+		@Override
+		public MediaDetailsFragment createFragment(Object row)
+		{
+			return new MediaDetailsFragment();
+		}
 	}
 }

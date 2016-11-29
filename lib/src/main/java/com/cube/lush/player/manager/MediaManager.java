@@ -32,6 +32,12 @@ public class MediaManager
 		void onFailure(@Nullable Throwable t);
 	}
 
+	/**
+	 * Gets all of the videos and radios from the API
+	 *
+	 * @param api
+	 * @param handler
+	 */
 	public void getVideos(@NonNull final LushAPI api, @NonNull final MediaResponseHandler handler)
 	{
 		final List<MediaContent> contents = Collections.synchronizedList(new ArrayList<MediaContent>());
@@ -55,7 +61,7 @@ public class MediaManager
 
 				if (countdown.getCount() == 0)
 				{
-					handler.onSuccess(videoResponse.body());
+					handler.onSuccess(contents);
 				}
 			}
 
@@ -82,7 +88,7 @@ public class MediaManager
 
 				if (countdown.getCount() == 0)
 				{
-					handler.onSuccess(radioResponse.body());
+					handler.onSuccess(contents);
 				}
 			}
 

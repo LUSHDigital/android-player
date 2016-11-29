@@ -44,5 +44,6 @@ public class LushContent
 	private static void initialiseManagers()
 	{
 		MediaManager.initialise(api);
+		SearchManager.initialise(api);
 	}
 }

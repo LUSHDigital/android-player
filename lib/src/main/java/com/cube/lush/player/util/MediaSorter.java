@@ -17,7 +17,7 @@ public enum MediaSorter
 	MOST_RECENT_FIRST,
 	OLDEST_FIRST;
 
-	public List<MediaContent> sort(@NonNull List<MediaContent> items)
+	public <T extends MediaContent> List<T> sort(@NonNull List<T> items)
 	{
 		if (this == MOST_RECENT_FIRST)
 		{
@@ -38,7 +38,7 @@ public enum MediaSorter
 	 * @param ascending true for ascending, false for descending
 	 * @return
 	 */
-	private List<MediaContent> byDateAscending(@NonNull List<MediaContent> items, final boolean ascending)
+	private <T extends MediaContent> List<T> byDateAscending(@NonNull List<T> items, final boolean ascending)
 	{
 		Collections.sort(items, new Comparator<MediaContent>()
 		{

@@ -55,7 +55,12 @@ public class SearchResultPresenter extends Presenter
 
 		ContentType type = searchResult.getType();
 
-		String description = type.getName().toUpperCase();
+		String description = "";
+
+		if (type != null && TextUtils.isEmpty(type.getName()))
+		{
+			description = type.getName().toUpperCase();
+		}
 
 		if (!TextUtils.isEmpty(description))
 		{

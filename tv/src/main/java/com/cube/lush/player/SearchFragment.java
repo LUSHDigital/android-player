@@ -20,7 +20,6 @@ import android.text.TextUtils;
 
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.SearchManager;
-import com.cube.lush.player.model.ContentType;
 import com.cube.lush.player.model.SearchResult;
 import com.cube.lush.player.presenter.SearchResultPresenter;
 
@@ -118,22 +117,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 		{
 			@Override public void onSuccess(@NonNull List<SearchResult> items)
 			{
-				SearchResult searchResult = new SearchResult();
-				searchResult.setId("123");
-				searchResult.setType(ContentType.TV);
-				searchResult.setRadioThumbnail(null);
-				searchResult.setVideoThumbnail(null);
-				searchResult.setTitle("Hello World");
-
-				searchAdapter.add(searchResult);
-
 				searchAdapter.addAll(0, items);
-
-//				ArrayObjectAdapter searchAdapter = new ArrayObjectAdapter(new SearchResultPresenter());
-//				searchAdapter.addAll(0, items);
-//				ListRow searchRow = new ListRow(new HeaderItem("Search Results"), searchAdapter);
-//
-//				mRowsAdapter.add(searchRow);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)

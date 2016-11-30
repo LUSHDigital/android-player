@@ -9,6 +9,7 @@ import android.os.Bundle;
 public class MediaDetailsActivity extends Activity
 {
 	public static final String EXTRA_MEDIA = "extra_media_item";
+	public static final String EXTRA_MEDIA_ID = "extra_media_item_id";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -16,5 +17,4 @@ public class MediaDetailsActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media_details);
 	}
-
 }

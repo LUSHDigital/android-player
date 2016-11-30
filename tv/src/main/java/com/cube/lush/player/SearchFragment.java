@@ -18,16 +18,12 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.manager.SearchManager;
-import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.model.SearchResult;
 import com.cube.lush.player.presenter.SearchResultPresenter;
 
-import java.io.Serializable;
 import java.util.List;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
@@ -140,24 +136,8 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 		final Context context = itemViewHolder.view.getContext();
 		SearchResult searchResult = (SearchResult)item;
 
-		MediaManager.getInstance().getProgramme(searchResult.getId(), new ResponseHandler<Programme>()
-		{
-			@Override public void onSuccess(@NonNull List<Programme> items)
-			{
-				if (items.isEmpty())
-				{
-					return;
-				}
-
-				Intent intent = new Intent(context, MediaDetailsActivity.class);
-				intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA, (Serializable)items.get(0));
-				startActivity(intent);
-			}
-
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-				Toast.makeText(context, "Error retrieving video", Toast.LENGTH_SHORT).show();
-			}
-		});
+		Intent intent = new Intent(context, MediaDetailsActivity.class);
+		intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA_ID, searchResult.getId());
+		startActivity(intent);
 	}
 }

@@ -52,6 +52,13 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 	{
 		super.onActivityCreated(savedInstanceState);
 
+		// Setup presenters
+		mMediaDetailsPresenter = new MediaDetailsPresenter();
+		mDetailsOverviewRowPresenter = new FullWidthDetailsOverviewRowPresenter(mMediaDetailsPresenter);
+		mDetailsOverviewRowPresenter.setOnActionClickedListener(MediaDetailsFragment.this);
+
+		mActionsAdapter.add(new PlaybackControlsRow.PlayPauseAction(getActivity()));
+
 		Activity activity = getActivity();
 
 		if (activity == null)
@@ -93,7 +100,7 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 
 				if (!items.isEmpty())
 				{
-//					loadMediaContent(items.get(0));
+					loadMediaContent(items.get(0));
 				}
 			}
 
@@ -108,13 +115,7 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 	{
 		mDetailsRow = new DetailsOverviewRow(mediaContent);
 
-		// Setup presenters
-		mMediaDetailsPresenter = new MediaDetailsPresenter();
-		mDetailsOverviewRowPresenter = new FullWidthDetailsOverviewRowPresenter(mMediaDetailsPresenter);
-		mDetailsOverviewRowPresenter.setOnActionClickedListener(MediaDetailsFragment.this);
-
 		// Adapters
-		mActionsAdapter.add(new PlaybackControlsRow.PlayPauseAction(getActivity()));
 		mDetailsRow.setActionsAdapter(mActionsAdapter);
 		mAdapter = new ArrayObjectAdapter(mDetailsOverviewRowPresenter);
 		mAdapter.add(mDetailsRow);

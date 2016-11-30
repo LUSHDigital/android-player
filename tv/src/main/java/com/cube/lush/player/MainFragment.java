@@ -1,92 +1,69 @@
 package com.cube.lush.player;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.InvisibleRowPresenter;
-import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.PageRow;
 
-import com.cube.lush.player.model.Channel;
-import com.cube.lush.player.model.VideoContent;
-import com.cube.lush.player.presenter.ChannelPresenter;
-import com.cube.lush.player.presenter.HomeRowPresenter;
-import com.cube.lush.player.presenter.MediaPresenter;
-
 import java.util.Arrays;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
+ * Modified the default BrowseFragment to use PageRows, instead of ListRows.
+ * <p/>
+ * This is to meet the design requirements that (i) only one row is displayed at once, instead of the grid behaviour implemented by RowsFragment, and (ii) to
+ * enable a vertical grid style for the home row.
+ *
  * Created by tim on 24/11/2016.
  */
 public class MainFragment extends LushBrowseFragment
 {
-	private ArrayObjectAdapter mMediaAdapter;
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		initialiseData();
-		getVideos();
+		initialiseMenu();
 	}
 
-	private void initialiseData()
+	private void initialiseMenu()
 	{
-		// Setup "Home" menu item
-		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		ListRow homeRow = new ListRow(new HeaderItem("Home"), mMediaAdapter);
-
-		// Setup "Live" menu item
-		getMainFragmentRegistry().registerFragment(PageRow.class, new MediaDetailsFragmentFragmentFactory());
+		// Create the objects backing the main menu
+		PageRow homeRow = new PageRow(new HeaderItem("Home"));
 		PageRow liveRow = new PageRow(new HeaderItem("Live"));
+		PageRow channelsRow = new PageRow(new HeaderItem("Channels"));
 
-		// Setup "Channels" menu item
-		ArrayObjectAdapter channelAdapter = new ArrayObjectAdapter(new ChannelPresenter());
-		channelAdapter.addAll(0, Arrays.asList(Channel.values()));
-		ListRow channelsRow = new ListRow(new HeaderItem("Channels"), channelAdapter);
+		// Setup the fragment factory for the menu items
+		MainMenuFragmentFactory fragmentFactory = new MainMenuFragmentFactory();
+		fragmentFactory.registerFragment(homeRow, new MediaBrowseFragment());
+		fragmentFactory.registerFragment(liveRow, new MediaDetailsFragment());
+		fragmentFactory.registerFragment(channelsRow, new HomeFragment());
+		getMainFragmentRegistry().registerFragment(PageRow.class, fragmentFactory);
 
 		// Create and populate the main adapter
 		ClassPresenterSelector mainPresenterSelector = new ClassPresenterSelector();
-		mainPresenterSelector.addClassPresenter(ListRow.class, new HomeRowPresenter());
 		mainPresenterSelector.addClassPresenter(PageRow.class, new InvisibleRowPresenter());
 		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(mainPresenterSelector);
 		mainAdapter.addAll(0, Arrays.asList(homeRow, liveRow, channelsRow));
-        setAdapter(mainAdapter);
+		setAdapter(mainAdapter);
 	}
 
-	private void getVideos()
+	private static class MainMenuFragmentFactory extends FragmentFactory<Fragment>
 	{
-		MainApplication.getAPI().listVideos().enqueue(new Callback<List<VideoContent>>()
-		{
-			@Override public void onResponse(Call<List<VideoContent>> call, Response<List<VideoContent>> response)
-			{
-				if (response.isSuccessful())
-				{
-					List<VideoContent> videos = response.body();
-					mMediaAdapter.clear();
-					mMediaAdapter.addAll(0, videos);
-				}
-			}
+		private Map<Object, Fragment> fragmentRegistry = new HashMap<>();
 
-			@Override public void onFailure(Call<List<VideoContent>> call, Throwable t)
-			{
-				mMediaAdapter.clear();
-			}
-		});
-	}
-
-	private static class MediaDetailsFragmentFragmentFactory extends FragmentFactory<MediaDetailsFragment>
-	{
 		@Override
-		public MediaDetailsFragment createFragment(Object row)
+		public Fragment createFragment(Object row)
 		{
-			return new MediaDetailsFragment();
+			return fragmentRegistry.get(row);
+		}
+
+		public void registerFragment(Object item, Fragment fragment)
+		{
+			fragmentRegistry.put(item, fragment);
 		}
 	}
 }

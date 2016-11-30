@@ -1,5 +1,7 @@
 package com.cube.lush.player.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +12,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ContentType
 {
+	@SerializedName("tv")
 	TV("tv"),
+
+	@SerializedName("radio")
 	RADIO("radio");
 
 	@Getter private String name;

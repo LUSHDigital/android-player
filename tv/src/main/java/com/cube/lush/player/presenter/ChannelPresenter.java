@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cube.lush.player.model.Channel;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import lombok.Data;
 
@@ -61,8 +60,7 @@ public class ChannelPresenter extends Presenter
 		}
 
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-
-		ImageLoader.getInstance().displayImage("http://intu.co.uk/uploads/media/logo_retailer/0001/06/thumb_5128_logo_retailer_1x.png", cardView.getMainImageView());
+		cardView.getMainImageView().setImageResource(android.R.drawable.arrow_down_float);
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

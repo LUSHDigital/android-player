@@ -11,6 +11,7 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.RadioContent;
+import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.VideoContent;
 import com.cube.lush.player.presenter.MediaPresenter;
 import com.cube.lush.player.util.MediaSorter;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 public class ChannelFragment extends LushBrowseFragment
 {
+	private Channel mChannel;
 	private ArrayObjectAdapter tvAdapter;
 	private ArrayObjectAdapter radioAdapter;
 
@@ -33,6 +35,14 @@ public class ChannelFragment extends LushBrowseFragment
 		initialiseData();
 		getTVContent();
 		getRadioContent();
+	}
+
+	@Override
+	protected void initialiseUI()
+	{
+		super.initialiseUI();
+		mChannel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
+		//setBadgeDrawable(getResources().getDrawable(mChannel.getLogo()));
 	}
 
 	private void initialiseData()

@@ -19,19 +19,17 @@ import retrofit2.http.Query;
  */
 public interface LushAPI
 {
-	String TV_API_VERSION = "1";
+	@GET("categories")
+	Call<List<MediaContent>> getCategories(@Header("channel") String channel, @Header("type") String contentType);
 
-	@GET("lushtvapi/v" + TV_API_VERSION + "/views/playlist")
-	Call<List<MediaContent>> getChannel(@Header("channel") String channel);
-
-	@GET("lushtvapi/v" + TV_API_VERSION + "/views/playlist")
+	@GET("playlist")
 	Call<List<MediaContent>> getPlaylist(@Header("offset") String offset);
 
-	@GET("lushtvapi/v" + TV_API_VERSION + "/views/videos")
-	Call<List<VideoContent>> listVideos();
+	@GET("videos")
+	Call<List<VideoContent>> getVideos();
 
-	@GET("lushtvapi/v" + TV_API_VERSION + "/views/radio")
-	Call<List<RadioContent>> listRadios();
+	@GET("radio")
+	Call<List<RadioContent>> getRadios();
 
 	@GET("search")
 	Call<List<SearchResult>> search(@Query("title") String searchTerm);

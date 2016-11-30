@@ -13,7 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LushContent
 {
-	private static final String BASE_URL = "http://admin.player.lush.com/";
+	private static final String API_VERSION = "1";
+	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v" + API_VERSION + "/views/";
 	private static LushAPI api;
 
 	/**

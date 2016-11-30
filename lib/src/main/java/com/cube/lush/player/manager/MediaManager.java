@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.handler.ResponseHandler;
+import com.cube.lush.player.model.CategoryContentType;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.RadioContent;
@@ -97,7 +98,7 @@ public class MediaManager
 	 */
 	public void getVideos(@NonNull final ResponseHandler<VideoContent> handler)
 	{
-		final Call<List<VideoContent>> videoCall = api.listVideos();
+		final Call<List<VideoContent>> videoCall = api.getVideos();
 		videoCall.enqueue(new Callback<List<VideoContent>>()
 		{
 			@Override public void onResponse(@NonNull final Call<List<VideoContent>> call, @NonNull final Response<List<VideoContent>> videoResponse)
@@ -124,7 +125,7 @@ public class MediaManager
 	 */
 	public void getRadios(@NonNull final ResponseHandler<RadioContent> handler)
 	{
-		final Call<List<RadioContent>> radioCall = api.listRadios();
+		final Call<List<RadioContent>> radioCall = api.getRadios();
 		radioCall.enqueue(new Callback<List<RadioContent>>()
 		{
 			@Override public void onResponse(@NonNull final Call<List<RadioContent>> call, @NonNull final Response<List<RadioContent>> radioResponse)
@@ -150,9 +151,9 @@ public class MediaManager
 	 * @param channel
 	 * @param handler
 	 */
-	public void getChannelContent(@NonNull final Channel channel, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getChannelContent(@NonNull final Channel channel, @Nullable CategoryContentType contentType, @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		getChannelContent(channel.getId(), handler);
+		getChannelContent(channel.getId(), contentType, handler);
 	}
 
 	/**
@@ -161,9 +162,10 @@ public class MediaManager
 	 * @param channelId
 	 * @param handler
 	 */
-	public void getChannelContent(@NonNull final String channelId, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getChannelContent(@NonNull final String channelId, @Nullable CategoryContentType contentType, @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		Call<List<MediaContent>> channelCall = api.getChannel(channelId);
+		String contentTypeName = contentType == null ? null : contentType.getName();
+		Call<List<MediaContent>> channelCall = api.getCategories(channelId, contentTypeName);
 
 		channelCall.enqueue(new Callback<List<MediaContent>>()
 		{

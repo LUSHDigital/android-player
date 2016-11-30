@@ -8,6 +8,7 @@ import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.model.CategoryContentType;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.model.VideoContent;
 
@@ -219,6 +220,35 @@ public class MediaManager
 			}
 
 			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
+			{
+				handler.onFailure(t);
+			}
+		});
+	}
+
+	/**
+	 * Gets a specific programme
+	 *
+	 * @param programmeId
+	 * @param handler
+	 */
+	public void getProgramme(@NonNull final String programmeId, @NonNull final ResponseHandler<Programme> handler)
+	{
+		Call<List<Programme>> programmeCall = api.getProgramme(programmeId);
+
+		programmeCall.enqueue(new Callback<List<Programme>>()
+		{
+			@Override public void onResponse(Call<List<Programme>> call, Response<List<Programme>> programmeResponse)
+			{
+				if (!programmeResponse.isSuccessful())
+				{
+					handler.onFailure(null);
+				}
+
+				handler.onSuccess(programmeResponse.body());
+			}
+
+			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
 				handler.onFailure(t);
 			}

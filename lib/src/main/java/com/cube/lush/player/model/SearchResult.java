@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -11,7 +13,7 @@ import lombok.Data;
  * @project lush-player-android-client
  */
 @Data
-public class SearchResult
+public class SearchResult implements Serializable
 {
 	private String title;
 	private String id;

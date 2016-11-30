@@ -1,5 +1,9 @@
 package com.cube.lush.player.model;
 
+import android.text.TextUtils;
+
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Data;
 
 /**
@@ -12,18 +16,37 @@ public class SearchResult
 	private String title;
 	private String id;
 	private ContentType type;
+
+	@SerializedName("video_thumbnail")
 	private String videoThumbnail;
+
+	@SerializedName("radio_thumbnail")
 	private String radioThumbnail;
 
 	public String getThumbnail()
 	{
-		if (type == ContentType.TV)
+		if (type == null)
 		{
-			return videoThumbnail;
+			if (!TextUtils.isEmpty(videoThumbnail))
+			{
+				return videoThumbnail;
+			}
+
+			if (!TextUtils.isEmpty(radioThumbnail))
+			{
+				return radioThumbnail;
+			}
 		}
-		else if (type == ContentType.RADIO)
+		else
 		{
-			return radioThumbnail;
+			if (type == ContentType.TV)
+			{
+				return videoThumbnail;
+			}
+			else if (type == ContentType.RADIO)
+			{
+				return radioThumbnail;
+			}
 		}
 
 		return null;

@@ -38,6 +38,7 @@ public class ChannelFragment extends LushBrowseFragment
 	{
 		super.initialiseUI();
 		mChannel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
+		//setBadgeDrawable(getResources().getDrawable(mChannel.getLogo()));
 	}
 
 	private void initialiseData()

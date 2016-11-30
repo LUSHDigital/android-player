@@ -122,7 +122,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-//				mRowsAdapter.clear();
+				searchAdapter.clear();
 			}
 		});
 	}

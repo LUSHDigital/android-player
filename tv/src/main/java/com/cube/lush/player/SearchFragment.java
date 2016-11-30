@@ -55,11 +55,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 		}
 
 		mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-
 		searchAdapter = new ArrayObjectAdapter(new SearchResultPresenter());
-		ListRow searchRow = new ListRow(new HeaderItem("Search Results"), searchAdapter);
-
-		mRowsAdapter.add(searchRow);
 
 		setSearchResultProvider(this);
 		setOnItemViewClickedListener(this);
@@ -117,12 +113,18 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 		{
 			@Override public void onSuccess(@NonNull List<SearchResult> items)
 			{
+				searchAdapter.clear();
 				searchAdapter.addAll(0, items);
+
+				ListRow searchRow = new ListRow(new HeaderItem("Search Results"), searchAdapter);
+				mRowsAdapter.clear();
+				mRowsAdapter.add(searchRow);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				searchAdapter.clear();
+				mRowsAdapter.clear();
 			}
 		});
 	}

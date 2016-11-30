@@ -1,5 +1,6 @@
 package com.cube.lush.player;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -86,7 +87,15 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 			@Override
 			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
 			{
-				mDetailsRow.setImageBitmap(getActivity(), loadedImage);
+				Context context = getActivity();
+				if (context != null)
+				{
+					mDetailsRow.setImageBitmap(context, loadedImage);
+				}
+				else
+				{
+					loadedImage.recycle();
+				}
 			}
 
 			@Override

@@ -1,9 +1,11 @@
 package com.cube.lush.player;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
@@ -19,80 +21,65 @@ import com.cube.lush.player.util.MediaSorter;
 import java.util.Arrays;
 import java.util.List;
 
+import android.support.v17.leanback.widget.InvisibleRowPresenter;
+import android.support.v17.leanback.widget.PageRow;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
+ * Modified the default BrowseFragment to use PageRows, instead of ListRows.
+ * <p/>
+ * This is to meet the design requirements that (i) only one row is displayed at once, instead of the grid behaviour implemented by RowsFragment, and (ii) to
+ * enable a vertical grid style for the home row.
+ * <p>
  * Created by tim on 24/11/2016.
  */
 public class MainFragment extends LushBrowseFragment
 {
-	private ArrayObjectAdapter mediaAdapter;
-	private ArrayObjectAdapter liveAdapter;
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-		initialiseData();
-		getMediaContent();
-		getLiveContent();
+		initialiseMenu();
 	}
 
-	private void initialiseData()
+	private void initialiseMenu()
 	{
-		// Setup "Home" menu item
-		mediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		ListRow homeRow = new ListRow(new HeaderItem("Home"), mediaAdapter);
+		// Create the objects backing the main menu
+		PageRow homeRow = new PageRow(new HeaderItem("Home"));
+		PageRow liveRow = new PageRow(new HeaderItem("Live"));
+		PageRow channelsRow = new PageRow(new HeaderItem("Channels"));
 
-		// Setup "Live" menu item
-		liveAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		ListRow liveRow = new ListRow(new HeaderItem("Live"), liveAdapter);
-
-		// Setup "Channels" menu item
-		ArrayObjectAdapter channelAdapter = new ArrayObjectAdapter(new ChannelPresenter());
-		channelAdapter.addAll(0, Arrays.asList(Channel.values()));
-		ListRow channelsRow = new ListRow(new HeaderItem("Channels"), channelAdapter);
+		// Setup the fragment factory for the menu items
+		MainMenuFragmentFactory fragmentFactory = new MainMenuFragmentFactory();
+		fragmentFactory.registerFragment(homeRow, new HomeFragment());
+		fragmentFactory.registerFragment(liveRow, new MediaDetailsFragment());
+		fragmentFactory.registerFragment(channelsRow, new ChannelsFragment());
+		getMainFragmentRegistry().registerFragment(PageRow.class, fragmentFactory);
 
 		// Create and populate the main adapter
-		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+		ClassPresenterSelector mainPresenterSelector = new ClassPresenterSelector();
+		mainPresenterSelector.addClassPresenter(PageRow.class, new InvisibleRowPresenter());
+		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(mainPresenterSelector);
 		mainAdapter.addAll(0, Arrays.asList(homeRow, liveRow, channelsRow));
-        setAdapter(mainAdapter);
+		setAdapter(mainAdapter);
 	}
 
-	private void getMediaContent()
+	private static class MainMenuFragmentFactory extends FragmentFactory<Fragment>
 	{
-		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
+		private Map<Object, Fragment> fragmentRegistry = new HashMap<>();
+
+		@Override
+		public Fragment createFragment(Object row)
 		{
-			@Override public void onSuccess(@NonNull List<MediaContent> items)
-			{
-				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
+			return fragmentRegistry.get(row);
+		}
 
-				mediaAdapter.clear();
-				mediaAdapter.addAll(0, items);
-			}
-
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-				mediaAdapter.clear();
-			}
-		});
-	}
-
-	private void getLiveContent()
-	{
-		// TODO: Change to get Live Content instead of media
-		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
+		public void registerFragment(Object item, Fragment fragment)
 		{
-			@Override public void onSuccess(@NonNull List<MediaContent> items)
-			{
-				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
-
-				liveAdapter.clear();
-				liveAdapter.addAll(0, items);
-			}
-
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-				liveAdapter.clear();
-			}
-		});
+			fragmentRegistry.put(item, fragment);
+		}
 	}
 }

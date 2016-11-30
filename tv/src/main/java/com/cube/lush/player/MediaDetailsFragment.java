@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.DetailsFragment;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -14,6 +15,7 @@ import android.support.v17.leanback.widget.PlaybackControlsRow;
 import android.support.v17.leanback.widget.Presenter;
 import android.view.View;
 
+import com.cube.lush.player.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.presenter.MediaDetailsPresenter;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -25,14 +27,13 @@ import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA;
 /**
  * Created by tim on 24/11/2016.
  */
-public class MediaDetailsFragment extends DetailsFragment implements OnActionClickedListener
+public class MediaDetailsFragment extends DetailsFragment implements OnActionClickedListener, BrowseFragment.MainFragmentAdapterProvider
 {
+	private BrowseFragment.MainFragmentAdapter<MediaDetailsFragment> mMainFragmentAdapter;
 	private DetailsOverviewRow mDetailsRow;
-
 	// Presenters
 	private Presenter mMediaDetailsPresenter;
 	private FullWidthDetailsOverviewRowPresenter mDetailsOverviewRowPresenter;
-
 	// Adapters
 	private ArrayObjectAdapter mAdapter = new ArrayObjectAdapter(mDetailsOverviewRowPresenter);
 	private ArrayObjectAdapter mActionsAdapter = new ArrayObjectAdapter();
@@ -46,8 +47,12 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 
 		if (!(item instanceof MediaContent))
 		{
-			getActivity().finish();
-			return;
+			MediaContent mediaContent = new MediaContent();
+			mediaContent.setTitle("Live");
+			mediaContent.setDescription("Description");
+			mediaContent.setThumbnail("https://www.colourbox.com/preview/4057996-business-person-holding-document-file.jpg");
+			mediaContent.setId("aakak");
+			item = mediaContent;
 		}
 
 		mDetailsRow = new DetailsOverviewRow(item);
@@ -100,5 +105,15 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 			Intent intent = new Intent(getActivity(), PlaybackActivity.class);
 			startActivity(intent);
 		}
+	}
+
+	@Override
+	public BrowseFragment.MainFragmentAdapter<MediaDetailsFragment> getMainFragmentAdapter()
+	{
+		if (mMainFragmentAdapter == null)
+		{
+			mMainFragmentAdapter = new BasicMainFragmentAdapter<>(this);
+		}
+		return mMainFragmentAdapter;
 	}
 }

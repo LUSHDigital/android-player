@@ -15,11 +15,12 @@ import java.util.Arrays;
 public class ChannelsFragment extends MediaBrowseFragment
 {
 	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState)
+	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
-		super.onCreate(savedInstanceState);
+		super.onActivityCreated(savedInstanceState);
 
-		ArrayObjectAdapter adapter = new ArrayObjectAdapter(new ChannelPresenter());
+	    ChannelPresenter channelPresenter = new ChannelPresenter();
+		ArrayObjectAdapter adapter = new ArrayObjectAdapter(channelPresenter);
 		adapter.addAll(0, Arrays.asList(Channel.values()));
 		setAdapter(adapter);
 	}

@@ -1,34 +1,34 @@
 package com.cube.lush.player;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.VerticalGridFragment;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.VerticalGridPresenter;
 
 import com.cube.lush.player.adapter.BasicMainFragmentAdapter;
+import com.cube.lush.player.presenter.GridPresenter;
 
 /**
  * Created by tim on 30/11/2016.
  */
 public class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
-	private BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> mMainFragmentAdapter;
-	private ArrayObjectAdapter mMediaAdapter;
+	private BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> mainFragmentAdapter;
 
-	public MediaBrowseFragment()
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
-		VerticalGridPresenter presenter = new VerticalGridPresenter();
-		presenter.setNumberOfColumns(3);
-		setGridPresenter(presenter);
+		super.onCreate(savedInstanceState);
+		setGridPresenter(new GridPresenter());
 	}
 
 	@Override
 	public BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> getMainFragmentAdapter()
 	{
-		if (mMainFragmentAdapter == null)
+		if (mainFragmentAdapter == null)
 		{
-			mMainFragmentAdapter = new BasicMainFragmentAdapter<>(this);
+			mainFragmentAdapter = new BasicMainFragmentAdapter<>(this);
 		}
-		return mMainFragmentAdapter;
+		return mainFragmentAdapter;
 	}
 }

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.cube.lush.player.model.Channel;
 
@@ -25,9 +25,6 @@ public class ChannelPresenter extends Presenter
 		Context context = parent.getContext();
 
 		ImageCardView cardView = new ImageCardView(context);
-		cardView.setFocusable(true);
-		cardView.setFocusableInTouchMode(true);
-
 		return new ChannelViewHolder(cardView);
 	}
 
@@ -36,17 +33,6 @@ public class ChannelPresenter extends Presenter
 		Channel channel = (Channel)item;
 		ChannelViewHolder mediaViewHolder = (ChannelViewHolder)viewHolder;
 		ImageCardView cardView = mediaViewHolder.getCardView();
-
-		String title = channel.getTitle();
-
-		if (!TextUtils.isEmpty(title))
-		{
-			cardView.setTitleText(title);
-		}
-		else
-		{
-			cardView.setTitleText("");
-		}
 
 		String description = channel.getDescription();
 
@@ -60,7 +46,7 @@ public class ChannelPresenter extends Presenter
 		}
 
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-		cardView.getMainImageView().setImageResource(android.R.drawable.arrow_down_float);
+		cardView.getMainImageView().setImageResource(channel.getLogo());
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

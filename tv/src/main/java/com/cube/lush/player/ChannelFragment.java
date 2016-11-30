@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class ChannelFragment extends LushBrowseFragment
 {
-	private Channel mChannel;
 	private ArrayObjectAdapter tvAdapter;
 	private ArrayObjectAdapter radioAdapter;
 
@@ -41,8 +40,8 @@ public class ChannelFragment extends LushBrowseFragment
 	protected void initialiseUI()
 	{
 		super.initialiseUI();
-		mChannel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
-		//setBadgeDrawable(getResources().getDrawable(mChannel.getLogo()));
+		Channel channel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
+		setBadgeDrawable(getResources().getDrawable(channel.getLogo()));
 	}
 
 	private void initialiseData()

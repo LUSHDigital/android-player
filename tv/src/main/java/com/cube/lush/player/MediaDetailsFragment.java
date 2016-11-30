@@ -1,8 +1,10 @@
 package com.cube.lush.player;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.app.DetailsFragment;
@@ -13,16 +15,23 @@ import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
 import android.support.v17.leanback.widget.OnActionClickedListener;
 import android.support.v17.leanback.widget.PlaybackControlsRow;
 import android.support.v17.leanback.widget.Presenter;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cube.lush.player.adapter.BasicMainFragmentAdapter;
+import com.cube.lush.player.handler.ResponseHandler;
+import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.presenter.MediaDetailsPresenter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.util.List;
+
 import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA;
+import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
 
 /**
  * Created by tim on 24/11/2016.
@@ -43,24 +52,66 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		Object item = getActivity().getIntent().getSerializableExtra(EXTRA_MEDIA);
+		Activity activity = getActivity();
 
-		if (!(item instanceof MediaContent))
+		if (activity == null)
 		{
-			MediaContent mediaContent = new MediaContent();
-			mediaContent.setTitle("Live");
-			mediaContent.setDescription("Description");
-			mediaContent.setThumbnail("https://www.colourbox.com/preview/4057996-business-person-holding-document-file.jpg");
-			mediaContent.setId("aakak");
-			item = mediaContent;
+			return;
 		}
 
-		mDetailsRow = new DetailsOverviewRow(item);
+		Intent intent = activity.getIntent();
+
+		if (intent == null)
+		{
+			return;
+		}
+
+		Object item = intent.getSerializableExtra(EXTRA_MEDIA);
+
+		if (item != null && item instanceof MediaContent)
+		{
+			loadMediaContent((MediaContent)item);
+			return;
+		}
+
+		final String mediaId = intent.getStringExtra(EXTRA_MEDIA_ID);
+
+		if (TextUtils.isEmpty(mediaId))
+		{
+			return;
+		}
+
+		final SpinnerFragment spinnerFragment = SpinnerFragment.newInstance(getActivity());
+
+		getFragmentManager().beginTransaction().add(R.id.details_rows_dock, spinnerFragment).commit();
+
+		MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
+		{
+			@Override public void onSuccess(@NonNull List<Programme> items)
+			{
+				getFragmentManager().beginTransaction().remove(spinnerFragment).commit();
+
+				if (!items.isEmpty())
+				{
+//					loadMediaContent(items.get(0));
+				}
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				getFragmentManager().beginTransaction().remove(spinnerFragment).commit();
+			}
+		});
+	}
+
+	private void loadMediaContent(@NonNull MediaContent mediaContent)
+	{
+		mDetailsRow = new DetailsOverviewRow(mediaContent);
 
 		// Setup presenters
 		mMediaDetailsPresenter = new MediaDetailsPresenter();
 		mDetailsOverviewRowPresenter = new FullWidthDetailsOverviewRowPresenter(mMediaDetailsPresenter);
-		mDetailsOverviewRowPresenter.setOnActionClickedListener(this);
+		mDetailsOverviewRowPresenter.setOnActionClickedListener(MediaDetailsFragment.this);
 
 		// Adapters
 		mActionsAdapter.add(new PlaybackControlsRow.PlayPauseAction(getActivity()));
@@ -69,7 +120,12 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 		mAdapter.add(mDetailsRow);
 		setAdapter(mAdapter);
 
-		ImageLoader.getInstance().loadImage(((MediaContent) item).getThumbnail(), new ImageLoadingListener()
+		loadImage(mediaContent);
+	}
+
+	private void loadImage(@NonNull MediaContent item)
+	{
+		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
 		{
 			@Override
 			public void onLoadingStarted(String imageUri, View view)

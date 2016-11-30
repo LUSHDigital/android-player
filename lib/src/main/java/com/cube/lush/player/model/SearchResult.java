@@ -14,4 +14,18 @@ public class SearchResult
 	private ContentType type;
 	private String videoThumbnail;
 	private String radioThumbnail;
+
+	public String getThumbnail()
+	{
+		if (type == ContentType.TV)
+		{
+			return videoThumbnail;
+		}
+		else if (type == ContentType.RADIO)
+		{
+			return radioThumbnail;
+		}
+
+		return null;
+	}
 }

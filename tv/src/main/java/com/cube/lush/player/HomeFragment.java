@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.util.Log;
 
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
@@ -24,10 +25,15 @@ public class HomeFragment extends MediaBrowseFragment
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		setAdapter(mMediaAdapter);
 		getMediaContent();
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+		setAdapter(mMediaAdapter);
 	}
 
 	private void getMediaContent()

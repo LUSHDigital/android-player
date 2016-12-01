@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
-import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
@@ -18,6 +17,9 @@ import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.SearchManager;
@@ -60,6 +62,14 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 
 		setSearchResultProvider(this);
 		setOnItemViewClickedListener(this);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+		view.setBackgroundColor(getResources().getColor(R.color.primary));
+		return view;
 	}
 
 	@Override

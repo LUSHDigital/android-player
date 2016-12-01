@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 >
@@ -63,7 +64,7 @@
 						android:id="@+id/title"
 						android:layout_gravity="center_vertical"
 						android:padding="8dp"
-						android:text="LIVE: Fresh from Lush Kitchen"
+						tools:text="LIVE: Fresh from Lush Kitchen"
 						android:textSize="24sp"
 						android:textStyle="bold"
 					/>
@@ -76,7 +77,7 @@
 					android:id="@+id/start_end_time"
 					android:layout_marginBottom="8dp"
 					android:padding="8dp"
-					android:text="09:00am - 10:00am GMT"
+					tools:text="09:00am - 10:00am GMT"
 					android:textSize="14sp"
 				/>
 
@@ -97,7 +98,7 @@
 					android:id="@+id/description"
 					android:layout_marginBottom="16dp"
 					android:padding="8dp"
-					android:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
+					tools:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
 					android:textSize="16sp"
 				/>
 
@@ -106,7 +107,7 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/time_remaining"
 					android:padding="8dp"
-					android:text="39 minutes remaining"
+					tools:text="39 minutes remaining"
 					android:textSize="16sp"
 				/>
 			</LinearLayout>

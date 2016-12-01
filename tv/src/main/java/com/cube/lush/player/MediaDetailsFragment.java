@@ -119,7 +119,13 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 	@Override public void loadMediaContent(@NonNull MediaContent item)
 	{
 		this.mediaContent = item;
+
+		title.setText(item.getTitle());
+		description.setText(item.getDescription());
+
 		// TODO:
+		startEndTime.setText("");
+		timeRemaining.setText("");
 
 		Drawable circleDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.circle);
 		liveIndicator.setImageDrawable(circleDrawable);

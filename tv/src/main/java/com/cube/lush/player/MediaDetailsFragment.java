@@ -193,7 +193,7 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 				rightSide.setLayoutParams(layoutParams);
 			}
 		});
-		anim.setDuration(1500);
+		anim.setDuration(1000);
 		anim.start();
 	}
 

@@ -1,12 +1,10 @@
 package com.cube.lush.player;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrandedFragment;
@@ -25,6 +23,9 @@ import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.Programme;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -38,10 +39,11 @@ import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
 /**
  * Created by tim on 24/11/2016.
  */
-public class MediaDetailsFragment extends BrandedFragment
+public class MediaDetailsFragment extends BrandedFragment implements RevealCallback
 {
 	@BindView(R.id.progress) ProgressBar progressBar;
 	@BindView(R.id.container) LinearLayout contentContainer;
+	@BindView(R.id.background_image) ImageView backgroundImage;
 	@BindView(R.id.watch_button) Button watchButton;
 	@BindView(R.id.live_indicator) ImageView liveIndicator;
 	@BindView(R.id.title) TextView title;
@@ -49,6 +51,7 @@ public class MediaDetailsFragment extends BrandedFragment
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.time_remaining) TextView timeRemaining;
 	@BindView(R.id.right_side) LinearLayout rightSide;
+	private MediaContent mediaContent;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -109,10 +112,17 @@ public class MediaDetailsFragment extends BrandedFragment
 		});
 	}
 
-	private void loadMediaContent(@NonNull MediaContent mediaContent)
+	@Override public void loadMediaContent(@NonNull MediaContent item)
+	{
+		this.mediaContent = item;
+		// TODO:
+
+		onMediaContentLoaded();
+	}
+
+	@Override public void onMediaContentLoaded()
 	{
 		makeContentVisible(true);
-//		loadImage(mediaContent);
 	}
 
 	/**
@@ -123,49 +133,53 @@ public class MediaDetailsFragment extends BrandedFragment
 	{
 		if (shouldBeVisible)
 		{
-			crossFade(progressBar, contentContainer);
+			progressBar.setVisibility(View.GONE);
+			contentContainer.setVisibility(View.VISIBLE);
 		}
 		else
 		{
-			crossFade(contentContainer, progressBar);
+			progressBar.setVisibility(View.VISIBLE);
+			contentContainer.setVisibility(View.GONE);
 		}
+
+		loadHiddenMediaContent(mediaContent);
 	}
 
-	private void crossFade(final View viewOut, View viewIn)
+	@Override public void loadHiddenMediaContent(@NonNull MediaContent item)
 	{
-		int systemsShortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
+		{
+			@Override
+			public void onLoadingStarted(String imageUri, View view)
+			{
 
-		// Show the in view at 0% opacity
-		viewIn.setAlpha(0f);
-		viewIn.setVisibility(View.VISIBLE);
+			}
 
-		// Animate the 'in view'
-		viewIn.animate()
-			.alpha(1f)
-			.setDuration(systemsShortAnimationDuration)
-			.setListener(null);
+			@Override
+			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+			{
 
-		// Animated out the 'out view'
-		viewOut.animate()
-			.alpha(0f)
-			.setDuration(systemsShortAnimationDuration)
-			.setListener(new AnimatorListenerAdapter() {
-				@Override
-				public void onAnimationEnd(Animator animation) {
-					viewOut.setVisibility(View.GONE);
+			}
 
-					new Handler().postDelayed(new Runnable()
-					{
-						@Override public void run()
-						{
-							animateReveal();
-						}
-					}, 2000);
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+			{
+				if (backgroundImage != null)
+				{
+					backgroundImage.setImageBitmap(loadedImage);
+					revealHiddenMediaContent();
 				}
-			});
+			}
+
+			@Override
+			public void onLoadingCancelled(String imageUri, View view)
+			{
+
+			}
+		});
 	}
 
-	private void animateReveal()
+	@Override public void revealHiddenMediaContent()
 	{
 		rightSide.setPivotX(0);
 
@@ -179,51 +193,9 @@ public class MediaDetailsFragment extends BrandedFragment
 				rightSide.setLayoutParams(layoutParams);
 			}
 		});
-		anim.setDuration(2000);
+		anim.setDuration(1500);
 		anim.start();
-
-		//		rightSide.animate()
-//			.scaleX(0f)
-//			.setDuration(systemsShortAnimationDuration);
 	}
-
-//	private void loadImage(@NonNull MediaContent item)
-//	{
-//		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
-//		{
-//			@Override
-//			public void onLoadingStarted(String imageUri, View view)
-//			{
-//
-//			}
-//
-//			@Override
-//			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-//			{
-//
-//			}
-//
-//			@Override
-//			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-//			{
-//				Context context = getActivity();
-//				if (context != null)
-//				{
-//					mDetailsRow.setImageBitmap(context, loadedImage);
-//				}
-//				else
-//				{
-//					loadedImage.recycle();
-//				}
-//			}
-//
-//			@Override
-//			public void onLoadingCancelled(String imageUri, View view)
-//			{
-//
-//			}
-//		});
-//	}
 
 	@OnClick(R.id.watch_button)
 	public void watchButtonClicked(View view)

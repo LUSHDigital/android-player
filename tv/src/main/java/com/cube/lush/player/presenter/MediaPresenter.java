@@ -1,7 +1,6 @@
 package com.cube.lush.player.presenter;
 
 import android.content.Context;
-import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.view.CardView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import lombok.Data;
@@ -26,10 +26,7 @@ public class MediaPresenter extends Presenter
 	{
 		Context context = parent.getContext();
 
-		ImageCardView cardView = new ImageCardView(context);
-		cardView.setFocusable(true);
-		cardView.setFocusableInTouchMode(true);
-
+		CardView cardView = new CardView(context);
 		return new MediaViewHolder(cardView);
 	}
 
@@ -37,7 +34,7 @@ public class MediaPresenter extends Presenter
 	{
 		MediaContent mediaContent = (MediaContent)item;
 		MediaViewHolder mediaViewHolder = (MediaViewHolder)viewHolder;
-		ImageCardView cardView = mediaViewHolder.getCardView();
+		CardView cardView = mediaViewHolder.getCardView();
 
 		String title = mediaContent.getTitle();
 
@@ -76,11 +73,11 @@ public class MediaPresenter extends Presenter
 	@Data
 	static class MediaViewHolder extends Presenter.ViewHolder {
 		private MediaContent content;
-		private ImageCardView cardView;
+		private CardView cardView;
 
 		public MediaViewHolder(View view) {
 			super(view);
-			cardView = (ImageCardView) view;
+			cardView = (CardView) view;
 		}
 	}
 }

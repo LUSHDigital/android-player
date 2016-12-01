@@ -6,6 +6,7 @@ import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
+import android.widget.ImageView;
 
 import com.cube.lush.player.factory.MenuFragmentFactory;
 
@@ -26,6 +27,16 @@ public class MainFragment extends LushBrowseFragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		initialiseMenu();
+	}
+
+	@Override
+	protected void initialiseUI()
+	{
+		super.initialiseUI();
+
+		// The badge is very wide compared to its height, so reduce the height a bit or it looks too big
+		ImageView badge = (ImageView) getTitleView().findViewById(R.id.title_badge);
+		badge.getLayoutParams().height = 30;
 	}
 
 	private void initialiseMenu()

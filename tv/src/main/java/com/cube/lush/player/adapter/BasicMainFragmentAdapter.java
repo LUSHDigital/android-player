@@ -11,7 +11,7 @@ public class BasicMainFragmentAdapter<T extends Fragment> extends BrowseFragment
 		public BasicMainFragmentAdapter(T fragment)
 		{
 			super(fragment);
-			setScalingEnabled(true);
+			setScalingEnabled(false);
 		}
 
 		@Override

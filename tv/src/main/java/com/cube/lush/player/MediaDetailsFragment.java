@@ -2,9 +2,11 @@ package com.cube.lush.player;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrandedFragment;
@@ -46,6 +48,7 @@ public class MediaDetailsFragment extends BrandedFragment
 	@BindView(R.id.start_end_time) TextView startEndTime;
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.time_remaining) TextView timeRemaining;
+	@BindView(R.id.right_side) LinearLayout rightSide;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -150,10 +153,40 @@ public class MediaDetailsFragment extends BrandedFragment
 				@Override
 				public void onAnimationEnd(Animator animation) {
 					viewOut.setVisibility(View.GONE);
+
+					new Handler().postDelayed(new Runnable()
+					{
+						@Override public void run()
+						{
+							animateReveal();
+						}
+					}, 2000);
 				}
 			});
 	}
-	
+
+	private void animateReveal()
+	{
+		rightSide.setPivotX(0);
+
+		ValueAnimator anim = ValueAnimator.ofInt(rightSide.getMeasuredWidth(), 0);
+		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator valueAnimator) {
+				int val = (Integer) valueAnimator.getAnimatedValue();
+				ViewGroup.LayoutParams layoutParams = rightSide.getLayoutParams();
+				layoutParams.width = val;
+				rightSide.setLayoutParams(layoutParams);
+			}
+		});
+		anim.setDuration(2000);
+		anim.start();
+
+		//		rightSide.animate()
+//			.scaleX(0f)
+//			.setDuration(systemsShortAnimationDuration);
+	}
+
 //	private void loadImage(@NonNull MediaContent item)
 //	{
 //		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()

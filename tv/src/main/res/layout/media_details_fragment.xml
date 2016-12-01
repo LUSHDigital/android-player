@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/black"
+>
+	<ProgressBar
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/progress"
+		android:layout_centerInParent="true"
+		style="@android:style/Widget.Material.Light.ProgressBar.Large"
+		android:indeterminate="true"
+		android:indeterminateTint="@android:color/white"
+		android:indeterminateTintMode="src_in"
+		android:visibility="visible"
+	/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/container"
+		android:visibility="visible"
+		android:weightSum="2"
+	>
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:layout_margin="27dp"
+			android:layout_weight="1"
+			android:orientation="vertical"
+		>
+			<!-- Left side content -->
+
+			<!-- First row with title and live indicator -->
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+			>
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/live_indicator"
+					android:layout_gravity="center_vertical"
+					android:src="@drawable/default_scrubber_thumb"
+				/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/title"
+					android:layout_gravity="center_vertical"
+					android:padding="8dp"
+					android:text="LIVE: Fresh from Lush Kitchen"
+					android:textSize="24sp"
+					android:textStyle="bold"
+				/>
+			</LinearLayout>
+
+			<!-- Second row with live times -->
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/start_end_time"
+				android:layout_marginBottom="8dp"
+				android:padding="8dp"
+				android:text="09:00am - 10:00am GMT"
+				android:textSize="14sp"
+			/>
+
+			<!-- Watch Live Button -->
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/watch_button"
+				android:layout_marginBottom="16dp"
+				android:layout_marginTop="16dp"
+				android:text="Watch Live"
+			/>
+
+			<!-- Description -->
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/description"
+				android:layout_marginBottom="16dp"
+				android:padding="8dp"
+				android:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
+				android:textSize="16sp"
+			/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/time_remaining"
+				android:padding="8dp"
+				android:text="39 minutes remaining"
+				android:textSize="16sp"
+			/>
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

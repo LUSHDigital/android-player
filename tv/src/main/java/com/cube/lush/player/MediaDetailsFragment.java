@@ -1,35 +1,31 @@
 package com.cube.lush.player;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v17.leanback.app.BrowseFragment;
-import android.support.v17.leanback.app.DetailsFragment;
-import android.support.v17.leanback.widget.Action;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.DetailsOverviewRow;
-import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
-import android.support.v17.leanback.widget.OnActionClickedListener;
-import android.support.v17.leanback.widget.PlaybackControlsRow;
-import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.app.BrandedFragment;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.cube.lush.player.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.Programme;
-import com.cube.lush.player.presenter.MediaDetailsPresenter;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA;
 import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
@@ -37,28 +33,28 @@ import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
 /**
  * Created by tim on 24/11/2016.
  */
-public class MediaDetailsFragment extends DetailsFragment implements OnActionClickedListener, BrowseFragment.MainFragmentAdapterProvider
+public class MediaDetailsFragment extends BrandedFragment
 {
-	private BrowseFragment.MainFragmentAdapter<MediaDetailsFragment> mMainFragmentAdapter;
-	private DetailsOverviewRow mDetailsRow;
-	// Presenters
-	private Presenter mMediaDetailsPresenter;
-	private FullWidthDetailsOverviewRowPresenter mDetailsOverviewRowPresenter;
-	// Adapters
-	private ArrayObjectAdapter mAdapter = new ArrayObjectAdapter(mDetailsOverviewRowPresenter);
-	private ArrayObjectAdapter mActionsAdapter = new ArrayObjectAdapter();
+	@BindView(R.id.progress) ProgressBar progressBar;
+	@BindView(R.id.container) LinearLayout contentContainer;
+	@BindView(R.id.live_indicator) ImageView liveIndicator;
+	@BindView(R.id.title) TextView title;
+	@BindView(R.id.start_end_time) TextView startEndTime;
+	@BindView(R.id.description) TextView description;
+	@BindView(R.id.time_remaining) TextView timeRemaining;
+
+	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		View view = inflater.inflate(R.layout.media_details_fragment, container, false);
+		ButterKnife.bind(this, view);
+
+		return view;
+	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-
-		// Setup presenters
-		mMediaDetailsPresenter = new MediaDetailsPresenter();
-		mDetailsOverviewRowPresenter = new FullWidthDetailsOverviewRowPresenter(mMediaDetailsPresenter);
-		mDetailsOverviewRowPresenter.setOnActionClickedListener(MediaDetailsFragment.this);
-
-		mActionsAdapter.add(new PlaybackControlsRow.PlayPauseAction(getActivity()));
 
 		Activity activity = getActivity();
 
@@ -89,16 +85,10 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 			return;
 		}
 
-		final SpinnerFragment spinnerFragment = SpinnerFragment.newInstance(getActivity());
-
-		getFragmentManager().beginTransaction().add(R.id.details_rows_dock, spinnerFragment).commit();
-
 		MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
-				getFragmentManager().beginTransaction().remove(spinnerFragment).commit();
-
 				if (!items.isEmpty())
 				{
 					loadMediaContent(items.get(0));
@@ -107,79 +97,77 @@ public class MediaDetailsFragment extends DetailsFragment implements OnActionCli
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				getFragmentManager().beginTransaction().remove(spinnerFragment).commit();
+				// TODO: Show error message
 			}
 		});
 	}
 
 	private void loadMediaContent(@NonNull MediaContent mediaContent)
 	{
-		mDetailsRow = new DetailsOverviewRow(mediaContent);
-
-		// Adapters
-		mDetailsRow.setActionsAdapter(mActionsAdapter);
-		mAdapter = new ArrayObjectAdapter(mDetailsOverviewRowPresenter);
-		mAdapter.add(mDetailsRow);
-		setAdapter(mAdapter);
-
-		loadImage(mediaContent);
+		makeContentVisible(true);
+//		loadImage(mediaContent);
 	}
 
-	private void loadImage(@NonNull MediaContent item)
+	/**
+	 * Toggles content (and progress bar) visibility
+	 * @param shouldBeVisible
+	 */
+	private void makeContentVisible(boolean shouldBeVisible)
 	{
-		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
+		if (shouldBeVisible)
 		{
-			@Override
-			public void onLoadingStarted(String imageUri, View view)
-			{
-
-			}
-
-			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-			{
-
-			}
-
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-			{
-				Context context = getActivity();
-				if (context != null)
-				{
-					mDetailsRow.setImageBitmap(context, loadedImage);
-				}
-				else
-				{
-					loadedImage.recycle();
-				}
-			}
-
-			@Override
-			public void onLoadingCancelled(String imageUri, View view)
-			{
-
-			}
-		});
-	}
-
-	@Override
-	public void onActionClicked(Action action)
-	{
-		if (action.getId() == R.id.lb_control_play_pause)
+			contentContainer.setVisibility(View.VISIBLE);
+			progressBar.setVisibility(View.GONE);
+		}
+		else
 		{
-			Intent intent = new Intent(getActivity(), PlaybackActivity.class);
-			startActivity(intent);
+			contentContainer.setVisibility(View.GONE);
+			progressBar.setVisibility(View.VISIBLE);
 		}
 	}
 
-	@Override
-	public BrowseFragment.MainFragmentAdapter<MediaDetailsFragment> getMainFragmentAdapter()
+//	private void loadImage(@NonNull MediaContent item)
+//	{
+//		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
+//		{
+//			@Override
+//			public void onLoadingStarted(String imageUri, View view)
+//			{
+//
+//			}
+//
+//			@Override
+//			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+//			{
+//
+//			}
+//
+//			@Override
+//			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+//			{
+//				Context context = getActivity();
+//				if (context != null)
+//				{
+//					mDetailsRow.setImageBitmap(context, loadedImage);
+//				}
+//				else
+//				{
+//					loadedImage.recycle();
+//				}
+//			}
+//
+//			@Override
+//			public void onLoadingCancelled(String imageUri, View view)
+//			{
+//
+//			}
+//		});
+//	}
+
+	@OnClick(R.id.watch_button)
+	public void watchButtonClicked(View view)
 	{
-		if (mMainFragmentAdapter == null)
-		{
-			mMainFragmentAdapter = new BasicMainFragmentAdapter<>(this);
-		}
-		return mMainFragmentAdapter;
+		// TODO:
+		Toast.makeText(getActivity(), "Watch button clicked!", Toast.LENGTH_SHORT).show();
 	}
 }

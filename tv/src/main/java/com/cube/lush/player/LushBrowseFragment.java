@@ -10,6 +10,7 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
@@ -31,7 +32,11 @@ public abstract class LushBrowseFragment extends BrowseFragment
 	protected void initialiseUI()
 	{
 		setTitle("Lush Player");
-		setBadgeDrawable(getResources().getDrawable(R.drawable.lush_logo));
+
+		// The badge is very wide compared to its height, so reduce the height a bit or it looks too big
+		ImageView badge = (ImageView) getTitleView().findViewById(R.id.title_badge);
+		badge.getLayoutParams().height = 30;
+		setBadgeDrawable(getResources().getDrawable(R.drawable.logo));
 
 		setHeadersState(HEADERS_ENABLED);
 		setHeadersTransitionOnBackEnabled(true);

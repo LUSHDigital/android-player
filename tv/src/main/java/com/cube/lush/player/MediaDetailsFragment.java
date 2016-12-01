@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -37,6 +38,7 @@ public class MediaDetailsFragment extends BrandedFragment
 {
 	@BindView(R.id.progress) ProgressBar progressBar;
 	@BindView(R.id.container) LinearLayout contentContainer;
+	@BindView(R.id.watch_button) Button watchButton;
 	@BindView(R.id.live_indicator) ImageView liveIndicator;
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.start_end_time) TextView startEndTime;
@@ -118,6 +120,8 @@ public class MediaDetailsFragment extends BrandedFragment
 		{
 			contentContainer.setVisibility(View.VISIBLE);
 			progressBar.setVisibility(View.GONE);
+
+			watchButton.requestFocus();
 		}
 		else
 		{

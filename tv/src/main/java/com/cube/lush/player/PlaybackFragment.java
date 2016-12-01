@@ -19,7 +19,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.fragment_playback, container);
+		View view = inflater.inflate(R.layout.fragment_playback, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
 		Analytics analytics = brightcoveVideoView.getAnalytics();
 		analytics.setAccount(getResources().getString(R.string.brightcove_account_id));

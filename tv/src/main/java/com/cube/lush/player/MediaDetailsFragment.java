@@ -23,6 +23,9 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		startEndTime.setVisibility(View.GONE);
 		timeRemaining.setVisibility(View.GONE);
 
+		watchButton.setText("Play");
+		startEndTime.setText(item.getDate().toString());
+
 		revealContentView();
 	}
 

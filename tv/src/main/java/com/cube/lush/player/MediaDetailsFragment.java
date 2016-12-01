@@ -1,5 +1,7 @@
 package com.cube.lush.player;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -118,18 +120,40 @@ public class MediaDetailsFragment extends BrandedFragment
 	{
 		if (shouldBeVisible)
 		{
-			contentContainer.setVisibility(View.VISIBLE);
-			progressBar.setVisibility(View.GONE);
-
-			watchButton.requestFocus();
+			crossFade(progressBar, contentContainer);
 		}
 		else
 		{
-			contentContainer.setVisibility(View.GONE);
-			progressBar.setVisibility(View.VISIBLE);
+			crossFade(contentContainer, progressBar);
 		}
 	}
 
+	private void crossFade(final View viewOut, View viewIn)
+	{
+		int systemsShortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+		// Show the in view at 0% opacity
+		viewIn.setAlpha(0f);
+		viewIn.setVisibility(View.VISIBLE);
+
+		// Animate the 'in view'
+		viewIn.animate()
+			.alpha(1f)
+			.setDuration(systemsShortAnimationDuration)
+			.setListener(null);
+
+		// Animated out the 'out view'
+		viewOut.animate()
+			.alpha(0f)
+			.setDuration(systemsShortAnimationDuration)
+			.setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					viewOut.setVisibility(View.GONE);
+				}
+			});
+	}
+	
 //	private void loadImage(@NonNull MediaContent item)
 //	{
 //		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()

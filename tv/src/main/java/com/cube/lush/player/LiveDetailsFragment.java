@@ -24,7 +24,7 @@ public class LiveDetailsFragment extends Fragment implements BrowseFragment.Main
 	private BrowseFragment.MainFragmentAdapter<LiveDetailsFragment> mMainFragmentAdapter;
 
 	private PlaybackFragment playbackFragment;
-	private MediaDetailsFragment detailsFragment;
+	private LiveMediaDetailsFragment detailsFragment;
 
 	@Nullable
 	@Override
@@ -46,12 +46,12 @@ public class LiveDetailsFragment extends Fragment implements BrowseFragment.Main
 		// Show media details in the foreground
         if (getChildFragmentManager().findFragmentById(R.id.foreground_container) == null)
         {
-	        detailsFragment = new MediaDetailsFragment();
+	        detailsFragment = new LiveMediaDetailsFragment();
             getChildFragmentManager().beginTransaction().replace(R.id.foreground_container, detailsFragment).commit();
         }
         else
         {
-            detailsFragment = (MediaDetailsFragment) getChildFragmentManager().findFragmentById(R.id.foreground_container);
+            detailsFragment = (LiveMediaDetailsFragment) getChildFragmentManager().findFragmentById(R.id.foreground_container);
         }
 
         MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()

@@ -55,7 +55,10 @@ public class MediaManager
 		{
 			@Override public void onSuccess(@NonNull List<VideoContent> items)
 			{
-				list.addAll(items);
+				if (!items.isEmpty())
+				{
+					list.addAll(items);
+				}
 
 				countdown.countDown();
 
@@ -75,7 +78,10 @@ public class MediaManager
 		{
 			@Override public void onSuccess(@NonNull List<RadioContent> items)
 			{
-				list.addAll(items);
+				if (!items.isEmpty())
+				{
+					list.addAll(items);
+				}
 
 				countdown.countDown();
 
@@ -109,7 +115,14 @@ public class MediaManager
 					handler.onFailure(null);
 				}
 
-				handler.onSuccess(videoResponse.body());
+				List<VideoContent> videos = videoResponse.body();
+
+				if (videos == null)
+				{
+					videos = Collections.emptyList();
+				}
+
+				handler.onSuccess(videos);
 			}
 
 			@Override public void onFailure(@Nullable final Call<List<VideoContent>> call, @Nullable final Throwable t)
@@ -136,7 +149,14 @@ public class MediaManager
 					handler.onFailure(null);
 				}
 
-				handler.onSuccess(radioResponse.body());
+				List<RadioContent> radios = radioResponse.body();
+
+				if (radios == null)
+				{
+					radios = Collections.emptyList();
+				}
+
+				handler.onSuccess(radios);
 			}
 
 			@Override public void onFailure(@Nullable final Call<List<RadioContent>> call, @Nullable final Throwable t)
@@ -177,7 +197,14 @@ public class MediaManager
 					handler.onFailure(null);
 				}
 
-				handler.onSuccess(channelResponse.body());
+				List<MediaContent> channels = channelResponse.body();
+
+				if (channels == null)
+				{
+					channels = Collections.emptyList();
+				}
+
+				handler.onSuccess(channels);
 			}
 
 			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
@@ -216,7 +243,14 @@ public class MediaManager
 					handler.onFailure(null);
 				}
 
-				handler.onSuccess(mediaResponse.body());
+				List<MediaContent> mediaContent = mediaResponse.body();
+
+				if (mediaContent == null)
+				{
+					mediaContent = Collections.emptyList();
+				}
+
+				handler.onSuccess(mediaContent);
 			}
 
 			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
@@ -245,7 +279,14 @@ public class MediaManager
 					handler.onFailure(null);
 				}
 
-				handler.onSuccess(programmeResponse.body());
+				List<Programme> programmes = programmeResponse.body();
+
+				if (programmes == null)
+				{
+					programmes = Collections.emptyList();
+				}
+
+				handler.onSuccess(programmes);
 			}
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)

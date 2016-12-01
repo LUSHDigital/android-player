@@ -48,13 +48,13 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal"
+					android:padding="8dp"
 				>
 					<ImageView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
+						android:layout_width="25dp"
+						android:layout_height="25dp"
 						android:id="@+id/live_indicator"
 						android:layout_gravity="center_vertical"
-						android:src="@drawable/default_scrubber_thumb"
 					/>
 
 					<TextView

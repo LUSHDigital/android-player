@@ -63,10 +63,11 @@
 						android:layout_height="wrap_content"
 						android:id="@+id/title"
 						android:layout_gravity="center_vertical"
+						android:ellipsize="end"
 						android:padding="8dp"
-						tools:text="LIVE: Fresh from Lush Kitchen"
 						android:textSize="24sp"
 						android:textStyle="bold"
+						tools:text="LIVE: Fresh from Lush Kitchen"
 					/>
 				</LinearLayout>
 
@@ -77,8 +78,8 @@
 					android:id="@+id/start_end_time"
 					android:layout_marginBottom="8dp"
 					android:padding="8dp"
-					tools:text="09:00am - 10:00am GMT"
 					android:textSize="14sp"
+					tools:text="09:00am - 10:00am GMT"
 				/>
 
 				<!-- Watch Live Button -->
@@ -97,9 +98,10 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/description"
 					android:layout_marginBottom="16dp"
+					android:ellipsize="end"
 					android:padding="8dp"
-					tools:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
 					android:textSize="16sp"
+					tools:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
 				/>
 
 				<TextView
@@ -107,8 +109,8 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/time_remaining"
 					android:padding="8dp"
-					tools:text="39 minutes remaining"
 					android:textSize="16sp"
+					tools:text="39 minutes remaining"
 				/>
 			</LinearLayout>
 		</LinearLayout>

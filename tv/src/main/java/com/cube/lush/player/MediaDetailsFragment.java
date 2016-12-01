@@ -43,7 +43,7 @@ import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
 /**
  * Created by tim on 24/11/2016.
  */
-public class MediaDetailsFragment extends BrandedFragment implements RevealCallback
+public class MediaDetailsFragment extends BrandedFragment implements MediaDetailsCallback
 {
 	@BindView(R.id.progress) ProgressBar progressBar;
 	@BindView(R.id.container) LinearLayout contentContainer;
@@ -88,7 +88,8 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 
 		if (item != null && item instanceof MediaContent)
 		{
-			loadMediaContent((MediaContent)item);
+			this.mediaContent = (MediaContent)item;
+			populateContentView(mediaContent);
 			return;
 		}
 
@@ -105,7 +106,8 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 			{
 				if (!items.isEmpty())
 				{
-					loadMediaContent(items.get(0));
+					mediaContent = items.get(0);
+					populateContentView(mediaContent);
 				}
 			}
 
@@ -116,10 +118,8 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 		});
 	}
 
-	@Override public void loadMediaContent(@NonNull MediaContent item)
+	@Override public void populateContentView(@NonNull MediaContent item)
 	{
-		this.mediaContent = item;
-
 		title.setText(item.getTitle());
 		description.setText(item.getDescription());
 
@@ -135,10 +135,10 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 
 		liveIndicator.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.pulse));
 
-		onMediaContentLoaded();
+		revealContentView();
 	}
 
-	@Override public void onMediaContentLoaded()
+	@Override public void revealContentView()
 	{
 		makeContentVisible(true);
 	}
@@ -160,10 +160,10 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 			contentContainer.setVisibility(View.GONE);
 		}
 
-		loadHiddenMediaContent(mediaContent);
+		populateHiddenView(mediaContent);
 	}
 
-	@Override public void loadHiddenMediaContent(@NonNull MediaContent item)
+	@Override public void populateHiddenView(@NonNull MediaContent item)
 	{
 		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
 		{
@@ -185,7 +185,7 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 				if (backgroundImage != null)
 				{
 					backgroundImage.setImageBitmap(loadedImage);
-					revealHiddenMediaContent();
+					revealHiddenView();
 				}
 			}
 
@@ -197,7 +197,7 @@ public class MediaDetailsFragment extends BrandedFragment implements RevealCallb
 		});
 	}
 
-	@Override public void revealHiddenMediaContent()
+	@Override public void revealHiddenView()
 	{
 		rightSide.setPivotX(0);
 

@@ -1,17 +1,13 @@
 package com.cube.lush.player;
 
-import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.cube.lush.player.model.MediaContent;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * @author Jamie Cruwys
@@ -19,6 +15,16 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment
 {
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+		MediaContent dummyLiveItem = new MediaContent();
+		dummyLiveItem.setTitle("Live");
+		dummyLiveItem.setDescription("Watch live Lush TV");
+		populateContentView(dummyLiveItem);
+	}
+
 	@Override public void populateContentView(@NonNull MediaContent item)
 	{
 		super.populateContentView(item);
@@ -47,36 +53,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment
 
 	@Override public void populateHiddenView(@NonNull MediaContent item)
 	{
-		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
-		{
-			@Override
-			public void onLoadingStarted(String imageUri, View view)
-			{
-
-			}
-
-			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-			{
-
-			}
-
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-			{
-				if (backgroundImage != null)
-				{
-					backgroundImage.setImageBitmap(loadedImage);
-					revealHiddenView();
-				}
-			}
-
-			@Override
-			public void onLoadingCancelled(String imageUri, View view)
-			{
-
-			}
-		});
+		revealHiddenView();
 	}
 
 	@Override public void revealHiddenView()

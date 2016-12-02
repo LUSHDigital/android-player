@@ -14,7 +14,7 @@ public class CardView extends ImageCardView
 	private static final int BORDER_WIDTH = 2;
 
 	private GradientDrawable backgroundDrawable;
-	private boolean isSelectionBorderEnabled = false;
+	private boolean isSelectionBorderEnabled = true;
 
 	public CardView(Context context, AttributeSet attrs, int defStyleAttr)
 	{

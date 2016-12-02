@@ -19,9 +19,9 @@ import java.util.List;
 /**
  * Created by tim on 01/12/2016.
  */
-public class LiveDetailsFragment extends Fragment implements BrowseFragment.MainFragmentAdapterProvider
+public class LiveFragment extends Fragment implements BrowseFragment.MainFragmentAdapterProvider
 {
-	private BrowseFragment.MainFragmentAdapter<LiveDetailsFragment> mMainFragmentAdapter;
+	private BrowseFragment.MainFragmentAdapter<LiveFragment> mMainFragmentAdapter;
 
 	private PlaybackFragment playbackFragment;
 	private LiveMediaDetailsFragment detailsFragment;
@@ -62,6 +62,7 @@ public class LiveDetailsFragment extends Fragment implements BrowseFragment.Main
 		        if (!items.isEmpty() && items.get(0) != null)
 		        {
 					playbackFragment.queuePlaylist(items.get(0).getId());
+			        detailsFragment.revealHiddenView();
 		        }
 	        }
 
@@ -76,7 +77,7 @@ public class LiveDetailsFragment extends Fragment implements BrowseFragment.Main
 	}
 
 	@Override
-	public BrowseFragment.MainFragmentAdapter<LiveDetailsFragment> getMainFragmentAdapter()
+	public BrowseFragment.MainFragmentAdapter<LiveFragment> getMainFragmentAdapter()
 	{
 		if (mMainFragmentAdapter == null)
 		{

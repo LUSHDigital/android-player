@@ -3,12 +3,10 @@ package com.cube.lush.player.presenter;
 import android.content.Context;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.R;
 import com.cube.lush.player.model.ContentType;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.SearchResult;
@@ -70,15 +68,6 @@ public class SearchResultPresenter extends Presenter
 		{
 			cardView.setContentText("");
 		}
-
-//		if (type == ContentType.TV)
-//		{
-			// TODO:
-//		}
-//		else
-//		{
-			cardView.setBadgeImage(ContextCompat.getDrawable(cardView.getContext(), R.drawable.ic_radio_white_36dp));
-//		}
 
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 

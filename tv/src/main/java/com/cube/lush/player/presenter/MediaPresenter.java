@@ -3,15 +3,18 @@ package com.cube.lush.player.presenter;
 import android.content.Context;
 import android.support.v17.leanback.widget.Presenter;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.view.CardView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import lombok.Data;
+
+import static android.text.format.DateUtils.DAY_IN_MILLIS;
 
 /**
  * @author Jamie Cruwys
@@ -27,6 +30,7 @@ public class MediaPresenter extends Presenter
 		Context context = parent.getContext();
 
 		CardView cardView = new CardView(context);
+
 		return new MediaViewHolder(cardView);
 	}
 
@@ -35,6 +39,9 @@ public class MediaPresenter extends Presenter
 		MediaContent mediaContent = (MediaContent)item;
 		MediaViewHolder mediaViewHolder = (MediaViewHolder)viewHolder;
 		CardView cardView = mediaViewHolder.getCardView();
+
+		String mediaType = mediaContent instanceof RadioContent ? "RADIO" : "TV";
+		cardView.setMediaText(mediaType);
 
 		String title = mediaContent.getTitle();
 
@@ -47,7 +54,10 @@ public class MediaPresenter extends Presenter
 			cardView.setTitleText("");
 		}
 
-		String description = mediaContent.getDescription();
+		// We assume the date is in UTC as the Lush API doesn't specify otherwise
+		long now = System.currentTimeMillis();
+		long time = Math.min(mediaContent.getDate().getTime(), now); // Make sure we don't show content as being in the future
+		CharSequence description = DateUtils.getRelativeTimeSpanString(time, now, DAY_IN_MILLIS);
 
 		if (!TextUtils.isEmpty(description))
 		{
@@ -57,9 +67,6 @@ public class MediaPresenter extends Presenter
 		{
 			cardView.setContentText("");
 		}
-
-		cardView.setBadgeImage(cardView.getContext().getResources().getDrawable(R.drawable.ic_radio_white_36dp));
-
 		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 
 		ImageLoader.getInstance().displayImage(mediaContent.getThumbnail(), cardView.getMainImageView());

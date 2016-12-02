@@ -27,6 +27,14 @@ public class MediaPresenter extends Presenter
 		Context context = parent.getContext();
 
 		CardView cardView = new CardView(context);
+
+		View titleView = cardView.findViewById(R.id.title_text);
+
+		if (titleView instanceof TextView)
+		{
+			((TextView) titleView).setMaxLines(2);
+		}
+
 		return new MediaViewHolder(cardView);
 	}
 

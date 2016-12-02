@@ -13,21 +13,18 @@ import lombok.Data;
  * @project lush-player-android-client
  */
 @Data
-public class SearchResult implements Serializable
+public class SearchResult extends MediaContent implements Serializable
 {
-	private String title;
-	private String id;
-	private ContentType type;
-
 	@SerializedName("video_thumbnail")
 	private String videoThumbnail;
 
 	@SerializedName("radio_thumbnail")
 	private String radioThumbnail;
 
+	@Override
 	public String getThumbnail()
 	{
-		if (type == null)
+		if (getType() == null)
 		{
 			if (!TextUtils.isEmpty(videoThumbnail))
 			{
@@ -41,11 +38,11 @@ public class SearchResult implements Serializable
 		}
 		else
 		{
-			if (type == ContentType.TV)
+			if (getType() == ContentType.TV)
 			{
 				return videoThumbnail;
 			}
-			else if (type == ContentType.RADIO)
+			else if (getType() == ContentType.RADIO)
 			{
 				return radioThumbnail;
 			}

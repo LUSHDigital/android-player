@@ -42,6 +42,21 @@ public class CardView extends ImageCardView
 		setup();
 	}
 
+	public View getContentView()
+	{
+		return findViewById(R.id.content_text);
+	}
+
+	public View getMediaTypeView()
+	{
+		return findViewById(R.id.media_text);
+	}
+
+	public View getTitleView()
+	{
+		return findViewById(R.id.title_text);
+	}
+
 	public void setSelectionBorderEnabled(boolean isSelectionBorderEnabled)
 	{
 		this.isSelectionBorderEnabled = isSelectionBorderEnabled;
@@ -50,7 +65,7 @@ public class CardView extends ImageCardView
 	private void setup()
 	{
 		// Set title text to occupy two lines
-		View titleView = findViewById(R.id.title_text);
+		View titleView = getTitleView();
 
 		if (titleView instanceof TextView)
 		{

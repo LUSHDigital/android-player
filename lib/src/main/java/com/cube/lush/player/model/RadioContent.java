@@ -11,4 +11,9 @@ public class RadioContent extends MediaContent
 {
 	private String file;
 	private String duration;
+
+	public RadioContent()
+	{
+		setType(ContentType.RADIO);
+	}
 }

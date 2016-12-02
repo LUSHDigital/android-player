@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.SearchManager;
 import com.cube.lush.player.model.SearchResult;
-import com.cube.lush.player.presenter.SearchResultPresenter;
+import com.cube.lush.player.presenter.MediaPresenter;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
                                                                                                OnItemViewClickedListener
 {
 	private static final int REQUEST_SPEECH = 0x00000010;
-	private ArrayObjectAdapter mRowsAdapter;
+	private ArrayObjectAdapter rowsAdapter;
 	private ArrayObjectAdapter searchAdapter;
 
 	@Override
@@ -58,8 +58,8 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 			});
 		}
 
-		mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-		searchAdapter = new ArrayObjectAdapter(new SearchResultPresenter());
+		rowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+		searchAdapter = new ArrayObjectAdapter(new MediaPresenter());
 
 		setSearchResultProvider(this);
 		setOnItemViewClickedListener(this);
@@ -98,20 +98,20 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 	@Override
 	public ObjectAdapter getResultsAdapter()
 	{
-		return mRowsAdapter;
+		return rowsAdapter;
 	}
 
 	@Override
 	public boolean onQueryTextChange(String newQuery)
 	{
-		search(newQuery);
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean onQueryTextSubmit(String query)
 	{
-		return false;
+		search(query);
+		return true;
 	}
 
 	private void search(@NonNull String query)
@@ -129,14 +129,14 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 				searchAdapter.addAll(0, items);
 
 				ListRow searchRow = new ListRow(new HeaderItem("Search Results"), searchAdapter);
-				mRowsAdapter.clear();
-				mRowsAdapter.add(searchRow);
+				rowsAdapter.clear();
+				rowsAdapter.add(searchRow);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				searchAdapter.clear();
-				mRowsAdapter.clear();
+				rowsAdapter.clear();
 			}
 		});
 	}

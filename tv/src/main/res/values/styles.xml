@@ -5,6 +5,7 @@
         <item name="imageCardViewTitleStyle">@style/AppImageCardViewTitleStyle</item>
         <item name="imageCardViewContentStyle">@style/AppImageCardViewContentStyle</item>
         <item name="imageCardViewInfoAreaStyle">@style/AppImageCardViewInfoAreaStyle</item>
+        <item name="detailsActionButtonStyle">@style/AppDetailsActionButtonStyle</item>
 	</style>
 
 	<style name="AppImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
@@ -24,7 +25,12 @@
     </style>
 
     <style name="AppImageCardViewContentStyle" parent="Widget.Leanback.ImageCardView.ContentStyle">
-    	<item name="android:textColor">#B3CCCCCC</item>
+    	<item name="android:textColor">@color/text_dark</item>
     	<item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="AppDetailsActionButtonStyle" parent="Widget.Leanback.DetailsActionButtonStyle">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 </resources>

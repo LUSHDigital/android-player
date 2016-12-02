@@ -49,7 +49,7 @@ public class MainFragment extends LushBrowseFragment
 		// Setup the fragment factory for the menu items
 		MenuFragmentFactory fragmentFactory = new MenuFragmentFactory();
 		fragmentFactory.registerFragment(homeRow, new HomeFragment());
-		fragmentFactory.registerFragment(liveRow, new LiveDetailsFragment());
+		fragmentFactory.registerFragment(liveRow, new LiveFragment());
 		fragmentFactory.registerFragment(channelsRow, new ChannelsFragment());
 		getMainFragmentRegistry().registerFragment(PageRow.class, fragmentFactory);
 

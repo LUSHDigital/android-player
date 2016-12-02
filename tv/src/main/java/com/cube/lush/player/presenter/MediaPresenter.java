@@ -6,9 +6,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.view.CardView;
@@ -42,7 +40,7 @@ public class MediaPresenter extends Presenter
 		MediaViewHolder mediaViewHolder = (MediaViewHolder)viewHolder;
 		CardView cardView = mediaViewHolder.getCardView();
 
-		String mediaType = mediaContent instanceof RadioContent ? "Radio" : "TV";
+		String mediaType = mediaContent instanceof RadioContent ? "RADIO" : "TV";
 		cardView.setMediaText(mediaType);
 
 		String title = mediaContent.getTitle();

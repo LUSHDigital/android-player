@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.view.CardView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,13 +33,6 @@ public class MediaPresenter extends Presenter
 
 		CardView cardView = new CardView(context);
 
-		View titleView = cardView.findViewById(R.id.title_text);
-
-		if (titleView instanceof TextView)
-		{
-			((TextView) titleView).setMaxLines(2);
-		}
-
 		return new MediaViewHolder(cardView);
 	}
 
@@ -47,6 +41,9 @@ public class MediaPresenter extends Presenter
 		MediaContent mediaContent = (MediaContent)item;
 		MediaViewHolder mediaViewHolder = (MediaViewHolder)viewHolder;
 		CardView cardView = mediaViewHolder.getCardView();
+
+		String mediaType = mediaContent instanceof RadioContent ? "Radio" : "TV";
+		cardView.setMediaText(mediaType);
 
 		String title = mediaContent.getTitle();
 

@@ -6,6 +6,6 @@
 	<style name="AppImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
         <item name="cardBackground">@color/primary</item>
         <item name="infoAreaBackground">@color/primary</item>
-        <item name="lbImageCardViewType">Title|Content|IconOnLeft</item>
+        <item name="lbImageCardViewType">Title|Content</item>
    </style>
 </resources>

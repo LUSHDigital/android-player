@@ -17,4 +17,6 @@ public class MediaContent implements Serializable
 	private String description;
 	private Date date;
 	private String thumbnail;
+	private ContentType type;
+
 }

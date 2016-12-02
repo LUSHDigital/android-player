@@ -10,4 +10,8 @@ import lombok.Data;
 public class VideoContent extends MediaContent
 {
 	// Add any extra fields if the API response changes
+	public VideoContent()
+	{
+		setType(ContentType.TV);
+	}
 }

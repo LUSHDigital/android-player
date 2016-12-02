@@ -1,12 +1,15 @@
 package com.cube.lush.player;
 
 import android.app.Application;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.squareup.leakcanary.LeakCanary;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * @author Jamie Cruwys
@@ -25,6 +28,11 @@ public class MainApplication extends Application
 			return;
 		}
 		LeakCanary.install(this);
+
+		CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/HelveticaNeueLTPro-Roman.otf")
+		                                                             .setFontAttrId(R.attr.fontPath)
+		                                                             .addCustomViewWithSetTypeface(TextView.class)
+		                                                             .build());
 
 		LushContent.initialise();
 		setupImageLoader();

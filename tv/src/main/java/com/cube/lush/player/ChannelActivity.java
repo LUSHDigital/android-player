@@ -1,10 +1,8 @@
 package com.cube.lush.player;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
-public class ChannelActivity extends Activity
+public class ChannelActivity extends LushActivity
 {
 	public static final String EXTRA_CHANNEL = "extra_channel";
 
@@ -13,12 +11,5 @@ public class ChannelActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_channel);
-	}
-
-	@Override
-	public boolean onSearchRequested()
-	{
-		startActivity(new Intent(this, SearchActivity.class));
-		return true;
 	}
 }

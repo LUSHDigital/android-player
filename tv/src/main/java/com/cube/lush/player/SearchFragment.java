@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
-import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
@@ -26,6 +25,7 @@ import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.SearchManager;
 import com.cube.lush.player.model.SearchResult;
 import com.cube.lush.player.presenter.MediaPresenter;
+import com.cube.lush.player.presenter.SearchResultsPresenter;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 			});
 		}
 
-		rowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+		rowsAdapter = new ArrayObjectAdapter(new SearchResultsPresenter());
 		searchAdapter = new ArrayObjectAdapter(new MediaPresenter());
 
 		setSearchResultProvider(this);

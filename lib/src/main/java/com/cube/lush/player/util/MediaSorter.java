@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * Various pre-defined orderings of media.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

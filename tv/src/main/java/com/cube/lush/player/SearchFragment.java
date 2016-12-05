@@ -32,6 +32,8 @@ import java.util.List;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 /**
+ * Allows the user to perform a simple keyboard or voice search on Lush content.
+ *
  * Created by tim on 24/11/2016.
  */
 public class SearchFragment extends android.support.v17.leanback.app.SearchFragment implements android.support.v17.leanback.app.SearchFragment.SearchResultProvider,
@@ -58,6 +60,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 			});
 		}
 
+		// We use a custom presenter so that we can show the results in a vertical grid type structure, as per the design requirements.
 		rowsAdapter = new ArrayObjectAdapter(new SearchResultsPresenter());
 		searchAdapter = new ArrayObjectAdapter(new MediaPresenter());
 

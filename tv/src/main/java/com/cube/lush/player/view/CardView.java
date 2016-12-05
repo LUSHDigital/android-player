@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.cube.lush.player.R;
 
 /**
+ * Custom extension of Leanback's {@link ImageCardView} which supports a selection border and displays additional information about the content type (e.g. TV or
+ * Radio) in the info view.
+ * <p>
  * Created by tim on 01/12/2016.
  */
 public class CardView extends ImageCardView
 {
 	private static final int BORDER_WIDTH = 2;
-
 	private GradientDrawable backgroundDrawable;
 	private boolean isSelectionBorderEnabled = true;
 	private TextView contentTypeTextView;

@@ -6,6 +6,8 @@ import java.util.Date;
 import lombok.Data;
 
 /**
+ * Model object representing generic media content.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */
@@ -18,5 +20,4 @@ public class MediaContent implements Serializable
 	private Date date;
 	private String thumbnail;
 	private ContentType type;
-
 }

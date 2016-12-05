@@ -7,6 +7,7 @@ import com.cube.lush.player.api.R;
 import lombok.Getter;
 
 /**
+ * Information about Lush content channels
  * Created by tim on 28/11/2016.
  */
 public enum Channel
@@ -18,6 +19,9 @@ public enum Channel
 	GORILLA("gorilla", "Gorilla", "", R.drawable.channel_gorilla),
 	LUSH_COSMETICS("cosmetics", "Lush Cosmetics", "", R.drawable.channel_lush_cosmetics);
 
+	/**
+	 * This ID can be used with {@link com.cube.lush.player.api.LushAPI#getCategories(String, String)}
+	 */
 	@Getter
 	private String id;
 	@Getter

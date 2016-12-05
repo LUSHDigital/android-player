@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 /**
+ * Interface for outcomes given in response to a request for a list of items.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

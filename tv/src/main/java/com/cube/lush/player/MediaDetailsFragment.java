@@ -10,6 +10,8 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
+ * Displays details for a specific {@link MediaContent}, with a thumbnail for the content being loaded and revealed in the right-hand pane.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

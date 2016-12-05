@@ -1,5 +1,6 @@
 package com.cube.lush.player;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -52,7 +53,29 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		// TODO: Try and get the video or playlist ID from the activity intent
+		Intent intent = getActivity().getIntent();
+
+		if (intent != null)
+		{
+			PlaybackMethod playbackMethod = (PlaybackMethod)intent.getSerializableExtra(PlaybackActivity.ARGUMENT_PLAYBACK_METHOD);
+			String playbackMethodValue = intent.getStringExtra(PlaybackActivity.ARGUMENT_PLAYBACK_METHOD_VALUE);
+
+			if (playbackMethod != null && !TextUtils.isEmpty(playbackMethodValue))
+			{
+				if (playbackMethod == PlaybackMethod.PLAYLIST)
+				{
+					queuePlaylist(playbackMethodValue);
+				}
+				else if (playbackMethod == PlaybackMethod.VIDEO)
+				{
+					queueVideo(playbackMethodValue);
+				}
+				else if (playbackMethod == PlaybackMethod.FILE_URL)
+				{
+					playFile(playbackMethodValue);
+				}
+			}
+		}
 	}
 
 	/**
@@ -105,5 +128,10 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				brightcoveVideoView.start();
 			}
 		});
+	}
+
+	public void playFile(String fileUrl)
+	{
+		// TODO:
 	}
 }

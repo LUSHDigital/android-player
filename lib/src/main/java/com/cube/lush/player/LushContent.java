@@ -11,6 +11,9 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Manages access to the Lush API and media manager.
+ */
 public class LushContent
 {
 	private static final String API_VERSION = "1";

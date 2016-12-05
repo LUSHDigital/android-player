@@ -7,6 +7,8 @@ import android.support.v17.leanback.app.BrowseFragment;
 import android.view.View;
 
 /**
+ * Base fragment displaying an interface with a side menu and content view, based on the Leanback {@link BrowseFragment}.
+ *
  * Created by tim on 28/11/2016.
  */
 public abstract class LushBrowseFragment extends BrowseFragment
@@ -18,6 +20,9 @@ public abstract class LushBrowseFragment extends BrowseFragment
 		initialiseUI();
 	}
 
+	/**
+	 * Apply default Lush branding
+	 */
 	protected void initialiseUI()
 	{
 		setTitle("Lush Player");

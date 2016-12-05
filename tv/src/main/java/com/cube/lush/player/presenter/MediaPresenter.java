@@ -16,6 +16,8 @@ import lombok.Data;
 import static android.text.format.DateUtils.DAY_IN_MILLIS;
 
 /**
+ * Presents information about various types of {@link MediaContent} inside a {@link CardView}.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

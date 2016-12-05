@@ -13,6 +13,8 @@ import com.cube.lush.player.view.CardView;
 import lombok.Data;
 
 /**
+ * Presents information about Lush channels in a {@link CardView}.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

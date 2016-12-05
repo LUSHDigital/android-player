@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import lombok.Setter;
 
 /**
+ * Displayed to the user in order to indicate that data is loading.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

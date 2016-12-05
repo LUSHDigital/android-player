@@ -7,6 +7,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cube.lush.player.MainApplication;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.view.CardView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -21,9 +22,6 @@ import static android.text.format.DateUtils.DAY_IN_MILLIS;
  */
 public class MediaPresenter extends Presenter
 {
-	private static int CARD_WIDTH = 300;
-	private static int CARD_HEIGHT = 150;
-
 	@Override public ViewHolder onCreateViewHolder(ViewGroup parent)
 	{
 		Context context = parent.getContext();
@@ -101,7 +99,14 @@ public class MediaPresenter extends Presenter
 			cardView.getContentView().setVisibility(View.GONE);
 		}
 
-		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
+		int height = MainApplication.getStandardCardHeight(cardView.getContext());
+		int width = MainApplication.getStandardCardWidth(cardView.getContext());
+		int imageHeight = MainApplication.getStandardImageHeight(cardView.getContext());
+
+		cardView.getLayoutParams().height = height;
+		cardView.getLayoutParams().width = width;
+
+		cardView.setMainImageDimensions(width, imageHeight);
 
 		ImageLoader.getInstance().displayImage(mediaContent.getThumbnail(), cardView.getMainImageView());
 	}

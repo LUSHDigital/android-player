@@ -16,6 +16,10 @@ public class PlaybackActivity extends LushActivity
 	{
 		Intent intent = new Intent(context, PlaybackActivity.class);
 
+		// TODO: Remove hardcoded video when the correct data is returned by the API
+		playbackMethod = PlaybackMethod.FILE_URL;
+		playbackMethodValue = "http://solutions.brightcove.com/bcls/assets/videos/Bird_Titmouse.mp4";
+
 		if (playbackMethod != null)
 		{
 			intent.putExtra(ARGUMENT_PLAYBACK_METHOD, playbackMethod);

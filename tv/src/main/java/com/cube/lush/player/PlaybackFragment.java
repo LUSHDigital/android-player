@@ -1,17 +1,21 @@
 package com.cube.lush.player;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.edge.Catalog;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.event.EventEmitter;
+import com.brightcove.player.media.DeliveryType;
 import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
@@ -127,11 +131,29 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				brightcoveVideoView.add(video);
 				brightcoveVideoView.start();
 			}
+
+			@Override public void onError(String error)
+			{
+				super.onError(error);
+
+				Activity activity = getActivity();
+
+				if (activity != null)
+				{
+					Toast.makeText(activity, "Error: " + error, Toast.LENGTH_SHORT).show();
+				}
+			}
 		});
 	}
 
-	public void playFile(String fileUrl)
+	public void playFile(@NonNull String fileUrl)
 	{
-		// TODO:
+		brightcoveVideoView.stopPlayback();
+
+		if (fileUrl.endsWith(".mp4"))
+		{
+			brightcoveVideoView.add(Video.createVideo(fileUrl, DeliveryType.MP4));
+			brightcoveVideoView.start();
+		}
 	}
 }

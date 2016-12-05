@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.cube.lush.player.MainApplication;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.view.CardView;
 
@@ -18,9 +19,6 @@ import lombok.Data;
  */
 public class ChannelPresenter extends Presenter
 {
-	private static int CARD_WIDTH = 300;
-	private static int CARD_HEIGHT = 150;
-
 	@Override public ViewHolder onCreateViewHolder(ViewGroup parent)
 	{
 		Context context = parent.getContext();
@@ -47,8 +45,16 @@ public class ChannelPresenter extends Presenter
 			cardView.setContentText("");
 		}
 
+		int height = MainApplication.getStandardCardHeight(cardView.getContext());
+		int width = MainApplication.getStandardCardWidth(cardView.getContext());
+		int imageHeight = MainApplication.getStandardImageHeight(cardView.getContext());
+
+		cardView.getLayoutParams().height = height;
+		cardView.getLayoutParams().width = width;
+
+		cardView.setMainImageDimensions(width, imageHeight);
+
 		cardView.setMainImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
-		cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 		cardView.getMainImageView().setPadding(16, 16, 16, 16);
 		cardView.getMainImageView().setImageResource(channel.getLogo());
 	}

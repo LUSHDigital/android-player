@@ -3,12 +3,14 @@ package com.cube.lush.player;
 import android.app.Application;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.squareup.leakcanary.LeakCanary;
 
+import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -20,6 +22,9 @@ public class MainApplication extends Application
 	@Override public void onCreate()
 	{
 		super.onCreate();
+
+		// Setup crash logger
+		Fabric.with(this, new Crashlytics());
 
 		// LeakCanary must come first in onCreate
 		if (LeakCanary.isInAnalyzerProcess(this)) {

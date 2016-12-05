@@ -45,7 +45,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	@BindView(R.id.progress) protected ProgressBar progressBar;
 	@BindView(R.id.container) protected LinearLayout contentContainer;
 	@BindView(R.id.background_image) protected ImageView backgroundImage;
-	@BindView(R.id.watch_button) protected Button watchButton;
+	@BindView(R.id.play_button) protected Button playButton;
 	@BindView(R.id.live_indicator) protected ImageView liveIndicator;
 	@BindView(R.id.title) protected TextView title;
 	@BindView(R.id.start_end_time) protected TextView startEndTime;
@@ -169,10 +169,9 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 		anim.start();
 	}
 
-	@OnClick(R.id.watch_button)
-	public void watchButtonClicked(View view)
+	@OnClick(R.id.play_button)
+	public void playButtonClicked(View view)
 	{
-		// TODO:
-		Toast.makeText(getActivity(), "Watch button clicked!", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), "Play button clicked!", Toast.LENGTH_SHORT).show();
 	}
 }

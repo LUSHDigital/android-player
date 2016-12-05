@@ -1,11 +1,14 @@
 package com.cube.lush.player;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.cube.lush.player.model.MediaContent;
@@ -62,5 +65,24 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment
 	@Override public void revealHiddenView()
 	{
 		super.revealHiddenView();
+	}
+
+	@Override public void playButtonClicked(View view)
+	{
+		if (getActivity() == null)
+		{
+			return;
+		}
+
+		Context context = getActivity();
+		String id = null;
+
+		if (mediaContent != null)
+		{
+			id = mediaContent.getId();
+		}
+
+		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id);
+		getActivity().startActivity(intent);
 	}
 }

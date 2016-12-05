@@ -80,7 +80,7 @@
 				<Button
 					android:layout_width="wrap_content"
 					android:layout_height="@dimen/lb_action_2_lines_height"
-					android:id="@+id/watch_button"
+					android:id="@+id/play_button"
 					android:layout_marginBottom="32dp"
 					android:layout_marginTop="32dp"
 					style="@style/AppDetailsActionButtonStyle"

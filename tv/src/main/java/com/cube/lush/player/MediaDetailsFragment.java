@@ -1,5 +1,7 @@
 package com.cube.lush.player;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -25,7 +27,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		startEndTime.setVisibility(View.GONE);
 		timeRemaining.setVisibility(View.GONE);
 
-		watchButton.setText("Play");
+		playButton.setText("Play");
 		startEndTime.setText(item.getDate().toString());
 
 		revealContentView();
@@ -75,5 +77,24 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 	@Override public void revealHiddenView()
 	{
 		super.revealHiddenView();
+	}
+
+	@Override public void playButtonClicked(View view)
+	{
+		if (getActivity() == null)
+		{
+			return;
+		}
+
+		Context context = getActivity();
+		String id = null;
+
+		if (mediaContent != null)
+		{
+			id = mediaContent.getId();
+		}
+
+		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.VIDEO, id);
+		getActivity().startActivity(intent);
 	}
 }

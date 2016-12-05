@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.view.View;
 
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
@@ -27,22 +28,31 @@ public class HomeFragment extends MediaBrowseFragment
 	{
 		super.onCreate(savedInstanceState);
 		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		getMediaContent();
 	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		getMediaContent();
 		setAdapter(mMediaAdapter);
 	}
 
 	private void getMediaContent()
 	{
+		final View baseView = getView();
+
+		if (baseView != null)
+		{
+			SpinnerFragment.show(getChildFragmentManager(), baseView);
+		}
+
 		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
+				SpinnerFragment.hide(getChildFragmentManager());
+
 				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
 
 				mMediaAdapter.clear();
@@ -51,6 +61,7 @@ public class HomeFragment extends MediaBrowseFragment
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
+				SpinnerFragment.hide(getChildFragmentManager());
 				mMediaAdapter.clear();
 			}
 		});

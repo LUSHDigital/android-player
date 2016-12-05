@@ -9,6 +9,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
+ * Extension of {@link MediaContent} which contains extra information returned by the {@link com.cube.lush.player.api.LushAPI#search(String)} endpoint.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

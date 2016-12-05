@@ -33,6 +33,11 @@ import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA;
 import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
 
 /**
+ * Base class for showing information about a specific media item, and allows the user to play it.
+ * <p />
+ * The screen consists of two panels, one on the left-side showing details about the media, and the one on the right showing a preview of the video.
+ * Extending classes can tweak when the left and right panels are revealed by consulting the {@link MediaDetailsFlow}.
+ *
  * Created by tim on 24/11/2016.
  */
 public abstract class BaseMediaDetailsFragment extends BrandedFragment implements MediaDetailsFlow
@@ -143,6 +148,9 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 
 	@Override public abstract void populateHiddenView(@NonNull MediaContent item);
 
+	/**
+	 * Animates the black overlay panel displayed on the right side of the fragment so that it reveals what is behind it.
+	 */
 	@Override public void revealHiddenView()
 	{
 		rightSide.setPivotX(0);

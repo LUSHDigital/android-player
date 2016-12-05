@@ -14,6 +14,8 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
+ * Defines Lush API interface using Retrofit.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

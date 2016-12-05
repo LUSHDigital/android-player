@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.cube.lush.player.model.MediaContent;
 
 /**
+ * Defines a flow of events used on the {@link MediaDetailsFragment} in order to populate and correctly reveal the details and background content.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

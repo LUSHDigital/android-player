@@ -6,6 +6,10 @@ import android.support.v17.leanback.app.BrowseFragment;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Maintains a mapping between model objects representing menu items, and the fragment that should be displayed when that menu item is selected.
+ *
+ */
 public class MenuFragmentFactory extends BrowseFragment.FragmentFactory<Fragment>
 {
 	private Map<Object, Fragment> fragmentRegistry = new HashMap<>();

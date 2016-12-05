@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * Types of content
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

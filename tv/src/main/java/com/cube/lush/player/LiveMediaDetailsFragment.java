@@ -11,6 +11,8 @@ import android.view.animation.AnimationUtils;
 import com.cube.lush.player.model.MediaContent;
 
 /**
+ * Displays details and a preview of the current live Lush playlist.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */

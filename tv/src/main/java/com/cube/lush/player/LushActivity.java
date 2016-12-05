@@ -7,6 +7,8 @@ import android.content.Intent;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
+ * Base activity that performs actions common to all activities in the app.
+ *
  * Created by tim on 02/12/2016.
  */
 public class LushActivity extends Activity

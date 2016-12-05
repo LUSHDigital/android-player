@@ -18,6 +18,8 @@ import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 
 /**
+ * Uses the Brightcove SDK player to playback Lush-related content, including playlists, specific videos, or remote files.
+ *
  * Created by tim on 24/11/2016.
  */
 public class PlaybackFragment extends BrightcovePlayerFragment
@@ -53,6 +55,11 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		// TODO: Try and get the video or playlist ID from the activity intent
 	}
 
+	/**
+	 * Queue a particular Brightcove playlist in the Brightcove player.
+	 *
+	 * @param playlistId
+	 */
 	public void queuePlaylist(String playlistId)
 	{
 		brightcoveVideoView.stopPlayback();
@@ -72,6 +79,12 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			}
 		});
 	}
+
+	/**
+	 * Queue a particular Brightcove video in the Brightcove player.
+	 *
+	 * @param videoId
+	 */
 	public void queueVideo(String videoId)
 	{
 		brightcoveVideoView.stopPlayback();

@@ -10,6 +10,8 @@ import com.cube.lush.player.presenter.ChannelPresenter;
 import java.util.Arrays;
 
 /**
+ * Fragment shown on the launch page of the app when the "Channels" menu item is selected.
+ *
  * Created by tim on 30/11/2016.
  */
 public class ChannelsFragment extends MediaBrowseFragment

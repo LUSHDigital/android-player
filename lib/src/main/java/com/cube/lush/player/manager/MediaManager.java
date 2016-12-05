@@ -23,12 +23,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * Manages requests for media, returning it to the requester from the most appropriate source. Currently gets data from API without caching, but in future (and
+ * especially for phone app) should support caching.
+ *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */
 public class MediaManager
 {
-	@Getter private static MediaManager instance;
+	@Getter
+	private static MediaManager instance;
 	private LushAPI api;
 
 	public static void initialise(@NonNull LushAPI api)
@@ -53,7 +57,8 @@ public class MediaManager
 
 		getVideos(new ResponseHandler<VideoContent>()
 		{
-			@Override public void onSuccess(@NonNull List<VideoContent> items)
+			@Override
+			public void onSuccess(@NonNull List<VideoContent> items)
 			{
 				if (!items.isEmpty())
 				{
@@ -68,7 +73,8 @@ public class MediaManager
 				}
 			}
 
-			@Override public void onFailure(@Nullable Throwable t)
+			@Override
+			public void onFailure(@Nullable Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -76,7 +82,8 @@ public class MediaManager
 
 		getRadios(new ResponseHandler<RadioContent>()
 		{
-			@Override public void onSuccess(@NonNull List<RadioContent> items)
+			@Override
+			public void onSuccess(@NonNull List<RadioContent> items)
 			{
 				if (!items.isEmpty())
 				{
@@ -91,7 +98,8 @@ public class MediaManager
 				}
 			}
 
-			@Override public void onFailure(@Nullable Throwable t)
+			@Override
+			public void onFailure(@Nullable Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -108,7 +116,8 @@ public class MediaManager
 		final Call<List<VideoContent>> videoCall = api.getVideos();
 		videoCall.enqueue(new Callback<List<VideoContent>>()
 		{
-			@Override public void onResponse(@NonNull final Call<List<VideoContent>> call, @NonNull final Response<List<VideoContent>> videoResponse)
+			@Override
+			public void onResponse(@NonNull final Call<List<VideoContent>> call, @NonNull final Response<List<VideoContent>> videoResponse)
 			{
 				if (!videoResponse.isSuccessful())
 				{
@@ -125,7 +134,8 @@ public class MediaManager
 				handler.onSuccess(videos);
 			}
 
-			@Override public void onFailure(@Nullable final Call<List<VideoContent>> call, @Nullable final Throwable t)
+			@Override
+			public void onFailure(@Nullable final Call<List<VideoContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -142,7 +152,8 @@ public class MediaManager
 		final Call<List<RadioContent>> radioCall = api.getRadios();
 		radioCall.enqueue(new Callback<List<RadioContent>>()
 		{
-			@Override public void onResponse(@NonNull final Call<List<RadioContent>> call, @NonNull final Response<List<RadioContent>> radioResponse)
+			@Override
+			public void onResponse(@NonNull final Call<List<RadioContent>> call, @NonNull final Response<List<RadioContent>> radioResponse)
 			{
 				if (!radioResponse.isSuccessful())
 				{
@@ -159,7 +170,8 @@ public class MediaManager
 				handler.onSuccess(radios);
 			}
 
-			@Override public void onFailure(@Nullable final Call<List<RadioContent>> call, @Nullable final Throwable t)
+			@Override
+			public void onFailure(@Nullable final Call<List<RadioContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -172,7 +184,9 @@ public class MediaManager
 	 * @param channel
 	 * @param handler
 	 */
-	public void getChannelContent(@NonNull final Channel channel, @Nullable CategoryContentType contentType, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getChannelContent(@NonNull final Channel channel,
+	                              @Nullable CategoryContentType contentType,
+	                              @NonNull final ResponseHandler<MediaContent> handler)
 	{
 		getChannelContent(channel.getId(), contentType, handler);
 	}
@@ -183,14 +197,17 @@ public class MediaManager
 	 * @param channelId
 	 * @param handler
 	 */
-	public void getChannelContent(@NonNull final String channelId, @Nullable CategoryContentType contentType, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getChannelContent(@NonNull final String channelId,
+	                              @Nullable CategoryContentType contentType,
+	                              @NonNull final ResponseHandler<MediaContent> handler)
 	{
 		String contentTypeName = contentType == null ? null : contentType.getName();
 		Call<List<MediaContent>> channelCall = api.getCategories(channelId, contentTypeName);
 
 		channelCall.enqueue(new Callback<List<MediaContent>>()
 		{
-			@Override public void onResponse(@NonNull final Call<List<MediaContent>> call, @NonNull final Response<List<MediaContent>> channelResponse)
+			@Override
+			public void onResponse(@NonNull final Call<List<MediaContent>> call, @NonNull final Response<List<MediaContent>> channelResponse)
 			{
 				if (!channelResponse.isSuccessful())
 				{
@@ -207,7 +224,8 @@ public class MediaManager
 				handler.onSuccess(channels);
 			}
 
-			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
+			@Override
+			public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -236,7 +254,8 @@ public class MediaManager
 
 		playlistCall.enqueue(new Callback<List<MediaContent>>()
 		{
-			@Override public void onResponse(@NonNull final Call<List<MediaContent>> call, @NonNull final Response<List<MediaContent>> mediaResponse)
+			@Override
+			public void onResponse(@NonNull final Call<List<MediaContent>> call, @NonNull final Response<List<MediaContent>> mediaResponse)
 			{
 				if (!mediaResponse.isSuccessful())
 				{
@@ -253,7 +272,8 @@ public class MediaManager
 				handler.onSuccess(mediaContent);
 			}
 
-			@Override public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
+			@Override
+			public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
 			{
 				handler.onFailure(t);
 			}
@@ -272,7 +292,8 @@ public class MediaManager
 
 		programmeCall.enqueue(new Callback<List<Programme>>()
 		{
-			@Override public void onResponse(Call<List<Programme>> call, Response<List<Programme>> programmeResponse)
+			@Override
+			public void onResponse(Call<List<Programme>> call, Response<List<Programme>> programmeResponse)
 			{
 				if (!programmeResponse.isSuccessful())
 				{
@@ -289,7 +310,8 @@ public class MediaManager
 				handler.onSuccess(programmes);
 			}
 
-			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
+			@Override
+			public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
 				handler.onFailure(t);
 			}

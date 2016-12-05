@@ -19,6 +19,8 @@ import com.cube.lush.player.presenter.GridPresenter;
 import java.io.Serializable;
 
 /**
+ * Base fragment for displaying a vertically-scrolling three-column grid of Lush content.
+ *
  * Created by tim on 30/11/2016.
  */
 public class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider

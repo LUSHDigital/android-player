@@ -2,7 +2,6 @@ package com.cube.lush.player;
 
 import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
@@ -13,10 +12,10 @@ import com.cube.lush.player.factory.MenuFragmentFactory;
 import java.util.Arrays;
 
 /**
- * Modified the default BrowseFragment to use PageRows, instead of ListRows.
+ * Landing page for the app, displaying a menu for "Home", "Live", and "Channels" on the left, and associated content on the right.
  * <p/>
- * This is to meet the design requirements that (i) only one row is displayed at once, instead of the grid behaviour implemented by RowsFragment, and (ii) to
- * enable a vertical grid style for the home row.
+ * Modifies the default BrowseFragment to use PageRows, instead of ListRows. This is to meet the design requirements that (i) only one row is displayed at once,
+ * instead of the grid behaviour implemented by RowsFragment, and (ii) to enable a vertical grid style for the home and channels pages.
  * <p>
  * Created by tim on 24/11/2016.
  */
@@ -36,7 +35,7 @@ public class MainFragment extends LushBrowseFragment
 
 		// The badge is very wide compared to its height, so reduce the height a bit or it looks too big
 		ImageView badge = (ImageView) getTitleView().findViewById(R.id.title_badge);
-		badge.getLayoutParams().height = 30;
+		badge.getLayoutParams().height /= 2;
 	}
 
 	private void initialiseMenu()
@@ -54,9 +53,7 @@ public class MainFragment extends LushBrowseFragment
 		getMainFragmentRegistry().registerFragment(PageRow.class, fragmentFactory);
 
 		// Create and populate the main adapter
-		ClassPresenterSelector mainPresenterSelector = new ClassPresenterSelector();
-		mainPresenterSelector.addClassPresenter(PageRow.class, new InvisibleRowPresenter());
-		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(mainPresenterSelector);
+		ArrayObjectAdapter mainAdapter = new ArrayObjectAdapter(new InvisibleRowPresenter());
 		mainAdapter.addAll(0, Arrays.asList(homeRow, liveRow, channelsRow));
 		setAdapter(mainAdapter);
 	}

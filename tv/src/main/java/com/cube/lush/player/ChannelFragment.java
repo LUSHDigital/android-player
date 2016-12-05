@@ -22,6 +22,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Displays content associated with a specific Lush channel.
+ * <p />
+ * Expects a {@link Channel} object to be passed in to its parent activity intent.
+ *
  * Created by tim on 24/11/2016.
  */
 public class ChannelFragment extends LushBrowseFragment

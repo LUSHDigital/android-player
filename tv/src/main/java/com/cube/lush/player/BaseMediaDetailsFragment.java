@@ -3,6 +3,7 @@ package com.cube.lush.player;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +12,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +22,9 @@ import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.Programme;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -42,8 +45,9 @@ import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
  */
 public abstract class BaseMediaDetailsFragment extends BrandedFragment implements MediaDetailsFlow
 {
-	@BindView(R.id.progress) protected ProgressBar progressBar;
-	@BindView(R.id.container) protected LinearLayout contentContainer;
+	@BindView(R.id.container) protected ViewGroup contentContainer;
+	@BindView(R.id.left_panel) protected ViewGroup leftPanel;
+	@BindView(R.id.right_panel) protected ViewGroup rightPanel;
 	@BindView(R.id.background_image) protected ImageView backgroundImage;
 	@BindView(R.id.play_button) protected Button playButton;
 	@BindView(R.id.live_indicator) protected ImageView liveIndicator;
@@ -51,14 +55,13 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	@BindView(R.id.start_end_time) protected TextView startEndTime;
 	@BindView(R.id.description) protected TextView description;
 	@BindView(R.id.time_remaining) protected TextView timeRemaining;
-	@BindView(R.id.right_side) protected LinearLayout rightSide;
 	protected MediaContent mediaContent;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.fragment_media_details, container, false);
 		ButterKnife.bind(this, view);
-
+		leftPanel.setVisibility(View.INVISIBLE);
 		return view;
 	}
 
@@ -66,6 +69,9 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+
+		// Start a spinner
+		SpinnerFragment.show(getChildFragmentManager(), contentContainer);
 
 		Activity activity = getActivity();
 
@@ -83,10 +89,9 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 
 		Object item = intent.getSerializableExtra(EXTRA_MEDIA);
 
-		if (item != null && item instanceof MediaContent)
+		if (item instanceof MediaContent)
 		{
-			this.mediaContent = (MediaContent)item;
-			populateContentView(mediaContent);
+			populateContentView((MediaContent) item);
 			return;
 		}
 
@@ -103,8 +108,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			{
 				if (!items.isEmpty())
 				{
-					mediaContent = items.get(0);
-					populateContentView(mediaContent);
+					populateContentView(items.get(0));
 				}
 			}
 
@@ -115,57 +119,78 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 		});
 	}
 
-	@Override public void populateContentView(@NonNull MediaContent item)
+	/**
+	 * Should be called by extending classes to indicate that the left side content panel can be revealed
+	 */
+	@Override
+	public void populateContentView(MediaContent item)
 	{
+		mediaContent = item;
 		title.setText(item.getTitle());
 		description.setText(item.getDescription());
-	}
-
-	@Override public void revealContentView()
-	{
-		makeContentVisible(true);
-	}
-
-	/**
-	 * Toggles content (and progress bar) visibility
-	 * @param shouldBeVisible
-	 */
-	private void makeContentVisible(boolean shouldBeVisible)
-	{
-		if (shouldBeVisible)
-		{
-			progressBar.setVisibility(View.GONE);
-			contentContainer.setVisibility(View.VISIBLE);
-		}
-		else
-		{
-			progressBar.setVisibility(View.VISIBLE);
-			contentContainer.setVisibility(View.GONE);
-		}
-
+		leftPanel.setVisibility(View.VISIBLE);
+		SpinnerFragment.hide(getChildFragmentManager());
 		populateHiddenView(mediaContent);
 	}
 
-	@Override public abstract void populateHiddenView(@NonNull MediaContent item);
+	/**
+	 * Populates the right side content. By default, fetches any thumbnail associated with the item and reveals the panel when it is loaded.
+	 *
+	 * @param item that will be used to populate the view
+	 */
+	@Override public void populateHiddenView(@NonNull MediaContent item)
+	{
+		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
+		{
+			@Override
+			public void onLoadingStarted(String imageUri, View view)
+			{
+
+			}
+
+			@Override
+			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+			{
+
+			}
+
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+			{
+				if (backgroundImage != null)
+				{
+					backgroundImage.setImageBitmap(loadedImage);
+					revealHiddenView();
+				}
+			}
+
+			@Override
+			public void onLoadingCancelled(String imageUri, View view)
+			{
+
+			}
+		});
+	}
 
 	/**
 	 * Animates the black overlay panel displayed on the right side of the fragment so that it reveals what is behind it.
 	 */
 	@Override public void revealHiddenView()
 	{
-		rightSide.setPivotX(0);
+		rightPanel.setPivotX(0);
 
-		ValueAnimator anim = ValueAnimator.ofInt(rightSide.getMeasuredWidth(), 0);
+		ValueAnimator anim = ValueAnimator.ofInt(rightPanel.getMeasuredWidth(), 0);
 		anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 			@Override
 			public void onAnimationUpdate(ValueAnimator valueAnimator) {
 				int val = (Integer) valueAnimator.getAnimatedValue();
-				ViewGroup.LayoutParams layoutParams = rightSide.getLayoutParams();
+				ViewGroup.LayoutParams layoutParams = rightPanel.getLayoutParams();
 				layoutParams.width = val;
-				rightSide.setLayoutParams(layoutParams);
+				rightPanel.setLayoutParams(layoutParams);
 			}
 		});
-		anim.setDuration(1000);
+		anim.setInterpolator(new AccelerateDecelerateInterpolator());
+		anim.setDuration(500);
 		anim.start();
 	}
 

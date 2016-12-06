@@ -16,7 +16,6 @@ import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.event.EventEmitter;
 import com.brightcove.player.media.DeliveryType;
-import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
@@ -36,7 +35,6 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		View view = inflater.inflate(R.layout.fragment_playback, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
-		brightcoveVideoView.setMediaController((BrightcoveMediaController) null);
 
 		super.onCreateView(inflater, container, savedInstanceState);
 
@@ -104,6 +102,12 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				brightcoveVideoView.addAll(playlist.getVideos());
 				brightcoveVideoView.start();
 			}
+
+			@Override
+			public void onError(String error)
+			{
+				super.onError(error);
+			}
 		});
 	}
 
@@ -150,7 +154,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		brightcoveVideoView.stopPlayback();
 
-		if (fileUrl.endsWith(".mp4"))
+		//if (fileUrl.endsWith(".mp4"))
 		{
 			brightcoveVideoView.add(Video.createVideo(fileUrl, DeliveryType.MP4));
 			brightcoveVideoView.start();

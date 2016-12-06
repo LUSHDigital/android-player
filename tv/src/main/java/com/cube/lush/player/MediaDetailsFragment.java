@@ -2,14 +2,11 @@ package com.cube.lush.player;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.cube.lush.player.model.MediaContent;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.cube.lush.player.model.RadioContent;
 
 /**
  * Displays details for a specific {@link MediaContent}, with a thumbnail for the content being loaded and revealed in the right-hand pane.
@@ -29,54 +26,6 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 
 		playButton.setText("Play");
 		startEndTime.setText(item.getDate().toString());
-
-		revealContentView();
-	}
-
-	@Override public void revealContentView()
-	{
-		super.revealContentView();
-
-		populateHiddenView(mediaContent);
-	}
-
-	@Override public void populateHiddenView(@NonNull MediaContent item)
-	{
-		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
-		{
-			@Override
-			public void onLoadingStarted(String imageUri, View view)
-			{
-
-			}
-
-			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-			{
-
-			}
-
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-			{
-				if (backgroundImage != null)
-				{
-					backgroundImage.setImageBitmap(loadedImage);
-					revealHiddenView();
-				}
-			}
-
-			@Override
-			public void onLoadingCancelled(String imageUri, View view)
-			{
-
-			}
-		});
-	}
-
-	@Override public void revealHiddenView()
-	{
-		super.revealHiddenView();
 	}
 
 	@Override public void playButtonClicked(View view)
@@ -89,12 +38,28 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		Context context = getActivity();
 		String id = null;
 
-		if (mediaContent != null)
+		if (mediaContent == null)
 		{
-			id = mediaContent.getId();
+			return;
 		}
 
-		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.VIDEO, id);
-		getActivity().startActivity(intent);
+		switch (mediaContent.getType())
+		{
+			case TV:
+			{
+				Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.VIDEO, mediaContent.getId());
+				getActivity().startActivity(intent);
+				break;
+			}
+			case RADIO:
+			{
+				if (mediaContent instanceof RadioContent)
+				{
+					Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, ((RadioContent)mediaContent).getFile());
+					getActivity().startActivity(intent);
+				}
+				break;
+			}
+		}
 	}
 }

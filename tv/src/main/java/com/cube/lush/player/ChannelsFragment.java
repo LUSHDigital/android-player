@@ -14,7 +14,7 @@ import java.util.Arrays;
  *
  * Created by tim on 30/11/2016.
  */
-public class ChannelsFragment extends MediaBrowseFragment
+public class ChannelsFragment extends BaseMediaBrowseFragment
 {
 	private ArrayObjectAdapter adapter = new ArrayObjectAdapter(new ChannelPresenter());
 

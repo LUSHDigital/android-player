@@ -10,4 +10,5 @@
 
     <color name="material_red">#F44336</color>
 
+    <color name="bmc_seekbar_played">@color/material_red</color>
 </resources>

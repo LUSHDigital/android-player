@@ -1,120 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:id="@+id/container"
 >
-	<ProgressBar
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/progress"
-		android:layout_centerInParent="true"
-		style="@android:style/Widget.Material.Light.ProgressBar.Large"
-		android:indeterminate="true"
-		android:indeterminateTint="@android:color/white"
-		android:indeterminateTintMode="src_in"
-		android:visibility="visible"
-	/>
-
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:id="@+id/container"
 		android:weightSum="2"
 	>
 		<LinearLayout
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
+			android:id="@+id/left_panel"
 			android:layout_weight="1"
+			android:gravity="center"
 			android:background="@android:color/black"
+			android:orientation="vertical"
+			android:padding="32dp"
 		>
+			<!-- Left side content -->
+
+			<!-- First row with title and live indicator -->
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_gravity="center_vertical"
-				android:layout_margin="32dp"
-				android:orientation="vertical"
+				android:orientation="horizontal"
+				android:gravity="center"
 			>
-				<!-- Left side content -->
-
-				<!-- First row with title and live indicator -->
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal"
-					android:gravity="center"
-				>
-					<ImageView
-						android:layout_width="16dp"
-						android:layout_height="16dp"
-						android:id="@+id/live_indicator"
-						android:layout_marginEnd="16dp"
-						android:layout_gravity="center"
-					/>
-
-					<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:id="@+id/title"
-						style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
-						android:includeFontPadding="true"
-						android:gravity="center_vertical|start"
-						tools:text="LIVE: Fresh from Lush Kitchen"
-					/>
-				</LinearLayout>
-
-				<!-- Second row with live times -->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:id="@+id/start_end_time"
-					android:layout_marginTop="16dp"
-					style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
-					android:textColor="@color/text_dark"
-					android:textSize="13sp"
-					android:text="09:00am - 10:00am GMT"
-				/>
-
-				<!-- Watch Live Button -->
-				<com.cube.lush.player.view.LushButton
-					android:layout_width="wrap_content"
-					android:layout_height="@dimen/lb_action_2_lines_height"
-					android:id="@+id/play_button"
-					android:layout_marginBottom="32dp"
-					android:layout_marginTop="32dp"
-					style="@style/AppDetailsActionButtonStyle"
-					android:gravity="center"
-					android:text="Watch Live"
-					android:drawablePadding="24dp"
-					android:drawableStart="@drawable/ic_play_circle_filled_black_36dp"
-					android:paddingStart="32dp"
-					android:paddingEnd="48dp"
-				/>
-
-				<!-- Description -->
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:id="@+id/description"
-					style="@style/Widget.Leanback.DetailsDescriptionBodyStyle"
-					android:textSize="13sp"
-					android:textColor="@color/text_light"
-					android:lineSpacingMultiplier="1.5"
-					tools:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
+				<ImageView
+					android:layout_width="16dp"
+					android:layout_height="16dp"
+					android:id="@+id/live_indicator"
+					android:layout_marginEnd="16dp"
+					android:layout_gravity="center"
 				/>
 
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:id="@+id/time_remaining"
-					android:layout_marginTop="32dp"
-					style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
-					android:textColor="@color/text_dark"
-					android:textSize="13sp"
-					android:text="39 minutes remaining"
+					android:id="@+id/title"
+					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
+					android:includeFontPadding="false"
+					android:gravity="center_vertical|start"
+					tools:text="LIVE: Fresh from Lush Kitchen"
 				/>
 			</LinearLayout>
+
+			<!-- Second row with live times -->
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/start_end_time"
+				android:layout_marginTop="16dp"
+				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
+				android:textColor="@color/text_dark"
+				android:textSize="13sp"
+				android:text="09:00am - 10:00am GMT"
+			/>
+
+			<!-- Watch Live Button -->
+			<com.cube.lush.player.view.LushButton
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/lb_action_2_lines_height"
+				android:id="@+id/play_button"
+				android:layout_marginBottom="32dp"
+				android:layout_marginTop="32dp"
+				style="@style/AppDetailsActionButtonStyle"
+				android:gravity="center"
+				android:text="Watch Live"
+				android:drawablePadding="24dp"
+				android:drawableStart="@drawable/ic_play_circle_filled_black_36dp"
+				android:paddingStart="32dp"
+				android:paddingEnd="48dp"
+			/>
+
+			<!-- Description -->
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/description"
+				style="@style/Widget.Leanback.DetailsDescriptionBodyStyle"
+				android:textSize="13sp"
+				android:textColor="@color/text_light"
+				android:lineSpacingMultiplier="1.5"
+				tools:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
+			/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/time_remaining"
+				android:layout_marginTop="32dp"
+				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
+				android:textColor="@color/text_dark"
+				android:textSize="13sp"
+				android:text="39 minutes remaining"
+			/>
 		</LinearLayout>
 
 		<FrameLayout
@@ -141,7 +125,7 @@
 				<LinearLayout
 					android:layout_width="1000dp"
 					android:layout_height="match_parent"
-					android:id="@+id/right_side"
+					android:id="@+id/right_panel"
 					android:background="@android:color/black"
 					android:gravity="right"
 					android:orientation="horizontal"
@@ -150,11 +134,11 @@
 				<LinearLayout
 					android:layout_width="50dp"
 					android:layout_height="match_parent"
-					android:layout_toLeftOf="@id/right_side"
+					android:layout_toLeftOf="@id/right_panel"
 					android:background="@drawable/faded_background"
 					android:orientation="horizontal"
 				/>
 			</LinearLayout>
 		</FrameLayout>
 	</LinearLayout>
-</RelativeLayout>
+</FrameLayout>

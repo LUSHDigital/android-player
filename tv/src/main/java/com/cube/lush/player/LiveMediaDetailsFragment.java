@@ -7,10 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import com.cube.lush.player.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.model.MediaContent;
 
 /**
@@ -19,8 +21,10 @@ import com.cube.lush.player.model.MediaContent;
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */
-public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment
+public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
+	private BrowseFragment.MainFragmentAdapter<LiveMediaDetailsFragment> mainFragmentAdapter;
+
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
@@ -84,5 +88,15 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment
 
 		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id);
 		getActivity().startActivity(intent);
+	}
+
+	@Override
+	public BrowseFragment.MainFragmentAdapter<LiveMediaDetailsFragment> getMainFragmentAdapter()
+	{
+		if (mainFragmentAdapter == null)
+		{
+			mainFragmentAdapter = new BasicMainFragmentAdapter<>(this);
+		}
+		return mainFragmentAdapter;
 	}
 }

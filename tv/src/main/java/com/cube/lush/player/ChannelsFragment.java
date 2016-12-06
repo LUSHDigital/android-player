@@ -16,14 +16,20 @@ import java.util.Arrays;
  */
 public class ChannelsFragment extends MediaBrowseFragment
 {
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
+	private ArrayObjectAdapter adapter = new ArrayObjectAdapter(new ChannelPresenter());
 
-	    ChannelPresenter channelPresenter = new ChannelPresenter();
-		ArrayObjectAdapter adapter = new ArrayObjectAdapter(channelPresenter);
-		adapter.addAll(0, Arrays.asList(Channel.values()));
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
 		setAdapter(adapter);
+	}
+
+	@Override
+	protected void fetchData()
+	{
+		adapter.clear();
+		adapter.addAll(0, Arrays.asList(Channel.values()));
+		setLoadingFinished(false);
 	}
 }

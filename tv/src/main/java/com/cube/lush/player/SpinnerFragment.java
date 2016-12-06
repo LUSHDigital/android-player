@@ -1,18 +1,11 @@
 package com.cube.lush.player;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.res.Resources;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-
-import lombok.Setter;
 
 /**
  * Displayed to the user in order to indicate that data is loading.
@@ -22,37 +15,29 @@ import lombok.Setter;
  */
 public class SpinnerFragment extends Fragment
 {
-	@Setter private Context context;
+	private static final String SPINNER_FRAGMENT_TAG = "spinner";
 
-	public static SpinnerFragment newInstance(@NonNull Context context)
+	public static void show(FragmentManager fragmentManager, View parentView)
 	{
-		SpinnerFragment spinnerFragment = new SpinnerFragment();
-		spinnerFragment.setContext(context);
-
-		return spinnerFragment;
+		if (parentView != null && fragmentManager.findFragmentByTag(SPINNER_FRAGMENT_TAG) == null)
+		{
+			fragmentManager.beginTransaction().add(parentView.getId(), new SpinnerFragment(), SPINNER_FRAGMENT_TAG).commit();
+		}
 	}
 
-	@Override public void onActivityCreated(Bundle savedInstanceState)
+	public static void hide(FragmentManager fragmentManager)
 	{
-		super.onActivityCreated(savedInstanceState);
-
-		context = getActivity();
+		fragmentManager.executePendingTransactions();
+		Fragment spinnerFragment = fragmentManager.findFragmentByTag(SPINNER_FRAGMENT_TAG);
+		if (spinnerFragment != null)
+		{
+			fragmentManager.beginTransaction().remove(spinnerFragment).commit();
+		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		ProgressBar progressBar = new ProgressBar(context);
-
-		if (container instanceof FrameLayout)
-		{
-			Resources resources = context.getResources();
-			int width = resources.getDimensionPixelSize(R.dimen.spinner_width);
-			int height = resources.getDimensionPixelSize(R.dimen.spinner_height);
-			FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width, height, Gravity.CENTER);
-			progressBar.setLayoutParams(layoutParams);
-		}
-
-		return progressBar;
+		return inflater.inflate(R.layout.fragment_spinner, container, false);
 	}
 }

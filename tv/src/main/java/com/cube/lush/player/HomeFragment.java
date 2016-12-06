@@ -27,30 +27,25 @@ public class HomeFragment extends MediaBrowseFragment
 	{
 		super.onCreate(savedInstanceState);
 		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		getMediaContent();
-	}
-
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
 		setAdapter(mMediaAdapter);
 	}
 
-	private void getMediaContent()
+	@Override
+	protected void fetchData()
 	{
 		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
+				setLoadingFinished(false);
 				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
-
 				mMediaAdapter.clear();
 				mMediaAdapter.addAll(0, items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
+				setLoadingFinished(true);
 				mMediaAdapter.clear();
 			}
 		});

@@ -20,12 +20,16 @@ import java.io.Serializable;
 
 /**
  * Base fragment for displaying a vertically-scrolling three-column grid of Lush content.
+ * <p />
+ * The fragment will automatically display {@link SpinnerFragment} as an overlay until {@link #setLoadingFinished(boolean)} has been called.
  *
  * Created by tim on 30/11/2016.
  */
-public class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
+public abstract class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
 	private BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> mainFragmentAdapter;
+
+	private boolean isLoading = true;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState)
@@ -62,6 +66,13 @@ public class MediaBrowseFragment extends VerticalGridFragment implements BrowseF
 	}
 
 	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+		startLoading();
+	}
+
+	@Override
 	public BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> getMainFragmentAdapter()
 	{
 		if (mainFragmentAdapter == null)
@@ -69,5 +80,37 @@ public class MediaBrowseFragment extends VerticalGridFragment implements BrowseF
 			mainFragmentAdapter = new BasicMainFragmentAdapter<>(this);
 		}
 		return mainFragmentAdapter;
+	}
+
+
+	protected abstract void fetchData();
+
+	protected void setLoadingFinished(boolean isError)
+	{
+		isLoading = false;
+		SpinnerFragment.hide(getChildFragmentManager());
+
+		if (isError && getView() != null && getView().getId() != 0)
+		{
+			ErrorFragment.show(getChildFragmentManager(), getView(), new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					isLoading = true;
+					ErrorFragment.hide(getChildFragmentManager());
+					startLoading();
+				}
+			});
+		}
+	}
+
+	protected void startLoading()
+	{
+		fetchData();
+		if (isLoading && getView() != null && getView().getId() != 0)
+		{
+			SpinnerFragment.show(getChildFragmentManager(), getView());
+		}
 	}
 }

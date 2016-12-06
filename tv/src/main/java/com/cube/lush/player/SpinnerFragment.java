@@ -27,6 +27,7 @@ public class SpinnerFragment extends Fragment
 
 	public static void hide(FragmentManager fragmentManager)
 	{
+		fragmentManager.executePendingTransactions();
 		Fragment spinnerFragment = fragmentManager.findFragmentByTag(SPINNER_FRAGMENT_TAG);
 		if (spinnerFragment != null)
 		{

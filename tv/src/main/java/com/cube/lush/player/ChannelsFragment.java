@@ -25,5 +25,6 @@ public class ChannelsFragment extends MediaBrowseFragment
 		ArrayObjectAdapter adapter = new ArrayObjectAdapter(channelPresenter);
 		adapter.addAll(0, Arrays.asList(Channel.values()));
 		setAdapter(adapter);
+		setLoadingFinished();
 	}
 }

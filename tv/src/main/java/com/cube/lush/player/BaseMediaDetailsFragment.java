@@ -195,7 +195,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			}
 		});
 		anim.setInterpolator(new AccelerateDecelerateInterpolator());
-		anim.setDuration(500);
+		anim.setDuration(1000);
 		anim.start();
 	}
 

@@ -195,8 +195,5 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	}
 
 	@OnClick(R.id.play_button)
-	public void playButtonClicked(View view)
-	{
-		Toast.makeText(getActivity(), "Play button clicked!", Toast.LENGTH_SHORT).show();
-	}
+	public abstract void playButtonClicked(View view);
 }

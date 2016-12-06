@@ -43,7 +43,7 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/title"
 					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
-					android:includeFontPadding="true"
+					android:includeFontPadding="false"
 					android:gravity="center_vertical|start"
 					tools:text="LIVE: Fresh from Lush Kitchen"
 				/>

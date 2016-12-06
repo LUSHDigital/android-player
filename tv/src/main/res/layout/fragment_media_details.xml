@@ -77,7 +77,7 @@
 				/>
 
 				<!-- Watch Live Button -->
-				<Button
+				<com.cube.lush.player.view.LushButton
 					android:layout_width="wrap_content"
 					android:layout_height="@dimen/lb_action_2_lines_height"
 					android:id="@+id/play_button"

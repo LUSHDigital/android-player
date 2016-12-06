@@ -21,11 +21,11 @@ import java.io.Serializable;
 /**
  * Base fragment for displaying a vertically-scrolling three-column grid of Lush content.
  * <p />
- * The fragment will automatically display {@link SpinnerFragment} as an overlay until {@link #setLoadingFinished()} has been called.
+ * The fragment will automatically display {@link SpinnerFragment} as an overlay until {@link #setLoadingFinished(boolean)} has been called.
  *
  * Created by tim on 30/11/2016.
  */
-public class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
+public abstract class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
 	private BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> mainFragmentAdapter;
 
@@ -69,11 +69,7 @@ public class MediaBrowseFragment extends VerticalGridFragment implements BrowseF
 	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-
-		if (isLoading && getView() != null && getView().getId() != 0)
-		{
-			SpinnerFragment.show(getChildFragmentManager(), getView());
-		}
+		startLoading();
 	}
 
 	@Override
@@ -86,9 +82,35 @@ public class MediaBrowseFragment extends VerticalGridFragment implements BrowseF
 		return mainFragmentAdapter;
 	}
 
-	public void setLoadingFinished()
+
+	protected abstract void fetchData();
+
+	protected void setLoadingFinished(boolean isError)
 	{
 		isLoading = false;
 		SpinnerFragment.hide(getChildFragmentManager());
+
+		if (isError && getView() != null && getView().getId() != 0)
+		{
+			ErrorFragment.show(getChildFragmentManager(), getView(), new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					isLoading = true;
+					ErrorFragment.hide(getChildFragmentManager());
+					startLoading();
+				}
+			});
+		}
+	}
+
+	protected void startLoading()
+	{
+		fetchData();
+		if (isLoading && getView() != null && getView().getId() != 0)
+		{
+			SpinnerFragment.show(getChildFragmentManager(), getView());
+		}
 	}
 }

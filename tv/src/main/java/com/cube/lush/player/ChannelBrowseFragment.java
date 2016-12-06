@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by tim on 06/12/2016.
  */
-public class ChannelBrowseFragment extends MediaBrowseFragment
+public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 {
 	private Channel channel;
 	private CategoryContentType contentType;

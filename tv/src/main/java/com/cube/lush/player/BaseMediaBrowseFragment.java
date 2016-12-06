@@ -25,9 +25,9 @@ import java.io.Serializable;
  *
  * Created by tim on 30/11/2016.
  */
-public abstract class MediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
+public abstract class BaseMediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
-	private BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> mainFragmentAdapter;
+	private BrowseFragment.MainFragmentAdapter<BaseMediaBrowseFragment> mainFragmentAdapter;
 
 	private boolean isLoading = true;
 
@@ -73,7 +73,7 @@ public abstract class MediaBrowseFragment extends VerticalGridFragment implement
 	}
 
 	@Override
-	public BrowseFragment.MainFragmentAdapter<MediaBrowseFragment> getMainFragmentAdapter()
+	public BrowseFragment.MainFragmentAdapter<BaseMediaBrowseFragment> getMainFragmentAdapter()
 	{
 		if (mainFragmentAdapter == null)
 		{
@@ -87,6 +87,12 @@ public abstract class MediaBrowseFragment extends VerticalGridFragment implement
 
 	protected void setLoadingFinished(boolean isError)
 	{
+		// This method is designed to be called from async methods so make sure we've not lost context since then
+		if (getActivity() == null)
+		{
+			return;
+		}
+
 		isLoading = false;
 		SpinnerFragment.hide(getChildFragmentManager());
 

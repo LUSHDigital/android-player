@@ -18,7 +18,7 @@ import java.util.List;
  *
  * Created by tim on 30/11/2016.
  */
-public class HomeFragment extends MediaBrowseFragment
+public class HomeFragment extends BaseMediaBrowseFragment
 {
 	private ArrayObjectAdapter mMediaAdapter;
 

@@ -119,6 +119,12 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 	{
 		super.populateContentView(item);
 
+		// This method is designed to be called from async methods so make sure we've not lost context since then
+		if (getActivity() == null)
+		{
+			return;
+		}
+
 		// TODO:
 		//		startEndTime.setText("");
 		//		timeRemaining.setText("");

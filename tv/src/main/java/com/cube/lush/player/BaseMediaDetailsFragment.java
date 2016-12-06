@@ -16,7 +16,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
@@ -125,6 +124,12 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	@Override
 	public void populateContentView(MediaContent item)
 	{
+		// This method is designed to be called from async methods so make sure we've not lost context since then
+		if (getActivity() == null)
+		{
+			return;
+		}
+
 		mediaContent = item;
 		title.setText(item.getTitle());
 		description.setText(item.getDescription());

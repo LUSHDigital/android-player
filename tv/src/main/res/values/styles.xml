@@ -15,11 +15,10 @@
    </style>
 
     <style name="AppImageCardViewInfoAreaStyle" parent="Widget.Leanback.ImageCardView.InfoAreaStyle">
-        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingStart">10dp</item>
     </style>
 
     <style name="AppImageCardViewTitleStyle" parent="Widget.Leanback.ImageCardView.TitleStyle">
-    	<item name="android:textStyle">bold|italic</item>
 		<item name="android:layout_marginTop">@dimen/lb_basic_card_info_text_margin</item>
 		<item name="android:layout_marginBottom">@dimen/lb_basic_card_info_text_margin</item>
     </style>

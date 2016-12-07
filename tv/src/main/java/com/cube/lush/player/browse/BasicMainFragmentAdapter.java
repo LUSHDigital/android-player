@@ -1,4 +1,4 @@
-package com.cube.lush.player.adapter;
+package com.cube.lush.player.browse;
 
 import android.app.Fragment;
 import android.support.v17.leanback.app.BrowseFragment;

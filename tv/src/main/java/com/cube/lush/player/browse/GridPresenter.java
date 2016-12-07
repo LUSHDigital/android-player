@@ -1,4 +1,4 @@
-package com.cube.lush.player.presenter;
+package com.cube.lush.player.browse;
 
 import android.support.v17.leanback.widget.VerticalGridPresenter;
 

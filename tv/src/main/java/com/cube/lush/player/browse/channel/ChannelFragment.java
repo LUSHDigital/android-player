@@ -1,4 +1,4 @@
-package com.cube.lush.player;
+package com.cube.lush.player.browse.channel;
 
 import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -6,7 +6,8 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 
-import com.cube.lush.player.factory.MenuFragmentFactory;
+import com.cube.lush.player.browse.LushBrowseFragment;
+import com.cube.lush.player.browse.MenuFragmentFactory;
 import com.cube.lush.player.model.CategoryContentType;
 import com.cube.lush.player.model.Channel;
 

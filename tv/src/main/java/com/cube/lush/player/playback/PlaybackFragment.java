@@ -1,4 +1,4 @@
-package com.cube.lush.player;
+package com.cube.lush.player.playback;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
+import com.cube.lush.player.R;
 
 /**
  * Uses the Brightcove SDK player to playback Lush-related content, including playlists, specific videos, or remote files.

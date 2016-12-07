@@ -1,4 +1,4 @@
-package com.cube.lush.player;
+package com.cube.lush.player.details;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cube.lush.player.R;
+import com.cube.lush.player.SpinnerFragment;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
@@ -30,9 +32,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA;
-import static com.cube.lush.player.MediaDetailsActivity.EXTRA_MEDIA_ID;
 
 /**
  * Base class for showing information about a specific media item, and allows the user to play it.
@@ -86,7 +85,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			return;
 		}
 
-		Object item = intent.getSerializableExtra(EXTRA_MEDIA);
+		Object item = intent.getSerializableExtra(MediaDetailsActivity.EXTRA_MEDIA);
 
 		if (item instanceof MediaContent)
 		{
@@ -94,7 +93,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			return;
 		}
 
-		final String mediaId = intent.getStringExtra(EXTRA_MEDIA_ID);
+		final String mediaId = intent.getStringExtra(MediaDetailsActivity.EXTRA_MEDIA_ID);
 
 		if (TextUtils.isEmpty(mediaId))
 		{

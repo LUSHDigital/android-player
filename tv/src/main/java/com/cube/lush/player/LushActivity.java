@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.cube.lush.player.search.SearchActivity;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**

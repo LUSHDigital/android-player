@@ -1,10 +1,12 @@
-package com.cube.lush.player;
+package com.cube.lush.player.browse;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.view.View;
+
+import com.cube.lush.player.R;
 
 /**
  * Base fragment displaying an interface with a side menu and content view, based on the Leanback {@link BrowseFragment}.

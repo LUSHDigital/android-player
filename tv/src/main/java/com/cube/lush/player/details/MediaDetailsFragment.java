@@ -1,10 +1,12 @@
-package com.cube.lush.player;
+package com.cube.lush.player.details;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.cube.lush.player.playback.PlaybackActivity;
+import com.cube.lush.player.playback.PlaybackMethod;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.RadioContent;
 

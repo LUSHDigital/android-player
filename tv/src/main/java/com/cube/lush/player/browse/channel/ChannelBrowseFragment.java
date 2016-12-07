@@ -1,16 +1,17 @@
-package com.cube.lush.player;
+package com.cube.lush.player.browse.channel;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 
+import com.cube.lush.player.browse.BaseMediaBrowseFragment;
+import com.cube.lush.player.browse.MediaPresenter;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.CategoryContentType;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.model.MediaContent;
-import com.cube.lush.player.presenter.MediaPresenter;
 import com.cube.lush.player.util.MediaSorter;
 
 import java.util.List;

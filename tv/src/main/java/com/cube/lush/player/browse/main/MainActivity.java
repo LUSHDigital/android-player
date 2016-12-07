@@ -1,6 +1,9 @@
-package com.cube.lush.player;
+package com.cube.lush.player.browse.main;
 
 import android.os.Bundle;
+
+import com.cube.lush.player.LushActivity;
+import com.cube.lush.player.R;
 
 public class MainActivity extends LushActivity
 {

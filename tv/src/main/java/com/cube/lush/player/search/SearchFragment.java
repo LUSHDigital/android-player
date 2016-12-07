@@ -1,4 +1,4 @@
-package com.cube.lush.player;
+package com.cube.lush.player.search;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,11 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cube.lush.player.details.MediaDetailsActivity;
+import com.cube.lush.player.R;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.SearchManager;
 import com.cube.lush.player.model.SearchResult;
-import com.cube.lush.player.presenter.MediaPresenter;
-import com.cube.lush.player.presenter.SearchResultsPresenter;
+import com.cube.lush.player.browse.MediaPresenter;
 
 import java.util.List;
 

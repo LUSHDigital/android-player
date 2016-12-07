@@ -1,4 +1,4 @@
-package com.cube.lush.player.presenter;
+package com.cube.lush.player.search;
 
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;

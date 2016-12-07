@@ -1,4 +1,4 @@
-package com.cube.lush.player;
+package com.cube.lush.player.details;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,10 @@ import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.event.EventEmitterImpl;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
-import com.cube.lush.player.adapter.BasicMainFragmentAdapter;
+import com.cube.lush.player.playback.PlaybackActivity;
+import com.cube.lush.player.playback.PlaybackMethod;
+import com.cube.lush.player.R;
+import com.cube.lush.player.browse.BasicMainFragmentAdapter;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;

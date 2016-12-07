@@ -7,7 +7,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.MainApplication;
+import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.view.CardView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -101,9 +101,9 @@ public class MediaPresenter extends Presenter
 			cardView.getContentView().setVisibility(View.GONE);
 		}
 
-		int height = MainApplication.getStandardCardHeight(cardView.getContext());
-		int width = MainApplication.getStandardCardWidth(cardView.getContext());
-		int imageHeight = MainApplication.getStandardImageHeight(cardView.getContext());
+		int height = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_height);
+		int width = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_width);
+		int imageHeight = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_image_height);
 
 		cardView.getLayoutParams().height = height;
 		cardView.getLayoutParams().width = width;

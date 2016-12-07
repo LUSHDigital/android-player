@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.cube.lush.player.MainApplication;
+import com.cube.lush.player.R;
 import com.cube.lush.player.model.Channel;
 import com.cube.lush.player.view.CardView;
 
@@ -47,13 +47,8 @@ public class ChannelPresenter extends Presenter
 			cardView.setContentText("");
 		}
 
-		int height = MainApplication.getStandardCardHeight(cardView.getContext());
-		int width = MainApplication.getStandardCardWidth(cardView.getContext());
-		int imageHeight = MainApplication.getStandardImageHeight(cardView.getContext());
-
-		cardView.getLayoutParams().height = height;
-		cardView.getLayoutParams().width = width;
-
+		int width = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_width);
+		int imageHeight = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_image_height);
 		cardView.setMainImageDimensions(width, imageHeight);
 
 		cardView.setMainImageScaleType(ImageView.ScaleType.CENTER_INSIDE);

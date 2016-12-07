@@ -1,10 +1,6 @@
 package com.cube.lush.player;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -62,34 +58,5 @@ public class MainApplication extends Application
 			.build();
 
 		ImageLoader.getInstance().init(imageLoaderConfiguration);
-	}
-
-	public static int getStandardCardWidth(@NonNull Context context)
-	{
-		return (int)getPixelsFromDensityPixels(context, 250);
-	}
-
-	public static int getStandardImageHeight(@NonNull Context context)
-	{
-		// 125dp for image
-		return (int)getPixelsFromDensityPixels(context, 125);
-	}
-
-	public static int getStandardCardHeight(@NonNull Context context)
-	{
-		// 75dp for text below image
-		return (int)getPixelsFromDensityPixels(context, 200);
-	}
-
-	private static float getPixelsFromDensityPixels(@NonNull Context context, float densityPixels)
-	{
-		Resources resources = context.getResources();
-
-		if (resources != null)
-		{
-			return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, densityPixels, resources.getDisplayMetrics());
-		}
-
-		return 0;
 	}
 }

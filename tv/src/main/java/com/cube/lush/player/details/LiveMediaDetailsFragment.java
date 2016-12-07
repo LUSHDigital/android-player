@@ -63,7 +63,11 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 	public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		fetchPlaylist();
+	}
 
+	private void fetchPlaylist()
+	{
 		MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()
 		{
 			@Override
@@ -78,6 +82,19 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 			@Override
 			public void onFailure(@Nullable Throwable t)
 			{
+				populateError();
+			}
+		});
+	}
+
+	public void populateError()
+	{
+		populateError(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				fetchPlaylist();
 			}
 		});
 	}
@@ -113,6 +130,17 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 
 					populateContentView(liveMediaContent);
 				}
+				else
+				{
+					populateError();
+				}
+			}
+
+			@Override
+			public void onError(String error)
+			{
+				super.onError(error);
+				populateError();
 			}
 		});
 	}
@@ -127,10 +155,6 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		{
 			return;
 		}
-
-		// TODO:
-		//		startEndTime.setText("");
-		//		timeRemaining.setText("");
 
 		Drawable circleDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.circle);
 		liveIndicator.setImageDrawable(circleDrawable);

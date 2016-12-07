@@ -77,7 +77,7 @@ public class CardView extends ImageCardView
 		// Setup the bordered background
 		setPadding(BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH);
 		backgroundDrawable = new GradientDrawable();
-		backgroundDrawable.setColor(Color.TRANSPARENT);
+		backgroundDrawable.setColor(Color.BLACK);
 		backgroundDrawable.setStroke(BORDER_WIDTH, Color.TRANSPARENT);
 		setBackground(backgroundDrawable);
 

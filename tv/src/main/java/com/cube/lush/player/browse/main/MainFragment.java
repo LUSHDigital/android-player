@@ -38,7 +38,7 @@ public class MainFragment extends LushBrowseFragment
 
 		// The badge is very wide compared to its height, so reduce the height a bit or it looks too big
 		ImageView badge = (ImageView) getTitleView().findViewById(R.id.title_badge);
-		badge.getLayoutParams().height /= 2;
+		badge.getLayoutParams().height /= 4;
 	}
 
 	private void initialiseMenu()

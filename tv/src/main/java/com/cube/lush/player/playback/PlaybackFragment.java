@@ -21,6 +21,7 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Uses the Brightcove SDK player to playback Lush-related content, including playlists, specific videos, or remote files.
@@ -60,18 +61,24 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 		if (intent != null)
 		{
-			PlaybackMethod playbackMethod = (PlaybackMethod)intent.getSerializableExtra(PlaybackActivity.ARGUMENT_PLAYBACK_METHOD);
-			String playbackMethodValue = intent.getStringExtra(PlaybackActivity.ARGUMENT_PLAYBACK_METHOD_VALUE);
+			PlaybackMethod playbackMethod = (PlaybackMethod)intent.getSerializableExtra(PlaybackActivity.EXTRA_PLAYBACK_METHOD);
+			String playbackMethodValue = intent.getStringExtra(PlaybackActivity.EXTRA_PLAYBACK_METHOD_VALUE);
+			String backgroundUrl = intent.getStringExtra(PlaybackActivity.EXTRA_PLAYBACK_BACKGROUND);
+
+			if (!TextUtils.isEmpty(backgroundUrl))
+			{
+				ImageLoader.getInstance().displayImage(backgroundUrl, brightcoveVideoView.getStillView());
+			}
 
 			if (playbackMethod != null && !TextUtils.isEmpty(playbackMethodValue))
 			{
 				if (playbackMethod == PlaybackMethod.PLAYLIST)
 				{
-					queuePlaylist(playbackMethodValue);
+					playPlaylist(playbackMethodValue);
 				}
 				else if (playbackMethod == PlaybackMethod.VIDEO)
 				{
-					queueVideo(playbackMethodValue);
+					playVideo(playbackMethodValue);
 				}
 				else if (playbackMethod == PlaybackMethod.FILE_URL)
 				{
@@ -86,7 +93,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	 *
 	 * @param playlistId
 	 */
-	public void queuePlaylist(String playlistId)
+	public void playPlaylist(String playlistId)
 	{
 		brightcoveVideoView.stopPlayback();
 
@@ -117,7 +124,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	 *
 	 * @param videoId
 	 */
-	public void queueVideo(String videoId)
+	public void playVideo(String videoId)
 	{
 		brightcoveVideoView.stopPlayback();
 

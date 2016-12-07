@@ -5,4 +5,6 @@
 	<dimen name="card_width">250dp</dimen>
 	<dimen name="card_height">200dp</dimen>
 	<dimen name="card_image_height">125dp</dimen>
+	<dimen name="channel_card_width">192dp</dimen>
+	<dimen name="channel_card_height">144dp</dimen>
 </resources>

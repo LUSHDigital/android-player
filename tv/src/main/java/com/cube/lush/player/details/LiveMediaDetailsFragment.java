@@ -181,7 +181,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 			id = mediaContent.getId();
 		}
 
-		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id);
+		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id, mediaContent.getThumbnail());
 		getActivity().startActivity(intent);
 	}
 

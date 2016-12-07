@@ -21,14 +21,14 @@ import java.util.List;
  */
 public class HomeFragment extends BaseMediaBrowseFragment
 {
-	private ArrayObjectAdapter mMediaAdapter;
+	private ArrayObjectAdapter mediaAdapter;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		mMediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
-		setAdapter(mMediaAdapter);
+		mediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		setAdapter(mediaAdapter);
 	}
 
 	@Override
@@ -40,14 +40,14 @@ public class HomeFragment extends BaseMediaBrowseFragment
 			{
 				setLoadingFinished(false);
 				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
-				mMediaAdapter.clear();
-				mMediaAdapter.addAll(0, items);
+				mediaAdapter.clear();
+				mediaAdapter.addAll(0, items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				setLoadingFinished(true);
-				mMediaAdapter.clear();
+				mediaAdapter.clear();
 			}
 		});
 	}

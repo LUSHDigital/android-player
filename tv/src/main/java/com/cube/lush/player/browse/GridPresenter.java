@@ -13,6 +13,7 @@ public class GridPresenter extends VerticalGridPresenter
 	{
 		super();
 		setNumberOfColumns(3);
+		setShadowEnabled(false);
 	}
 
 	@Override

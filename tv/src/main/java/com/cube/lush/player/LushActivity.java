@@ -19,7 +19,7 @@ public class LushActivity extends Activity
 	protected void attachBaseContext(Context newBase)
 	{
 		// Context wrapper to apply custom fonts
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 	}
 
 	@Override

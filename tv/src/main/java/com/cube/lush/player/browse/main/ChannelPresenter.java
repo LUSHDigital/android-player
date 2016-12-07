@@ -47,8 +47,8 @@ public class ChannelPresenter extends Presenter
 			cardView.setContentText("");
 		}
 
-		int width = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_width);
-		int imageHeight = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.card_image_height);
+		int width = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.channel_card_width);
+		int imageHeight = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.channel_card_height);
 		cardView.setMainImageDimensions(width, imageHeight);
 
 		cardView.setMainImageScaleType(ImageView.ScaleType.CENTER_INSIDE);

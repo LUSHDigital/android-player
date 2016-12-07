@@ -49,7 +49,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		{
 			case TV:
 			{
-				Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.VIDEO, mediaContent.getId());
+				Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.VIDEO, mediaContent.getId(), mediaContent.getThumbnail());
 				getActivity().startActivity(intent);
 				break;
 			}
@@ -57,7 +57,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 			{
 				if (mediaContent instanceof RadioContent)
 				{
-					Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, ((RadioContent)mediaContent).getFile());
+					Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, ((RadioContent)mediaContent).getFile(), mediaContent.getThumbnail());
 					getActivity().startActivity(intent);
 				}
 				break;

@@ -12,21 +12,30 @@ import com.cube.lush.player.R;
 
 public class PlaybackActivity extends LushActivity
 {
-	public static final String ARGUMENT_PLAYBACK_METHOD = "playback_method";
-	public static final String ARGUMENT_PLAYBACK_METHOD_VALUE = "playback_method_value";
+	public static final String EXTRA_PLAYBACK_METHOD = "playback_method";
+	public static final String EXTRA_PLAYBACK_METHOD_VALUE = "playback_method_value";
+	public static final String EXTRA_PLAYBACK_BACKGROUND = "playback_background_url";
 
-	public static Intent getIntent(@NonNull Context context, @Nullable PlaybackMethod playbackMethod, @Nullable String playbackMethodValue)
+	public static Intent getIntent(@NonNull Context context,
+	                               @Nullable PlaybackMethod playbackMethod,
+	                               @Nullable String playbackMethodValue,
+	                               @Nullable String playbackBackgroundUrl)
 	{
 		Intent intent = new Intent(context, PlaybackActivity.class);
 
 		if (playbackMethod != null)
 		{
-			intent.putExtra(ARGUMENT_PLAYBACK_METHOD, playbackMethod);
+			intent.putExtra(EXTRA_PLAYBACK_METHOD, playbackMethod);
 		}
 
 		if (!TextUtils.isEmpty(playbackMethodValue))
 		{
-			intent.putExtra(ARGUMENT_PLAYBACK_METHOD_VALUE, playbackMethodValue);
+			intent.putExtra(EXTRA_PLAYBACK_METHOD_VALUE, playbackMethodValue);
+		}
+
+		if (!TextUtils.isEmpty(playbackBackgroundUrl))
+		{
+			intent.putExtra(EXTRA_PLAYBACK_BACKGROUND, playbackBackgroundUrl);
 		}
 
 		return intent;

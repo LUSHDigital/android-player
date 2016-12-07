@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cube.lush.player.ErrorFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.SpinnerFragment;
 import com.cube.lush.player.handler.ResponseHandler;
@@ -117,9 +118,6 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 		});
 	}
 
-	/**
-	 * Should be called by extending classes to indicate that the left side content panel can be revealed
-	 */
 	@Override
 	public void populateContentView(MediaContent item)
 	{
@@ -135,6 +133,27 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 		leftPanel.setVisibility(View.VISIBLE);
 		SpinnerFragment.hide(getChildFragmentManager());
 		populateHiddenView(mediaContent);
+	}
+
+	@Override
+	public void populateError(final Runnable retryAction)
+	{
+		// This method is designed to be called from async methods so make sure we've not lost context since then
+		if (getActivity() == null)
+		{
+			return;
+		}
+
+		SpinnerFragment.hide(getChildFragmentManager());
+		ErrorFragment.show(getChildFragmentManager(), contentContainer, new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				SpinnerFragment.show(getChildFragmentManager(), getView());
+				retryAction.run();
+			}
+		});
 	}
 
 	/**

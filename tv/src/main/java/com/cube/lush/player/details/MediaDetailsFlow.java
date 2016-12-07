@@ -13,19 +13,28 @@ import com.cube.lush.player.model.MediaContent;
 public interface MediaDetailsFlow
 {
 	/**
-	 * Makes the content view visible.
-	 * This should be called when the content view has been successfully populated.
-	 * You MUST call {@link #populateHiddenView(MediaContent)} at the end of your implementation of this method.
-	 * For most cases, this should ALWAYS be called at the END of {@link #populateContentView(MediaContent)}.
-	 * If any loading is asynchronous, then this should be called once all asynchronous populating has been completed.
+	 * Populates the content view and makes it visible.
+	 * <p/>
+	 * The implementing class should call this once they have fetched the details of the {@link MediaContent} item that will be displayed. If an item could not
+	 * be fetched then {@link #populateError()} should be called.
 	 */
 	void populateContentView(MediaContent item);
+
+	/**
+	 * Displays an error to the user.
+	 *
+	 * @param retryAction
+	 *  A runnable that will retry fetching the data needed to populate the content view.
+	 */
+	void populateError(Runnable retryAction);
 
 	/**
 	 * Populates the hidden content view with the given {@link MediaContent}.
 	 * This should be called when the content view has been successfully revealed.
 	 * You MUST call {@link #revealHiddenView()} at the end of your implementation of this method.
-	 * @param item that will be used to populate the view
+	 *
+	 * @param item
+	 * 				that will be used to populate the view
 	 */
 	void populateHiddenView(@NonNull MediaContent item);
 

@@ -1,9 +1,13 @@
 package com.cube.lush.player.manager;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.brightcove.player.edge.Catalog;
+import com.brightcove.player.event.EventEmitterImpl;
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.api.R;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.model.CategoryContentType;
 import com.cube.lush.player.model.Channel;
@@ -34,15 +38,20 @@ public class MediaManager
 	@Getter
 	private static MediaManager instance;
 	private LushAPI api;
+	@Getter
+	private Catalog catalog;
 
-	public static void initialise(@NonNull LushAPI api)
+	public static void initialise(@NonNull Context context, @NonNull LushAPI api)
 	{
-		instance = new MediaManager(api);
+		instance = new MediaManager(context, api);
 	}
 
-	private MediaManager(@NonNull LushAPI api)
+	private MediaManager(@NonNull Context context, @NonNull LushAPI api)
 	{
 		this.api = api;
+		catalog = new Catalog(new EventEmitterImpl(),
+		                      context.getResources().getString(R.string.brightcove_account_id),
+		                      context.getResources().getString(R.string.brightcove_policy_key));
 	}
 
 	/**

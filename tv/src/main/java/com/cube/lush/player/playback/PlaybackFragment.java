@@ -11,16 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.brightcove.player.analytics.Analytics;
-import com.brightcove.player.edge.Catalog;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
-import com.brightcove.player.event.EventEmitter;
 import com.brightcove.player.media.DeliveryType;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
+import com.cube.lush.player.manager.MediaManager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -30,8 +29,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class PlaybackFragment extends BrightcovePlayerFragment
 {
-	private Catalog catalog;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -43,11 +40,6 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		String accountId = getResources().getString(R.string.brightcove_account_id);
 		Analytics analytics = brightcoveVideoView.getAnalytics();
 		analytics.setAccount(accountId);
-
-		// Get the event emitter from the SDK and create a catalog request to fetch a video from the
-		// Brightcove Edge service, given a video id, an account id and a policy key.
-		EventEmitter eventEmitter = brightcoveVideoView.getEventEmitter();
-		catalog = new Catalog(eventEmitter, accountId, getResources().getString(R.string.brightcove_policy_key));
 
 		return view;
 	}
@@ -102,7 +94,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			return;
 		}
 
-		catalog.findPlaylistByID(playlistId, new PlaylistListener()
+		MediaManager.getInstance().getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
 		{
 			@Override
 			public void onPlaylist(Playlist playlist)
@@ -133,7 +125,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			return;
 		}
 
-		catalog.findVideoByID(videoId, new VideoListener()
+		MediaManager.getInstance().getCatalog().findVideoByID(videoId, new VideoListener()
 		{
 			// Add the video found to the queue with add().
 			// Start playback of the video with start().

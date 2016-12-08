@@ -29,7 +29,7 @@
     </style>
 
     <style name="AppDetailsActionButtonStyle" parent="Widget.Leanback.DetailsActionButtonStyle">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@android:color/white</item>
         <item name="android:textColor">@color/primary</item>
     </style>
 </resources>

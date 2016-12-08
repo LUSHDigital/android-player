@@ -21,21 +21,58 @@ import retrofit2.http.Query;
  */
 public interface LushAPI
 {
+	/**
+	 * Retrieves media items belonging to the specified channel ID, and of the specified content type.
+	 *
+	 * @param channel
+	 * 				Corresponding to the ID of an item in {@link com.cube.lush.player.model.Channel}.
+	 * @param contentType
+	 * 				Corresponding to the name of an item in {@link com.cube.lush.player.model.CategoryContentType}.
+	 * @return
+	 */
 	@GET("categories")
 	Call<List<MediaContent>> getCategories(@Header("channel") String channel, @Header("type") String contentType);
 
+	/**
+	 * Retrieves the current live playlist ID for the given timezone offset
+	 *
+	 * @param offset
+	 * 				In the format "x minutes"
+	 * @return
+	 */
 	@GET("playlist")
 	Call<List<MediaContent>> getPlaylist(@Header("offset") String offset);
 
+	/**
+	 * Retrieves videos recently added to the Lush content database and returns up to fifty results.
+	 *
+	 * @return
+	 */
 	@GET("videos")
 	Call<List<VideoContent>> getVideos();
 
+	/**
+	 * Retrieves radio shows recently added to the Lush content database and returns up to fifty results.
+	 *
+	 * @return
+	 */
 	@GET("radio")
 	Call<List<RadioContent>> getRadios();
 
+	/**
+	 * Performs a text search on the Lush content database and returns up to six results.
+	 *
+	 * @return
+	 */
 	@GET("search")
 	Call<List<SearchResult>> search(@Query("title") String searchTerm);
 
+	/**
+	 * Retrieves more details about the programme with the specified ID.
+	 *
+	 * @param programmeId
+	 * @return
+	 */
 	@GET("programme")
 	Call<List<Programme>> getProgramme(@Query("id") String programmeId);
 }

@@ -60,11 +60,11 @@ public class MediaManager
 	private Catalog catalog;
 
 	// Cached data
-	private List<VideoContent> videoCache = new ArrayList<>();
+	private List<VideoContent> videoCache = null;
 	private long lastVideoFetchTime = 0;
-	private List<RadioContent> radioCache = new ArrayList<>();
+	private List<RadioContent> radioCache = null;
 	private long lastRadioFetchTime = 0;
-	private List<MediaContent> liveCache = new ArrayList<>();
+	private List<MediaContent> liveCache = null;
 	private long lastLiveFetchTime = 0;
 
 	public static void initialise(@NonNull Context context, @NonNull LushAPI api)
@@ -189,8 +189,8 @@ public class MediaManager
 				{
 					radioContent.clear();
 					radioContent.addAll(items);
-					List<MediaContent> composite = new ArrayList<MediaContent>(videoContent);
-					composite.addAll(radioContent);
+					List<MediaContent> composite = new ArrayList<MediaContent>(radioContent);
+					composite.addAll(videoContent);
 					handler.onSuccess(composite);
 				}
 				finally
@@ -366,15 +366,17 @@ public class MediaManager
 				{
 					handler.onFailure(null);
 				}
-
-				List<MediaContent> channels = channelResponse.body();
-
-				if (channels == null)
+				else
 				{
-					channels = Collections.emptyList();
-				}
+					List<MediaContent> channels = channelResponse.body();
 
-				handler.onSuccess(channels);
+					if (channels == null)
+					{
+						channels = Collections.emptyList();
+					}
+
+					handler.onSuccess(channels);
+				}
 			}
 
 			@Override
@@ -482,15 +484,17 @@ public class MediaManager
 				{
 					handler.onFailure(null);
 				}
-
-				List<Programme> programmes = programmeResponse.body();
-
-				if (programmes == null)
+				else
 				{
-					programmes = Collections.emptyList();
-				}
+					List<Programme> programmes = programmeResponse.body();
 
-				handler.onSuccess(programmes);
+					if (programmes == null)
+					{
+						programmes = Collections.emptyList();
+					}
+
+					handler.onSuccess(programmes);
+				}
 			}
 
 			@Override

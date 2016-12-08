@@ -187,36 +187,35 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	 */
 	@Override public void populateHiddenView(@NonNull MediaContent item)
 	{
-		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
+		if (backgroundImage != null)
 		{
-			@Override
-			public void onLoadingStarted(String imageUri, View view)
+			ImageLoader.getInstance().displayImage(item.getThumbnail(), backgroundImage, new ImageLoadingListener()
 			{
-
-			}
-
-			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-			{
-
-			}
-
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-			{
-				if (backgroundImage != null)
+				@Override
+				public void onLoadingStarted(String imageUri, View view)
 				{
-					backgroundImage.setImageBitmap(loadedImage);
+
+				}
+
+				@Override
+				public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+				{
+
+				}
+
+				@Override
+				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+				{
 					revealHiddenView();
 				}
-			}
 
-			@Override
-			public void onLoadingCancelled(String imageUri, View view)
-			{
+				@Override
+				public void onLoadingCancelled(String imageUri, View view)
+				{
 
-			}
-		});
+				}
+			});
+		}
 	}
 
 	/**

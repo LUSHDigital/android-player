@@ -41,7 +41,7 @@ public interface LushAPI
 	 * @return
 	 */
 	@GET("playlist")
-	Call<List<MediaContent>> getPlaylist(@Header("offset") String offset);
+	Call<List<MediaContent>> getPlaylist(@Query("offset") String offset);
 
 	/**
 	 * Retrieves videos recently added to the Lush content database and returns up to fifty results.

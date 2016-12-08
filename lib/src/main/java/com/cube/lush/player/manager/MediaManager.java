@@ -3,9 +3,12 @@ package com.cube.lush.player.manager;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.brightcove.player.edge.Catalog;
 import com.brightcove.player.event.EventEmitterImpl;
+import com.brightcove.player.model.Playlist;
+import com.brightcove.player.model.Video;
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.api.R;
 import com.cube.lush.player.handler.ResponseHandler;
@@ -15,11 +18,16 @@ import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.model.VideoContent;
+import com.cube.lush.player.model.VideoInfo;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -70,6 +78,60 @@ public class MediaManager
 		catalog = new Catalog(new EventEmitterImpl(),
 		                      context.getResources().getString(R.string.brightcove_account_id),
 		                      context.getResources().getString(R.string.brightcove_policy_key));
+	}
+
+	/**
+	 * Determines which video, if any, in a playlist is currently "live"
+	 *
+	 * @param playlist
+	 * @return
+	 */
+	@Nullable
+	public VideoInfo findCurrentLiveVideo(Playlist playlist)
+	{
+		long nowUtc = System.currentTimeMillis();
+
+		for (Video video: playlist.getVideos())
+		{
+			try
+			{
+				if (video.getProperties().get("customFields") instanceof Map)
+				{
+					Map customFields = (Map) video.getProperties().get("customFields");
+					Object startTimeString = customFields.get("starttime");
+					Object length = customFields.get("livebroadcastlength");
+					if (startTimeString instanceof String && length instanceof String)
+					{
+						long startTimeUtc = ISO8601Utils.parse((String) startTimeString, new ParsePosition(0)).getTime();
+						String[] lengthParts = ((String)length).split(":"); // length is in the format HH:MM:SS
+						if (lengthParts.length != 3)
+						{
+							continue;
+						}
+						long endTimeUtc = startTimeUtc;
+						endTimeUtc += Long.parseLong(lengthParts[2]) * 1000;
+						endTimeUtc += Long.parseLong(lengthParts[1]) * 1000 * 60;
+						endTimeUtc += Long.parseLong(lengthParts[0]) * 1000 * 60 * 60;
+
+						if (nowUtc >= startTimeUtc && nowUtc < endTimeUtc)
+						{
+							VideoInfo videoInfo = new VideoInfo();
+							videoInfo.setVideo(video);
+							videoInfo.setStartTimeUtc(startTimeUtc);
+							videoInfo.setEndTimeUtc(endTimeUtc);
+							return videoInfo;
+						}
+					}
+				}
+			}
+			catch (ParseException parseEx)
+			{
+				// Ignore parse exception
+				Log.e("3SC", parseEx.getMessage(), parseEx);
+			}
+		}
+
+		return null;
 	}
 
 	/**

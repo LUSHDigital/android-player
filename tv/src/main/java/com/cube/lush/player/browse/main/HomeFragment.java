@@ -3,8 +3,8 @@ package com.cube.lush.player.browse.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
 
+import com.cube.lush.player.DiffingAdapter;
 import com.cube.lush.player.browse.BaseMediaBrowseFragment;
 import com.cube.lush.player.browse.MediaPresenter;
 import com.cube.lush.player.handler.ResponseHandler;
@@ -21,13 +21,23 @@ import java.util.List;
  */
 public class HomeFragment extends BaseMediaBrowseFragment
 {
-	private ArrayObjectAdapter mediaAdapter;
+	/**
+	 * Use a {@link DiffingAdapter} so the grid will smoothly update when changes occur.
+	 */
+	private DiffingAdapter<MediaContent> mediaAdapter = new DiffingAdapter<>(new MediaPresenter());
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		mediaAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		mediaAdapter.setEqualityTester(new DiffingAdapter.EqualityTester<MediaContent>()
+		{
+			@Override
+			public boolean isEqual(MediaContent t1, MediaContent t2)
+			{
+				return t1.getId().equals(t2.getId());
+			}
+		});
 		setAdapter(mediaAdapter);
 	}
 
@@ -36,12 +46,11 @@ public class HomeFragment extends BaseMediaBrowseFragment
 	{
 		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
 		{
-			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull final List<MediaContent> items)
 			{
 				setLoadingFinished(false);
-				items = MediaSorter.MOST_RECENT_FIRST.sort(items);
-				mediaAdapter.clear();
-				mediaAdapter.addAll(0, items);
+				MediaSorter.MOST_RECENT_FIRST.sort(items);
+				mediaAdapter.setItems(items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrandedFragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +19,10 @@ import android.widget.TextView;
 import com.cube.lush.player.ErrorFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.SpinnerFragment;
-import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
-import com.cube.lush.player.model.Programme;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,54 +85,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 		if (item instanceof MediaContent)
 		{
 			populateContentView((MediaContent) item);
-			return;
 		}
-
-		final String mediaId = intent.getStringExtra(MediaDetailsActivity.EXTRA_MEDIA_ID);
-
-		if (TextUtils.isEmpty(mediaId))
-		{
-			return;
-		}
-
-		fetchProgrammeDetails(mediaId);
-	}
-
-	protected void fetchProgrammeDetails(final String mediaId)
-	{
-		MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
-		{
-			@Override public void onSuccess(@NonNull List<Programme> items)
-			{
-				if (!items.isEmpty())
-				{
-					populateContentView(items.get(0));
-				}
-				else
-				{
-					populateError(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							fetchProgrammeDetails(mediaId);
-						}
-					});
-				}
-			}
-
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-				populateError(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						fetchProgrammeDetails(mediaId);
-					}
-				});
-			}
-		});
 	}
 
 	@Override

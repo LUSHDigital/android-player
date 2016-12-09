@@ -33,11 +33,16 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 
 	public static void hide(FragmentManager fragmentManager)
 	{
+		if (fragmentManager.isDestroyed())
+		{
+			return;
+		}
+
 		fragmentManager.executePendingTransactions();
 		Fragment offAirFragment = fragmentManager.findFragmentByTag(OFFAIR_FRAGMENT_TAG);
 		if (offAirFragment != null)
 		{
-			fragmentManager.beginTransaction().remove(offAirFragment).commit();
+			fragmentManager.beginTransaction().remove(offAirFragment).commitAllowingStateLoss();
 		}
 	}
 

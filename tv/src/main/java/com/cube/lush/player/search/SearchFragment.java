@@ -152,7 +152,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 		SearchResult searchResult = (SearchResult)item;
 
 		Intent intent = new Intent(context, MediaDetailsActivity.class);
-		intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA_ID, searchResult.getId());
+		intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA, searchResult);
 		startActivity(intent);
 	}
 }

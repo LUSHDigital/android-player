@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.Toast;
 
-import com.cube.lush.player.playback.PlaybackActivity;
-import com.cube.lush.player.playback.PlaybackMethod;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.RadioContent;
+import com.cube.lush.player.playback.PlaybackActivity;
+import com.cube.lush.player.playback.PlaybackMethod;
 
 /**
  * Displays details for a specific {@link MediaContent}, with a thumbnail for the content being loaded and revealed in the right-hand pane.
@@ -27,21 +28,25 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		timeRemaining.setVisibility(View.GONE);
 
 		playButton.setText("Play");
-		startEndTime.setText(DateUtils.formatDateTime(getActivity(), item.getDate().getTime(), 0));
+
+		if (item.getDate() != null)
+		{
+			startEndTime.setText(DateUtils.formatDateTime(getActivity(), item.getDate().getTime(), 0));
+		}
 	}
 
 	@Override public void playButtonClicked(View view)
 	{
-		if (getActivity() == null)
+		Context context = getActivity();
+
+		if (context == null)
 		{
 			return;
 		}
 
-		Context context = getActivity();
-		String id = null;
-
-		if (mediaContent == null)
+		if (mediaContent == null || mediaContent.getType() == null)
 		{
+			Toast.makeText(context, "Could not play media", Toast.LENGTH_LONG).show();
 			return;
 		}
 

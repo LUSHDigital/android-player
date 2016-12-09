@@ -28,11 +28,16 @@ public class ErrorFragment extends android.support.v17.leanback.app.ErrorFragmen
 
 	public static void hide(FragmentManager fragmentManager)
 	{
+		if (fragmentManager.isDestroyed())
+		{
+			return;
+		}
+
 		fragmentManager.executePendingTransactions();
 		Fragment spinnerFragment = fragmentManager.findFragmentByTag(ERROR_FRAGMENT_TAG);
 		if (spinnerFragment != null)
 		{
-			fragmentManager.beginTransaction().remove(spinnerFragment).commit();
+			fragmentManager.beginTransaction().remove(spinnerFragment).commitAllowingStateLoss();
 		}
 	}
 

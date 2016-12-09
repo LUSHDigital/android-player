@@ -27,11 +27,16 @@ public class SpinnerFragment extends Fragment
 
 	public static void hide(FragmentManager fragmentManager)
 	{
+		if (fragmentManager.isDestroyed())
+		{
+			return;
+		}
+
 		fragmentManager.executePendingTransactions();
 		Fragment spinnerFragment = fragmentManager.findFragmentByTag(SPINNER_FRAGMENT_TAG);
 		if (spinnerFragment != null)
 		{
-			fragmentManager.beginTransaction().remove(spinnerFragment).commit();
+			fragmentManager.beginTransaction().remove(spinnerFragment).commitAllowingStateLoss();
 		}
 	}
 

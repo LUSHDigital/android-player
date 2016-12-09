@@ -11,7 +11,6 @@ import com.cube.lush.player.R;
 public class MediaDetailsActivity extends LushActivity
 {
 	public static final String EXTRA_MEDIA = "extra_media_item";
-	public static final String EXTRA_MEDIA_ID = "extra_media_item_id";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

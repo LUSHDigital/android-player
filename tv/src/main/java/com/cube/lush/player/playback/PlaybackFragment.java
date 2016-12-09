@@ -25,9 +25,10 @@ import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.VideoInfo;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Uses the Brightcove SDK player to playback Lush-related content, including playlists, specific videos, or remote files.
@@ -66,7 +67,9 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 			if (!TextUtils.isEmpty(backgroundUrl))
 			{
-				ImageLoader.getInstance().displayImage(backgroundUrl, brightcoveVideoView.getStillView());
+				Map<String, Object> stillMap = new HashMap<>();
+				//getBrightcoveVideoView().getEventEmitter().emit("setVideoStill", stillMap);
+				//ImageLoader.getInstance().displayImage(backgroundUrl, brightcoveVideoView.getStillView());
 			}
 
 			if (playbackMethod != null && !TextUtils.isEmpty(playbackMethodValue))

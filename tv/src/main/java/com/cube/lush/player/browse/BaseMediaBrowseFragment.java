@@ -37,6 +37,8 @@ public abstract class BaseMediaBrowseFragment extends VerticalGridFragment imple
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
+		isLoading = true;
 		setGridPresenter(new GridPresenter());
 
 		setOnItemViewClickedListener(new OnItemViewClickedListener()

@@ -1,7 +1,9 @@
 package com.cube.lush.player;
 
-import com.cube.lush.player.api.LushAPI;
+import android.content.Context;
+
 import com.cube.lush.player.api.HtmlStringAdapter;
+import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.manager.SearchManager;
 import com.google.gson.Gson;
@@ -23,10 +25,10 @@ public class LushContent
 	/**
 	 * This should be only called in MainApplication's onCreate method (once!)
 	 */
-	public static void initialise()
+	public static void initialise(Context context)
 	{
 		initialiseRetrofit();
-		initialiseManagers();
+		initialiseManagers(context);
 	}
 
 	private static void initialiseRetrofit()
@@ -45,9 +47,9 @@ public class LushContent
 		api = retrofit.create(LushAPI.class);
 	}
 
-	private static void initialiseManagers()
+	private static void initialiseManagers(Context context)
 	{
-		MediaManager.initialise(api);
+		MediaManager.initialise(context, api);
 		SearchManager.initialise(api);
 	}
 }

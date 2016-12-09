@@ -101,6 +101,11 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			return;
 		}
 
+		fetchProgrammeDetails(mediaId);
+	}
+
+	protected void fetchProgrammeDetails(final String mediaId)
+	{
 		MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
@@ -109,11 +114,29 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 				{
 					populateContentView(items.get(0));
 				}
+				else
+				{
+					populateError(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							fetchProgrammeDetails(mediaId);
+						}
+					});
+				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				// TODO: Show error message
+				populateError(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						fetchProgrammeDetails(mediaId);
+					}
+				});
 			}
 		});
 	}
@@ -150,6 +173,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			@Override
 			public void run()
 			{
+				ErrorFragment.hide(getChildFragmentManager());
 				SpinnerFragment.show(getChildFragmentManager(), getView());
 				retryAction.run();
 			}
@@ -163,36 +187,35 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	 */
 	@Override public void populateHiddenView(@NonNull MediaContent item)
 	{
-		ImageLoader.getInstance().loadImage(item.getThumbnail(), new ImageLoadingListener()
+		if (backgroundImage != null)
 		{
-			@Override
-			public void onLoadingStarted(String imageUri, View view)
+			ImageLoader.getInstance().displayImage(item.getThumbnail(), backgroundImage, new ImageLoadingListener()
 			{
-
-			}
-
-			@Override
-			public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-			{
-
-			}
-
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-			{
-				if (backgroundImage != null)
+				@Override
+				public void onLoadingStarted(String imageUri, View view)
 				{
-					backgroundImage.setImageBitmap(loadedImage);
+
+				}
+
+				@Override
+				public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+				{
+
+				}
+
+				@Override
+				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+				{
 					revealHiddenView();
 				}
-			}
 
-			@Override
-			public void onLoadingCancelled(String imageUri, View view)
-			{
+				@Override
+				public void onLoadingCancelled(String imageUri, View view)
+				{
 
-			}
-		});
+				}
+			});
+		}
 	}
 
 	/**

@@ -1,9 +1,16 @@
 package com.cube.lush.player.manager;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.brightcove.player.edge.Catalog;
+import com.brightcove.player.event.EventEmitterImpl;
+import com.brightcove.player.model.Playlist;
+import com.brightcove.player.model.Video;
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.api.R;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.model.CategoryContentType;
 import com.cube.lush.player.model.Channel;
@@ -11,11 +18,20 @@ import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.model.VideoContent;
+import com.cube.lush.player.model.VideoInfo;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import lombok.Getter;
 import retrofit2.Call;
@@ -23,26 +39,99 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Manages requests for media, returning it to the requester from the most appropriate source. Currently gets data from API without caching, but in future (and
- * especially for phone app) should support caching.
+ * Manages requests for media, returning it to the requester from the most appropriate source. Currently gets data from API or in-memory cache.
  *
  * @author Jamie Cruwys
  * @project lush-player-android-client
  */
 public class MediaManager
 {
+	private static final int SECOND = 1000;
+	private static final int MINUTE = 60;
+	private static final int HOUR = 60;
+	private static final int VIDEO_CACHE_EXPIRY_TIME = 5 * MINUTE;
+	private static final int RADIO_CACHE_EXPIRY_TIME = 5 * MINUTE;
+	private static final int LIVE_CACHE_EXPIRY_TIME = 0;
+
 	@Getter
 	private static MediaManager instance;
 	private LushAPI api;
+	@Getter
+	private Catalog catalog;
 
-	public static void initialise(@NonNull LushAPI api)
+	// Cached data
+	private List<VideoContent> videoCache = null;
+	private long lastVideoFetchTime = 0;
+	private List<RadioContent> radioCache = null;
+	private long lastRadioFetchTime = 0;
+	private List<MediaContent> liveCache = null;
+	private long lastLiveFetchTime = 0;
+
+	public static void initialise(@NonNull Context context, @NonNull LushAPI api)
 	{
-		instance = new MediaManager(api);
+		instance = new MediaManager(context, api);
 	}
 
-	private MediaManager(@NonNull LushAPI api)
+	private MediaManager(@NonNull Context context, @NonNull LushAPI api)
 	{
 		this.api = api;
+		catalog = new Catalog(new EventEmitterImpl(),
+		                      context.getResources().getString(R.string.brightcove_account_id),
+		                      context.getResources().getString(R.string.brightcove_policy_key));
+	}
+
+	/**
+	 * Determines which video, if any, in a playlist is currently "live"
+	 *
+	 * @param playlist
+	 * @return
+	 */
+	@Nullable
+	public VideoInfo findCurrentLiveVideo(Playlist playlist)
+	{
+		long nowUtc = System.currentTimeMillis();
+
+		for (Video video: playlist.getVideos())
+		{
+			try
+			{
+				if (video.getProperties().get("customFields") instanceof Map)
+				{
+					Map customFields = (Map) video.getProperties().get("customFields");
+					Object startTimeString = customFields.get("starttime");
+					Object length = customFields.get("livebroadcastlength");
+					if (startTimeString instanceof String && length instanceof String)
+					{
+						long startTimeUtc = ISO8601Utils.parse((String) startTimeString, new ParsePosition(0)).getTime();
+						String[] lengthParts = ((String)length).split(":"); // length is in the format HH:MM:SS
+						if (lengthParts.length != 3)
+						{
+							continue;
+						}
+						long endTimeUtc = startTimeUtc;
+						endTimeUtc += Long.parseLong(lengthParts[2]) * 1000;
+						endTimeUtc += Long.parseLong(lengthParts[1]) * 1000 * 60;
+						endTimeUtc += Long.parseLong(lengthParts[0]) * 1000 * 60 * 60;
+
+						if (nowUtc >= startTimeUtc && nowUtc < endTimeUtc)
+						{
+							VideoInfo videoInfo = new VideoInfo();
+							videoInfo.setVideo(video);
+							videoInfo.setStartTimeUtc(startTimeUtc);
+							videoInfo.setEndTimeUtc(endTimeUtc);
+							return videoInfo;
+						}
+					}
+				}
+			}
+			catch (ParseException parseEx)
+			{
+				// Ignore parse exception
+				Log.e("3SC", parseEx.getMessage(), parseEx);
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -52,31 +141,41 @@ public class MediaManager
 	 */
 	public void getMedia(@NonNull final ResponseHandler<MediaContent> handler)
 	{
-		final List<MediaContent> list = Collections.synchronizedList(new ArrayList<MediaContent>());
-		final CountDownLatch countdown = new CountDownLatch(2);
+		final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+		final List<VideoContent> videoContent = new ArrayList<>();
+		final List<RadioContent> radioContent = new ArrayList<>();
+
+		// We only want to report failure if both TV and radio endpoints fail, otherwise just show what weve got
+		final CountDownLatch failureCountdown = new CountDownLatch(2);
 
 		getVideos(new ResponseHandler<VideoContent>()
 		{
 			@Override
 			public void onSuccess(@NonNull List<VideoContent> items)
 			{
-				if (!items.isEmpty())
+				readWriteLock.writeLock().lock();
+				try
 				{
-					list.addAll(items);
+					videoContent.clear();
+					videoContent.addAll(items);
+					List<MediaContent> composite = new ArrayList<MediaContent>(videoContent);
+					composite.addAll(radioContent);
+					handler.onSuccess(composite);
 				}
-
-				countdown.countDown();
-
-				if (countdown.getCount() == 0)
+				finally
 				{
-					handler.onSuccess(list);
+					readWriteLock.writeLock().unlock();
 				}
 			}
 
 			@Override
 			public void onFailure(@Nullable Throwable t)
 			{
-				handler.onFailure(t);
+				failureCountdown.countDown();
+				if (failureCountdown.getCount() == 0)
+				{
+					handler.onFailure(t);
+				}
 			}
 		});
 
@@ -85,34 +184,56 @@ public class MediaManager
 			@Override
 			public void onSuccess(@NonNull List<RadioContent> items)
 			{
-				if (!items.isEmpty())
+				readWriteLock.writeLock().lock();
+				try
 				{
-					list.addAll(items);
+					radioContent.clear();
+					radioContent.addAll(items);
+					List<MediaContent> composite = new ArrayList<MediaContent>(radioContent);
+					composite.addAll(videoContent);
+					handler.onSuccess(composite);
 				}
-
-				countdown.countDown();
-
-				if (countdown.getCount() == 0)
+				finally
 				{
-					handler.onSuccess(list);
+					readWriteLock.writeLock().unlock();
 				}
 			}
 
 			@Override
 			public void onFailure(@Nullable Throwable t)
 			{
-				handler.onFailure(t);
+				failureCountdown.countDown();
+				if (failureCountdown.getCount() == 0)
+				{
+					handler.onFailure(t);
+				}
 			}
 		});
 	}
 
 	/**
-	 * Gets all of the video content
+	 * Gets all of the video content.
 	 *
 	 * @param handler
+	 * 				Receives callback if retrieving the data succeeds or fails. If data is cached then it is possible for onSuccess to be called twice - once for the
+	 * 				cached data, and (if the data is stale) once for the API response.
 	 */
 	public void getVideos(@NonNull final ResponseHandler<VideoContent> handler)
 	{
+		final boolean hasCachedData = videoCache != null;
+
+		// Return cached data immediately if it is present
+		if (hasCachedData)
+		{
+			handler.onSuccess(Collections.unmodifiableList(videoCache));
+
+			// Only perform a network request if the cached data is stale
+			if (System.currentTimeMillis() - lastVideoFetchTime < VIDEO_CACHE_EXPIRY_TIME)
+			{
+				return;
+			}
+		}
+
 		final Call<List<VideoContent>> videoCall = api.getVideos();
 		videoCall.enqueue(new Callback<List<VideoContent>>()
 		{
@@ -121,23 +242,31 @@ public class MediaManager
 			{
 				if (!videoResponse.isSuccessful())
 				{
-					handler.onFailure(null);
+					onFailure(call, null);
 				}
-
-				List<VideoContent> videos = videoResponse.body();
-
-				if (videos == null)
+				else
 				{
-					videos = Collections.emptyList();
-				}
+					List<VideoContent> videos = videoResponse.body();
 
-				handler.onSuccess(videos);
+					if (videos == null)
+					{
+						videos = Collections.emptyList();
+					}
+
+					videoCache = videos;
+					lastVideoFetchTime = System.currentTimeMillis();
+					handler.onSuccess(Collections.unmodifiableList(videoCache));
+				}
 			}
 
 			@Override
 			public void onFailure(@Nullable final Call<List<VideoContent>> call, @Nullable final Throwable t)
 			{
-				handler.onFailure(t);
+				// Only report failure if we didn't even report cache
+				if (!hasCachedData)
+				{
+					handler.onFailure(t);
+				}
 			}
 		});
 	}
@@ -146,9 +275,25 @@ public class MediaManager
 	 * Gets all of the radio content
 	 *
 	 * @param handler
+	 * 				Receives callback if retrieving the data succeeds or fails. If data is cached then it is possible for onSuccess to be called twice - once for the
+	 * 				cached data, and (if the data is stale) once for the API response.
 	 */
 	public void getRadios(@NonNull final ResponseHandler<RadioContent> handler)
 	{
+		final boolean hasCachedData = radioCache != null;
+
+		// Return cached data immediately if it is present
+		if (hasCachedData)
+		{
+			handler.onSuccess(Collections.unmodifiableList(radioCache));
+
+			// Only perform a network request if the cached data is stale
+			if (System.currentTimeMillis() - lastRadioFetchTime < RADIO_CACHE_EXPIRY_TIME)
+			{
+				return;
+			}
+		}
+
 		final Call<List<RadioContent>> radioCall = api.getRadios();
 		radioCall.enqueue(new Callback<List<RadioContent>>()
 		{
@@ -157,23 +302,31 @@ public class MediaManager
 			{
 				if (!radioResponse.isSuccessful())
 				{
-					handler.onFailure(null);
+					onFailure(call, null);
 				}
-
-				List<RadioContent> radios = radioResponse.body();
-
-				if (radios == null)
+				else
 				{
-					radios = Collections.emptyList();
-				}
+					List<RadioContent> radios = radioResponse.body();
 
-				handler.onSuccess(radios);
+					if (radios == null)
+					{
+						radios = Collections.emptyList();
+					}
+
+					radioCache = radios;
+					lastRadioFetchTime = System.currentTimeMillis();
+					handler.onSuccess(Collections.unmodifiableList(radioCache));
+				}
 			}
 
 			@Override
 			public void onFailure(@Nullable final Call<List<RadioContent>> call, @Nullable final Throwable t)
 			{
-				handler.onFailure(t);
+				// Only report failure if we didn't even report cache
+				if (!hasCachedData)
+				{
+					handler.onFailure(t);
+				}
 			}
 		});
 	}
@@ -213,15 +366,17 @@ public class MediaManager
 				{
 					handler.onFailure(null);
 				}
-
-				List<MediaContent> channels = channelResponse.body();
-
-				if (channels == null)
+				else
 				{
-					channels = Collections.emptyList();
-				}
+					List<MediaContent> channels = channelResponse.body();
 
-				handler.onSuccess(channels);
+					if (channels == null)
+					{
+						channels = Collections.emptyList();
+					}
+
+					handler.onSuccess(channels);
+				}
 			}
 
 			@Override
@@ -233,24 +388,46 @@ public class MediaManager
 	}
 
 	/**
-	 * Gets all of the live content with in offset of 0
+	 * Gets all of the live content with the default offset for this device.
 	 *
 	 * @param handler
+	 * 				Receives callback if retrieving the data succeeds or fails. If data is cached then it is possible for onSuccess to be called twice - once for the
+	 * 				cached data, and (if the data is stale) once for the API response.
 	 */
 	public void getLiveContent(@NonNull final ResponseHandler<MediaContent> handler)
 	{
-		getLiveContent("0", handler);
+		int utcOffsetMillis = TimeZone.getDefault().getOffset(new Date().getTime());
+		getLiveContent(utcOffsetMillis, handler);
 	}
 
 	/**
 	 * Gets all of the live content with a variable offset
 	 *
-	 * @param offset
+	 * @param utcOffsetMillis
+	 * 				Offset from UTC in milliseconds
 	 * @param handler
+	 * 				Receives callback if retrieving the data succeeds or fails. If data is cached then it is possible for onSuccess to be called twice - once for the
+	 * 				cached data, and (if the data is stale) once for the API response.
 	 */
-	public void getLiveContent(@NonNull final String offset, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getLiveContent(@NonNull final int utcOffsetMillis, @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		Call<List<MediaContent>> playlistCall = api.getPlaylist(offset);
+		final boolean hasCachedData = liveCache != null;
+
+		// Return cached data immediately if it is present
+		if (hasCachedData)
+		{
+			handler.onSuccess(Collections.unmodifiableList(liveCache));
+
+			// Only perform a network request if the cached data is stale
+			if (System.currentTimeMillis() - lastLiveFetchTime < LIVE_CACHE_EXPIRY_TIME)
+			{
+				return;
+			}
+		}
+
+		// Put into the format the Lush API expects
+		String offsetString = String.format("%d minutes", utcOffsetMillis / 1000 / 60);
+		Call<List<MediaContent>> playlistCall = api.getPlaylist(offsetString);
 
 		playlistCall.enqueue(new Callback<List<MediaContent>>()
 		{
@@ -259,23 +436,31 @@ public class MediaManager
 			{
 				if (!mediaResponse.isSuccessful())
 				{
-					handler.onFailure(null);
+					onFailure(call, null);
 				}
-
-				List<MediaContent> mediaContent = mediaResponse.body();
-
-				if (mediaContent == null)
+				else
 				{
-					mediaContent = Collections.emptyList();
-				}
+					List<MediaContent> mediaContent = mediaResponse.body();
 
-				handler.onSuccess(mediaContent);
+					if (mediaContent == null)
+					{
+						mediaContent = Collections.emptyList();
+					}
+
+					liveCache = mediaContent;
+					lastLiveFetchTime = System.currentTimeMillis();
+					handler.onSuccess(Collections.unmodifiableList(liveCache));
+				}
 			}
 
 			@Override
 			public void onFailure(@Nullable final Call<List<MediaContent>> call, @Nullable final Throwable t)
 			{
-				handler.onFailure(t);
+				// Only report failure if we didn't even report cache
+				if (!hasCachedData)
+				{
+					handler.onFailure(t);
+				}
 			}
 		});
 	}
@@ -299,15 +484,17 @@ public class MediaManager
 				{
 					handler.onFailure(null);
 				}
-
-				List<Programme> programmes = programmeResponse.body();
-
-				if (programmes == null)
+				else
 				{
-					programmes = Collections.emptyList();
-				}
+					List<Programme> programmes = programmeResponse.body();
 
-				handler.onSuccess(programmes);
+					if (programmes == null)
+					{
+						programmes = Collections.emptyList();
+					}
+
+					handler.onSuccess(programmes);
+				}
 			}
 
 			@Override

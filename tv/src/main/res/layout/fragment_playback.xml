@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.brightcove.player.view.BrightcoveExoPlayerVideoView
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/brightcove_video_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-/>
+    android:id="@+id/container"
+>
+	<com.brightcove.player.view.BrightcoveExoPlayerVideoView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/brightcove_video_view"
+	/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/text_overlay"
+		android:visibility="gone"
+		style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
+		android:gravity="center"
+		android:textAlignment="center"
+		android:shadowColor="@color/primary"
+		android:shadowDx="1"
+		android:shadowDy="1"
+		android:shadowRadius="2"
+	/>
+</FrameLayout>

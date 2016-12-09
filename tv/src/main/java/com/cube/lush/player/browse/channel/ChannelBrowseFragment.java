@@ -3,8 +3,8 @@ package com.cube.lush.player.browse.channel;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
 
+import com.cube.lush.player.DiffingAdapter;
 import com.cube.lush.player.browse.BaseMediaBrowseFragment;
 import com.cube.lush.player.browse.MediaPresenter;
 import com.cube.lush.player.handler.ResponseHandler;
@@ -23,7 +23,11 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 {
 	private Channel channel;
 	private CategoryContentType contentType;
-	private ArrayObjectAdapter adapter;
+
+	/**
+	 * Use a {@link DiffingAdapter} so the grid will smoothly update when changes occur.
+	 */
+	private DiffingAdapter<MediaContent> mediaAdapter = new DiffingAdapter<>(new MediaPresenter());
 
 	public static ChannelBrowseFragment create(Channel channel, CategoryContentType contentType)
 	{
@@ -37,8 +41,15 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		adapter = new ArrayObjectAdapter(new MediaPresenter());
-		setAdapter(adapter);
+		mediaAdapter.setEqualityTester(new DiffingAdapter.EqualityTester<MediaContent>()
+		{
+			@Override
+			public boolean isEqual(MediaContent t1, MediaContent t2)
+			{
+				return t1.getId().equals(t2.getId());
+			}
+		});
+		setAdapter(mediaAdapter);
 	}
 
 	@Override
@@ -50,14 +61,13 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 			{
 				setLoadingFinished(false);
 				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				adapter.clear();
-				adapter.addAll(0, items);
+				mediaAdapter.setItems(items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				setLoadingFinished(true);
-				adapter.clear();
+				mediaAdapter.clear();
 			}
 		});
 	}

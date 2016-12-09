@@ -39,7 +39,7 @@ public class MainApplication extends Application
 		                                                             .addCustomViewWithSetTypeface(TextView.class)
 		                                                             .build());
 
-		LushContent.initialise();
+		LushContent.initialise(this);
 		setupImageLoader();
 	}
 

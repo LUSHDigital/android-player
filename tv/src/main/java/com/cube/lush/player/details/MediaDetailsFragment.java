@@ -3,6 +3,7 @@ package com.cube.lush.player.details;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.format.DateUtils;
 import android.view.View;
 
 import com.cube.lush.player.playback.PlaybackActivity;
@@ -23,11 +24,10 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		super.populateContentView(item);
 
 		liveIndicator.setVisibility(View.GONE);
-		startEndTime.setVisibility(View.GONE);
 		timeRemaining.setVisibility(View.GONE);
 
 		playButton.setText("Play");
-		startEndTime.setText(item.getDate().toString());
+		startEndTime.setText(DateUtils.formatDateTime(getActivity(), item.getDate().getTime(), 0));
 	}
 
 	@Override public void playButtonClicked(View view)

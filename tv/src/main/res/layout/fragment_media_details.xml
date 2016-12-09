@@ -43,6 +43,7 @@
 					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
 					android:includeFontPadding="false"
 					android:gravity="center_vertical|start"
+					android:maxLines="4"
 					tools:text="LIVE: Fresh from Lush Kitchen"
 				/>
 			</LinearLayout>

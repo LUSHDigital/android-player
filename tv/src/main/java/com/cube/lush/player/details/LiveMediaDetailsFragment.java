@@ -90,13 +90,19 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 			@Override
 			public void onSuccess(@NonNull List<MediaContent> items)
 			{
+				// This method is designed to be called from async methods so make sure we've not lost context since then
+				if (getActivity() == null)
+				{
+					return;
+				}
+
 				if (!items.isEmpty())
 				{
 					setPlaylistId(items.get(0).getId());
 				}
 				else
 				{
-					// TODO: There is no playlist so the Lush player is offline
+					OffAirFragment.show(getChildFragmentManager(), contentContainer);
 				}
 			}
 
@@ -141,7 +147,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 				}
 				else
 				{
-					// TODO: Lush TV  is offline
+					OffAirFragment.show(getChildFragmentManager(), contentContainer);
 				}
 			}
 
@@ -156,6 +162,8 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 
 	private void setLiveVideoInfo(@NonNull String playlistId, @NonNull VideoInfo videoInfo)
 	{
+		OffAirFragment.hide(getChildFragmentManager());
+
 		long nowUtc = System.currentTimeMillis();
 
 		// We construct a dummy MediaContent item to represent the live content for the base class to use

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.view.View;
 import android.widget.MediaController;
+import android.widget.TextView;
 
+import com.cube.lush.player.R;
 import com.cube.lush.player.browse.BasicMainFragmentAdapter;
 import com.cube.lush.player.playback.PlaybackFragment;
 
@@ -50,9 +52,15 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 			@Override
 			public void onCompletion(MediaPlayer mediaPlayer)
 			{
-				getBrightcoveVideoView().start();
+				if (getActivity() != null)
+				{
+					getBrightcoveVideoView().start();
+				}
 			}
 		});
+
+		getView().findViewById(R.id.text_overlay).setVisibility(View.VISIBLE);
+		((TextView)getView().findViewById(R.id.text_overlay)).setText("There is no live broadcast right now.");
 	}
 
 	@Override

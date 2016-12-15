@@ -3,14 +3,21 @@ package com.cube.lush.player.details;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.cube.lush.player.SpinnerFragment;
+import com.cube.lush.player.handler.ResponseHandler;
+import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.model.RadioContent;
 import com.cube.lush.player.playback.PlaybackActivity;
 import com.cube.lush.player.playback.PlaybackMethod;
+
+import java.util.List;
 
 /**
  * Displays details for a specific {@link MediaContent}, with a thumbnail for the content being loaded and revealed in the right-hand pane.
@@ -65,8 +72,52 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 					Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, ((RadioContent)mediaContent).getFile(), mediaContent.getThumbnail());
 					getActivity().startActivity(intent);
 				}
+				else
+				{
+					// Go and get the radio content using get programme endpoint
+					SpinnerFragment.show(getChildFragmentManager(), contentContainer);
+					fetchRadioDetails(context, mediaContent.getId());
+				}
 				break;
 			}
 		}
+	}
+
+	protected void fetchRadioDetails(@NonNull final Context context, final String mediaId)
+	{
+		MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
+		{
+			@Override public void onSuccess(@NonNull List<Programme> items)
+			{
+				SpinnerFragment.hide(getChildFragmentManager());
+
+				if (!items.isEmpty())
+				{
+					Programme programme = items.get(0);
+
+					if (programme == null)
+					{
+						return;
+					}
+
+					if (context != null)
+					{
+						// Play the content now we have the url
+						Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, programme.getUrl(), programme.getThumbnail());
+						context.startActivity(intent);
+					}
+				}
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				SpinnerFragment.hide(getChildFragmentManager());
+
+				if (context != null)
+				{
+					Toast.makeText(context, "Unable to play video, please try again", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 }

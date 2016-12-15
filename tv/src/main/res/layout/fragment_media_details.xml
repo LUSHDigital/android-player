@@ -16,10 +16,10 @@
 			android:layout_height="match_parent"
 			android:id="@+id/left_panel"
 			android:layout_weight="4"
-			android:gravity="center"
 			android:background="@android:color/black"
+			android:gravity="center"
 			android:orientation="vertical"
-			android:padding="32dp"
+			android:padding="24dp"
 		>
 			<!-- Left side content -->
 
@@ -41,9 +41,8 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/title"
 					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
-					android:includeFontPadding="false"
-					android:gravity="center_vertical|start"
-					android:maxLines="4"
+					android:gravity="top|start"
+					android:maxLines="2"
 					tools:text="LIVE: Fresh from Lush Kitchen"
 				/>
 			</LinearLayout>
@@ -55,9 +54,10 @@
 				android:id="@+id/start_end_time"
 				android:layout_marginTop="16dp"
 				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
+				android:maxLines="1"
+				android:text="09:00am - 10:00am GMT"
 				android:textColor="@color/text_dark"
 				android:textSize="13sp"
-				android:text="09:00am - 10:00am GMT"
 			/>
 
 			<!-- Watch Live Button -->
@@ -66,14 +66,14 @@
 				android:layout_height="@dimen/lb_action_2_lines_height"
 				android:id="@+id/play_button"
 				android:layout_gravity="start"
-				android:layout_marginBottom="32dp"
-				android:layout_marginTop="32dp"
+				android:layout_marginBottom="24dp"
+				android:layout_marginTop="24dp"
 				style="@style/AppDetailsActionButtonStyle"
-				android:text="Watch Live"
 				android:drawablePadding="24dp"
 				android:drawableStart="@drawable/ic_play_circle_filled_black_36dp"
-				android:paddingStart="32dp"
 				android:paddingEnd="48dp"
+				android:paddingStart="32dp"
+				android:text="Watch Live"
 			/>
 
 			<!-- Description -->
@@ -82,21 +82,24 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/description"
 				style="@style/Widget.Leanback.DetailsDescriptionBodyStyle"
-				android:textSize="13sp"
-				android:textColor="@color/text_light"
+				android:ellipsize="end"
 				android:lineSpacingMultiplier="1.5"
-				tools:text="A visit to the Lush Kitchen to experience an hour in the life of our team in action. Includes product demos and a sneak peak at this weeks menu!"
+				android:maxLines="9"
+				android:textColor="@color/text_light"
+				android:textSize="13sp"
+				tools:text="Former monk and long-term peace and environmental activist, Satish Kumar was just nine when he left his family home to join the wandering Jains and 18 when he decided he could achieve more back in the world, campaigning for land reform in India and working to turn Gandhi\u2019s vision of a renewed India and a peaceful world into reality. He has now been quietly setting the Global Agenda for change for over 50 years\nOn his 80th birthday Satish stood down as editor-in-chief of Resurgence magazine, a post he had held since 1973 , but he isn\u2019t settling for an easy retirement. He will stay on at the Resurgence Trust and advise his replacement, Greg Neale, who for two years has overseen the print magazine. He also continues to teach at Schumacher college as well as continuing to tour with public speaking engagements.\nSatish came to visit Lush in Poole to talk about his trinity of Soil, Soul and Society - which is also the title and subject of his 2013 book.\n"
 			/>
 
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/time_remaining"
-				android:layout_marginTop="32dp"
+				android:layout_marginTop="24dp"
 				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
+				android:maxLines="1"
+				android:text="39 minutes remaining"
 				android:textColor="@color/text_dark"
 				android:textSize="13sp"
-				android:text="39 minutes remaining"
 			/>
 		</LinearLayout>
 
@@ -131,8 +134,8 @@
 				<ImageView
 					android:layout_width="512dp"
 					android:layout_height="match_parent"
-					android:src="@drawable/faded_background"
 					android:scaleType="fitXY"
+					android:src="@drawable/faded_background"
 				/>
 			</LinearLayout>
 		</FrameLayout>

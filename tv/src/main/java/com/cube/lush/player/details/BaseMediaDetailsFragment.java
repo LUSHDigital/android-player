@@ -3,11 +3,11 @@ package com.cube.lush.player.details;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.app.BrandedFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +20,8 @@ import com.cube.lush.player.ErrorFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.SpinnerFragment;
 import com.cube.lush.player.model.MediaContent;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,32 +135,20 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	{
 		if (backgroundImage != null)
 		{
-			ImageLoader.getInstance().displayImage(item.getThumbnail(), backgroundImage, new ImageLoadingListener()
-			{
-				@Override
-				public void onLoadingStarted(String imageUri, View view)
+
+			Picasso.with(backgroundImage.getContext())
+				.load(item.getThumbnail())
+				.into(backgroundImage, new Callback()
 				{
+					@Override public void onSuccess()
+					{
+						revealHiddenView();
+					}
 
-				}
-
-				@Override
-				public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-				{
-
-				}
-
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-				{
-					revealHiddenView();
-				}
-
-				@Override
-				public void onLoadingCancelled(String imageUri, View view)
-				{
-
-				}
-			});
+					@Override public void onError()
+					{
+					}
+				});
 		}
 	}
 

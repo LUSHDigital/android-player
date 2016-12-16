@@ -25,10 +25,9 @@ import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.VideoInfo;
+import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Uses the Brightcove SDK player to playback Lush-related content, including playlists, specific videos, or remote files.
@@ -65,11 +64,12 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			String playbackMethodValue = intent.getStringExtra(PlaybackActivity.EXTRA_PLAYBACK_METHOD_VALUE);
 			String backgroundUrl = intent.getStringExtra(PlaybackActivity.EXTRA_PLAYBACK_BACKGROUND);
 
-			if (!TextUtils.isEmpty(backgroundUrl))
+			if (!TextUtils.isEmpty(backgroundUrl) && brightcoveVideoView != null && brightcoveVideoView.getStillView() != null && playbackMethod != null && playbackMethod == PlaybackMethod.FILE_URL)
 			{
-				Map<String, Object> stillMap = new HashMap<>();
-				//getBrightcoveVideoView().getEventEmitter().emit("setVideoStill", stillMap);
-				//ImageLoader.getInstance().displayImage(backgroundUrl, brightcoveVideoView.getStillView());
+
+				Picasso.with(brightcoveVideoView.getContext())
+					   .load(backgroundUrl)
+					   .into(brightcoveVideoView.getStillView());
 			}
 
 			if (playbackMethod != null && !TextUtils.isEmpty(playbackMethodValue))

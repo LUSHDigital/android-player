@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.cube.lush.player.R;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.view.CardView;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import lombok.Data;
 
@@ -110,7 +110,9 @@ public class MediaPresenter extends Presenter
 
 		cardView.setMainImageDimensions(width, imageHeight);
 
-		ImageLoader.getInstance().displayImage(mediaContent.getThumbnail(), cardView.getMainImageView());
+		Picasso.with(cardView.getContext())
+			.load(mediaContent.getThumbnail())
+			.into(cardView.getMainImageView());
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

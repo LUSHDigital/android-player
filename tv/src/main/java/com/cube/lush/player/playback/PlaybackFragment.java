@@ -256,7 +256,11 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 	public void playFile(@NonNull String fileUrl)
 	{
-		brightcoveVideoView.stopPlayback();
+		if (brightcoveVideoView.isPlaying())
+		{
+			brightcoveVideoView.stopPlayback();
+		}
+
 		brightcoveVideoView.add(Video.createVideo(fileUrl, DeliveryType.MP4));
 		brightcoveVideoView.start();
 		brightcoveVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener()

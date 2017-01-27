@@ -31,7 +31,7 @@ public interface LushAPI
 	 * @return
 	 */
 	@GET("categories")
-	Call<List<MediaContent>> getCategories(@Header("channel") String channel, @Header("type") String contentType);
+	Call<List<MediaContent>> getCategories(@Query("channel") String channel, @Query("type") String contentType);
 
 	/**
 	 * Retrieves the current live playlist ID for the given timezone offset

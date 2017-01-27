@@ -14,7 +14,7 @@ import lombok.Getter;
 public enum CategoryContentType
 {
 	TV("tv_program"),
-	RADIO("radio_program");
+	RADIO("radio_programme");
 
 	/**
 	 * The name the Lush API expects on the {@link com.cube.lush.player.api.LushAPI#getCategories(String, String)} endpoint.

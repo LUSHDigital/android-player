@@ -47,8 +47,8 @@ import retrofit2.Response;
 public class MediaManager
 {
 	private static final int SECOND = 1000;
-	private static final int MINUTE = 60;
-	private static final int HOUR = 60;
+	private static final int MINUTE = 60 * SECOND;
+	private static final int HOUR = 60 * MINUTE;
 	private static final int VIDEO_CACHE_EXPIRY_TIME = 5 * MINUTE;
 	private static final int RADIO_CACHE_EXPIRY_TIME = 5 * MINUTE;
 	private static final int LIVE_CACHE_EXPIRY_TIME = 0;
@@ -109,9 +109,9 @@ public class MediaManager
 							continue;
 						}
 						long endTimeUtc = startTimeUtc;
-						endTimeUtc += Long.parseLong(lengthParts[2]) * 1000;
-						endTimeUtc += Long.parseLong(lengthParts[1]) * 1000 * 60;
-						endTimeUtc += Long.parseLong(lengthParts[0]) * 1000 * 60 * 60;
+						endTimeUtc += Long.parseLong(lengthParts[2]) * SECOND;
+						endTimeUtc += Long.parseLong(lengthParts[1]) * MINUTE;
+						endTimeUtc += Long.parseLong(lengthParts[0]) * HOUR;
 
 						if (nowUtc >= startTimeUtc && nowUtc < endTimeUtc)
 						{

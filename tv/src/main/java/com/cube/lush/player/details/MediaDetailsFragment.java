@@ -14,6 +14,7 @@ import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
 import com.cube.lush.player.model.Programme;
 import com.cube.lush.player.model.RadioContent;
+import com.cube.lush.player.model.SearchResult;
 import com.cube.lush.player.playback.PlaybackActivity;
 import com.cube.lush.player.playback.PlaybackMethod;
 
@@ -27,10 +28,9 @@ import java.util.List;
  */
 public class MediaDetailsFragment extends BaseMediaDetailsFragment
 {
-	@Override public void populateContentView(@NonNull MediaContent item)
+	@Override public void populateContentView(@NonNull final MediaContent item)
 	{
 		super.populateContentView(item);
-
 		liveIndicator.setVisibility(View.GONE);
 		timeRemaining.setVisibility(View.GONE);
 
@@ -39,6 +39,29 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		if (item.getDate() != null)
 		{
 			startEndTime.setText(DateUtils.formatDateTime(getActivity(), item.getDate().getTime(), 0));
+		}
+
+		// Search results only have quite a basic amount of data, so fetch their details to get the full payload and then repopulate the content
+		if (item instanceof SearchResult)
+		{
+			MediaManager.getInstance().getProgramme(mediaContent.getId(), new ResponseHandler<Programme>()
+			{
+				@Override
+				public void onSuccess(@NonNull List<Programme> items)
+				{
+					if (items != null && !items.isEmpty())
+					{
+						items.get(0).setType(item.getType()); // Programme endpoint doesn't send back a type, so use the one from the original object...
+						populateContentView(items.get(0));
+					}
+				}
+
+				@Override
+				public void onFailure(@Nullable Throwable t)
+				{
+
+				}
+			});
 		}
 	}
 
@@ -70,6 +93,11 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 				if (mediaContent instanceof RadioContent)
 				{
 					Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, ((RadioContent)mediaContent).getFile(), mediaContent.getThumbnail());
+					getActivity().startActivity(intent);
+				}
+				else if (mediaContent instanceof Programme)
+				{
+					Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.FILE_URL, ((Programme)mediaContent).getUrl(), mediaContent.getThumbnail());
 					getActivity().startActivity(intent);
 				}
 				else
@@ -115,7 +143,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 
 				if (context != null)
 				{
-					Toast.makeText(context, "Unable to play video, please try again", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "Unable to play media, please try again", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

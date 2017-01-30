@@ -19,6 +19,7 @@ public class SpinnerFragment extends Fragment
 
 	public static void show(FragmentManager fragmentManager, View parentView)
 	{
+		fragmentManager.executePendingTransactions();
 		if (parentView != null && fragmentManager.findFragmentByTag(SPINNER_FRAGMENT_TAG) == null)
 		{
 			fragmentManager.beginTransaction().add(parentView.getId(), new SpinnerFragment(), SPINNER_FRAGMENT_TAG).commit();

@@ -18,6 +18,7 @@ public class ErrorFragment extends android.support.v17.leanback.app.ErrorFragmen
 
 	public static void show(FragmentManager fragmentManager, View parentView, Runnable retryAction)
 	{
+		fragmentManager.executePendingTransactions();
 		if (parentView != null && fragmentManager.findFragmentByTag(ERROR_FRAGMENT_TAG) == null)
 		{
 			ErrorFragment errorFragment = new ErrorFragment();

@@ -25,6 +25,7 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 
 	public static void show(FragmentManager fragmentManager, View parentView)
 	{
+		fragmentManager.executePendingTransactions();
 		if (parentView != null && fragmentManager.findFragmentByTag(OFFAIR_FRAGMENT_TAG) == null)
 		{
 			fragmentManager.beginTransaction().add(parentView.getId(), new OffAirFragment(), OFFAIR_FRAGMENT_TAG).commit();

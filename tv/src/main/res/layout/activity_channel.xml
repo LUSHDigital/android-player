@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<fragment
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/channel_fragment"
+	android:name="com.cube.lush.player.browse.channel.ChannelFragment"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".browse.channel.ChannelActivity"
+	tools:deviceIds="tv"
+	tools:ignore="MergeRootFrame"
+/>

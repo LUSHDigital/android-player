@@ -1,0 +1,6 @@
+<resources>
+	<!-- Brightcove account details -->
+	<string name="brightcove_account_id">123456789</string>
+	<string name="brightcove_policy_key">123456789</string>
+
+</resources>

@@ -9,6 +9,7 @@ import com.brightcove.player.edge.Catalog;
 import com.brightcove.player.event.EventEmitterImpl;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
+import com.cube.lush.player.api.BuildConfig;
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.api.R;
 import com.cube.lush.player.handler.ResponseHandler;
@@ -75,9 +76,7 @@ public class MediaManager
 	private MediaManager(@NonNull Context context, @NonNull LushAPI api)
 	{
 		this.api = api;
-		catalog = new Catalog(new EventEmitterImpl(),
-		                      context.getResources().getString(R.string.brightcove_account_id),
-		                      context.getResources().getString(R.string.brightcove_policy_key));
+		catalog = new Catalog(new EventEmitterImpl(), BuildConfig.BRIGHTCOVE_ACCOUNT_ID, BuildConfig.BRIGHTCOVE_POLICY_KEY);
 	}
 
 	/**

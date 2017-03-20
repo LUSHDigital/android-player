@@ -21,6 +21,7 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.BuildConfig;
 import com.cube.lush.player.handler.ResponseHandler;
 import com.cube.lush.player.manager.MediaManager;
 import com.cube.lush.player.model.MediaContent;
@@ -44,9 +45,8 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 		super.onCreateView(inflater, container, savedInstanceState);
 
-		String accountId = getResources().getString(R.string.brightcove_account_id);
 		Analytics analytics = brightcoveVideoView.getAnalytics();
-		analytics.setAccount(accountId);
+		analytics.setAccount(BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
 		return view;
 	}

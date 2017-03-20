@@ -6,6 +6,30 @@ repositories {
     }
 }
 
+def getBrightcoveAccountId = { ->
+	def brightcoveAccountId = BRIGHTCOVE_ACCOUNT_ID
+
+	if (brightcoveAccountId == null || brightcoveAccountId == "")
+	{
+		throw new Exception("No Brightcove account id set")
+	}
+
+	println "Brightcove account id is set to " + brightcoveAccountId
+	return brightcoveAccountId
+}
+
+def getBrightcovePolicyKey = { ->
+	def policyKey = BRIGHTCOVE_POLICY_KEY
+
+	if (policyKey == null || policyKey == "")
+	{
+		throw new Exception("No Brightcove policy key set")
+	}
+
+	println "Brightcove policy key is set to " + policyKey
+	return policyKey
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.3"
@@ -18,6 +42,8 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+	    buildConfigField "String", "BRIGHTCOVE_ACCOUNT_ID", "\"" + getBrightcoveAccountId() + "\""
+	    buildConfigField "String", "BRIGHTCOVE_POLICY_KEY", "\"" + getBrightcovePolicyKey() + "\""
     }
     buildTypes {
         release {

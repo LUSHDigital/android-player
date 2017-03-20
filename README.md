@@ -8,7 +8,6 @@ Documentation can be found [here]("lib/README.md").
 ## Setup
 
 * You will need to supply a Brightcove account ID and policy key in the corresponding fields in `lib/src/main/res/values/strings.xml`
-* To support crash logging with Fabric Crashlytics you will need to supply a valid Fabric API key in `AndroidManifest.xml`. 
 * Run with `./gradlew assembleDebug`
 
 ## Screenshots

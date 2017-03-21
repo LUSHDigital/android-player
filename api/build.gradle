@@ -9,10 +9,8 @@ android {
 		targetSdkVersion 25
 		versionCode 1
 		versionName "1.0"
-
-		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
 	}
+
 	buildTypes {
 		release {
 			minifyEnabled false
@@ -23,9 +21,17 @@ android {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-		exclude group: 'com.android.support', module: 'support-annotations'
-	})
-	compile 'com.android.support:appcompat-v7:25.2.0'
-	testCompile 'junit:junit:4.12'
+
+	// Retrofit
+	compile 'com.squareup.retrofit2:retrofit:2.1.0'
+	compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+	// Support annotations
+	compile "com.android.support:support-annotations:25.2.0"
+
+	// Lombok
+	compile 'org.projectlombok:lombok:1.16.10'
+
+	// Library for unescaping HTML strings
+	compile 'org.unbescape:unbescape:1.1.4.RELEASE'
 }

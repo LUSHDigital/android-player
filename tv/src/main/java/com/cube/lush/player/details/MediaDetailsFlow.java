@@ -2,7 +2,7 @@ package com.cube.lush.player.details;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.api.model.MediaContent;
 
 /**
  * Defines a flow of events used on the {@link MediaDetailsFragment} in order to populate and correctly reveal the details and background content.

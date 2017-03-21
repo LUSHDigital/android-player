@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cube.lush.player.SpinnerFragment;
-import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.MediaManager;
-import com.cube.lush.player.model.MediaContent;
-import com.cube.lush.player.model.Programme;
-import com.cube.lush.player.model.RadioContent;
-import com.cube.lush.player.model.SearchResult;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.api.model.RadioContent;
+import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.playback.PlaybackActivity;
 import com.cube.lush.player.playback.PlaybackMethod;
 

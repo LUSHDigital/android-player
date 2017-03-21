@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 import com.cube.lush.player.DiffingAdapter;
 import com.cube.lush.player.browse.BaseMediaBrowseFragment;
 import com.cube.lush.player.browse.MediaPresenter;
-import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.MediaManager;
-import com.cube.lush.player.model.MediaContent;
-import com.cube.lush.player.util.MediaSorter;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.content.util.MediaSorter;
 
 import java.util.List;
 

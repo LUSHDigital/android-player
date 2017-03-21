@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.model.Channel;
+import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.view.CardView;
 
 import lombok.Data;

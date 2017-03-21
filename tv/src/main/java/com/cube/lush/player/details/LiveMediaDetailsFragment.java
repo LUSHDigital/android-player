@@ -19,11 +19,11 @@ import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.cube.lush.player.R;
 import com.cube.lush.player.browse.BasicMainFragmentAdapter;
-import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.MediaManager;
-import com.cube.lush.player.model.ContentType;
-import com.cube.lush.player.model.MediaContent;
-import com.cube.lush.player.model.VideoInfo;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.api.model.ContentType;
+import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.playback.PlaybackActivity;
 import com.cube.lush.player.playback.PlaybackMethod;
 

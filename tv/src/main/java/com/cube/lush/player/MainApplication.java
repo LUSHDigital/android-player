@@ -3,6 +3,7 @@ package com.cube.lush.player;
 import android.app.Application;
 import android.widget.TextView;
 
+import com.cube.lush.player.content.LushContent;
 import com.squareup.leakcanary.LeakCanary;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

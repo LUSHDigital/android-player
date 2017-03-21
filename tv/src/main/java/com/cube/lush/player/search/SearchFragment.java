@@ -23,9 +23,9 @@ import android.view.ViewGroup;
 
 import com.cube.lush.player.details.MediaDetailsActivity;
 import com.cube.lush.player.R;
-import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.SearchManager;
-import com.cube.lush.player.model.SearchResult;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.SearchManager;
+import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.browse.MediaPresenter;
 
 import java.util.List;

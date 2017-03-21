@@ -8,8 +8,8 @@ import android.support.v17.leanback.widget.PageRow;
 
 import com.cube.lush.player.browse.LushBrowseFragment;
 import com.cube.lush.player.browse.MenuFragmentFactory;
-import com.cube.lush.player.model.CategoryContentType;
-import com.cube.lush.player.model.Channel;
+import com.cube.lush.player.content.model.CategoryContentType;
+import com.cube.lush.player.content.model.Channel;
 
 import java.util.Arrays;
 

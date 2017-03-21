@@ -15,8 +15,8 @@ import com.cube.lush.player.ErrorFragment;
 import com.cube.lush.player.SpinnerFragment;
 import com.cube.lush.player.browse.channel.ChannelActivity;
 import com.cube.lush.player.details.MediaDetailsActivity;
-import com.cube.lush.player.model.Channel;
-import com.cube.lush.player.model.MediaContent;
+import com.cube.lush.player.content.model.Channel;
+import com.cube.lush.player.api.model.MediaContent;
 
 import java.io.Serializable;
 

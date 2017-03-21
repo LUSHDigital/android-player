@@ -22,10 +22,10 @@ import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.BuildConfig;
-import com.cube.lush.player.handler.ResponseHandler;
-import com.cube.lush.player.manager.MediaManager;
-import com.cube.lush.player.model.MediaContent;
-import com.cube.lush.player.model.VideoInfo;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.content.model.VideoInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		super.onCreateView(inflater, container, savedInstanceState);
 
 		Analytics analytics = brightcoveVideoView.getAnalytics();
-		analytics.setAccount(BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
+		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
 		return view;
 	}

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 
 /**
  * Custom extension of Leanback's {@link ImageCardView} which supports a selection border and displays additional information about the content type (e.g. TV or

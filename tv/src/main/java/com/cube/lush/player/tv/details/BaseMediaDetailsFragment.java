@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cube.lush.player.tv.ErrorFragment;
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 import com.cube.lush.player.tv.SpinnerFragment;
 import com.cube.lush.player.api.model.MediaContent;
 import com.squareup.picasso.Callback;

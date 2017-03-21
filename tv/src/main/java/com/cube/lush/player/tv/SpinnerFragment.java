@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 
 /**
  * Displayed to the user in order to indicate that data is loading.

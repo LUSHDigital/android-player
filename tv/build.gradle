@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 repositories {
     maven {
@@ -11,8 +11,7 @@ android {
     buildToolsVersion "24.0.3"
 
     defaultConfig {
-        applicationId "com.cube.lush.player"
-        minSdkVersion 21
+	    minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

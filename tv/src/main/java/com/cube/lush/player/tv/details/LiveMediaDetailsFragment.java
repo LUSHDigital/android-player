@@ -17,7 +17,7 @@ import android.view.animation.AnimationUtils;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 import com.cube.lush.player.tv.browse.BasicMainFragmentAdapter;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;

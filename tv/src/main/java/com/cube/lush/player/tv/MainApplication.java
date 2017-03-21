@@ -3,7 +3,7 @@ package com.cube.lush.player.tv;
 import android.app.Application;
 import android.widget.TextView;
 
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 import com.cube.lush.player.content.LushContent;
 import com.squareup.leakcanary.LeakCanary;
 

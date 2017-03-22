@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.tv.view.CardView;
 

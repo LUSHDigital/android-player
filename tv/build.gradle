@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 repositories {
     maven {
@@ -30,14 +31,11 @@ dependencies {
     compile 'com.brightcove.player:exoplayer:4.11.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.projectlombok:lombok:1.16.10'
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+	compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
     compile project(":content")
 }

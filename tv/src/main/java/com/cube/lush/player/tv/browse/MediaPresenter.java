@@ -7,7 +7,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.R;
+import com.cube.lush.player.tv.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.tv.view.CardView;
 import com.squareup.picasso.Picasso;

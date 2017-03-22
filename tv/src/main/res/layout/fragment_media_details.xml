@@ -61,14 +61,14 @@
 			/>
 
 			<!-- Watch Live Button -->
-			<com.cube.lush.player.view.LushButton
+			<com.cube.lush.player.tv.view.LushButton
 				android:layout_width="wrap_content"
 				android:layout_height="@dimen/lb_action_2_lines_height"
 				android:id="@+id/play_button"
 				android:layout_gravity="start"
 				android:layout_marginBottom="24dp"
 				android:layout_marginTop="24dp"
-				style="@style/AppDetailsActionButtonStyle"
+				style="@style/TV.AppDetailsActionButtonStyle"
 				android:drawablePadding="24dp"
 				android:drawableStart="@drawable/ic_play_circle_filled_black_36dp"
 				android:paddingEnd="48dp"

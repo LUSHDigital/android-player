@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+
+repositories {
+	maven {
+		url 'http://repo.brightcove.com/releases'
+	}
+}
+
+def getBrightcoveAccountId = { ->
+	def brightcoveAccountId = BRIGHTCOVE_ACCOUNT_ID
+
+	if (brightcoveAccountId == null || brightcoveAccountId == "")
+	{
+		throw new Exception("No Brightcove account id set")
+	}
+
+	println "Brightcove account id is set to " + brightcoveAccountId
+	return brightcoveAccountId
+}
+
+def getBrightcovePolicyKey = { ->
+	def policyKey = BRIGHTCOVE_POLICY_KEY
+
+	if (policyKey == null || policyKey == "")
+	{
+		throw new Exception("No Brightcove policy key set")
+	}
+
+	println "Brightcove policy key is set to " + policyKey
+	return policyKey
+}
+
+android {
+	compileSdkVersion 25
+	buildToolsVersion "25.0.2"
+
+	defaultConfig {
+		minSdkVersion 17
+		targetSdkVersion 25
+		versionCode 1
+		versionName "1.0"
+
+		buildConfigField "String", "BRIGHTCOVE_ACCOUNT_ID", "\"" + getBrightcoveAccountId() + "\""
+		buildConfigField "String", "BRIGHTCOVE_POLICY_KEY", "\"" + getBrightcovePolicyKey() + "\""
+	}
+
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	// Lush Player API
+	compile project(':api')
+
+	// Brightcove
+	compile 'com.brightcove.player:exoplayer:4.11.1'
+
+	// Lombok
+	compile 'org.projectlombok:lombok:1.16.10'
+}

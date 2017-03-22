@@ -9,12 +9,17 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+	    classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
     }
 }
 
 allprojects {
     repositories {
         jcenter()
+
+	    maven {
+		    url 'http://repo.brightcove.com/releases'
+	    }
     }
 }
 

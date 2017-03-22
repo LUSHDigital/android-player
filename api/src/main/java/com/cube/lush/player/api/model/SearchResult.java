@@ -28,12 +28,12 @@ public class SearchResult extends MediaContent implements Serializable
 	{
 		if (getType() == null)
 		{
-			if (!TextUtils.isEmpty(videoThumbnail))
+			if (videoThumbnail != null && videoThumbnail.length() > 0)
 			{
 				return videoThumbnail;
 			}
 
-			if (!TextUtils.isEmpty(radioThumbnail))
+			if (radioThumbnail != null && radioThumbnail.length() > 0)
 			{
 				return radioThumbnail;
 			}

@@ -8,8 +8,8 @@ import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.util.MediaSorter;
-import com.cube.lush.player.tv.DiffingAdapter;
-import com.cube.lush.player.tv.browse.BaseMediaBrowseFragment;
+import com.cube.lush.player.tv.adapter.DiffingAdapter;
+import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
 import com.cube.lush.player.tv.browse.MediaPresenter;
 
 import java.util.List;

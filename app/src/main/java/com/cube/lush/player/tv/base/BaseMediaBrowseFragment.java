@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.browse;
+package com.cube.lush.player.tv.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,10 @@ import android.support.v17.leanback.widget.RowPresenter;
 
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.tv.ErrorFragment;
-import com.cube.lush.player.tv.SpinnerFragment;
+import com.cube.lush.player.tv.state.ErrorFragment;
+import com.cube.lush.player.tv.state.SpinnerFragment;
+import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
+import com.cube.lush.player.tv.browse.GridPresenter;
 import com.cube.lush.player.tv.channels.ChannelActivity;
 import com.cube.lush.player.tv.details.MediaDetailsActivity;
 

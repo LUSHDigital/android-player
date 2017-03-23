@@ -2,7 +2,7 @@ package com.cube.lush.player.tv.details;
 
 import android.os.Bundle;
 
-import com.cube.lush.player.tv.BaseTVActivity;
+import com.cube.lush.player.tv.base.BaseTVActivity;
 import com.cube.lush.player.R;
 
 /**

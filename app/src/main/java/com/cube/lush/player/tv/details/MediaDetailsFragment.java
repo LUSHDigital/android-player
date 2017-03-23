@@ -14,7 +14,7 @@ import com.cube.lush.player.api.model.RadioContent;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.tv.SpinnerFragment;
+import com.cube.lush.player.tv.state.SpinnerFragment;
 import com.cube.lush.player.common.playback.PlaybackActivity;
 import com.cube.lush.player.common.playback.PlaybackMethod;
 

@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.browse;
+package com.cube.lush.player.tv.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

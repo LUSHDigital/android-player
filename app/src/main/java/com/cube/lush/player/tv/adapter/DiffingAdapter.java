@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv;
+package com.cube.lush.player.tv.adapter;
 
 import android.support.v17.leanback.widget.ObjectAdapter;
 import android.support.v17.leanback.widget.Presenter;

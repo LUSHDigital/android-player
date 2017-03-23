@@ -10,7 +10,7 @@ import android.widget.MediaController;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.tv.browse.BasicMainFragmentAdapter;
+import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.common.playback.PlaybackFragment;
 
 /**

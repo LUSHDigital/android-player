@@ -1,8 +1,8 @@
-package com.cube.lush.player.tv.browse.main;
+package com.cube.lush.player.tv;
 
 import android.os.Bundle;
 
-import com.cube.lush.player.tv.BaseTVActivity;
+import com.cube.lush.player.tv.base.BaseTVActivity;
 import com.cube.lush.player.R;
 
 public class MainActivity extends BaseTVActivity

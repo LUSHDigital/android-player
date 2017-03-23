@@ -5,7 +5,7 @@
 >
 	<application>
 		<activity
-			android:name=".MainActivity"
+			android:name="com.cube.lush.player.mobile.MainActivity"
 			android:label="@string/title_activity_main"
 			android:theme="@style/Theme.AppCompat"
 		/>

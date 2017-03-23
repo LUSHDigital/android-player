@@ -10,20 +10,23 @@ import com.cube.lush.player.mobile.nav.BottomNavigationItemSelectedListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
-{
-	@BindView(R2.id.navigation) BottomNavigationView navigation;
-	@BindView(R2.id.container) FrameLayout container;
+import com.cube.lush.player.R;
 
-	@Override protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_phone);
-		ButterKnife.bind(this);
+public class MainActivity extends AppCompatActivity {
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+    @BindView(R.id.container)
+    FrameLayout container;
 
-		BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(container, getSupportFragmentManager());
-		navigation.setOnNavigationItemSelectedListener(navigationListener);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_phone);
+        ButterKnife.bind(this);
 
-		navigationListener.showDefaultItem();
-	}
+        BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(container, getSupportFragmentManager());
+        navigation.setOnNavigationItemSelectedListener(navigationListener);
+
+        navigationListener.showDefaultItem();
+    }
 }

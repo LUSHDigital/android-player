@@ -31,7 +31,9 @@ dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 
 	// Lush content
-	compile project(":content")
+//	compile project(":content")
+	compile project(":tv")
+	compile project(":mobile")
 
 	// Testing
 	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

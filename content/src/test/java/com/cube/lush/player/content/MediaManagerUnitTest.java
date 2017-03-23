@@ -1,9 +1,5 @@
 package com.cube.lush.player.content;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
 /**
  * Media Manager unit test, which will execute on the development machine (host).
  *

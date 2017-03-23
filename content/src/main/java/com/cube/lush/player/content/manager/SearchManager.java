@@ -3,10 +3,13 @@ package com.cube.lush.player.content.manager;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.api.model.SearchResult;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import lombok.Getter;
 import retrofit2.Call;
@@ -19,17 +22,22 @@ import retrofit2.Response;
  */
 public class SearchManager
 {
-	@Getter private static SearchManager instance;
-	private LushAPI api;
+	private static SearchManager instance;
+	@Inject protected LushAPI api;
 
-	public static void initialise(@NonNull LushAPI api)
+	public static SearchManager getInstance()
 	{
-		instance = new SearchManager(api);
+		if (instance == null)
+		{
+			instance = new SearchManager();
+		}
+
+		return instance;
 	}
 
-	private SearchManager(@NonNull LushAPI api)
+	private SearchManager()
 	{
-		this.api = api;
+		DaggerComponents.getInstance().getApi().inject(this);
 	}
 
 	public void search(@NonNull final String searchTerm, @NonNull final ResponseHandler<SearchResult> handler)

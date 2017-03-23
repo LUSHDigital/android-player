@@ -1,6 +1,5 @@
 package com.cube.lush.player.content.manager;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,6 +14,7 @@ import com.cube.lush.player.api.model.VideoContent;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.api.model.RadioContent;
+import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.model.CategoryContentType;
 import com.cube.lush.player.content.model.Channel;
@@ -32,6 +32,8 @@ import java.util.TimeZone;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import javax.inject.Inject;
 
 import lombok.Getter;
 import retrofit2.Call;
@@ -53,9 +55,21 @@ public class MediaManager
 	private static final int RADIO_CACHE_EXPIRY_TIME = 5 * MINUTE;
 	private static final int LIVE_CACHE_EXPIRY_TIME = 0;
 
-	@Getter
 	private static MediaManager instance;
-	private LushAPI api;
+
+	public static MediaManager getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new MediaManager();
+		}
+
+		return instance;
+	}
+
+	@Inject
+	protected LushAPI api;
+
 	@Getter
 	private Catalog catalog;
 
@@ -67,14 +81,9 @@ public class MediaManager
 	private List<MediaContent> liveCache = null;
 	private long lastLiveFetchTime = 0;
 
-	public static void initialise(@NonNull Context context, @NonNull LushAPI api)
+	private MediaManager()
 	{
-		instance = new MediaManager(context, api);
-	}
-
-	private MediaManager(@NonNull Context context, @NonNull LushAPI api)
-	{
-		this.api = api;
+		DaggerComponents.getInstance().getApi().inject(this);
 		catalog = new Catalog(new EventEmitterImpl(), BuildConfig.BRIGHTCOVE_ACCOUNT_ID, BuildConfig.BRIGHTCOVE_POLICY_KEY);
 	}
 

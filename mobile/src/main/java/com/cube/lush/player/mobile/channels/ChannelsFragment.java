@@ -1,6 +1,7 @@
 package com.cube.lush.player.mobile.channels;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,18 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.R;
 import com.cube.lush.player.mobile.R2;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
+import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChannelsFragment extends Fragment
+public class ChannelsFragment extends Fragment implements ChannelClickListener
 {
 	@BindView(R2.id.recycler) RecyclerView recycler;
 
@@ -52,7 +55,7 @@ public class ChannelsFragment extends Fragment
 		recycler.setLayoutManager(gridLayoutManager);
 
 		ArrayList<Channel> channels = getChannels();
-		ChannelsAdapter channelsAdapter = new ChannelsAdapter(channels);
+		ChannelsAdapter channelsAdapter = new ChannelsAdapter(channels, this);
 		recycler.setAdapter(channelsAdapter);
 	}
 
@@ -66,5 +69,11 @@ public class ChannelsFragment extends Fragment
 		}
 
 		return channels;
+	}
+
+	@Override
+	public void selectedChannel(@NonNull Channel channel)
+	{
+		Toast.makeText(getContext(), "Selected channel: " + channel.getTitle(), Toast.LENGTH_SHORT).show();
 	}
 }

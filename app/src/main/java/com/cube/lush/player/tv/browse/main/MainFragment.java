@@ -12,6 +12,7 @@ import com.cube.lush.player.tv.browse.LushBrowseFragment;
 import com.cube.lush.player.tv.browse.MenuFragmentFactory;
 import com.cube.lush.player.tv.channels.ChannelsFragment;
 import com.cube.lush.player.tv.details.LiveMediaDetailsFragment;
+import com.cube.lush.player.tv.home.HomeFragment;
 
 import java.util.Arrays;
 

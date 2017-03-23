@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.mobile.R;
 import com.cube.lush.player.mobile.channels.holder.ChannelViewHolder;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 

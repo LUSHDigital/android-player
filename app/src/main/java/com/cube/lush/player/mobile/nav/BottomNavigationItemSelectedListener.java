@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.cube.lush.player.mobile.R;
+import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
 import com.cube.lush.player.mobile.events.EventsFragment;
 import com.cube.lush.player.mobile.home.HomeFragment;

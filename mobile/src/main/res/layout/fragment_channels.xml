@@ -4,11 +4,10 @@
 	android:layout_height="match_parent"
 	tools:context="com.cube.lush.player.mobile.channels.ChannelsFragment"
 >
-	<TextView
+	<android.support.v7.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:gravity="center"
-		android:text="@string/title_channels"
-		android:textSize="40sp"
+		android:id="@+id/recycler"
+		android:background="@android:color/black"
 	/>
 </FrameLayout>

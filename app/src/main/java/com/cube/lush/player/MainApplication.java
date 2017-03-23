@@ -3,8 +3,6 @@ package com.cube.lush.player;
 import android.app.Application;
 import android.widget.TextView;
 
-import com.cube.lush.player.content.LushContent;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -18,10 +16,8 @@ public class MainApplication extends Application
 		super.onCreate();
 
 		CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/HelveticaNeueLTPro-Roman.otf")
-		                                                             .setFontAttrId(R.attr.fontPath)
-		                                                             .addCustomViewWithSetTypeface(TextView.class)
-		                                                             .build());
-
-		LushContent.initialise(this);
+			.setFontAttrId(R.attr.fontPath)
+			.addCustomViewWithSetTypeface(TextView.class)
+			.build());
 	}
 }

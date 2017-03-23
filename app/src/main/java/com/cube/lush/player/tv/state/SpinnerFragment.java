@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv;
+package com.cube.lush.player.tv.state;
 
 import android.app.Fragment;
 import android.app.FragmentManager;

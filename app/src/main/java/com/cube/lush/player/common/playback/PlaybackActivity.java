@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.cube.lush.player.tv.BaseTVActivity;
+import com.cube.lush.player.tv.base.BaseTVActivity;
 import com.cube.lush.player.R;
 
 public class PlaybackActivity extends BaseTVActivity

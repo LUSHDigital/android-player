@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.browse.main;
+package com.cube.lush.player.tv;
 
 import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -8,9 +8,11 @@ import android.support.v17.leanback.widget.PageRow;
 import android.widget.ImageView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.tv.browse.LushBrowseFragment;
+import com.cube.lush.player.tv.base.LushBrowseFragment;
 import com.cube.lush.player.tv.browse.MenuFragmentFactory;
+import com.cube.lush.player.tv.channels.ChannelsFragment;
 import com.cube.lush.player.tv.details.LiveMediaDetailsFragment;
+import com.cube.lush.player.tv.home.HomeFragment;
 
 import java.util.Arrays;
 

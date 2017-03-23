@@ -5,10 +5,10 @@
 	  xmlns:app="http://schemas.android.com/apk/res-auto"
 	  xmlns:tools="http://schemas.android.com/tools"
 	  android:id="@+id/main_browse_fragment"
-	  android:name="com.cube.lush.player.tv.browse.main.MainFragment"
+	  android:name="com.cube.lush.player.tv.MainFragment"
 	  android:layout_width="match_parent"
 	  android:layout_height="match_parent"
-	  tools:context=".tv.browse.main.MainActivity"
+	  tools:context=".tv.MainActivity"
 	  tools:deviceIds="tv"
 	  tools:ignore="MergeRootFrame"
 />

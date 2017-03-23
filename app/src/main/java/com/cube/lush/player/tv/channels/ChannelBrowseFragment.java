@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.browse.main;
+package com.cube.lush.player.tv.channels;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,24 +7,35 @@ import android.support.annotation.Nullable;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.content.model.CategoryContentType;
+import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.content.util.MediaSorter;
-import com.cube.lush.player.tv.DiffingAdapter;
-import com.cube.lush.player.tv.browse.BaseMediaBrowseFragment;
+import com.cube.lush.player.tv.adapter.DiffingAdapter;
+import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
 import com.cube.lush.player.tv.browse.MediaPresenter;
 
 import java.util.List;
 
 /**
- * Fragment shown on the launch page of the app when the "Home" menu item is selected.
- *
- * Created by tim on 30/11/2016.
+ * Created by tim on 06/12/2016.
  */
-public class HomeFragment extends BaseMediaBrowseFragment
+public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 {
+	private Channel channel;
+	private CategoryContentType contentType;
+
 	/**
 	 * Use a {@link DiffingAdapter} so the grid will smoothly update when changes occur.
 	 */
 	private DiffingAdapter<MediaContent> mediaAdapter = new DiffingAdapter<>(new MediaPresenter());
+
+	public static ChannelBrowseFragment create(Channel channel, CategoryContentType contentType)
+	{
+		ChannelBrowseFragment channelBrowseFragment = new ChannelBrowseFragment();
+		channelBrowseFragment.channel = channel;
+		channelBrowseFragment.contentType = contentType;
+		return channelBrowseFragment;
+	}
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState)
@@ -44,9 +55,9 @@ public class HomeFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		MediaManager.getInstance().getMedia(new ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getChannelContent(channel, contentType, new ResponseHandler<MediaContent>()
 		{
-			@Override public void onSuccess(@NonNull final List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
 				setLoadingFinished(false);
 				MediaSorter.MOST_RECENT_FIRST.sort(items);

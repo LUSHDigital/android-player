@@ -1,11 +1,11 @@
-package com.cube.lush.player.tv.browse.main;
+package com.cube.lush.player.tv.channels;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.tv.browse.BaseMediaBrowseFragment;
+import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
 
 import java.util.Arrays;
 

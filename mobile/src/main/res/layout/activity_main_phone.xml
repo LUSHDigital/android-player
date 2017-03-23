@@ -12,20 +12,9 @@
 	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:id="@+id/content"
+		android:id="@+id/container"
 		android:layout_weight="1"
-	>
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/message"
-			android:layout_marginBottom="@dimen/activity_vertical_margin"
-			android:layout_marginLeft="@dimen/activity_horizontal_margin"
-			android:layout_marginRight="@dimen/activity_horizontal_margin"
-			android:layout_marginTop="@dimen/activity_vertical_margin"
-			android:text="@string/title_home"
-		/>
-	</FrameLayout>
+	/>
 
 	<android.support.design.widget.BottomNavigationView
 		android:layout_width="match_parent"

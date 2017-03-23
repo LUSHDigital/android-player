@@ -9,57 +9,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.cube.lush.player.mobile.nav.BottomNavigationItemSelectedListener;
+
 import java.lang.reflect.Field;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
 {
-	private TextView mTextMessage;
-
-	private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener()
-	{
-
-		@Override public boolean onNavigationItemSelected(@NonNull MenuItem item)
-		{
-			int id = item.getItemId();
-
-			if (id == R.id.navigation_home)
-			{
-
-				return true;
-			}
-			else if (id == R.id.navigation_live)
-			{
-
-				return true;
-			}
-			else if (id == R.id.navigation_channels)
-			{
-
-				return true;
-			}
-			else if (id == R.id.navigation_events)
-			{
-
-				return true;
-			}
-			else if (id == R.id.navigation_search)
-			{
-
-				return true;
-			}
-
-			return false;
-		}
-
-	};
+	@BindView(R2.id.navigation) BottomNavigationView navigation;
+	@BindView(R2.id.container) BottomNavigationView container;
 
 	@Override protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_phone);
+		ButterKnife.bind(this);
 
-		mTextMessage = (TextView)findViewById(R.id.message);
-		BottomNavigationView navigation = (BottomNavigationView)findViewById(R.id.navigation);
-		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+		BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(R.id.container, getSupportFragmentManager());
+		navigation.setOnNavigationItemSelectedListener(navigationListener);
 	}
 }

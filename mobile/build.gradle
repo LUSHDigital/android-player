@@ -38,4 +38,7 @@ dependencies {
 	compile 'com.android.support:design:25.2.0'
 	compile 'com.android.support:support-vector-drawable:25.2.0'
 	testCompile 'junit:junit:4.12'
+
+	compile 'com.jakewharton:butterknife:8.4.0'
+	annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

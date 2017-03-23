@@ -2,13 +2,13 @@ package com.cube.lush.player.tv.details;
 
 import android.os.Bundle;
 
-import com.cube.lush.player.common.LushActivity;
+import com.cube.lush.player.tv.BaseTVActivity;
 import com.cube.lush.player.R;
 
 /**
  * Created by tim on 24/11/2016.
  */
-public class MediaDetailsActivity extends LushActivity
+public class MediaDetailsActivity extends BaseTVActivity
 {
 	public static final String EXTRA_MEDIA = "extra_media_item";
 

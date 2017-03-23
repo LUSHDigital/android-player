@@ -2,10 +2,10 @@ package com.cube.lush.player.tv.browse.main;
 
 import android.os.Bundle;
 
-import com.cube.lush.player.common.LushActivity;
+import com.cube.lush.player.tv.BaseTVActivity;
 import com.cube.lush.player.R;
 
-public class MainActivity extends LushActivity
+public class MainActivity extends BaseTVActivity
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

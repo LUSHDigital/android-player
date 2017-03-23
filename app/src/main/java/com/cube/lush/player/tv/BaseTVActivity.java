@@ -1,8 +1,8 @@
-package com.cube.lush.player.common;
+package com.cube.lush.player.tv;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 
 import com.cube.lush.player.tv.search.SearchActivity;
 
@@ -10,10 +10,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Base activity that performs actions common to all activities in the app.
- *
- * Created by tim on 02/12/2016.
  */
-public class LushActivity extends Activity
+public class BaseTVActivity extends AppCompatActivity
 {
 	@Override
 	protected void attachBaseContext(Context newBase)

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main_phone);
 		ButterKnife.bind(this);
 
-		BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(R.id.container, getSupportFragmentManager());
+		BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(container, getSupportFragmentManager());
 		navigation.setOnNavigationItemSelectedListener(navigationListener);
 	}
 }

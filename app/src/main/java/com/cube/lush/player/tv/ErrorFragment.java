@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import com.cube.lush.player.R;
 
 /**
  * Displayed to the user in order to indicate that data is loading.

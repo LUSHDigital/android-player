@@ -18,8 +18,7 @@ import android.widget.TextView;
 
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.tv.ErrorFragment;
-import com.cube.lush.player.tv.R;
-import com.cube.lush.player.tv.R2;
+import com.cube.lush.player.R;
 import com.cube.lush.player.tv.SpinnerFragment;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -38,16 +37,16 @@ import butterknife.OnClick;
  */
 public abstract class BaseMediaDetailsFragment extends BrandedFragment implements MediaDetailsFlow
 {
-	@BindView(R2.id.container) protected ViewGroup contentContainer;
-	@BindView(R2.id.left_panel) protected ViewGroup leftPanel;
-	@BindView(R2.id.right_panel) protected ViewGroup rightPanel;
-	@BindView(R2.id.background_image) protected ImageView backgroundImage;
-	@BindView(R2.id.play_button) protected Button playButton;
-	@BindView(R2.id.live_indicator) protected ImageView liveIndicator;
-	@BindView(R2.id.title) protected TextView title;
-	@BindView(R2.id.start_end_time) protected TextView startEndTime;
-	@BindView(R2.id.description) protected TextView description;
-	@BindView(R2.id.time_remaining) protected TextView timeRemaining;
+	@BindView(R.id.container) protected ViewGroup contentContainer;
+	@BindView(R.id.left_panel) protected ViewGroup leftPanel;
+	@BindView(R.id.right_panel) protected ViewGroup rightPanel;
+	@BindView(R.id.background_image) protected ImageView backgroundImage;
+	@BindView(R.id.play_button) protected Button playButton;
+	@BindView(R.id.live_indicator) protected ImageView liveIndicator;
+	@BindView(R.id.title) protected TextView title;
+	@BindView(R.id.start_end_time) protected TextView startEndTime;
+	@BindView(R.id.description) protected TextView description;
+	@BindView(R.id.time_remaining) protected TextView timeRemaining;
 	protected MediaContent mediaContent;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -174,6 +173,6 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 		anim.start();
 	}
 
-	@OnClick(R2.id.play_button)
+	@OnClick(R.id.play_button)
 	public abstract void playButtonClicked(View view);
 }

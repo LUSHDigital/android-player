@@ -3,7 +3,7 @@ package com.cube.lush.player.tv.details;
 import android.os.Bundle;
 
 import com.cube.lush.player.tv.LushActivity;
-import com.cube.lush.player.tv.R;
+import com.cube.lush.player.R;
 
 /**
  * Created by tim on 24/11/2016.

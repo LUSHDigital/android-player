@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.cube.lush.player.tv.LushActivity;
-import com.cube.lush.player.tv.R;
+import com.cube.lush.player.R;
 
 public class PlaybackActivity extends LushActivity
 {

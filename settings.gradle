@@ -1,1 +1,1 @@
-include ':tv', ':api', ':content', ':app'
+include ':api', ':content', ':app'

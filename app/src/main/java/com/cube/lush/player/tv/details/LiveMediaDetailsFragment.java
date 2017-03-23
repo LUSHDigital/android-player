@@ -22,7 +22,7 @@ import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
-import com.cube.lush.player.tv.R;
+import com.cube.lush.player.R;
 import com.cube.lush.player.tv.browse.BasicMainFragmentAdapter;
 import com.cube.lush.player.tv.playback.PlaybackActivity;
 import com.cube.lush.player.tv.playback.PlaybackMethod;

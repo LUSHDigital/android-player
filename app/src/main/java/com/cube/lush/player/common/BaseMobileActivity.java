@@ -11,7 +11,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Base activity that performs actions common to all activities in the app.
  */
-public class BaseActivity extends AppCompatActivity
+public class BaseMobileActivity extends AppCompatActivity
 {
     @Override
     protected void attachBaseContext(Context newBase)

@@ -2,10 +2,9 @@ package com.cube.lush.player.mobile;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
-import com.cube.lush.player.common.BaseActivity;
+import com.cube.lush.player.common.BaseMobileActivity;
 import com.cube.lush.player.mobile.nav.BottomNavigationItemSelectedListener;
 
 import butterknife.BindView;
@@ -13,7 +12,7 @@ import butterknife.ButterKnife;
 
 import com.cube.lush.player.R;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseMobileActivity
 {
     @BindView(R.id.navigation)
     BottomNavigationView navigation;

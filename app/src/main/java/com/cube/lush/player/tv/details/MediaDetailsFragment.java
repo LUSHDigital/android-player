@@ -15,8 +15,8 @@ import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.tv.SpinnerFragment;
-import com.cube.lush.player.tv.playback.PlaybackActivity;
-import com.cube.lush.player.tv.playback.PlaybackMethod;
+import com.cube.lush.player.common.playback.PlaybackActivity;
+import com.cube.lush.player.common.playback.PlaybackMethod;
 
 import java.util.List;
 

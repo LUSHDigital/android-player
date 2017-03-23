@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.details;
+package com.cube.lush.player.common.details;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.tv.browse.BasicMainFragmentAdapter;
-import com.cube.lush.player.tv.playback.PlaybackFragment;
+import com.cube.lush.player.common.playback.PlaybackFragment;
 
 /**
  * Displays details and a preview of the current live Lush playlist.

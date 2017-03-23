@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.playback;
+package com.cube.lush.player.common.playback;
 
 /**
  * @author Jamie Cruwys

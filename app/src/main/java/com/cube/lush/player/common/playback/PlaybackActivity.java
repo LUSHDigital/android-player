@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.playback;
+package com.cube.lush.player.common.playback;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.cube.lush.player.tv.LushActivity;
+import com.cube.lush.player.common.LushActivity;
 import com.cube.lush.player.R;
 
 public class PlaybackActivity extends LushActivity

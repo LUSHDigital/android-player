@@ -2,7 +2,7 @@ package com.cube.lush.player.tv.search;
 
 import android.os.Bundle;
 
-import com.cube.lush.player.tv.LushActivity;
+import com.cube.lush.player.common.LushActivity;
 import com.cube.lush.player.R;
 
 /**

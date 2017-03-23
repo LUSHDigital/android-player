@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv;
+package com.cube.lush.player.common;
 
 import android.app.Activity;
 import android.content.Context;

@@ -3,16 +3,18 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
+	android:layout_height="168dp"
 	android:orientation="vertical"
-	android:layout_margin="0.5dp"
-	android:background="@android:color/black"
+	android:background="@color/grey"
+	android:gravity="center"
+	android:padding="1dp"
 >
 	<ImageView
 		android:layout_width="match_parent"
-		android:layout_height="200dp"
+		android:layout_height="match_parent"
 		android:id="@+id/image"
-		android:padding="25dp"
+		android:background="@android:color/black"
+		android:padding="22dp"
 		tools:src="@drawable/channel_lush_kitchen"
 	/>
 </LinearLayout>

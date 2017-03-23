@@ -2,7 +2,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/grey"
+	android:background="@android:color/black"
 	tools:context="com.cube.lush.player.mobile.channels.ChannelsFragment"
 >
 	<android.support.v7.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.browse.main;
+package com.cube.lush.player.tv.channels;
 
 import android.content.Context;
 import android.support.v17.leanback.widget.Presenter;

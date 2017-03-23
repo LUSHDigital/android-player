@@ -44,6 +44,6 @@
 		<activity android:name="com.cube.lush.player.tv.search.SearchActivity" android:theme="@style/TV.AppTheme" />
 		<activity android:name="com.cube.lush.player.common.playback.PlaybackActivity" android:theme="@style/TV.AppTheme" />
 		<activity android:name="com.cube.lush.player.tv.details.MediaDetailsActivity" android:theme="@style/TV.AppTheme" />
-		<activity android:name="com.cube.lush.player.tv.browse.channel.ChannelActivity" android:theme="@style/TV.AppTheme" />
+		<activity android:name="com.cube.lush.player.tv.channels.ChannelActivity" android:theme="@style/TV.AppTheme" />
 	</application>
 </manifest>

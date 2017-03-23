@@ -1,4 +1,4 @@
-package com.cube.lush.player.tv.browse.channel;
+package com.cube.lush.player.tv.channels;
 
 import android.os.Bundle;
 

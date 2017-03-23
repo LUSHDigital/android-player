@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.cube.lush.player.R;
 import com.cube.lush.player.tv.browse.LushBrowseFragment;
 import com.cube.lush.player.tv.browse.MenuFragmentFactory;
+import com.cube.lush.player.tv.channels.ChannelsFragment;
 import com.cube.lush.player.tv.details.LiveMediaDetailsFragment;
 
 import java.util.Arrays;

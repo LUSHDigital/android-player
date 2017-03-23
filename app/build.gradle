@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// TODO: remove after this is no longer a library project
+apply plugin: 'com.jakewharton.butterknife'
+
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
@@ -13,6 +16,7 @@ android {
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+		vectorDrawables.useSupportLibrary = true
 	}
 	buildTypes {
 		release {
@@ -23,19 +27,44 @@ android {
 }
 
 dependencies {
+	// Local files
 	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	// Lush content
+	compile project(":content")
+
+	// Testing
 	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	})
-	compile 'com.android.support:appcompat-v7:25.2.0'
 	testCompile 'junit:junit:4.12'
 
-	compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+	// Android Support
+	compile 'com.android.support:appcompat-v7:25.2.0'
+	compile 'com.android.support:recyclerview-v7:25.0.1'
+	compile 'com.android.support:leanback-v17:25.0.1'
+	compile 'com.android.support:support-v4:25.2.0'
+	compile 'com.android.support:design:25.2.0'
+	compile 'com.android.support:support-vector-drawable:25.2.0'
 
+	// Brightcove
+	compile 'com.brightcove.player:exoplayer:4.11.1'
+
+	// Images
+	compile 'com.squareup.picasso:picasso:2.5.2'
+
+	// View injection
+	compile 'com.jakewharton:butterknife:8.4.0'
+	annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+	// Auto generated getters, setters and constructors
+	compile 'org.projectlombok:lombok:1.16.10'
+
+	// Dependency injection
 	compile 'com.google.dagger:dagger:2.10'
 	annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
 	provided 'javax.annotation:jsr250-api:1.0'
 
-	compile project(':mobile')
-	compile project(':tv')
+	// Fonts
+	compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 }

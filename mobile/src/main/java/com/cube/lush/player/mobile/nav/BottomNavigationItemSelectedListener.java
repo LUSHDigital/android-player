@@ -8,6 +8,11 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.cube.lush.player.mobile.R;
+import com.cube.lush.player.mobile.channels.ChannelsFragment;
+import com.cube.lush.player.mobile.events.EventsFragment;
+import com.cube.lush.player.mobile.home.HomeFragment;
+import com.cube.lush.player.mobile.live.LiveFragment;
+import com.cube.lush.player.mobile.search.SearchFragment;
 
 import lombok.AllArgsConstructor;
 
@@ -17,8 +22,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BottomNavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener
 {
-	private @NonNull FrameLayout container;
-	private @NonNull FragmentManager fragmentManager;
+	protected @NonNull FrameLayout container;
+	protected @NonNull FragmentManager fragmentManager;
 
 	@Override public boolean onNavigationItemSelected(@NonNull MenuItem item)
 	{
@@ -26,26 +31,27 @@ public class BottomNavigationItemSelectedListener implements BottomNavigationVie
 
 		if (id == R.id.navigation_home)
 		{
+			show(HomeFragment.newInstance());
 			return true;
 		}
 		else if (id == R.id.navigation_live)
 		{
-
+			show(LiveFragment.newInstance());
 			return true;
 		}
 		else if (id == R.id.navigation_channels)
 		{
-
+			show(ChannelsFragment.newInstance());
 			return true;
 		}
 		else if (id == R.id.navigation_events)
 		{
-
+			show(EventsFragment.newInstance());
 			return true;
 		}
 		else if (id == R.id.navigation_search)
 		{
-
+			show(SearchFragment.newInstance());
 			return true;
 		}
 
@@ -67,5 +73,10 @@ public class BottomNavigationItemSelectedListener implements BottomNavigationVie
 		fragmentManager.beginTransaction()
 			.replace(container.getId(), fragment)
 			.commitNow();
+	}
+
+	public void showDefaultItem()
+	{
+		show(HomeFragment.newInstance());
 	}
 }

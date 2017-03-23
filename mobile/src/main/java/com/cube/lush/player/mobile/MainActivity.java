@@ -1,17 +1,11 @@
 package com.cube.lush.player.mobile;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 import com.cube.lush.player.mobile.nav.BottomNavigationItemSelectedListener;
-
-import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +13,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
 {
 	@BindView(R2.id.navigation) BottomNavigationView navigation;
-	@BindView(R2.id.container) BottomNavigationView container;
+	@BindView(R2.id.container) FrameLayout container;
 
 	@Override protected void onCreate(Bundle savedInstanceState)
 	{
@@ -29,5 +23,7 @@ public class MainActivity extends AppCompatActivity
 
 		BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(container, getSupportFragmentManager());
 		navigation.setOnNavigationItemSelectedListener(navigationListener);
+
+		navigationListener.showDefaultItem();
 	}
 }

@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 
-// TODO: remove after this is no longer a library project
-apply plugin: 'com.jakewharton.butterknife'
-
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
@@ -27,14 +24,17 @@ android {
 
 	sourceSets {
 		main {
+			res.srcDirs += 'src/main/res/common'
 			file('src/main/res/common')
 					.listFiles()
 					.each { res.srcDirs += it.path }
 
+			res.srcDirs += 'src/main/res/mobile'
 			file('src/main/res/mobile')
 					.listFiles()
 					.each { res.srcDirs += it.path }
 
+			res.srcDirs += 'src/main/res/tv'
 			file('src/main/res/tv')
 					.listFiles()
 					.each { res.srcDirs += it.path }
@@ -49,7 +49,6 @@ dependencies {
 	// Lush content
 //	compile project(":content")
 	compile project(":tv")
-	compile project(":mobile")
 
 	// Testing
 	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

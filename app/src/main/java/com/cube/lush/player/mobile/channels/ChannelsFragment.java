@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.mobile.R;
-import com.cube.lush.player.mobile.R2;
+import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 
@@ -24,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class ChannelsFragment extends Fragment implements ChannelClickListener
 {
-	@BindView(R2.id.recycler) RecyclerView recycler;
+	@BindView(R.id.recycler) RecyclerView recycler;
 
 	public ChannelsFragment()
 	{

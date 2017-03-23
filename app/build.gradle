@@ -35,6 +35,11 @@ android {
 					.listFiles()
 					.each { res.srcDirs += it.path }
 
+			res.srcDirs += 'src/main/res/launcher'
+			file('src/main/res/launcher')
+					.listFiles()
+					.each { res.srcDirs += it.path }
+
 			res.srcDirs += 'src/main/res/mobile'
 			file('src/main/res/mobile')
 					.listFiles()

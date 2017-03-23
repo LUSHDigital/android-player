@@ -6,4 +6,38 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <!-- TV Styles -->
+    <style name="TV.AppTheme" parent="@style/Theme.Leanback">
+        <item name="imageCardViewStyle">@style/TV.AppImageCardViewStyle</item>
+        <item name="imageCardViewTitleStyle">@style/TV.AppImageCardViewTitleStyle</item>
+        <item name="imageCardViewContentStyle">@style/TV.AppImageCardViewContentStyle</item>
+        <item name="imageCardViewInfoAreaStyle">@style/TV.AppImageCardViewInfoAreaStyle</item>
+        <item name="detailsActionButtonStyle">@style/TV.AppDetailsActionButtonStyle</item>
+    </style>
+
+    <style name="TV.AppImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="cardBackground">@color/primary</item>
+        <item name="infoAreaBackground">@color/primary</item>
+        <item name="lbImageCardViewType">Title|Content</item>
+    </style>
+
+    <style name="TV.AppImageCardViewInfoAreaStyle" parent="Widget.Leanback.ImageCardView.InfoAreaStyle">
+        <item name="android:paddingStart">10dp</item>
+    </style>
+
+    <style name="TV.AppImageCardViewTitleStyle" parent="Widget.Leanback.ImageCardView.TitleStyle">
+        <item name="android:layout_marginTop">@dimen/lb_basic_card_info_text_margin</item>
+        <item name="android:layout_marginBottom">@dimen/lb_basic_card_info_text_margin</item>
+    </style>
+
+    <style name="TV.AppImageCardViewContentStyle" parent="Widget.Leanback.ImageCardView.ContentStyle">
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TV.AppDetailsActionButtonStyle" parent="Widget.Leanback.DetailsActionButtonStyle">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
 </resources>

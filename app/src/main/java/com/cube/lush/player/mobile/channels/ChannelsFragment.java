@@ -13,10 +13,14 @@ import android.widget.Toast;
 
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
+import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
+import com.cube.lush.player.mobile.content.ContentFragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,26 +57,21 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
 		recycler.setLayoutManager(gridLayoutManager);
 
-		ArrayList<Channel> channels = getChannels();
+		List<Channel> channels = getChannels();
 		ChannelsAdapter channelsAdapter = new ChannelsAdapter(channels, this);
 		recycler.setAdapter(channelsAdapter);
 	}
 
-	private ArrayList<Channel> getChannels()
+	private List<Channel> getChannels()
 	{
-		ArrayList<Channel> channels = new ArrayList<Channel>();
-
-		for (Channel channel : Channel.values())
-		{
-			channels.add(channel);
-		}
-
-		return channels;
+		return Arrays.asList(Channel.values());
 	}
 
 	@Override
 	public void selectedChannel(@NonNull Channel channel)
 	{
 		Toast.makeText(getContext(), "Selected channel: " + channel.getTitle(), Toast.LENGTH_SHORT).show();
+
+		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
 	}
 }

@@ -4,13 +4,15 @@ import android.support.annotation.DrawableRes;
 
 import com.cube.lush.player.content.R;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 
 /**
  * Information about Lush content channels
  * Created by tim on 28/11/2016.
  */
-public enum Channel
+public enum Channel implements Serializable
 {
 	LUSH_LIFE("lushlife", "Lush Life", "", R.drawable.channel_lush_life),
 	LUSH_KITCHEN("kitchen", "Lush Kitchen", "", R.drawable.channel_lush_kitchen),

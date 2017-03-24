@@ -72,6 +72,6 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 	{
 		Toast.makeText(getContext(), "Selected channel: " + channel.getTitle(), Toast.LENGTH_SHORT).show();
 
-		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance());
+		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
 	}
 }

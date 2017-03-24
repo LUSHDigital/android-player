@@ -34,20 +34,31 @@ import butterknife.ButterKnife;
 
 public class ContentFragment extends Fragment implements ContentClickListener
 {
+	private static final String ARG_CHANNEL = "arg_channel";
+
 	@BindView(R.id.recycler) RecyclerView recycler;
 	private ContentAdapter contentAdapter;
+	private Channel channel;
 
 	public ContentFragment()
 	{
 		// Required empty public constructor
 	}
 
-	public static ContentFragment newInstance()
+	public static ContentFragment newInstance(@NonNull Channel channel)
 	{
 		ContentFragment fragment = new ContentFragment();
 		Bundle args = new Bundle();
+		args.putSerializable(ARG_CHANNEL, channel);
 		fragment.setArguments(args);
 		return fragment;
+	}
+
+	@Override public void onCreate(@Nullable Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+
+		channel = (Channel)getArguments().getSerializable(ARG_CHANNEL);
 	}
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -75,7 +86,7 @@ public class ContentFragment extends Fragment implements ContentClickListener
 		final MainActivity mainActivity = ((MainActivity)getActivity());
 		mainActivity.showLoading();
 
-		MediaManager.getInstance().getChannelContent(Channel.LUSH_LIFE, CategoryContentType.TV, new ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getChannelContent(channel, CategoryContentType.TV, new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{

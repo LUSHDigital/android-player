@@ -1,7 +1,9 @@
 package com.cube.lush.player.mobile;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.widget.FrameLayout;
 
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
@@ -32,4 +34,11 @@ public class MainActivity extends BaseMobileActivity
 
         navigationListener.showDefaultItem();
     }
+
+    public void showFragment(@NonNull Fragment fragment)
+	{
+		getSupportFragmentManager().beginTransaction()
+			.replace(container.getId(), fragment)
+			.commitNow();
+	}
 }

@@ -14,6 +14,7 @@ import com.cube.lush.player.mobile.channels.holder.ChannelViewHolder;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 
@@ -23,7 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ChannelsAdapter extends RecyclerView.Adapter<ChannelViewHolder>
 {
-	private @NonNull ArrayList<Channel> channels = new ArrayList<Channel>();
+	private @NonNull List<Channel> channels = new ArrayList<Channel>();
 	private @NonNull ChannelClickListener channelClickListener = null;
 
 	@Override public ChannelViewHolder onCreateViewHolder(ViewGroup parent, int viewType)

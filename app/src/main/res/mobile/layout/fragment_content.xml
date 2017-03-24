@@ -1,74 +1,13 @@
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="256dp"
-	android:orientation="vertical"
+	android:layout_height="match_parent"
+	android:background="@android:color/black"
+	tools:context="com.cube.lush.player.mobile.content.ContentFragment"
 >
-	<android.support.v7.widget.CardView
+	<android.support.v7.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_margin="16dp"
-		app:elevation="2dp"
-	>
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:orientation="vertical"
-			android:background="@android:color/black"
-			android:weightSum="100"
-		>
-			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:layout_weight="55"
-				android:padding="8dp"
-				android:src="@drawable/channel_lush_kitchen"
-			/>
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:orientation="vertical"
-				android:layout_weight="45"
-				android:background="@color/grey"
-				android:padding="4dp"
-			>
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:ellipsize="end"
-					android:maxLines="1"
-					android:padding="4dp"
-					android:text="Radio"
-					android:textAllCaps="true"
-					android:textColor="@android:color/white"
-					android:textSize="12sp"
-				/>
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:ellipsize="end"
-					android:maxLines="2"
-					android:padding="4dp"
-					android:text="Investigating Dogfighting | Investigator contracted to do something"
-					android:textColor="@android:color/white"
-					android:textSize="14sp"
-					android:textStyle="bold"
-				/>
-
-				<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:ellipsize="end"
-					android:maxLines="1"
-					android:padding="4dp"
-					android:text="5 days ago"
-					android:textColor="@android:color/white"
-					android:textSize="12sp"
-				/>
-			</LinearLayout>
-		</LinearLayout>
-	</android.support.v7.widget.CardView>
-</LinearLayout>
+		android:id="@+id/recycler"
+	/>
+</FrameLayout>

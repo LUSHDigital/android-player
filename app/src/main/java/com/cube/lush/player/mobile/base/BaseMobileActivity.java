@@ -1,4 +1,4 @@
-package com.cube.lush.player.common;
+package com.cube.lush.player.mobile.base;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 /**
  * Base activity that performs actions common to all activities in the app.
  */
-public class BaseActivity extends AppCompatActivity
+public class BaseMobileActivity extends AppCompatActivity
 {
     @Override
     protected void attachBaseContext(Context newBase)

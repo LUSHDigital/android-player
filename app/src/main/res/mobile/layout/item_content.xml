@@ -1,6 +1,7 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="256dp"
 	android:orientation="vertical"
@@ -21,9 +22,9 @@
 			<ImageView
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
+				android:id="@+id/image"
 				android:layout_weight="55"
-				android:padding="8dp"
-				android:src="@drawable/channel_lush_kitchen"
+				tools:src="@drawable/channel_lush_kitchen"
 			/>
 
 			<LinearLayout
@@ -37,6 +38,7 @@
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:id="@+id/type"
 					android:ellipsize="end"
 					android:maxLines="1"
 					android:padding="4dp"
@@ -49,6 +51,7 @@
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:id="@+id/title"
 					android:ellipsize="end"
 					android:maxLines="2"
 					android:padding="4dp"
@@ -61,6 +64,7 @@
 				<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:id="@+id/length"
 					android:ellipsize="end"
 					android:maxLines="1"
 					android:padding="4dp"

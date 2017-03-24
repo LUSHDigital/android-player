@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,9 +20,11 @@ import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.CategoryContentType;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.content.util.MediaSorter;
+import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.content.listener.ContentClickListener;
+import com.cube.lush.player.tv.state.SpinnerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,17 +72,25 @@ public class ContentFragment extends Fragment implements ContentClickListener
 	{
 		super.onResume();
 
+		final MainActivity mainActivity = ((MainActivity)getActivity());
+		mainActivity.showLoading();
+
 		MediaManager.getInstance().getChannelContent(Channel.LUSH_LIFE, CategoryContentType.TV, new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
 				MediaSorter.MOST_RECENT_FIRST.sort(items);
 				contentAdapter.setItems(items);
+
+				mainActivity.hideLoading();
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				contentAdapter.setItems(null);
+
+				mainActivity.hideLoading();
+				Toast.makeText(getContext(), "Error retrieving content", Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

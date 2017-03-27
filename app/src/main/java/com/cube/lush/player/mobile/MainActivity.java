@@ -3,23 +3,26 @@ package com.cube.lush.player.mobile;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.FrameLayout;
 
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
-import com.cube.lush.player.mobile.nav.BottomNavigationItemSelectedListener;
+import com.cube.lush.player.mobile.channels.ChannelsFragment;
+import com.cube.lush.player.mobile.events.EventsFragment;
+import com.cube.lush.player.mobile.home.HomeFragment;
+import com.cube.lush.player.mobile.live.LiveFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.mobile.search.SearchFragment;
 
-public class MainActivity extends BaseMobileActivity
+public class MainActivity extends BaseMobileActivity implements com.cube.lush.player.mobile.nav.BottomNavigationView.TabSelectedListener
 {
     @BindView(R.id.navigation)
-    BottomNavigationView navigation;
+	com.cube.lush.player.mobile.nav.BottomNavigationView navigation;
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -31,10 +34,7 @@ public class MainActivity extends BaseMobileActivity
         setContentView(R.layout.activity_main_phone);
         ButterKnife.bind(this);
 
-        BottomNavigationItemSelectedListener navigationListener = new BottomNavigationItemSelectedListener(container, getSupportFragmentManager());
-        navigation.setOnNavigationItemSelectedListener(navigationListener);
-
-        navigationListener.showDefaultItem();
+		navigation.setTabSelectedListener(this);
     }
 
     public void showFragment(@NonNull Fragment fragment)
@@ -76,5 +76,30 @@ public class MainActivity extends BaseMobileActivity
 				.commit();
 		}
 
+	}
+
+	@Override public void onHomeTabClicked()
+	{
+		showFragment(HomeFragment.newInstance());
+	}
+
+	@Override public void onLiveTabClicked()
+	{
+		showFragment(LiveFragment.newInstance());
+	}
+
+	@Override public void onChannelsTabClicked()
+	{
+		showFragment(ChannelsFragment.newInstance());
+	}
+
+	@Override public void onEventsTabClicked()
+	{
+		showFragment(EventsFragment.newInstance());
+	}
+
+	@Override public void onSearchTabClicked()
+	{
+		showFragment(SearchFragment.newInstance());
 	}
 }

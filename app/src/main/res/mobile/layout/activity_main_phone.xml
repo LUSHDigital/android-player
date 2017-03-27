@@ -14,10 +14,10 @@
 		android:layout_weight="1"
 	/>
 
-	<include
+	<com.cube.lush.player.mobile.nav.BottomNavigationView
+		android:id="@+id/navigation"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="bottom"
-		layout="@layout/tab_view"
 	/>
 </LinearLayout>

@@ -66,7 +66,7 @@ public class BottomNavigationView extends LinearLayout
 		this.listener = listener;
 	}
 
-	@OnClick(R.id.tab_home) protected void onHomeTabClicked(View view)
+	@OnClick(R.id.tab_home) public void onHomeTabClicked()
 	{
 		if (listener != null)
 		{
@@ -74,7 +74,7 @@ public class BottomNavigationView extends LinearLayout
 		}
 	}
 
-	@OnClick(R.id.tab_live) protected void onLiveTabClicked(View view)
+	@OnClick(R.id.tab_live) public void onLiveTabClicked()
 	{
 		if (listener != null)
 		{
@@ -82,7 +82,7 @@ public class BottomNavigationView extends LinearLayout
 		}
 	}
 
-	@OnClick(R.id.tab_channels) protected void onChannelsTabClicked(View view)
+	@OnClick(R.id.tab_channels) public void onChannelsTabClicked()
 	{
 		if (listener != null)
 		{
@@ -90,7 +90,7 @@ public class BottomNavigationView extends LinearLayout
 		}
 	}
 
-	@OnClick(R.id.tab_events) protected void onEventsTabClicked(View view)
+	@OnClick(R.id.tab_events) public void onEventsTabClicked()
 	{
 		if (listener != null)
 		{
@@ -98,7 +98,7 @@ public class BottomNavigationView extends LinearLayout
 		}
 	}
 
-	@OnClick(R.id.tab_search) protected void onSearchTabClicked(View view)
+	@OnClick(R.id.tab_search) public void onSearchTabClicked()
 	{
 		if (listener != null)
 		{

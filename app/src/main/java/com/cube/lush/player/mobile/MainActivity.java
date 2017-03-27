@@ -35,6 +35,7 @@ public class MainActivity extends BaseMobileActivity implements com.cube.lush.pl
         ButterKnife.bind(this);
 
 		navigation.setTabSelectedListener(this);
+		navigation.onHomeTabClicked();
     }
 
     public void showFragment(@NonNull Fragment fragment)

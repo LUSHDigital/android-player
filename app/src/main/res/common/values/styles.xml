@@ -1,43 +1,76 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Mobile.AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorAccent">@android:color/white</item>
-    </style>
+	<!-- Base application theme. -->
+	<style name="Mobile.AppTheme" parent="Theme.AppCompat.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@android:color/black</item>
+		<item name="colorPrimaryDark">@android:color/black</item>
+		<item name="colorAccent">@android:color/white</item>
+	</style>
 
-    <!-- TV Styles -->
-    <style name="TV.AppTheme" parent="@style/Theme.Leanback">
-        <item name="imageCardViewStyle">@style/TV.AppImageCardViewStyle</item>
-        <item name="imageCardViewTitleStyle">@style/TV.AppImageCardViewTitleStyle</item>
-        <item name="imageCardViewContentStyle">@style/TV.AppImageCardViewContentStyle</item>
-        <item name="imageCardViewInfoAreaStyle">@style/TV.AppImageCardViewInfoAreaStyle</item>
-        <item name="detailsActionButtonStyle">@style/TV.AppDetailsActionButtonStyle</item>
-    </style>
+	<!-- TV Styles -->
+	<style name="TV.AppTheme" parent="@style/Theme.Leanback">
+		<item name="imageCardViewStyle">@style/TV.AppImageCardViewStyle</item>
+		<item name="imageCardViewTitleStyle">@style/TV.AppImageCardViewTitleStyle</item>
+		<item name="imageCardViewContentStyle">@style/TV.AppImageCardViewContentStyle</item>
+		<item name="imageCardViewInfoAreaStyle">@style/TV.AppImageCardViewInfoAreaStyle</item>
+		<item name="detailsActionButtonStyle">@style/TV.AppDetailsActionButtonStyle</item>
+	</style>
 
-    <style name="TV.AppImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
-        <item name="cardBackground">@color/primary</item>
-        <item name="infoAreaBackground">@color/primary</item>
-        <item name="lbImageCardViewType">Title|Content</item>
-    </style>
+	<style name="TV.AppImageCardViewStyle" parent="Widget.Leanback.ImageCardViewStyle">
+		<item name="cardBackground">@color/primary</item>
+		<item name="infoAreaBackground">@color/primary</item>
+		<item name="lbImageCardViewType">Title|Content</item>
+	</style>
 
-    <style name="TV.AppImageCardViewInfoAreaStyle" parent="Widget.Leanback.ImageCardView.InfoAreaStyle">
-        <item name="android:paddingStart">10dp</item>
-    </style>
+	<style name="TV.AppImageCardViewInfoAreaStyle" parent="Widget.Leanback.ImageCardView.InfoAreaStyle">
+		<item name="android:paddingStart">10dp</item>
+	</style>
 
-    <style name="TV.AppImageCardViewTitleStyle" parent="Widget.Leanback.ImageCardView.TitleStyle">
-        <item name="android:layout_marginTop">@dimen/lb_basic_card_info_text_margin</item>
-        <item name="android:layout_marginBottom">@dimen/lb_basic_card_info_text_margin</item>
-    </style>
+	<style name="TV.AppImageCardViewTitleStyle" parent="Widget.Leanback.ImageCardView.TitleStyle">
+		<item name="android:layout_marginTop">@dimen/lb_basic_card_info_text_margin</item>
+		<item name="android:layout_marginBottom">@dimen/lb_basic_card_info_text_margin</item>
+	</style>
 
-    <style name="TV.AppImageCardViewContentStyle" parent="Widget.Leanback.ImageCardView.ContentStyle">
-        <item name="android:textColor">@color/text_dark</item>
-        <item name="android:textSize">10sp</item>
-    </style>
+	<style name="TV.AppImageCardViewContentStyle" parent="Widget.Leanback.ImageCardView.ContentStyle">
+		<item name="android:textColor">@color/text_dark</item>
+		<item name="android:textSize">10sp</item>
+	</style>
 
-    <style name="TV.AppDetailsActionButtonStyle" parent="Widget.Leanback.DetailsActionButtonStyle">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:textColor">@color/primary</item>
-    </style>
+	<style name="TV.AppDetailsActionButtonStyle" parent="Widget.Leanback.DetailsActionButtonStyle">
+		<item name="android:background">@android:color/white</item>
+		<item name="android:textColor">@color/primary</item>
+	</style>
+
+	<style name="TabContainer">
+		<item name="android:paddingTop">8dp</item>
+		<item name="android:paddingLeft">4dp</item>
+		<item name="android:paddingRight">4dp</item>
+		<item name="android:paddingBottom">8dp</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">65dp</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="TabItem">
+		<item name="android:layout_gravity">center_horizontal|top</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<style name="TabItem.Image">
+		<item name="android:layout_marginBottom">4dp</item>
+		<item name="android:layout_width">24dp</item>
+		<item name="android:layout_height">24dp</item>
+	</style>
+
+	<style name="TabItem.Text">
+		<item name="android:layout_gravity">center_horizontal|bottom</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:maxLines">1</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">end</item>
+		<item name="android:textColor">@android:color/black</item>
+	</style>
 </resources>

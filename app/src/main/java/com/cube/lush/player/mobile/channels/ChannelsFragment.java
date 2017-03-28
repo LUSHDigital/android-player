@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -28,8 +29,6 @@ import butterknife.ButterKnife;
 
 public class ChannelsFragment extends Fragment implements ChannelClickListener
 {
-	private static final int NUMBER_COLUMNS = 2;
-
 	@BindView(R.id.recycler)
 	RecyclerView recycler;
 
@@ -57,6 +56,8 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+
+		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.channel_columns);
 
 		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 		recycler.setLayoutManager(gridLayoutManager);

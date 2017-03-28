@@ -16,7 +16,7 @@ import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
-import com.cube.lush.player.mobile.channels.adapter.GridSpacingDecorator;
+import com.cube.lush.player.mobile.channels.adapter.GridSpacingDecoration;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 import com.cube.lush.player.mobile.content.ContentFragment;
 
@@ -66,7 +66,7 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 		recycler.setAdapter(channelsAdapter);
 
 		int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
-		recycler.addItemDecoration(new GridSpacingDecorator(spacing, NUMBER_COLUMNS));
+		recycler.addItemDecoration(new GridSpacingDecoration(spacing, NUMBER_COLUMNS));
 	}
 
 	private List<Channel> getChannels()

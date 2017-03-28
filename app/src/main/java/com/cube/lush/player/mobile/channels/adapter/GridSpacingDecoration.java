@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
  * This class only accepts 2 columns at the moment
  */
 @AllArgsConstructor
-public class GridSpacingDecorator extends RecyclerView.ItemDecoration
+public class GridSpacingDecoration extends RecyclerView.ItemDecoration
 {
 	private int space;
 	private int columns;

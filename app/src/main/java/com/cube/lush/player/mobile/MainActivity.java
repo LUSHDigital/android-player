@@ -93,9 +93,6 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 				showFragment(EventsFragment.newInstance());
 				return true;
 			case 4:
-				showFragment(EventsFragment.newInstance());
-				return true;
-			case 5:
 				showFragment(SearchFragment.newInstance());
 				return true;
 			default:

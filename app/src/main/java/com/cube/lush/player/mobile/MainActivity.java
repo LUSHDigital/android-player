@@ -46,11 +46,11 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     private void setupNavigation()
 	{
 		ArrayList<AHBottomNavigationItem> items = new ArrayList<>();
-		items.add(new AHBottomNavigationItem(R.string.title_home, R.drawable.ic_home_black_24dp, android.R.color.black));
 		items.add(new AHBottomNavigationItem(R.string.title_live, R.drawable.ic_live_tv_black_24dp, android.R.color.black));
 		items.add(new AHBottomNavigationItem(R.string.title_channels, R.drawable.ic_play_circle_outline_black_24dp, android.R.color.black));
 		items.add(new AHBottomNavigationItem(R.string.title_events, R.drawable.ic_event_black_24dp, android.R.color.black));
 		items.add(new AHBottomNavigationItem(R.string.title_search, R.drawable.ic_search_black_24dp, android.R.color.black));
+		items.add(new AHBottomNavigationItem(R.string.title_home, R.drawable.ic_home, android.R.color.black));
 
 		for (AHBottomNavigationItem item : items)
 		{

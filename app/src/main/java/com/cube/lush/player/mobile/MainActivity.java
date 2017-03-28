@@ -21,7 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.mobile.nav.BottomNavigationView;
 import com.cube.lush.player.mobile.search.SearchFragment;
 
 import java.util.ArrayList;

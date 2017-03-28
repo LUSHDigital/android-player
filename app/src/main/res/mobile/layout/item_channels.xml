@@ -12,7 +12,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:id="@+id/image"
-		android:padding="22dp"
+		android:padding="32dp"
 		tools:src="@drawable/channel_lush_kitchen"
 	/>
 </LinearLayout>

@@ -31,24 +31,9 @@ android {
 	sourceSets {
 		main {
 			res.srcDirs += 'src/main/res/common'
-			file('src/main/res/common')
-					.listFiles()
-					.each { res.srcDirs += it.path }
-
 			res.srcDirs += 'src/main/res/launcher'
-			file('src/main/res/launcher')
-					.listFiles()
-					.each { res.srcDirs += it.path }
-
 			res.srcDirs += 'src/main/res/mobile'
-			file('src/main/res/mobile')
-					.listFiles()
-					.each { res.srcDirs += it.path }
-
 			res.srcDirs += 'src/main/res/tv'
-			file('src/main/res/tv')
-					.listFiles()
-					.each { res.srcDirs += it.path }
 		}
 	}
 }

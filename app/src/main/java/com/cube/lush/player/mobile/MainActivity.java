@@ -1,12 +1,16 @@
 package com.cube.lush.player.mobile;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.widget.FrameLayout;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
 import com.cube.lush.player.mobile.events.EventsFragment;
@@ -17,12 +21,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.mobile.nav.BottomNavigationView;
 import com.cube.lush.player.mobile.search.SearchFragment;
 
-public class MainActivity extends BaseMobileActivity implements com.cube.lush.player.mobile.nav.BottomNavigationView.TabSelectedListener
+import java.util.ArrayList;
+
+public class MainActivity extends BaseMobileActivity implements AHBottomNavigation.OnTabSelectedListener
 {
-    @BindView(R.id.navigation)
-	com.cube.lush.player.mobile.nav.BottomNavigationView navigation;
+    @BindView(R.id.bottom_navigation)
+	AHBottomNavigation bottomNavigation;
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -34,9 +41,68 @@ public class MainActivity extends BaseMobileActivity implements com.cube.lush.pl
         setContentView(R.layout.activity_main_phone);
         ButterKnife.bind(this);
 
-		navigation.setTabSelectedListener(this);
-		navigation.onHomeTabClicked();
+		setupNavigation();
     }
+
+    private void setupNavigation()
+	{
+		ArrayList<AHBottomNavigationItem> items = new ArrayList<>();
+		items.add(new AHBottomNavigationItem(R.string.title_home, R.drawable.ic_home_black_24dp, android.R.color.black));
+		items.add(new AHBottomNavigationItem(R.string.title_live, R.drawable.ic_live_tv_black_24dp, android.R.color.black));
+		items.add(new AHBottomNavigationItem(R.string.title_channels, R.drawable.ic_play_circle_outline_black_24dp, android.R.color.black));
+		items.add(new AHBottomNavigationItem(R.string.title_events, R.drawable.ic_event_black_24dp, android.R.color.black));
+		items.add(new AHBottomNavigationItem(R.string.title_search, R.drawable.ic_search_black_24dp, android.R.color.black));
+
+		for (AHBottomNavigationItem item : items)
+		{
+			bottomNavigation.addItem(item);
+		}
+
+		// Colour for selected item
+		bottomNavigation.setAccentColor(Color.BLACK);
+
+		// Colour for unselected items
+		bottomNavigation.setInactiveColor(ContextCompat.getColor(this, R.color.dark_grey));
+
+		// Background colour
+		bottomNavigation.setDefaultBackgroundColor(Color.WHITE);
+
+		// Forces titles to show, which the standard bottom bar does not support
+		bottomNavigation.setForceTitlesDisplay(true);
+
+		// Tab selection
+		bottomNavigation.setOnTabSelectedListener(this);
+
+		// Auto selected home
+		bottomNavigation.setCurrentItem(1);
+	}
+
+	@Override public boolean onTabSelected(int position, boolean wasSelected)
+	{
+		switch (position)
+		{
+			case 0:
+				showFragment(HomeFragment.newInstance());
+				return true;
+			case 1:
+				showFragment(LiveFragment.newInstance());
+				return true;
+			case 2:
+				showFragment(ChannelsFragment.newInstance());
+				return true;
+			case 3:
+				showFragment(EventsFragment.newInstance());
+				return true;
+			case 4:
+				showFragment(EventsFragment.newInstance());
+				return true;
+			case 5:
+				showFragment(SearchFragment.newInstance());
+				return true;
+			default:
+				throw new RuntimeException("Unknown tab selected");
+		}
+	}
 
     public void showFragment(@NonNull Fragment fragment)
 	{
@@ -77,30 +143,5 @@ public class MainActivity extends BaseMobileActivity implements com.cube.lush.pl
 				.commit();
 		}
 
-	}
-
-	@Override public void onHomeTabClicked()
-	{
-		showFragment(HomeFragment.newInstance());
-	}
-
-	@Override public void onLiveTabClicked()
-	{
-		showFragment(LiveFragment.newInstance());
-	}
-
-	@Override public void onChannelsTabClicked()
-	{
-		showFragment(ChannelsFragment.newInstance());
-	}
-
-	@Override public void onEventsTabClicked()
-	{
-		showFragment(EventsFragment.newInstance());
-	}
-
-	@Override public void onSearchTabClicked()
-	{
-		showFragment(SearchFragment.newInstance());
 	}
 }

@@ -95,4 +95,7 @@ dependencies {
 
 	// Fonts
 	compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+
+	// Lush Views
+	compile 'com.github.LUSHDigital:android-lush-views:-SNAPSHOT'
 }

@@ -20,6 +20,8 @@ allprojects {
 	    maven {
 		    url 'http://repo.brightcove.com/releases'
 	    }
+
+        maven { url 'https://jitpack.io' }
     }
 }
 

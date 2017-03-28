@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 28/03/2017.
- *
- * This class only accepts 2 columns at the moment
  */
 @AllArgsConstructor
 public class GridSpacingDecoration extends RecyclerView.ItemDecoration
@@ -23,11 +21,11 @@ public class GridSpacingDecoration extends RecyclerView.ItemDecoration
 		int index = parent.getChildAdapterPosition(view);
 		int items = parent.getAdapter().getItemCount();
 
-		boolean isFirstRow = index < 2;
-		boolean isLastRow = index >= (items - 2);
+		boolean isFirstRow = index < columns;
+		boolean isLastRow = index >= (items - columns);
 
-		boolean isLeftColumn = index % 2 == 0;
-		boolean isRightColumn = index % 2 == 1;
+		boolean isLeftColumn = index % columns == 0;
+		boolean isRightColumn = index % columns == (columns - 1);
 
 		// Apply top spacing to all rows apart from the first
 		int top = !isFirstRow ? space : 0;
@@ -35,11 +33,11 @@ public class GridSpacingDecoration extends RecyclerView.ItemDecoration
 		// Apply bottom spacing to all rows apart from the last
 		int bottom = !isLastRow ? space : 0;
 
-		// Only apply left spacing to the right column
-		int left = isRightColumn ? space : 0;
+		// Apply left spacing to all columns apart from the furthest left one
+		int left = !isLeftColumn ? space : 0;
 
-		// Only apply right spacing to the left column
-		int right = isLeftColumn ? space : 0;
+		// Apply right spacing to all columns apart from the furthest right one
+		int right = !isRightColumn ? space : 0;
 
 		outRect.top = top;
 		outRect.bottom = bottom;

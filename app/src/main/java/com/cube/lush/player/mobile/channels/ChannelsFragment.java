@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,10 @@ import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
+import com.cube.lush.player.mobile.channels.adapter.GridSpacingDecorator;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 import com.cube.lush.player.mobile.content.ContentFragment;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +28,10 @@ import butterknife.ButterKnife;
 
 public class ChannelsFragment extends Fragment implements ChannelClickListener
 {
-	@BindView(R.id.recycler) RecyclerView recycler;
+	private static final int NUMBER_COLUMNS = 2;
+
+	@BindView(R.id.recycler)
+	RecyclerView recycler;
 
 	public ChannelsFragment()
 	{
@@ -54,12 +58,15 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 	{
 		super.onActivityCreated(savedInstanceState);
 
-		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+		GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 		recycler.setLayoutManager(gridLayoutManager);
 
 		List<Channel> channels = getChannels();
 		ChannelsAdapter channelsAdapter = new ChannelsAdapter(channels, this);
 		recycler.setAdapter(channelsAdapter);
+
+		int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+		recycler.addItemDecoration(new GridSpacingDecorator(spacing, NUMBER_COLUMNS));
 	}
 
 	private List<Channel> getChannels()

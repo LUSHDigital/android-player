@@ -74,7 +74,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		bottomNavigation.setOnTabSelectedListener(this);
 
 		// Auto selected home
-		bottomNavigation.setCurrentItem(1);
+		bottomNavigation.setCurrentItem(0);
 	}
 
 	@Override public boolean onTabSelected(int position, boolean wasSelected)

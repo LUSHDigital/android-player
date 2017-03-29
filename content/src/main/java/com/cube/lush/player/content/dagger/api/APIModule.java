@@ -19,6 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class APIModule
 {
+	@SuppressWarnings("HardCodedStringLiteral")
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
+
 	private String baseUrl;
 
 	public APIModule(String baseUrl)
@@ -30,7 +33,7 @@ public class APIModule
 	{
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(String.class, new HtmlStringAdapter());
-		gsonBuilder.setDateFormat("dd/MM/yyyy");
+		gsonBuilder.setDateFormat(DATE_FORMAT);
 
 		return gsonBuilder.create();
 	}

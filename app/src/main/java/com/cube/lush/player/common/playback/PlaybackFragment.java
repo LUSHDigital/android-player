@@ -125,7 +125,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				if (activity != null)
 				{
 					activity.finish();
-					Toast.makeText(activity, "Error: Could not get live playlist", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, R.string.error_live_playlist, Toast.LENGTH_LONG).show();
 				}
 			}
 		});

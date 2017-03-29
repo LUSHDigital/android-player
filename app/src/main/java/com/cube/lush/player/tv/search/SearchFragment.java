@@ -132,7 +132,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 				searchAdapter.clear();
 				searchAdapter.addAll(0, items);
 
-				ListRow searchRow = new ListRow(new HeaderItem("Search Results"), searchAdapter);
+				ListRow searchRow = new ListRow(new HeaderItem(getString(R.string.search_results)), searchAdapter);
 				rowsAdapter.clear();
 				rowsAdapter.add(searchRow);
 			}

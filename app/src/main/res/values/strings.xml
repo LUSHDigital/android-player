@@ -28,4 +28,7 @@
 
 	<!-- Loading -->
 	<string name="loading">Loading...</string>
+	<string name="search_results">Search Results</string>
+	<string name="error_live_playlist">Error: Could not get live playlist</string>
+	<string name="no_live_broadcast">There is no live broadcast right now.</string>
 </resources>

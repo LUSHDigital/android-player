@@ -66,7 +66,7 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 		});
 
 		getView().findViewById(R.id.text_overlay).setVisibility(View.VISIBLE);
-		((TextView)getView().findViewById(R.id.text_overlay)).setText("There is no live broadcast right now.");
+		((TextView)getView().findViewById(R.id.text_overlay)).setText(R.string.no_live_broadcast);
 	}
 
 	@Override

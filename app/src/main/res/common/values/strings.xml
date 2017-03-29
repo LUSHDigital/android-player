@@ -1,9 +1,0 @@
-<resources>
-	<string name="app_name">Lush Player</string>
-
-	<string name="title_home">Home</string>
-	<string name="title_live">Live</string>
-	<string name="title_channels">Channels</string>
-	<string name="title_events">Events</string>
-	<string name="title_search">Search</string>
-</resources>

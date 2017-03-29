@@ -5,7 +5,9 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
+import android.support.v4.content.ContextCompat;
 
+import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.CategoryContentType;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.tv.base.LushBrowseFragment;
@@ -22,8 +24,6 @@ import java.util.Arrays;
  */
 public class ChannelFragment extends LushBrowseFragment
 {
-	private ArrayObjectAdapter tvAdapter;
-	private ArrayObjectAdapter radioAdapter;
 	private Channel channel;
 	
 	@Override
@@ -44,8 +44,8 @@ public class ChannelFragment extends LushBrowseFragment
 	private void initialiseData()
 	{
 		// Create the objects backing the main menu
-		PageRow tvRow = new PageRow(new HeaderItem("TV"));
-		PageRow radioRow = new PageRow(new HeaderItem("Radio"));
+		PageRow tvRow = new PageRow(new HeaderItem(getString(R.string.tv)));
+		PageRow radioRow = new PageRow(new HeaderItem(getString(R.string.radio)));
 
 		// Setup the fragment factory for the menu items
 		MenuFragmentFactory fragmentFactory = new MenuFragmentFactory();

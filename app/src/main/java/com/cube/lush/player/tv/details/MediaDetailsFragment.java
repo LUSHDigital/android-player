@@ -8,6 +8,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.api.model.RadioContent;
@@ -34,7 +35,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 		liveIndicator.setVisibility(View.GONE);
 		timeRemaining.setVisibility(View.GONE);
 
-		playButton.setText("Play");
+		playButton.setText(R.string.play);
 
 		if (item.getDate() != null)
 		{

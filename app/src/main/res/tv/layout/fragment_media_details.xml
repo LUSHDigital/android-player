@@ -15,10 +15,10 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:id="@+id/left_panel"
+			android:orientation="vertical"
 			android:layout_weight="4"
 			android:background="@android:color/black"
 			android:gravity="center"
-			android:orientation="vertical"
 			android:padding="24dp"
 		>
 			<!-- Left side content -->
@@ -40,10 +40,10 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/title"
-					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
 					android:gravity="top|start"
 					android:maxLines="2"
-					tools:text="LIVE: Fresh from Lush Kitchen"
+					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
+					tools:text="@string/dummy_live_title"
 				/>
 			</LinearLayout>
 
@@ -53,11 +53,11 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/start_end_time"
 				android:layout_marginTop="16dp"
-				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
 				android:maxLines="1"
-				android:text="09:00am - 10:00am GMT"
+				android:text="@string/dummy_live_time"
 				android:textColor="@color/text_dark"
 				android:textSize="13sp"
+				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
 			/>
 
 			<!-- Watch Live Button -->
@@ -68,12 +68,12 @@
 				android:layout_gravity="start"
 				android:layout_marginBottom="24dp"
 				android:layout_marginTop="24dp"
-				style="@style/TV.AppDetailsActionButtonStyle"
 				android:drawablePadding="24dp"
 				android:drawableStart="@drawable/ic_play_circle_filled_black_36dp"
 				android:paddingEnd="48dp"
 				android:paddingStart="32dp"
-				android:text="Watch Live"
+				android:text="@string/watch_live"
+				style="@style/TV.AppDetailsActionButtonStyle"
 			/>
 
 			<!-- Description -->
@@ -81,13 +81,13 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/description"
-				style="@style/Widget.Leanback.DetailsDescriptionBodyStyle"
 				android:ellipsize="end"
 				android:lineSpacingMultiplier="1.5"
 				android:maxLines="9"
 				android:textColor="@color/text_light"
 				android:textSize="13sp"
-				tools:text="Former monk and long-term peace and environmental activist, Satish Kumar was just nine when he left his family home to join the wandering Jains and 18 when he decided he could achieve more back in the world, campaigning for land reform in India and working to turn Gandhi\u2019s vision of a renewed India and a peaceful world into reality. He has now been quietly setting the Global Agenda for change for over 50 years\nOn his 80th birthday Satish stood down as editor-in-chief of Resurgence magazine, a post he had held since 1973 , but he isn\u2019t settling for an easy retirement. He will stay on at the Resurgence Trust and advise his replacement, Greg Neale, who for two years has overseen the print magazine. He also continues to teach at Schumacher college as well as continuing to tour with public speaking engagements.\nSatish came to visit Lush in Poole to talk about his trinity of Soil, Soul and Society - which is also the title and subject of his 2013 book.\n"
+				style="@style/Widget.Leanback.DetailsDescriptionBodyStyle"
+				tools:text="@string/dummy_live_description"
 			/>
 
 			<TextView
@@ -95,11 +95,11 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/time_remaining"
 				android:layout_marginTop="24dp"
-				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
 				android:maxLines="1"
-				android:text="39 minutes remaining"
+				android:text="@string/dummy_remaining_time"
 				android:textColor="@color/text_dark"
 				android:textSize="13sp"
+				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
 			/>
 		</LinearLayout>
 
@@ -109,7 +109,6 @@
 			android:layout_weight="5"
 			android:background="@android:color/transparent"
 		>
-
 			<ImageView
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
@@ -120,15 +119,15 @@
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:background="@android:color/transparent"
 				android:orientation="horizontal"
+				android:background="@android:color/transparent"
 			>
 				<LinearLayout
 					android:layout_width="1000dp"
 					android:layout_height="match_parent"
 					android:id="@+id/right_panel"
-					android:background="@android:color/black"
 					android:orientation="horizontal"
+					android:background="@android:color/black"
 				/>
 
 				<ImageView

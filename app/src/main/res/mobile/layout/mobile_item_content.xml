@@ -34,7 +34,7 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/type"
 					android:layout_marginBottom="8dp"
-					android:text="Radio"
+					android:text="@string/dummy_content_type"
 					android:textAllCaps="true"
 					style="@style/SubTitle"
 				/>
@@ -43,7 +43,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:id="@+id/title"
-					android:text="Investigating Dogfighting | Investigator contracted to do something"
+					android:text="@string/dummy_content_title"
 					style="@style/Title"
 				/>
 
@@ -52,7 +52,7 @@
 					android:layout_height="wrap_content"
 					android:id="@+id/length"
 					android:layout_marginTop="8dp"
-					android:text="5 days ago"
+					android:text="@string/dummy_content_time"
 					style="@style/SubTitle"
 				/>
 			</LinearLayout>

@@ -10,6 +10,6 @@
 		android:layout_height="match_parent"
 		android:gravity="center"
 		android:text="@string/title_events"
-		style="@style/Text.White.HandwrittenBold.Title"
+		style="@style/Text.White.Title"
 	/>
 </FrameLayout>

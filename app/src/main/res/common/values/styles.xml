@@ -74,14 +74,39 @@
 		<item name="android:textColor">@android:color/black</item>
 	</style>
 
+	<!-- White text -->
+	<style name="Text.White.Title">
+		<item name="android:textSize">42sp</item>
+	</style>
+
+	<style name="Text.White.HelveticaBold.Title">
+		<item name="android:textSize">42sp</item>
+	</style>
+
+	<style name="Text.White.Handwritten.Title">
+		<item name="android:textSize">42sp</item>
+	</style>
+
 	<style name="Text.White.HandwrittenBold.Title">
 		<item name="android:textSize">42sp</item>
 	</style>
 
-	<style name="Text.White.HelveticaBold.SmallTitle">
-		<item name="android:textSize">12sp</item>
+	<!-- Black text-->
+	<style name="Text.Black.Title">
+		<item name="android:textSize">42sp</item>
 	</style>
 
+	<style name="Text.Black.HelveticaBold.Title">
+		<item name="android:textSize">42sp</item>
+	</style>
+
+	<style name="Text.Black.Handwritten.Title">
+		<item name="android:textSize">42sp</item>
+	</style>
+
+	<style name="Text.Black.HandwrittenBold.Title">
+		<item name="android:textSize">42sp</item>
+	</style>
 
 	<style name="EllipsizedText">
 		<item name="android:ellipsize">end</item>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- Mobile Dimenions -->
+	<!-- Mobile Dimensions -->
 	<integer name="channel_columns">3</integer>
 </resources>

@@ -176,11 +176,11 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		String name = VideoUtils.getName(video);
 		if (TextUtils.isEmpty(name))
 		{
-			liveMediaContent.setTitle("Live");
+			liveMediaContent.setTitle(getString(R.string.live_no_title));
 		}
 		else
 		{
-			liveMediaContent.setTitle(String.format("LIVE: %s", name));
+			liveMediaContent.setTitle(String.format(getString(R.string.live_title), name));
 		}
 
 		long timeRemainingMillis = videoInfo.getEndTimeUtc() - nowUtc;

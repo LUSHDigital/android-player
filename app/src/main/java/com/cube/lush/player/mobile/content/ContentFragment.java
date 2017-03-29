@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,10 +19,8 @@ import com.cube.lush.player.content.model.CategoryContentType;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.content.listener.ContentClickListener;
-import com.cube.lush.player.tv.state.SpinnerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +59,7 @@ public class ContentFragment extends Fragment implements ContentClickListener
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.fragment_content, container, false);
+		View view = inflater.inflate(R.layout.mobile_fragment_content, container, false);
 		ButterKnife.bind(this, view);
 		return view;
 	}

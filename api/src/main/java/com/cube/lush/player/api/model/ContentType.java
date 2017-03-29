@@ -15,10 +15,10 @@ import lombok.Getter;
 public enum ContentType
 {
 	@SerializedName("tv")
-	TV("tv"),
+	TV("TV"),
 
 	@SerializedName("radio")
-	RADIO("radio");
+	RADIO("RADIO");
 
 	@Getter private String name;
 }

@@ -13,7 +13,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CategoryContentType
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	TV("tv_program"),
+
+	@SuppressWarnings("HardCodedStringLiteral")
 	RADIO("radio_programme");
 
 	/**

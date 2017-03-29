@@ -3,14 +3,13 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@android:color/black"
-	tools:context="com.cube.lush.player.mobile.events.EventsFragment"
+	tools:context="com.cube.lush.player.mobile.home.HomeFragment"
 >
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:gravity="center"
-		android:text="@string/title_events"
-		android:textColor="@color/text_light"
-		android:textSize="40sp"
+		android:text="@string/title_home"
+		style="@style/Text.White.Title"
 	/>
 </FrameLayout>

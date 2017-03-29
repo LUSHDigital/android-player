@@ -29,6 +29,7 @@
 			android:text="Loading..."
 			android:textColor="@color/text_light"
 			android:textSize="20sp"
+			style="@style/Text.White.HelveticaBold.Title"
 		/>
 	</LinearLayout>
 </RelativeLayout>

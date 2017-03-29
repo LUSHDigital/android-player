@@ -10,7 +10,6 @@
 		android:layout_height="match_parent"
 		android:gravity="center"
 		android:text="@string/title_search"
-		android:textColor="@color/text_light"
-		android:textSize="40sp"
+		style="@style/Text.White.Title"
 	/>
 </FrameLayout>

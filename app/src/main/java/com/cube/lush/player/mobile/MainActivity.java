@@ -37,7 +37,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_phone);
+        setContentView(R.layout.mobile_activity_main);
         ButterKnife.bind(this);
 
 		setupNavigation();

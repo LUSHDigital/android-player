@@ -17,6 +17,7 @@ public class MockChannelsInterceptor extends BaseMockInterceptor
 
 	@Override protected String provideJsonFileName()
 	{
-		return "mock/api/channels.json";
+		// TODO: Add other channel's JSON after this is shown to work
+		return "mock/api/channels/cosmetics.json";
 	}
 }

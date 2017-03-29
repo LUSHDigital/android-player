@@ -1,0 +1,26 @@
+[
+	{
+		"id": "a1b0c10c-defc-4f29-890d-8819716f8112",
+		"type": "radio",
+		"title": "Creating the Tales of Bath | Composers Richard Evans and Caroline Crawley, poet Toby Thompson, and Lush spa therapist Eugeny Couture",
+		"date": "20/12/2016",
+		"description": "The ‘Tales of Bath’ Lush Spa treatment is music, it is poetry, and it is a reflection of a fascinating city. This is the story of its creation. Lush's Charlie Moores meets the writers. musicians, and Lush Spa therapist behind the treatment, and discovers how all the pieces were carefully put together to make a unique spa treatment come alive.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1475658473/Tales%20of%20Bath%20spa%20treatment_COMP.mp3",
+		"duration": "46:52",
+		"alias": "creating-tales-bath-composers-richard-evans-and-caroline-crawley-poet-toby-thompson-and-lush-spa-therapist-eugeny-couture",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484583699/Artboard_0.jpg"
+	},
+	{
+		"id": "bda4907c-babf-4cbf-bd52-2ed28024456d",
+		"type": "radio",
+		"title": "Lush&#039;s Self Preserving products | Helen Ambrosen, Melody Greenwood, and Jet Shears ",
+		"date": "20/12/2016",
+		"description": "Lush has spent years developing self-preserving cosmetics. While synthetic preservatives are generally safe to use, it does mean thousands of tonnes of strong chemicals are washed down bathroom sinks into the environment every year.\nCharlie Moores talks to the team behind self-preserving, from development to safety testing: Lush co-founder and product developer Helen Ambrosen, highly regarded microbiologist Melody Greenwood, and Jet Shears, who looks after all of Lush’s in-house testing.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1475654750/Self%20Preserving%20comp.mp3",
+		"duration": "23:32",
+		"alias": "lushs-self-preserving-products-helen-ambrosen-melody-greenwood-and-jet-shears",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484583783/Pres_0.jpg"
+	}
+]

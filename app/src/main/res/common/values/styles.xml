@@ -108,21 +108,19 @@
 		<item name="android:textSize">42sp</item>
 	</style>
 
-	<style name="EllipsizedText">
-		<item name="android:ellipsize">end</item>
-		<item name="android:maxLines">1</item>
-	</style>
-
 	<style name="Title" parent="@style/Text.White.HelveticaBold">
 		<item name="android:textColor">@color/text_light</item>
 		<item name="android:textSize">18sp</item>
 		<item name="android:maxLines">2</item>
 		<item name="android:lineSpacingExtra">6dp</item>
 		<item name="android:textStyle">bold</item>
+		<item name="android:ellipsize">end</item>
 	</style>
 
 	<style name="SubTitle">
 		<item name="android:textColor">@color/text_dark</item>
 		<item name="android:textSize">12sp</item>
+		<item name="android:ellipsize">end</item>
+		<item name="android:maxLines">1</item>
 	</style>
 </resources>

@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 
 public class ContentFragment extends Fragment implements ContentClickListener
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CHANNEL = "arg_channel";
 
 	@BindView(R.id.recycler) RecyclerView recycler;

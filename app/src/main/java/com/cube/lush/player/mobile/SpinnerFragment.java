@@ -13,6 +13,7 @@ import com.cube.lush.player.R;
  */
 public class SpinnerFragment extends Fragment
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String SPINNER_FRAGMENT_TAG = "spinner";
 
 	@Override

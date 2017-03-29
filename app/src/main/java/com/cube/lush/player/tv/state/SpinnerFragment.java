@@ -1,5 +1,6 @@
 package com.cube.lush.player.tv.state;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.cube.lush.player.R;
  */
 public class SpinnerFragment extends Fragment
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String SPINNER_FRAGMENT_TAG = "spinner";
 
 	public static void show(FragmentManager fragmentManager, View parentView)

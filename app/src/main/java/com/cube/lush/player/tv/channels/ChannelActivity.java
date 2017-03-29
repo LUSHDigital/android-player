@@ -7,6 +7,7 @@ import com.cube.lush.player.R;
 
 public class ChannelActivity extends BaseTVActivity
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_CHANNEL = "extra_channel";
 
 	@Override

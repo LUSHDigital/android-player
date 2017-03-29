@@ -1,12 +1,14 @@
 <resources>
 	<string name="app_name">Lush Player</string>
 
+	<!-- Tabs -->
 	<string name="title_home">Home</string>
 	<string name="title_live">Live</string>
 	<string name="title_channels">Channels</string>
 	<string name="title_events">Events</string>
 	<string name="title_search">Search</string>
 
+	<!-- Dummy text -->
 	<string name="dummy_content_type">Radio</string>
 	<string name="dummy_content_title">Investigating Dogfighting | Investigator contracted to do something</string>
 	<string name="dummy_content_time">5 days ago</string>
@@ -15,6 +17,7 @@
 	<string name="dummy_live_time">09:00am - 10:00am GMT</string>
 	<string name="dummy_remaining_time">39 minutes remaining</string>
 
+	<!-- Buttons -->
 	<string name="watch_live">Watch Live</string>
-
+	<string name="play">Play</string>
 </resources>

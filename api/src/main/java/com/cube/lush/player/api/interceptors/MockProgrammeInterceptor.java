@@ -17,6 +17,6 @@ public class MockProgrammeInterceptor extends BaseMockInterceptor
 
 	@Override protected String provideJsonFileName()
 	{
-		return "raw/fake-response.json";
+		return "mock/api/programme.json";
 	}
 }

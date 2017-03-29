@@ -97,7 +97,7 @@ public class ContentFragment extends Fragment implements ContentClickListener
 				contentAdapter.setItems(null);
 
 				mainActivity.hideLoading();
-				Toast.makeText(getContext(), "Error retrieving content", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), R.string.error_retrieving_content, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

@@ -46,9 +46,9 @@ public class MainFragment extends LushBrowseFragment
 	private void initialiseMenu()
 	{
 		// Create the objects backing the main menu
-		PageRow homeRow = new PageRow(new HeaderItem("Home"));
-		PageRow liveRow = new PageRow(new HeaderItem("Live"));
-		PageRow channelsRow = new PageRow(new HeaderItem("Channels"));
+		PageRow homeRow = new PageRow(new HeaderItem(getString(R.string.title_home)));
+		PageRow liveRow = new PageRow(new HeaderItem(getString(R.string.title_live)));
+		PageRow channelsRow = new PageRow(new HeaderItem(getString(R.string.title_channels)));
 
 		// Setup the fragment factory for the menu items
 		MenuFragmentFactory fragmentFactory = new MenuFragmentFactory();

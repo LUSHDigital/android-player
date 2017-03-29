@@ -27,7 +27,7 @@ public abstract class LushBrowseFragment extends BrowseFragment
 	 */
 	protected void initialiseUI()
 	{
-		setTitle("Lush Player");
+		setTitle(getString(R.string.app_name));
 
 		setBadgeDrawable(getResources().getDrawable(R.drawable.logo));
 

@@ -31,4 +31,8 @@
 	<string name="search_results">Search Results</string>
 	<string name="error_live_playlist">Error: Could not get live playlist</string>
 	<string name="no_live_broadcast">There is no live broadcast right now.</string>
+	<string name="media_unplayable">Unable to play media, please try again</string>
+	<string name="network_offline">Please check your network connection and try again</string>
+	<string name="retry">Retry</string>
+	<string name="error_retrieving_content">Error retrieving content</string>
 </resources>

@@ -105,6 +105,6 @@ public class ContentFragment extends Fragment implements ContentClickListener
 
 	@Override public void selectedContent(@NonNull MediaContent mediaContent)
 	{
-		Toast.makeText(getContext(), "Selected media: " + mediaContent.getTitle(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getContext(), getString(R.string.media_selected, mediaContent.getTitle()), Toast.LENGTH_SHORT).show();
 	}
 }

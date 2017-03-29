@@ -24,6 +24,9 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String OFFAIR_FRAGMENT_TAG = "offair";
 
+	@SuppressWarnings("HardCodedStringLiteral")
+	private static final String OFFAIR_FILE = "asset:///videos/offair.mp4";
+
 	public static void show(FragmentManager fragmentManager, View parentView)
 	{
 		fragmentManager.executePendingTransactions();
@@ -53,7 +56,7 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 	{
 		super.onActivityCreated(savedInstanceState);
 		getBrightcoveVideoView().setMediaController((MediaController)null);
-		playFile("asset:///videos/offair.mp4");
+		playFile(OFFAIR_FILE);
 		getBrightcoveVideoView().setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 		{
 			@Override

@@ -125,7 +125,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				if (activity != null)
 				{
 					activity.finish();
-					Toast.makeText(activity, "Error: Could not get live playlist", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, R.string.error_live_playlist, Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -188,7 +188,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				if (activity != null)
 				{
 					activity.finish();
-					Toast.makeText(activity, "Error: " + error, Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, getString(R.string.error_with_details, error), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
@@ -247,7 +247,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				if (activity != null)
 				{
 					activity.finish();
-					Toast.makeText(activity, "Error: " + error, Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, getString(R.string.error_with_details, error), Toast.LENGTH_LONG).show();
 				}
 			}
 		});

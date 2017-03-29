@@ -10,6 +10,7 @@ import com.cube.lush.player.R;
  */
 public class MediaDetailsActivity extends BaseTVActivity
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_MEDIA = "extra_media_item";
 
 	@Override

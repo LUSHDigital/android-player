@@ -41,26 +41,8 @@ public class MediaPresenter extends Presenter
 
 		if (mediaContent.getType() != null)
 		{
-			switch (mediaContent.getType())
-			{
-				case RADIO:
-				{
-					cardView.getMediaTypeView().setVisibility(View.VISIBLE);
-					cardView.setMediaText("RADIO");
-					break;
-				}
-				case TV:
-				{
-					cardView.getMediaTypeView().setVisibility(View.VISIBLE);
-					cardView.setMediaText("TV");
-					break;
-				}
-				default:
-				{
-					cardView.getMediaTypeView().setVisibility(View.GONE);
-					break;
-				}
-			}
+			cardView.getMediaTypeView().setVisibility(View.VISIBLE);
+			cardView.setMediaText(mediaContent.getType().getName());
 		}
 		else
 		{

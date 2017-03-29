@@ -24,12 +24,12 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.R;
+import com.cube.lush.player.content.util.BrightcoveUtils;
 import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.common.playback.PlaybackActivity;
 import com.cube.lush.player.common.playback.PlaybackMethod;
 
 import java.util.List;
-import java.util.Map;
 
 import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
 import static android.text.format.DateUtils.FORMAT_UTC;
@@ -173,42 +173,25 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		liveMediaContent.setId(playlistId);
 		liveMediaContent.setType(ContentType.TV);
 
-		String name = video.getStringProperty("name");
+		String name = BrightcoveUtils.getVideoName(video);
 		if (TextUtils.isEmpty(name))
 		{
-			liveMediaContent.setTitle("Live");
+			liveMediaContent.setTitle(getString(R.string.live_no_title));
 		}
 		else
 		{
-			liveMediaContent.setTitle(String.format("LIVE: %s", name));
+			liveMediaContent.setTitle(String.format(getString(R.string.live_title), name));
 		}
 
 		long timeRemainingMillis = videoInfo.getEndTimeUtc() - nowUtc;
 		long timeRemainingMins = timeRemainingMillis / 1000 / 60 + 1;
-		timeRemaining.setText(String.format("%d minutes remaining", timeRemainingMins));
+		timeRemaining.setText(getString(R.string.minutes_remaining, timeRemainingMins));
 		startEndTime.setText(DateUtils.formatDateRange(startEndTime.getContext(),
 		                                               videoInfo.getStartTimeUtc(),
 		                                               videoInfo.getEndTimeUtc(),
 		                                               FORMAT_SHOW_TIME | FORMAT_UTC));
 
-		// Painfully find an appropriate image to display as the background
-		if (video.getProperties().get("poster_sources") instanceof List)
-		{
-			List posterSources = (List) video.getProperties().get("poster_sources");
-			if (!posterSources.isEmpty() && posterSources.get(0) instanceof Map)
-			{
-				Map firstPosterSource = (Map) posterSources.get(0);
-				if (firstPosterSource.get("src") instanceof String)
-				{
-					liveMediaContent.setThumbnail((String) firstPosterSource.get("src"));
-				}
-			}
-		}
-
-		if (TextUtils.isEmpty(liveMediaContent.getThumbnail()))
-		{
-			liveMediaContent.setThumbnail(video.getStringProperty("thumbnail"));
-		}
+		liveMediaContent.setThumbnail(BrightcoveUtils.getVideoThumbnail(video));
 
 		populateContentView(liveMediaContent);
 	}

@@ -51,8 +51,8 @@ public class ErrorFragment extends android.support.v17.leanback.app.ErrorFragmen
 		super.onCreate(savedInstanceState);
 		setImageDrawable(getResources().getDrawable(R.drawable.ic_cloud_off_white_48dp));
 		setDefaultBackground(true);
-		setMessage("Please check your network connection and try again");
-		setButtonText("Retry");
+		setMessage(getString(R.string.network_offline));
+		setButtonText(getString(R.string.retry));
 		setButtonClickListener(new View.OnClickListener()
 		{
 			@Override

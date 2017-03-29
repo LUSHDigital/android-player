@@ -28,4 +28,18 @@
 
 	<!-- Loading -->
 	<string name="loading">Loading...</string>
+	<string name="search_results">Search Results</string>
+	<string name="error_live_playlist">Error: Could not get live playlist</string>
+	<string name="no_live_broadcast">There is no live broadcast right now.</string>
+	<string name="media_unplayable">Unable to play media, please try again</string>
+	<string name="network_offline">Please check your network connection and try again</string>
+	<string name="retry">Retry</string>
+	<string name="error_retrieving_content">Error retrieving content</string>
+
+	<string name="channel_selected">Selected channel: %1$s</string>
+	<string name="media_selected">Selected media: %1$s</string>
+	<string name="error_with_details">Error: %1$s</string>
+	<string name="minutes_remaining">%1$d minutes remaining</string>
+	<string name="live_no_title">Live</string>
+	<string name="live_title">LIVE: %1$s</string>
 </resources>

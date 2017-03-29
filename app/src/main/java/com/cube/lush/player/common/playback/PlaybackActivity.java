@@ -12,8 +12,13 @@ import com.cube.lush.player.R;
 
 public class PlaybackActivity extends BaseTVActivity
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_PLAYBACK_METHOD = "playback_method";
+
+	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_PLAYBACK_METHOD_VALUE = "playback_method_value";
+
+	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_PLAYBACK_BACKGROUND = "playback_background_url";
 
 	public static Intent getIntent(@NonNull Context context,

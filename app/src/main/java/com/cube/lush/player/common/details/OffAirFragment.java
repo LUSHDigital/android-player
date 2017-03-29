@@ -21,7 +21,11 @@ import com.cube.lush.player.common.playback.PlaybackFragment;
  */
 public class OffAirFragment extends PlaybackFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String OFFAIR_FRAGMENT_TAG = "offair";
+
+	@SuppressWarnings("HardCodedStringLiteral")
+	private static final String OFFAIR_FILE = "asset:///videos/offair.mp4";
 
 	public static void show(FragmentManager fragmentManager, View parentView)
 	{
@@ -52,7 +56,7 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 	{
 		super.onActivityCreated(savedInstanceState);
 		getBrightcoveVideoView().setMediaController((MediaController)null);
-		playFile("asset:///videos/offair.mp4");
+		playFile(OFFAIR_FILE);
 		getBrightcoveVideoView().setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 		{
 			@Override
@@ -66,7 +70,7 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 		});
 
 		getView().findViewById(R.id.text_overlay).setVisibility(View.VISIBLE);
-		((TextView)getView().findViewById(R.id.text_overlay)).setText("There is no live broadcast right now.");
+		((TextView)getView().findViewById(R.id.text_overlay)).setText(R.string.no_live_broadcast);
 	}
 
 	@Override

@@ -77,7 +77,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 
 		if (mediaContent == null || mediaContent.getType() == null)
 		{
-			Toast.makeText(context, "Could not play media", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.media_unplayable, Toast.LENGTH_LONG).show();
 			return;
 		}
 
@@ -144,7 +144,7 @@ public class MediaDetailsFragment extends BaseMediaDetailsFragment
 
 				if (context != null)
 				{
-					Toast.makeText(context, "Unable to play media, please try again", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, R.string.media_unplayable, Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

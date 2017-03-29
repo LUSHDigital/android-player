@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 
 public class ContentFragment extends Fragment implements ContentClickListener
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CHANNEL = "arg_channel";
 
 	@BindView(R.id.recycler) RecyclerView recycler;
@@ -97,13 +98,13 @@ public class ContentFragment extends Fragment implements ContentClickListener
 				contentAdapter.setItems(null);
 
 				mainActivity.hideLoading();
-				Toast.makeText(getContext(), "Error retrieving content", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getContext(), R.string.error_retrieving_content, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
 
 	@Override public void selectedContent(@NonNull MediaContent mediaContent)
 	{
-		Toast.makeText(getContext(), "Selected media: " + mediaContent.getTitle(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getContext(), getString(R.string.media_selected, mediaContent.getTitle()), Toast.LENGTH_SHORT).show();
 	}
 }

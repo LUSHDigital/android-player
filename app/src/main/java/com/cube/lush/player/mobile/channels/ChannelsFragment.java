@@ -77,8 +77,7 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 	@Override
 	public void selectedChannel(@NonNull Channel channel)
 	{
-		Toast.makeText(getContext(), "Selected channel: " + channel.getTitle(), Toast.LENGTH_SHORT).show();
-
+		Toast.makeText(getContext(), getString(R.string.channel_selected, channel.getTitle()), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
 	}
 }

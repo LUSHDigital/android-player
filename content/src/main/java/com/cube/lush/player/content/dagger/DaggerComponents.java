@@ -11,6 +11,9 @@ import lombok.Getter;
  */
 public class DaggerComponents
 {
+	@SuppressWarnings("HardCodedStringLiteral")
+	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v1/views/";
+
 	private static DaggerComponents instance;
 	@Getter protected APIComponent api;
 
@@ -27,7 +30,7 @@ public class DaggerComponents
 	private DaggerComponents()
 	{
 		api = DaggerAPIComponent.builder()
-			.aPIModule(new APIModule("http://admin.player.lush.com/lushtvapi/v1/views/"))
+			.aPIModule(new APIModule(BASE_URL))
 			.build();
 	}
 }

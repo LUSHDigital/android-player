@@ -17,8 +17,12 @@ import static org.junit.Assert.assertNull;
  */
 public class SearchResultUnitTest
 {
+	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String RADIO_THUMBNAIL = "radio_thumbnail";
+
+	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String VIDEO_THUMBNAIL = "video_thumbnail";
+
 	private SearchResult searchResult;
 
 	@Before public void setUp() throws Exception

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 29/03/2017.
  */
-public class VideoUtils
+public class BrightcoveUtils
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String PROPERTY_NAME = "name";
@@ -24,12 +24,12 @@ public class VideoUtils
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String PROPERTY_THUMBNAIL = "thumbnail";
 
-	public static String getName(@NonNull Video video)
+	public static String getVideoName(@NonNull Video video)
 	{
 		return video.getStringProperty(PROPERTY_NAME);
 	}
 
-	public static String getImage(@NonNull Video video)
+	public static String getVideoThumbnail(@NonNull Video video)
 	{
 		Object posterSourcesObject = video.getProperties().get(PROPERTY_POSTER_SOURCES);
 

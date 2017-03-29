@@ -24,7 +24,7 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.R;
-import com.cube.lush.player.content.util.VideoUtils;
+import com.cube.lush.player.content.util.BrightcoveUtils;
 import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.common.playback.PlaybackActivity;
 import com.cube.lush.player.common.playback.PlaybackMethod;
@@ -173,7 +173,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		liveMediaContent.setId(playlistId);
 		liveMediaContent.setType(ContentType.TV);
 
-		String name = VideoUtils.getName(video);
+		String name = BrightcoveUtils.getVideoName(video);
 		if (TextUtils.isEmpty(name))
 		{
 			liveMediaContent.setTitle(getString(R.string.live_no_title));
@@ -191,7 +191,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		                                               videoInfo.getEndTimeUtc(),
 		                                               FORMAT_SHOW_TIME | FORMAT_UTC));
 
-		liveMediaContent.setThumbnail(VideoUtils.getImage(video));
+		liveMediaContent.setThumbnail(BrightcoveUtils.getVideoThumbnail(video));
 
 		populateContentView(liveMediaContent);
 	}

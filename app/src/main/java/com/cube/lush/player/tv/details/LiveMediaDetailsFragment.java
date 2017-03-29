@@ -185,7 +185,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 
 		long timeRemainingMillis = videoInfo.getEndTimeUtc() - nowUtc;
 		long timeRemainingMins = timeRemainingMillis / 1000 / 60 + 1;
-		timeRemaining.setText(String.format("%d minutes remaining", timeRemainingMins));
+		timeRemaining.setText(getString(R.string.minutes_remaining, timeRemainingMins));
 		startEndTime.setText(DateUtils.formatDateRange(startEndTime.getContext(),
 		                                               videoInfo.getStartTimeUtc(),
 		                                               videoInfo.getEndTimeUtc(),

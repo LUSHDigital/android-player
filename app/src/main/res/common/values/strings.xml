@@ -6,4 +6,8 @@
 	<string name="title_channels">Channels</string>
 	<string name="title_events">Events</string>
 	<string name="title_search">Search</string>
+
+	<string name="dummy_content_type">Radio</string>
+	<string name="dummy_content_title">Investigating Dogfighting | Investigator contracted to do something</string>
+	<string name="dummy_content_time">5 days ago</string>
 </resources>

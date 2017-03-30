@@ -99,8 +99,6 @@ public class DetailsFragment extends Fragment
 			description.setMaxLines(condensedMaxLines);
 			toggleDescriptionButton.setText(R.string.show_more);
 		}
-
-		Toast.makeText(getContext(), "User clicked show more", Toast.LENGTH_SHORT).show();
 	}
 
 	@OnClick(R.id.share) void onShareClicked()

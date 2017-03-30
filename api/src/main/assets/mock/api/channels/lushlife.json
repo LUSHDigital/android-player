@@ -1,0 +1,400 @@
+[
+	{
+		"id": "3176bea7-271e-469d-88eb-51870473b2ba",
+		"type": "radio",
+		"title": "Lush Learning | Spontaneity and Improvisation. Andrew Paine talking with Alison Goldie and Luke Sorba",
+		"date": "24/03/2017",
+		"description": "Recorded at the Lush Summit, in this podcast Lush's Andrew Paine talks with performer and director Alison Goldie and performer and facilitator Luke Sorba about using Spontaneity and Improvisation in our everyday lives.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1490362466/Lush%20Learning%20Spontaneity%20and%20Improvisation.mp3",
+		"duration": "21:12",
+		"alias": "lush-learning-spontaneity-and-improvisation-andrew-paine-talking-alison-goldie-and-luke-sorba",
+		"tags": [
+			"#lush learning #performance #spontaneity #improvisation #andrew paine"
+		],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1490380661/andrew%20paine%20small.jpg"
+	},
+	{
+		"id": "eb438b00-cfd8-4dff-9c5d-21b220d11951",
+		"type": "radio",
+		"title": "Fingers In The Sparkle Jar | Chris Packham",
+		"date": "27/02/2017",
+		"description": "TV presenter and naturalist Chris Packham discusses his much-lauded memoir 'Fingers In The Sparkle Jar' with long-time birder and Lush podcaster Charlie Moores.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1488187776/Fingers%20in%20the%20Sparkle%20Jar%20Interview.mp3",
+		"duration": "41:26",
+		"alias": "fingers-sparkle-jar-chris-packham",
+		"tags": [
+			"#lush summit #conservation #author #autism #lush"
+		],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1488187629/Chris%20Packham.jpg"
+	},
+	{
+		"id": "00584fe0-a16e-4396-9088-f499f5299d10",
+		"type": "radio",
+		"title": "Gentle Protest | Sarah Corbett, Craftivist Collective",
+		"date": "22/02/2017",
+		"description": "The Craftivist Collective is a group of like-minded crafters who practice what they term 'gentle protest' under the banner of Craftivism. The Collective's award-winning campaigner Sarah Corbett talked with Lush's Charlie Moores at the Lush Summit and  convinced him to embrace his gentle side in the cause of change.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1487783220/Sarah%20Corbett%20Craftivist%20Collective.mp3",
+		"duration": "30:24",
+		"alias": "gentle-protest-sarah-corbett-craftivist-collective",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1487783142/craftivism%2002.jpg"
+	},
+	{
+		"id": "5322530442001",
+		"type": "tv",
+		"title": "Engage your online community | The Un-Idle Collective",
+		"date": "17/02/2017",
+		"description": "Influencers and founders of The Un-Idle Collective - Emma Bates and Scarlett Curtis - are here to help you engage your digital communities. ",
+		"file": null,
+		"duration": null,
+		"alias": "summit-engage-your-online-community-un-idle-collective",
+		"tags": [
+			"Soapbox",
+			"inspiration",
+			"summit",
+			"Digital Ethics Room",
+			"freedom of speech"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5322563296001_5322530442001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322519340001",
+		"type": "tv",
+		"title": "Permaculture in the city | Organic Lea",
+		"date": "17/02/2017",
+		"description": "Organic Lea has been teaching permaculture to Londoners for 15 years, so they know a thing or two about the practicalities of growing food in the city.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-permaculture-city-organic-lea",
+		"tags": [
+			"environment",
+			"permaculture",
+			"Sustainable Future",
+			"agriculture",
+			"summit",
+			"Food Sovereignty Room",
+			"social justice"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5327005130001_5322519340001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322556818001",
+		"type": "tv",
+		"title": "Overcoming challenges | Annabelle Baker and Lauren Savage",
+		"date": "17/02/2017",
+		"description": "Annabelle Baker and Lauren Savage talk about the challenges and opportunities of operating Lush in another market during turbulent times.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-overcoming-challenges-annabelle-baker-and-lauren-savage",
+		"tags": [
+			"politics",
+			"Lush Life",
+			"summit",
+			"Show Business Stage"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5322648606001_5322556818001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322549977001",
+		"type": "tv",
+		"title": "Unlock the power of the streets | Street Wisdom",
+		"date": "17/02/2017",
+		"description": "Mark Brown introduces the world of Street Wisdom, helping commuters to re-think the art of getting from A to Z. ",
+		"file": null,
+		"duration": null,
+		"alias": "summit-unlock-power-streets-street-wisdom",
+		"tags": [
+			"Lush Life",
+			"inspiration",
+			"summit",
+			"Show Business Stage"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5326990338001_5322549977001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5324061466001",
+		"type": "tv",
+		"title": "Supporting survivors of human trafficking | Flower Press ",
+		"date": "17/02/2017",
+		"description": "Flower Press is a social enterprise comprised of survivors of human trafficking and artists. Discover more about their project and watch them at work.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-supporting-survivors-human-trafficking-flower-press",
+		"tags": [
+			"War and Poverty Room",
+			"summit"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5324154809001_5324061466001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322543129001",
+		"type": "tv",
+		"title": "Can gratitude change your life? | Lush Cosmetics",
+		"date": "16/02/2017",
+		"description": "Bryony, Vanessa and Sarah from the Lush learning and development team speak to individuals who recently undertook the &#039;12 Days of Gratitude&#039; challenge.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-can-gratitude-change-your-life-lush-cosmetics",
+		"tags": [
+			"Lush Life",
+			"inspiration",
+			"summit",
+			"Show Business Stage"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5322656508001_5322543129001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322549982001",
+		"type": "tv",
+		"title": "The all-inclusive babe gang | Fierce Babe Network",
+		"date": "14/02/2017",
+		"description": "Fierce Babe Network talk about collective power, arranging feel-good events and creating safer spaces for those who are the target of gender oppression.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-all-inclusive-babe-gang-fierce-babe-network",
+		"tags": [
+			"Equal Rights",
+			"Lush Life",
+			"summit",
+			"Show Business Stage",
+			"LGBT+"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5322664313001_5322549982001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322796916001",
+		"type": "tv",
+		"title": "Reasons to be cheerful in 2017 | John Robb and guests",
+		"date": "14/02/2017",
+		"description": "Award-winning journalist John Robb discusses reasons to be cheerful. He&#039;s joined by record producer Simon Emmerson, Dream Defenders co-founder Umi Selah, filmmaker Hal Samples, naturalist Chris Packham, Kerry McCarthy MP and musician Grace Petrie.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-reasons-be-cheerful-2017-john-robb-and-guests",
+		"tags": [
+			"politics",
+			"Equal Rights",
+			"Lush Life",
+			"Record and Book Nook",
+			"summit"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5322863578001_5322796916001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322726539001",
+		"type": "tv",
+		"title": "Fingers in the Sparkle Jar Q&amp;A | Chris Packham",
+		"date": "14/02/2017",
+		"description": "Listen to TV presenter and naturalist Chris discuss his much-lauded memoir Fingers In The Sparkle Jar with long-time birder and podcaster Charlie Moores.",
+		"file": null,
+		"duration": null,
+		"alias": "summit-fingers-sparkle-jar-qa-chris-packham",
+		"tags": [
+			"Record and Book Nook",
+			"animal rights",
+			"wildlife",
+			"summit"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5322778499001_5322726539001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5322726540001",
+		"type": "tv",
+		"title": "A Mile in My Shoes | The Empathy Museum",
+		"date": "14/02/2017",
+		"description": "When people recommend walking a mile in someone else&#039;s shoes, they don&#039;t usually mean it literally. Enter The Empathy Museum...",
+		"file": null,
+		"duration": null,
+		"alias": "summit-mile-my-shoes-empathy-museum",
+		"tags": [
+			"lush summit",
+			"summit",
+			"lush summit 2017",
+			"summit 2017"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5323884778001_5322726540001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "c235f106-8ae7-4867-aeed-6ec1813cc9ac",
+		"type": "radio",
+		"title": "Soya (Part Two) | Jane Easton, Viva! Food and Cookery Coordinator",
+		"date": "06/02/2017",
+		"description": "Soya. Humble bean or superfood? The answer to the world's protein needs or an oestrogen-filled legume that should be approached with caution? An amazingly versatile constituent of vegetarian and vegan cooking or a rather bland and unsavoury gloop that brings little to the table? Charlie Moores went to the Bristol offices of Viva! to have these and other questions answered by Veronika Powell, a biologist and Viva's Health Campaigner with a special interest in the links between diet and its impact on our health, and by Jane Easton, Viva!’s food and cookery coordinator and an inspirational chef who has been central to the success of Viva's Vegan Recipe Club. In this second podcast Charlie chatted with Jane about using soya in cooking.\nFor more ideas on vegan cooking and vegan recipes do have a look at the Vegan Recipe Club at veganrecipeclub.org.uk\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1484739172/Jane%20Easton%20on%20cooking%20with%20soya.mp3",
+		"duration": "27:20",
+		"alias": "soya-part-two-jane-easton-viva-food-and-cookery-coordinator",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484738104/soya%20bean%20pot.jpg"
+	},
+	{
+		"id": "3eb3e193-259b-4007-872a-dd507a388ed6",
+		"type": "radio",
+		"title": "Soya (Part One) | Veronika Powell, Viva! Health Campaigner",
+		"date": "06/02/2017",
+		"description": "Soya. Humble bean or superfood? The answer to the world's protein needs or an oestrogen-filled legume that should be approached with caution? An amazingly versatile constituent of vegetarian and vegan cooking or a rather bland and unsavoury gloop that brings little to the table? Charlie Moores went to the Bristol offices of Viva! to have these and other questions answered by Veronika Powell, a biologist and Viva's Health Campaigner with a special interest in the links between diet and its impact on our health, and by Jane Easton, Viva!’s food and cookery coordinator and an inspirational chef who has been central to the success of Viva's Vegan Recipe Club. In this podcast Charlie chatted with Veronika about health issues around soya.\nFor more information on soya and health - and of course other health-related topics - please go to viva.org.uk\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1484737617/Veronika%20Powell%20on%20Soya.mp3",
+		"duration": "23:31",
+		"alias": "soya-part-one-veronika-powell-viva-health-campaigner",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1486375088/soya%20story.jpg"
+	},
+	{
+		"id": "c0d19b5e-c9ee-4ae9-9f49-95a1b55dfba6",
+		"type": "radio",
+		"title": "Opportunities for farming, food and nature after Brexit | Miles King, A Pebble in the Pond",
+		"date": "03/01/2017",
+		"description": "In June this year, Britain voted to leave the European Union and - depending on how negotiations go - its single market structure. One important aspect of Brexit that wasn't widely discussed at the time was how leaving the Union might affect farming and the subsidies paid to farmers under the Common Agricultural Policy or CAP. That's important because 70% of the UK's land area is farmed in one way or another - which has an enormous impact on wildlife and the environment - and a staggering amount of money flows from the EU into UK farming: Once we leave the EU farmers will no longer be eligible for that support - and, potentially, no longer regulated by EU directives that protect the UK's habitats and wildlife.In this interview Charlie Moores discusses these and other issues with Miles King, a professional ecologist and conservationist and author of a report called 'Pebble in the Pond' which is subtitled 'Opportunities for farming, food and nature after Brexit', Miles' report (which is available from peopleneednature.org.uk) looks in depth at subsidies, legislation, small holdings, public goods, natural capital and our relationship with nature and food.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1483471584/Miles%20King%20and%20A%20Pebble%20in%20the%20Pond.mp3",
+		"duration": "45:41",
+		"alias": "opportunities-farming-food-and-nature-after-brexit-miles-king-pebble-pond",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484579140/pebble%20pond_0%20%281%29.jpg"
+	},
+	{
+		"id": "15de602d-6fe4-468c-b545-60bd9c8520ae",
+		"type": "radio",
+		"title": "Turkeys and Veganism | Juliet Gellately (Viva!)",
+		"date": "20/12/2016",
+		"description": "How much do we really know about turkeys? Charlie Moores sits down with Juliet Gellatley, the founder of Viva! and one of the UK’s leading vegan and animal welfare spokespeople. From the nature and behaviour of turkeys, to the farming conditions she’s witnessed, Juliet has an argument for going cold turkey on Christmas dinner.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1481909762/Juliet%20Gellatley%20of%20Viva%21.mp3",
+		"duration": "33:03",
+		"alias": "turkeys-and-veganism-juliet-gellately-viva",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1481909685/Juliet%20and%20turkey%20Bertie.jpg"
+	},
+	{
+		"id": "88d7c580-fbe8-4b32-9792-113c641bf99e",
+		"type": "radio",
+		"title": "Internet rights campaigning and #KeepItOn | Wafa Ben-Hassine, Access Now ",
+		"date": "20/12/2016",
+		"description": "\"Human rights advocate, law graduate and writer, Wafa Ben Hassine has now joined internet rights campaign group Access Now as their Middle East and North Africa policy analyst. Finding a few minutes to sit down with Lush’s Charlie Moores, Wafa discusses her work, life, and human rights.\nShortly after talking to Charlie, Wafa took to the Lush Creative Showcase stage, and introduced the terrifying world of government ordered internet shutdowns ahead of the #KeepItOn campaign.\"\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1475833546/Wafa%20Ben-Hassine.mp3",
+		"duration": "22:35",
+		"alias": "internet-rights-campaigning-and-keepiton-wafa-ben-hassine-access-now",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484583423/Keepiton_0.jpg"
+	},
+	{
+		"id": "00a722a6-8d34-4a24-8fe0-4c0329f3673c",
+		"type": "radio",
+		"title": "&#039;Soil, Soul and Society&#039; live in Poole, UK | Satish Kumar ",
+		"date": "20/12/2016",
+		"description": "Former monk and long-term peace and environmental activist, Satish Kumar was just nine when he left his family home to join the wandering Jains and 18 when he decided he could achieve more back in the world, campaigning for land reform in India and working to turn Gandhi’s vision of a renewed India and a peaceful world into reality. He has now been quietly setting the Global Agenda for change for over 50 years\nOn his 80th birthday Satish stood down as editor-in-chief of Resurgence magazine, a post he had held since 1973 , but he isn’t settling for an easy retirement. He will stay on at the Resurgence Trust and advise his replacement, Greg Neale, who for two years has overseen the print magazine. He also continues to teach at Schumacher college as well as continuing to tour with public speaking engagements.\nSatish came to visit Lush in Poole to talk about his trinity of Soil, Soul and Society - which is also the title and subject of his 2013 book.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1478305525/Satish%20Kumar.mp3",
+		"duration": "26:35",
+		"alias": "soil-soul-and-society-live-poole-uk-satish-kumar",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484581029/satish_1.jpg"
+	},
+	{
+		"id": "78853c92-5701-4223-bdbf-dd00c7a0e830",
+		"type": "radio",
+		"title": "Environmental Activism | Dr Vandana Shiva ",
+		"date": "20/12/2016",
+		"description": "Dr. Vandana Shiva is an activist and scientist, striving to protect biodiversity and sustainability while promoting organic farming and fair trade. She takes some time out of the Lush Creative Showcase to chat to Lush’s Charlie Moores. They talk ecology; creating an economy that works with the Earth; and how a change of direction is within our hands. Vandana and Charlie are joined by Simon Constantine, head perfumer and buyer at Lush, who has a special interest in environmentally-friendly growing practices.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1476008219/Dr%20Vandana%20Shiva.mp3",
+		"duration": "32:12",
+		"alias": "environmental-activism-dr-vandana-shiva",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484583343/dr_0.jpg"
+	},
+	{
+		"id": "5141472728001",
+		"type": "tv",
+		"title": "THE MUSIC AND BOOK SHOP: Vandana Shiva and Matt Shaw",
+		"date": "20/12/2016",
+		"description": "Environmental activist Dr Vandana Shiva talks about her new book Who Really Feeds The World?, as well as diversity, biodiversity, and permaculture of the mind, in this captivating Q&amp;A.",
+		"file": null,
+		"duration": null,
+		"alias": "music-and-book-shop-vandana-shiva-and-matt-shaw",
+		"tags": [
+			"showcase 2016"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5141485682001_5141472728001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "5141472760001",
+		"type": "tv",
+		"title": "THE MUSIC AND BOOK SHOP: David Pearl and Andrew Paine",
+		"date": "20/12/2016",
+		"description": "Mixing business with drama may sound like an odd idea, but it’s exactly what David Pearl has been successfully practicing for years. Learn how to make the most of your time and skills by using creative techniques in this lively Q and A.",
+		"file": null,
+		"duration": null,
+		"alias": "music-and-book-shop-david-pearl-and-andrew-paine",
+		"tags": [],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5141508428001_5141472760001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "bcc6f53b-3e97-44df-bcd2-5b2b01edce74",
+		"type": "radio",
+		"title": "Ecotricity, alternative energy, and veganism | Dale Vince",
+		"date": "20/12/2016",
+		"description": "A vegan and conservationist, Dale Vince is the charismatic founder of the UK's first green energy supplier Ecotricity. In this conversation with Charlie Moores, Dale talks about his life over the last twenty-five years, buying a football club and introducing vegan food to the terraces, and turning grass into gas as a sustainable and wildlife-friendly alternative to fracking.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1484580612/Dale%20Vince.mp3",
+		"duration": "32:41",
+		"alias": "ecotricity-alternative-energy-and-veganism-dale-vince",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1480597415/Dale%20Vince.jpg"
+	},
+	{
+		"id": "13ffdc6a-6800-49f8-8e5a-6bee1b4e95ad",
+		"type": "radio",
+		"title": "Living with a diagnosis of Bipolar Disorder | Tris Reid",
+		"date": "20/12/2016",
+		"description": "Tris Reid, aka The Inked Naturalist, is a long-distance runner and passionate conservationist who has become well-known for wearing his heart on his sleeve and covering most visible parts of his body with tattoos of birds. He's a campaigner bursting with ideas - and was recently diagnosed with Bipolar Disorder which has made him reanalyse almost every decision and effort he's ever made. In this conversation Tris discusses with Charlie Moores (an old friend who has also suffered periods of mental illness) how the diagnosis has impacted him and his family, and the importance of looking for - and accepting - medical help.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1479818437/Tris%20Reid%20on%20Mental%20HealthV2_0.mp3",
+		"duration": "44:56",
+		"alias": "living-diagnosis-bipolar-disorder-tris-reid",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1479818419/Tris%20hands.jpg"
+	},
+	{
+		"id": "7d4bc43a-8537-4d30-9922-a0a4090cc112",
+		"type": "radio",
+		"title": "Education, ecology, and the illusion of age | Satish Kumar, Schumacher College",
+		"date": "20/12/2016",
+		"description": "Satish Kumar is an Indian activist and author who has been a Jain monk, a nuclear disarmament advocate, a pacifist, and long-term  editor of Resurgence &amp; Ecologist magazine. He moved to the UK in 1973, settling in south Devon where he still lives, and where in 1991 he co founded Schumacher College. It was at the college that Satish sat down with Lush's Charlie Moores and Matt Shaw, to discuss education, ecology, and the illusion of age.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1481908911/Satish%20Kumar%20at%20Schumacher%20College.mp3",
+		"duration": "46:17",
+		"alias": "education-ecology-and-illusion-age-satish-kumar-schumacher-college",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484581086/satish_0_0.jpg"
+	},
+	{
+		"id": "5141486359001",
+		"type": "tv",
+		"title": "THE MUSIC AND BOOK SHOP: Mark Pilkington and Matt Fairhall",
+		"date": "20/12/2016",
+		"description": "Mark Pilkington is a writer, publisher and exhibition curator with an interest in topics that fall outside of the norms of knowledge, culture and belief. Find out more about his encounters in the weird, wonderful, and sometimes scary world of UFOria ",
+		"file": null,
+		"duration": null,
+		"alias": "music-and-book-shop-mark-pilkington-and-matt-fairhall",
+		"tags": [
+			"showcase 2016"
+		],
+		"thumbnail": "http://brightcove04.o.brightcove.com/4926724644001/4926724644001_5141499001001_5141486359001-vs.jpg?pubId=4926724644001"
+	},
+	{
+		"id": "4af3793e-8cc2-4d85-970f-e3c510a6cc59",
+		"type": "radio",
+		"title": "Cooking a Vegan Christmas Dinner | Maryanne Hall, Food and Cookery co-ordinator Viva!",
+		"date": "20/12/2016",
+		"description": "How difficult is it to prepare and cook a delicious vegan Christmas dinner? Lush's Charlie Moores and Lauren Marina are on a mission to find out. They pay a visit to Maryanne Hall, Viva!’s food and cookery coordinator, and self-confessed lover of Christmas dinner. Maryanne talks vegan recipes, vegetarian restaurants, and why nut roast is actually rather delicious.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1481908023/Maryanne%20Hall%20of%20Viva%21.mp3",
+		"duration": "31:47",
+		"alias": "cooking-vegan-christmas-dinner-maryanne-hall-food-and-cookery-co-ordinator-viva",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1484580558/Maryanne_0.jpg"
+	},
+	{
+		"id": "cac49393-ebee-4029-8523-585da279bca3",
+		"type": "radio",
+		"title": "Birds, wildlife and TV | Mike Dilger",
+		"date": "20/12/2016",
+		"description": "Naturalist, television presenter, writer and father. Mike Dilger takes a break from Inside Out and The One Show to sit down with Lush’s Charlie Moores. The wildlife presenter enthusiastically discusses his passion for nature, and his globe-trotting career that’s been immersed in the natural world.\n",
+		"file": "http://res.cloudinary.com/lush/raw/upload/v1484580870/Mike%20Dilger.mp3",
+		"duration": "33:22",
+		"alias": "birds-wildlife-and-tv-mike-dilger",
+		"tags": [],
+		"thumbnail": "http://res.cloudinary.com/lush/image/upload/v1479057603/MikeDilger%2001.jpg"
+	}
+]

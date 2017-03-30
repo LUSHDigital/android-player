@@ -16,6 +16,8 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
 
+import org.apmem.tools.layouts.FlowLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +33,7 @@ public class DetailsFragment extends Fragment
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
+	@BindView(R.id.tag_list) FlowLayout tagList;
 
 	public DetailsFragment()
 	{
@@ -80,6 +83,19 @@ public class DetailsFragment extends Fragment
 		contentType.setText(mediaContent.getType().getName());
 		title.setText(mediaContent.getTitle());
 		description.setText(mediaContent.getDescription());
+
+		// Populate tags ui
+		tagList.removeAllViews();
+		LayoutInflater inflater = LayoutInflater.from(tagList.getContext());
+
+		for (String tag : mediaContent.getTags())
+		{
+			View view = inflater.inflate(R.layout.mobile_item_tag, tagList, false);
+			TextView text = (TextView)view.findViewById(R.id.text);
+			text.setText(tag);
+
+			tagList.addView(view);
+		}
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()

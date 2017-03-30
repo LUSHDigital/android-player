@@ -30,7 +30,7 @@ public class DetailsFragment extends Fragment
 	@BindView(R.id.content_type) TextView contentType;
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
-	@BindView(R.id.show_more) Button showMoreButton;
+	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
 
 	public DetailsFragment()
 	{
@@ -82,10 +82,25 @@ public class DetailsFragment extends Fragment
 		description.setText(mediaContent.getDescription());
 	}
 
-	@OnClick(R.id.show_more) void onShowMoreDescriptionClicked()
+	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()
 	{
+		int maxLines = description.getMaxLines();
+
+		int condensedMaxLines = getResources().getInteger(R.integer.description_condensed_lines);
+		int expandedMaxLines = getResources().getInteger(R.integer.description_expanded_lines);
+
+		if (maxLines <= condensedMaxLines)
+		{
+			description.setMaxLines(expandedMaxLines);
+			toggleDescriptionButton.setText(R.string.show_less);
+		}
+		else
+		{
+			description.setMaxLines(condensedMaxLines);
+			toggleDescriptionButton.setText(R.string.show_more);
+		}
+
 		Toast.makeText(getContext(), "User clicked show more", Toast.LENGTH_SHORT).show();
-		description.setMaxLines(100);
 	}
 
 	@OnClick(R.id.share) void onShareClicked()

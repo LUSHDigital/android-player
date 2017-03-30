@@ -6,9 +6,12 @@ import android.text.TextUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -25,6 +28,12 @@ public abstract class BaseMockInterceptor implements Interceptor
 	}
 
 	/**
+	 * Provide the endpoint name that you want to intercept
+	 * @return
+	 */
+	protected abstract String provideEndpointName();
+
+	/**
 	 * Provide the location of the Json file in relation to /assets (assets folder)
 	 * Examples:
 	 * user_request.json
@@ -35,12 +44,28 @@ public abstract class BaseMockInterceptor implements Interceptor
 
 	@Override public Response intercept(Chain chain) throws IOException
 	{
-		Response originalResponse = chain.proceed(chain.request());
+		Request originalRequest = chain.request();
+		Response originalResponse = chain.proceed(originalRequest);
 
-		return originalResponse.newBuilder()
-			.code(200)
-			.body(ResponseBody.create(MediaType.parse("application/json"), getResponse()))
-			.build();
+		HttpUrl url = originalRequest.url();
+
+		// 0 - lushtvapi
+		// 1 - v1
+		// 2 - views
+		// 3 - endpoint e.g. categories
+		List<String> strings = url.pathSegments();
+		String endpoint = strings.get(3);
+
+		// If the request is for this interceptors endpoint, then replace the response with our mock one
+		if (endpoint.equals(provideEndpointName()))
+		{
+			return originalResponse.newBuilder()
+				.code(200)
+				.body(ResponseBody.create(MediaType.parse("application/json"), getResponse()))
+				.build();
+		}
+
+		return originalResponse;
 	}
 
 	/**

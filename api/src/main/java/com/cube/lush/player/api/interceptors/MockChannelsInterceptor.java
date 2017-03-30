@@ -15,6 +15,11 @@ public class MockChannelsInterceptor extends BaseMockInterceptor
 		super(context);
 	}
 
+	@Override protected String provideEndpointName()
+	{
+		return "categories";
+	}
+
 	@Override protected String provideJsonFileName()
 	{
 		// TODO: Add other channel's JSON after this is shown to work

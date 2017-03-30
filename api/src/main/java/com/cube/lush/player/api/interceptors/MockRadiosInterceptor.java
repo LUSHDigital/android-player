@@ -15,6 +15,11 @@ public class MockRadiosInterceptor extends BaseMockInterceptor
 		super(context);
 	}
 
+	@Override protected String provideEndpointName()
+	{
+		return "radio";
+	}
+
 	@Override protected String provideJsonFileName()
 	{
 		return "mock/api/radios.json";

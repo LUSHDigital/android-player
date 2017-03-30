@@ -15,6 +15,11 @@ public class MockVideosInterceptor extends BaseMockInterceptor
 		super(context);
 	}
 
+	@Override protected String provideEndpointName()
+	{
+		return "videos";
+	}
+
 	@Override protected String provideJsonFileName()
 	{
 		return "mock/api/videos.json";

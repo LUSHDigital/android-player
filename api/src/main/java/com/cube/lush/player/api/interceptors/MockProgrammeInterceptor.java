@@ -15,6 +15,11 @@ public class MockProgrammeInterceptor extends BaseMockInterceptor
 		super(context);
 	}
 
+	@Override protected String provideEndpointName()
+	{
+		return "programme";
+	}
+
 	@Override protected String provideJsonFileName()
 	{
 		return "mock/api/programme.json";

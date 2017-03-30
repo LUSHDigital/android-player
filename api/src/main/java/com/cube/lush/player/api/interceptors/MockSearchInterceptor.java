@@ -15,6 +15,11 @@ public class MockSearchInterceptor extends BaseMockInterceptor
 		super(context);
 	}
 
+	@Override protected String provideEndpointName()
+	{
+		return "search";
+	}
+
 	@Override protected String provideJsonFileName()
 	{
 		return "mock/api/search.json";

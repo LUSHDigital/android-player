@@ -15,6 +15,11 @@ public class MockPlaylistInterceptor extends BaseMockInterceptor
 		super(context);
 	}
 
+	@Override protected String provideEndpointName()
+	{
+		return "playlist";
+	}
+
 	@Override protected String provideJsonFileName()
 	{
 		return "mock/api/playlist.json";

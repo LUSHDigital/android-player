@@ -119,6 +119,11 @@ public class DetailsFragment extends Fragment
 		Toast.makeText(view.getContext(), "Tag clicked: " + tag, Toast.LENGTH_SHORT).show();
 	}
 
+	@OnClick(R.id.play) void onPlayClicked()
+	{
+		Toast.makeText(getContext(), "Play clicked", Toast.LENGTH_SHORT).show();
+	}
+
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()
 	{
 		int maxLines = description.getMaxLines();

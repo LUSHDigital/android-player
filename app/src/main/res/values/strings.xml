@@ -42,4 +42,6 @@
 	<string name="minutes_remaining">%1$d minutes remaining</string>
 	<string name="live_no_title">Live</string>
 	<string name="live_title">LIVE: %1$s</string>
+	<string name="show_full_description">Show full description</string>
+	<string name="share">Share</string>
 </resources>

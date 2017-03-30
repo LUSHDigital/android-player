@@ -34,6 +34,32 @@ public abstract class BaseMockInterceptor implements Interceptor
 	protected abstract String provideEndpointName();
 
 	/**
+	 * Whether or not the response for a particular request should be mocked
+	 * @param originalRequest
+	 * @return
+	 */
+	protected boolean shouldMockResponse(@NonNull Request originalRequest)
+	{
+		HttpUrl url = originalRequest.url();
+
+		// 0 - lushtvapi
+		// 1 - v1
+		// 2 - views
+		// 3 - endpoint e.g. categories
+		List<String> strings = url.pathSegments();
+		String originalEndpoint = strings.get(3);
+		String endpointToIntercept = provideEndpointName();
+
+		// If the request is for this interceptors endpoint, then replace the response with our mock one
+		if (originalEndpoint.equals(endpointToIntercept))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Provide the location of the Json file in relation to /assets (assets folder)
 	 * Examples:
 	 * user_request.json
@@ -47,17 +73,7 @@ public abstract class BaseMockInterceptor implements Interceptor
 		Request originalRequest = chain.request();
 		Response originalResponse = chain.proceed(originalRequest);
 
-		HttpUrl url = originalRequest.url();
-
-		// 0 - lushtvapi
-		// 1 - v1
-		// 2 - views
-		// 3 - endpoint e.g. categories
-		List<String> strings = url.pathSegments();
-		String endpoint = strings.get(3);
-
-		// If the request is for this interceptors endpoint, then replace the response with our mock one
-		if (endpoint.equals(provideEndpointName()))
+		if (shouldMockResponse(originalRequest))
 		{
 			return originalResponse.newBuilder()
 				.code(200)

@@ -4,12 +4,17 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
-import com.cube.lush.player.api.interceptors.MockChannelsInterceptor;
 import com.cube.lush.player.api.interceptors.MockPlaylistInterceptor;
 import com.cube.lush.player.api.interceptors.MockProgrammeInterceptor;
 import com.cube.lush.player.api.interceptors.MockRadiosInterceptor;
 import com.cube.lush.player.api.interceptors.MockSearchInterceptor;
 import com.cube.lush.player.api.interceptors.MockVideosInterceptor;
+import com.cube.lush.player.api.interceptors.channels.MockCosmeticsChannelInterceptor;
+import com.cube.lush.player.api.interceptors.channels.MockGorillaChannelInterceptor;
+import com.cube.lush.player.api.interceptors.channels.MockKitchenChannelInterceptor;
+import com.cube.lush.player.api.interceptors.channels.MockLushLifeChannelInterceptor;
+import com.cube.lush.player.api.interceptors.channels.MockSoapboxChannelInterceptor;
+import com.cube.lush.player.api.interceptors.channels.MockTimesChannelInterceptor;
 import com.cube.lush.player.api.util.HtmlStringAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +23,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import lombok.AllArgsConstructor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,8 +58,15 @@ public class APIModule
 	{
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-		// TODO: Make interceptors response to particular requests
-		builder.addInterceptor(new MockChannelsInterceptor(context));
+		// Channel interceptors
+		builder.addInterceptor(new MockCosmeticsChannelInterceptor(context));
+		builder.addInterceptor(new MockGorillaChannelInterceptor(context));
+		builder.addInterceptor(new MockKitchenChannelInterceptor(context));
+		builder.addInterceptor(new MockLushLifeChannelInterceptor(context));
+		builder.addInterceptor(new MockSoapboxChannelInterceptor(context));
+		builder.addInterceptor(new MockTimesChannelInterceptor(context));
+
+		// Other interceptors
 		builder.addInterceptor(new MockPlaylistInterceptor(context));
 		builder.addInterceptor(new MockProgrammeInterceptor(context));
 		builder.addInterceptor(new MockRadiosInterceptor(context));

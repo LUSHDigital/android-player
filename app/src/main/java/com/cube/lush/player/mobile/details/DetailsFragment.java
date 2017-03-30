@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
 
 import butterknife.BindView;
@@ -50,6 +51,11 @@ public class DetailsFragment extends Fragment
 		super.onCreate(savedInstanceState);
 
 		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
+
+		if (mediaContent == null)
+		{
+			throw new RuntimeException("No media content to show details for");
+		}
 	}
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -59,9 +65,27 @@ public class DetailsFragment extends Fragment
 		return view;
 	}
 
+	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+
+		if (savedInstanceState == null)
+		{
+			populateUi();
+		}
+	}
+
+	private void populateUi()
+	{
+		contentType.setText(mediaContent.getType().getName());
+		title.setText(mediaContent.getTitle());
+		description.setText(mediaContent.getDescription());
+	}
+
 	@OnClick(R.id.show_more) void onShowMoreDescriptionClicked()
 	{
 		Toast.makeText(getContext(), "User clicked show more", Toast.LENGTH_SHORT).show();
+		description.setMaxLines(100);
 	}
 
 	@OnClick(R.id.share) void onShareClicked()

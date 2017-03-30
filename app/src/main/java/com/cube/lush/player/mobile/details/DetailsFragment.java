@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
 
@@ -83,6 +86,11 @@ public class DetailsFragment extends Fragment
 		contentType.setText(mediaContent.getType().getName());
 		title.setText(mediaContent.getTitle());
 		description.setText(mediaContent.getDescription());
+
+		// Populate image
+		Picasso.with(thumbnail.getContext())
+			.load(mediaContent.getThumbnail())
+			.into(thumbnail);
 
 		// Populate tags ui
 		tagList.removeAllViews();

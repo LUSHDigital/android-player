@@ -7,7 +7,7 @@
 >
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="wrap_content"
 		android:orientation="vertical"
 	>
 		<ImageView
@@ -67,11 +67,35 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/share"
-				android:layout_marginBottom="16dp"
+				android:layout_marginBottom="8dp"
 				android:layout_marginTop="16dp"
 				android:text="@string/share"
 				style="@style/LushButton.White"
 			/>
+		</LinearLayout>
+
+		<include
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			layout="@layout/divider"
+		/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="16dp"
+		>
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:text="@string/tags"
+				style="@style/Title"
+			/>
+
+			<!-- TODO: Add flow layout here -->
+
+			
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

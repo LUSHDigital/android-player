@@ -88,14 +88,27 @@ public class DetailsFragment extends Fragment
 		tagList.removeAllViews();
 		LayoutInflater inflater = LayoutInflater.from(tagList.getContext());
 
-		for (String tag : mediaContent.getTags())
+		for (final String tag : mediaContent.getTags())
 		{
 			View view = inflater.inflate(R.layout.mobile_item_tag, tagList, false);
 			TextView text = (TextView)view.findViewById(R.id.text);
 			text.setText(tag);
 
+			view.setOnClickListener(new View.OnClickListener()
+			{
+				@Override public void onClick(View view)
+				{
+					onTagClicked(view, tag);
+				}
+			});
+
 			tagList.addView(view);
 		}
+	}
+
+	private void onTagClicked(@NonNull View view, @NonNull String tag)
+	{
+		Toast.makeText(view.getContext(), "Tag clicked: " + tag, Toast.LENGTH_SHORT).show();
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()

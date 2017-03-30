@@ -21,6 +21,7 @@ import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.content.listener.ContentClickListener;
+import com.cube.lush.player.mobile.details.DetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,5 +107,6 @@ public class ContentFragment extends Fragment implements ContentClickListener
 	@Override public void selectedContent(@NonNull MediaContent mediaContent)
 	{
 		Toast.makeText(getContext(), getString(R.string.media_selected, mediaContent.getTitle()), Toast.LENGTH_SHORT).show();
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));
 	}
 }

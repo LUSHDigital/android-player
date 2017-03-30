@@ -123,4 +123,16 @@
 		<item name="android:ellipsize">end</item>
 		<item name="android:maxLines">1</item>
 	</style>
+
+	<style name="Description" parent="@style/Text.White">
+		<item name="android:textColor">@color/text_light</item>
+		<item name="android:textSize">16sp</item>
+		<item name="android:maxLines">@integer/description_condensed_lines</item>
+		<item name="android:lineSpacingExtra">4dp</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
+	<style name="Description.Dark">
+		<item name="android:textColor">@color/text_dark</item>
+	</style>
 </resources>

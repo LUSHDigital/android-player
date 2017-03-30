@@ -72,6 +72,9 @@ dependencies {
 	// Brightcove
 	compile 'com.brightcove.player:exoplayer:4.11.1'
 
+	// Flow layout
+	compile 'org.apmem.tools:layouts:1.10@aar'
+
 	// Images
 	compile 'com.squareup.picasso:picasso:2.5.2'
 

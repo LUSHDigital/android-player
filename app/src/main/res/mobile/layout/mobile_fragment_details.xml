@@ -1,0 +1,121 @@
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/black"
+>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+	>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+		>
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:id="@+id/thumbnail"
+				android:scaleType="centerCrop"
+				tools:src="@drawable/caption_background"
+			/>
+
+			<ImageButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/play"
+				android:layout_centerInParent="true"
+				android:background="@android:color/transparent"
+				app:srcCompat="@drawable/ic_play"
+			/>
+		</RelativeLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:padding="16dp"
+		>
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/content_type"
+				android:textAllCaps="true"
+				style="@style/SubTitle"
+				tools:text="@string/dummy_content_type"
+			/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/title"
+				android:layout_marginBottom="8dp"
+				android:layout_marginTop="8dp"
+				style="@style/Title"
+				tools:text="@string/dummy_content_title"
+			/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/description"
+				style="@style/Description"
+				tools:text="@string/dummy_live_description"
+			/>
+
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="20dp"
+				android:id="@+id/toggle_description_length"
+				android:layout_marginTop="8dp"
+				android:background="@android:color/transparent"
+				android:gravity="left"
+				android:text="@string/show_more"
+				android:textAllCaps="false"
+				style="@style/Description.Dark"
+			/>
+
+			<Button
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/share"
+				android:layout_marginBottom="8dp"
+				android:layout_marginTop="16dp"
+				android:text="@string/share"
+				style="@style/LushButton.White"
+			/>
+		</LinearLayout>
+
+		<include
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			layout="@layout/divider"
+		/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="16dp"
+		>
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:text="@string/tags"
+				style="@style/Title"
+			/>
+
+			<org.apmem.tools.layouts.FlowLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/tag_list"
+				android:layout_marginBottom="8dp"
+				android:layout_marginTop="8dp"
+			/>
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>

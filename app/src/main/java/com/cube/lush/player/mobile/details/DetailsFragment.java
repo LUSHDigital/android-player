@@ -1,5 +1,9 @@
 package com.cube.lush.player.mobile.details;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,13 +17,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brightcove.player.analytics.Analytics;
+import com.brightcove.player.edge.PlaylistListener;
+import com.brightcove.player.edge.VideoListener;
+import com.brightcove.player.media.DeliveryType;
+import com.brightcove.player.model.Playlist;
+import com.brightcove.player.model.Video;
+import com.brightcove.player.view.BaseVideoView;
+import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
+import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
-import com.squareup.picasso.Callback;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.content.model.VideoInfo;
+import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.playback.PlaybackActivity;
+import com.cube.lush.player.mobile.playback.PlaybackFragment;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +52,7 @@ public class DetailsFragment extends Fragment
 	private MediaContent mediaContent;
 
 	@BindView(R.id.thumbnail) ImageView thumbnail;
+	@BindView(R.id.play) ImageView play;
 	@BindView(R.id.content_type) TextView contentType;
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
@@ -68,6 +89,7 @@ public class DetailsFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.mobile_fragment_details, container, false);
 		ButterKnife.bind(this, view);
+
 		return view;
 	}
 
@@ -121,7 +143,10 @@ public class DetailsFragment extends Fragment
 
 	@OnClick(R.id.play) void onPlayClicked()
 	{
-		Toast.makeText(getContext(), "Play clicked", Toast.LENGTH_SHORT).show();
+		Context context = play.getContext();
+
+		Toast.makeText(context, "Play clicked", Toast.LENGTH_SHORT).show();
+		context.startActivity(PlaybackActivity.getIntent(context, mediaContent));
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()
@@ -145,6 +170,6 @@ public class DetailsFragment extends Fragment
 
 	@OnClick(R.id.share) void onShareClicked()
 	{
-		Toast.makeText(getContext(), "Share clicked ", Toast.LENGTH_SHORT).show();
+		Toast.makeText(title.getContext(), "Share clicked ", Toast.LENGTH_SHORT).show();
 	}
 }

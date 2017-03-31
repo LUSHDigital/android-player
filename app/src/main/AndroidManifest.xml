@@ -27,6 +27,12 @@
 			</intent-filter>
 		</activity>
 
+		<activity
+			android:name="com.cube.lush.player.mobile.playback.PlaybackActivity"
+			android:screenOrientation="sensorLandscape"
+			android:theme="@style/Mobile.AppTheme"
+		/>
+
 		<!-- TV -->
 		<activity
 			android:name="com.cube.lush.player.tv.MainActivity"

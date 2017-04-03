@@ -1,40 +1,23 @@
 package com.cube.lush.player.mobile.details;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.brightcove.player.analytics.Analytics;
-import com.brightcove.player.edge.PlaylistListener;
-import com.brightcove.player.edge.VideoListener;
-import com.brightcove.player.media.DeliveryType;
-import com.brightcove.player.model.Playlist;
-import com.brightcove.player.model.Video;
-import com.brightcove.player.view.BaseVideoView;
-import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
-import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.VideoInfo;
-import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.playback.PlaybackActivity;
-import com.cube.lush.player.mobile.playback.PlaybackFragment;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -58,6 +41,7 @@ public class DetailsFragment extends Fragment
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
 	@BindView(R.id.tag_list) FlowLayout tagList;
+	@BindView(R.id.tag_section) LinearLayout tagSection;
 
 	public DetailsFragment()
 	{
@@ -107,18 +91,53 @@ public class DetailsFragment extends Fragment
 	{
 		contentType.setText(mediaContent.getType().getName());
 		title.setText(mediaContent.getTitle());
-		description.setText(mediaContent.getDescription());
+		description.setText(mediaContent.getDescription().trim());
 
 		// Populate image
 		Picasso.with(thumbnail.getContext())
 			.load(mediaContent.getThumbnail())
 			.into(thumbnail);
 
+		List<String> tags = mediaContent.getTags();
+
+		if (tags.isEmpty())
+		{
+			hideTags();
+		}
+		else
+		{
+			showTags(tags);
+		}
+
+		description.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				int condensedMaxLines = getResources().getInteger(R.integer.description_condensed_lines);
+
+				// If the text is truncated, show the "show full description" button
+				if (description.getLineCount() > condensedMaxLines)
+				{
+					toggleDescriptionButton.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					toggleDescriptionButton.setVisibility(View.INVISIBLE);
+				}
+
+				description.setMaxLines(condensedMaxLines);
+			}
+		});
+	}
+
+	private void showTags(@NonNull List<String> tags)
+	{
 		// Populate tags ui
 		tagList.removeAllViews();
 		LayoutInflater inflater = LayoutInflater.from(tagList.getContext());
 
-		for (final String tag : mediaContent.getTags())
+		for (final String tag : tags)
 		{
 			View view = inflater.inflate(R.layout.mobile_item_tag, tagList, false);
 			TextView text = (TextView)view.findViewById(R.id.text);
@@ -134,6 +153,13 @@ public class DetailsFragment extends Fragment
 
 			tagList.addView(view);
 		}
+
+		tagSection.setVisibility(View.VISIBLE);
+	}
+
+	private void hideTags()
+	{
+		tagSection.setVisibility(View.GONE);
 	}
 
 	private void onTagClicked(@NonNull View view, @NonNull String tag)
@@ -170,6 +196,10 @@ public class DetailsFragment extends Fragment
 
 	@OnClick(R.id.share) void onShareClicked()
 	{
-		Toast.makeText(title.getContext(), "Share clicked ", Toast.LENGTH_SHORT).show();
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, mediaContent.getWebLink());
+		shareIntent.setType("text/plain");
+
+		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 	}
 }

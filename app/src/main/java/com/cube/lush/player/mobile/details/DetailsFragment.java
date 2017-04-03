@@ -1,12 +1,10 @@
 package com.cube.lush.player.mobile.details;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -91,7 +87,7 @@ public class DetailsFragment extends Fragment
 	{
 		contentType.setText(mediaContent.getType().getName());
 		title.setText(mediaContent.getTitle());
-		description.setText(mediaContent.getDescription());
+		description.setText(mediaContent.getDescription().trim());
 
 		// Populate image
 		Picasso.with(thumbnail.getContext())
@@ -108,6 +104,27 @@ public class DetailsFragment extends Fragment
 		{
 			showTags(tags);
 		}
+
+		description.post(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				int condensedMaxLines = getResources().getInteger(R.integer.description_condensed_lines);
+
+				// If the text is truncated, show the "show full description" button
+				if (description.getLineCount() > condensedMaxLines)
+				{
+					toggleDescriptionButton.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					toggleDescriptionButton.setVisibility(View.INVISIBLE);
+				}
+
+				description.setMaxLines(condensedMaxLines);
+			}
+		});
 	}
 
 	private void showTags(@NonNull List<String> tags)

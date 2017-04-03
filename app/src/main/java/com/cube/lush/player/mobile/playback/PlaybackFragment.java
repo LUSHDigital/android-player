@@ -1,7 +1,6 @@
 package com.cube.lush.player.mobile.playback;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,12 +18,12 @@ import com.brightcove.player.media.DeliveryType;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
-import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.common.playback.*;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.api.model.RadioContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
@@ -32,7 +31,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -93,12 +91,21 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		}
 		else if (contentType == ContentType.RADIO)
 		{
-			playAudio(id);
+			if (mediaContent instanceof RadioContent)
+			{
+				String fileUrl = ((RadioContent)mediaContent).getFile();
+				playAudio(fileUrl);
+			}
+			else if (mediaContent instanceof Programme)
+			{
+				String fileUrl = ((Programme)mediaContent).getUrl();
+				playAudio(fileUrl);
+			}
 		}
-		else if (contentType == ContentType.LIVE)
-		{
-			playPlaylist(id);
-		}
+//		else if (contentType == ContentType.LIVE)
+//		{
+//			playPlaylist(id);
+//		}
 	}
 
 	private void playVideo(@NonNull String videoId)

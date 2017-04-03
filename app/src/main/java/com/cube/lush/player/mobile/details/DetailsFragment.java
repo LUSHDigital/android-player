@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +42,7 @@ public class DetailsFragment extends Fragment
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
 	@BindView(R.id.tag_list) FlowLayout tagList;
+	@BindView(R.id.tag_section) LinearLayout tagSection;
 
 	public DetailsFragment()
 	{
@@ -94,11 +98,25 @@ public class DetailsFragment extends Fragment
 			.load(mediaContent.getThumbnail())
 			.into(thumbnail);
 
+		List<String> tags = mediaContent.getTags();
+
+		if (tags.isEmpty())
+		{
+			hideTags();
+		}
+		else
+		{
+			showTags(tags);
+		}
+	}
+
+	private void showTags(@NonNull List<String> tags)
+	{
 		// Populate tags ui
 		tagList.removeAllViews();
 		LayoutInflater inflater = LayoutInflater.from(tagList.getContext());
 
-		for (final String tag : mediaContent.getTags())
+		for (final String tag : tags)
 		{
 			View view = inflater.inflate(R.layout.mobile_item_tag, tagList, false);
 			TextView text = (TextView)view.findViewById(R.id.text);
@@ -114,6 +132,13 @@ public class DetailsFragment extends Fragment
 
 			tagList.addView(view);
 		}
+
+		tagSection.setVisibility(View.VISIBLE);
+	}
+
+	private void hideTags()
+	{
+		tagSection.setVisibility(View.GONE);
 	}
 
 	private void onTagClicked(@NonNull View view, @NonNull String tag)

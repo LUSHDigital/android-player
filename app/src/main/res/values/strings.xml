@@ -46,4 +46,5 @@
 	<string name="show_less">Show shorter description</string>
 	<string name="show_more">Show full description</string>
 	<string name="tags">Tags</string>
+	<string name="share_via">Share via:</string>
 </resources>

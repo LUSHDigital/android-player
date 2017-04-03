@@ -1,5 +1,7 @@
 package com.cube.lush.player.mobile.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -145,6 +147,10 @@ public class DetailsFragment extends Fragment
 
 	@OnClick(R.id.share) void onShareClicked()
 	{
-		Toast.makeText(getContext(), "Share clicked ", Toast.LENGTH_SHORT).show();
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, mediaContent.getWebLink());
+		shareIntent.setType("text/plain");
+
+		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 	}
 }

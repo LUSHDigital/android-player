@@ -1,6 +1,5 @@
 package com.cube.lush.player.api.model;
 
-import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,6 +28,7 @@ public class MediaContent implements Serializable
 	private Date date;
 	private String thumbnail;
 	private ContentType type;
+	private String alias;
 	private List<String> tags;
 
 	public String getRelativeDate()
@@ -38,5 +38,10 @@ public class MediaContent implements Serializable
 		CharSequence description = DateUtils.getRelativeTimeSpanString(time, now, DAY_IN_MILLIS);
 
 		return description.toString();
+	}
+
+	public String getWebLink()
+	{
+		return "http://player.lush.com/tv/" + alias;
 	}
 }

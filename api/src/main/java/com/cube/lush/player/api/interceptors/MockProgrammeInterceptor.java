@@ -22,6 +22,6 @@ public class MockProgrammeInterceptor extends BaseMockInterceptor
 
 	@Override protected String provideJsonFileName()
 	{
-		return "mock/api/programme.json";
+		return "mock/api/programme-video.json";
 	}
 }

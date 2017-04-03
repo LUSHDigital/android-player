@@ -1,6 +1,7 @@
 package com.cube.lush.player.mobile.playback;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -89,7 +90,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		{
 			playVideo(id);
 		}
-		else if (contentType == ContentType.RADIO)
+		else
 		{
 			if (mediaContent instanceof RadioContent)
 			{
@@ -101,11 +102,43 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				String fileUrl = ((Programme)mediaContent).getUrl();
 				playAudio(fileUrl);
 			}
+			else
+			{
+				// Go and get the radio content using get programme endpoint
+				fetchRadioDetails(brightcoveVideoView.getContext(), mediaContent.getId());
+			}
 		}
-//		else if (contentType == ContentType.LIVE)
-//		{
-//			playPlaylist(id);
-//		}
+
+		// TODO: Get live playback working
+	}
+
+	protected void fetchRadioDetails(@NonNull final Context context, final String mediaId)
+	{
+		MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
+		{
+			@Override public void onSuccess(@NonNull List<Programme> items)
+			{
+				if (!items.isEmpty())
+				{
+					Programme programme = items.get(0);
+
+					if (programme == null)
+					{
+						return;
+					}
+
+					playMediaContent(programme);
+				}
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				if (context != null)
+				{
+					Toast.makeText(context, R.string.media_unplayable, Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 
 	private void playVideo(@NonNull String videoId)

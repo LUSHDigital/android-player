@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 def getBrightcoveAccountId = { ->
-	def brightcoveAccountId = project.hasProperty('brightcoveAccountId') ? brightcoveAccountId.toString() : null
+	def brightcoveAccountId = project.hasProperty('BRIGHTCOVE_ACCOUNT_ID') ? BRIGHTCOVE_ACCOUNT_ID.toString() : null
 
 	if (brightcoveAccountId == null && System.getenv("BRIGHTCOVE_ACCOUNT_ID") != null)
 	{
@@ -14,7 +14,7 @@ def getBrightcoveAccountId = { ->
 }
 
 def getBrightcovePolicyKey = { ->
-	def brightcovePolicyKey = project.hasProperty('brightcovePolicyKey') ? brightcoveAccountId.toString() : null
+	def brightcovePolicyKey = project.hasProperty('BRIGHTCOVE_POLICY_KEY') ? BRIGHTCOVE_POLICY_KEY.toString() : null
 
 	if (brightcovePolicyKey == null && System.getenv("BRIGHTCOVE_POLICY_KEY") != null)
 	{

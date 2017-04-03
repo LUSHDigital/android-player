@@ -4,9 +4,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v17.leanback.widget.Presenter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -81,37 +84,48 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		switch (position)
 		{
 			case 0:
-				showFragment(HomeFragment.newInstance());
+				showNoHistoryFragment(HomeFragment.newInstance());
 				return true;
 			case 1:
-				showFragment(LiveFragment.newInstance());
+				showNoHistoryFragment(LiveFragment.newInstance());
 				return true;
 			case 2:
-				showFragment(ChannelsFragment.newInstance());
+				showNoHistoryFragment(ChannelsFragment.newInstance());
 				return true;
 			case 3:
-				showFragment(EventsFragment.newInstance());
+				showNoHistoryFragment(EventsFragment.newInstance());
 				return true;
 			case 4:
-				showFragment(SearchFragment.newInstance());
+				showNoHistoryFragment(SearchFragment.newInstance());
 				return true;
 			default:
 				throw new RuntimeException("Unknown tab selected");
 		}
 	}
 
-    public void showFragment(@NonNull Fragment fragment)
+	public void showFragment(@NonNull Fragment fragment)
 	{
-		showFragment(fragment, null);
+		showFragment(fragment, true);
 	}
 
-	public void showFragment(@NonNull Fragment fragment, @Nullable String tag)
+	public void showNoHistoryFragment(@NonNull Fragment fragment)
+	{
+		showFragment(fragment, false);
+	}
+
+	private void showFragment(@NonNull Fragment fragment, boolean preserveHistory)
 	{
 		FragmentManager fragmentManager = getSupportFragmentManager();
 
-		fragmentManager.beginTransaction()
-			.replace(container.getId(), fragment, tag)
-			.commit();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		transaction.replace(container.getId(), fragment);
+
+		if (preserveHistory)
+		{
+			transaction.addToBackStack(null);
+		}
+
+		transaction.commit();
 	}
 
 	public void showLoading()
@@ -138,6 +152,22 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 				.remove(fragment)
 				.commit();
 		}
+	}
 
+	@Override public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			if (getSupportFragmentManager().getBackStackEntryCount() == 0)
+			{
+				finish();
+				return false;
+			}
+
+			getSupportFragmentManager().popBackStack();
+			return false;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 }

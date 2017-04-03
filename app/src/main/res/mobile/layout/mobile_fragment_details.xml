@@ -89,33 +89,40 @@
 			/>
 		</LinearLayout>
 
-		<include
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			layout="@layout/divider"
-		/>
-
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:id="@+id/tag_section"
 			android:orientation="vertical"
-			android:padding="16dp"
 		>
-			<TextView
+			<include
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:maxLines="1"
-				android:text="@string/tags"
-				style="@style/Title"
+				android:layout_height="1dp"
+				layout="@layout/divider"
 			/>
 
-			<org.apmem.tools.layouts.FlowLayout
+			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@+id/tag_list"
-				android:layout_marginBottom="8dp"
-				android:layout_marginTop="8dp"
-			/>
+				android:orientation="vertical"
+				android:padding="16dp"
+			>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:maxLines="1"
+					android:text="@string/tags"
+					style="@style/Title"
+				/>
+
+				<org.apmem.tools.layouts.FlowLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/tag_list"
+					android:layout_marginBottom="8dp"
+					android:layout_marginTop="8dp"
+				/>
+			</LinearLayout>
 		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

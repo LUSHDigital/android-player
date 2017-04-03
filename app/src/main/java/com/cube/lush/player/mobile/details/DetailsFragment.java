@@ -1,5 +1,6 @@
 package com.cube.lush.player.mobile.details;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.mobile.playback.PlaybackActivity;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -33,6 +35,7 @@ public class DetailsFragment extends Fragment
 	private MediaContent mediaContent;
 
 	@BindView(R.id.thumbnail) ImageView thumbnail;
+	@BindView(R.id.play) ImageView play;
 	@BindView(R.id.content_type) TextView contentType;
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
@@ -70,6 +73,7 @@ public class DetailsFragment extends Fragment
 	{
 		View view = inflater.inflate(R.layout.mobile_fragment_details, container, false);
 		ButterKnife.bind(this, view);
+
 		return view;
 	}
 
@@ -165,7 +169,10 @@ public class DetailsFragment extends Fragment
 
 	@OnClick(R.id.play) void onPlayClicked()
 	{
-		Toast.makeText(getContext(), "Play clicked", Toast.LENGTH_SHORT).show();
+		Context context = play.getContext();
+
+		Toast.makeText(context, "Play clicked", Toast.LENGTH_SHORT).show();
+		context.startActivity(PlaybackActivity.getIntent(context, mediaContent));
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()

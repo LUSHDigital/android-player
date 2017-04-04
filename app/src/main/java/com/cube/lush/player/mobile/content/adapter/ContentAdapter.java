@@ -1,67 +1,52 @@
 package com.cube.lush.player.mobile.content.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.mobile.base.BaseAdapter;
 import com.cube.lush.player.mobile.content.holder.ContentViewHolder;
 import com.cube.lush.player.mobile.content.listener.ContentClickListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
  */
-@AllArgsConstructor
-public class ContentAdapter extends RecyclerView.Adapter<ContentViewHolder>
+public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
 {
-	private @NonNull ArrayList<MediaContent> contents = new ArrayList<MediaContent>();
-	private @NonNull ContentClickListener contentClickListener = null;
+	private ContentClickListener listener = null;
 
-	@Override public ContentViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+	public ContentAdapter(@NonNull List<MediaContent> items, @NonNull ContentClickListener listener)
 	{
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mobile_item_content, parent, false);
-		return new ContentViewHolder(itemView, contentClickListener);
+		super(items);
+		this.listener = listener;
 	}
 
-	@Override public void onBindViewHolder(ContentViewHolder holder, int position)
+	@Override protected int provideViewHolderLayout()
 	{
-		MediaContent mediaContent = contents.get(position);
-		holder.setMediaContent(mediaContent);
+		return R.layout.mobile_item_content;
+	}
 
-		holder.type.setText(mediaContent.getType().getName());
-		holder.title.setText(mediaContent.getTitle());
-		holder.length.setText(mediaContent.getRelativeDate());
+	@NonNull @Override protected ContentViewHolder createViewHolder(@NonNull View itemView)
+	{
+		return new ContentViewHolder(itemView, listener);
+	}
+
+	@Override protected void bind(@NonNull ContentViewHolder holder, @NonNull MediaContent item)
+	{
+		holder.setMediaContent(item);
+
+		holder.type.setText(item.getType().getName());
+		holder.title.setText(item.getTitle());
+		holder.length.setText(item.getRelativeDate());
 
 		Picasso.with(holder.image.getContext())
-			.load(mediaContent.getThumbnail())
+			.load(item.getThumbnail())
 			.fit()
 			.centerCrop()
 			.into(holder.image);
-	}
-
-	@Override public int getItemCount()
-	{
-		return contents.size();
-	}
-
-	public void setItems(List<MediaContent> newContents)
-	{
-		contents.clear();
-
-		if (newContents != null)
-		{
-			contents.addAll(newContents);
-		}
-
-		notifyDataSetChanged();
 	}
 }

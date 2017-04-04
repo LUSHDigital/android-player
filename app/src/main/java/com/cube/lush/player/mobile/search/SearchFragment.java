@@ -18,7 +18,10 @@ import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
+import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.content.ContentFragment;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
+import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
 import com.cube.lush.player.mobile.search.adapter.TopSpacingDecoration;
 import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
@@ -111,5 +114,6 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
 	@Override public void selectedSearchResult(@NonNull SearchResult searchResult)
 	{
 		Toast.makeText(searchView.getContext(), "Search result clicked: " + searchResult.getTitle(), Toast.LENGTH_SHORT).show();
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(searchResult));
 	}
 }

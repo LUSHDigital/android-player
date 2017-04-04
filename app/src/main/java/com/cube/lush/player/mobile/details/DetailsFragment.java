@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,11 @@ public class DetailsFragment extends Fragment
 	{
 		contentType.setText(mediaContent.getType().getName());
 		title.setText(mediaContent.getTitle());
-		description.setText(mediaContent.getDescription().trim());
+
+		if (!TextUtils.isEmpty(mediaContent.getDescription()))
+		{
+			description.setText(mediaContent.getDescription().trim());
+		}
 
 		// Populate image
 		Picasso.with(thumbnail.getContext())

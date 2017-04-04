@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
+import com.cube.lush.player.mobile.search.adapter.TopSpacingDecoration;
 import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
 
 import java.util.ArrayList;
@@ -98,6 +100,9 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
 
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 		recycler.setLayoutManager(linearLayoutManager);
+
+		int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+		recycler.addItemDecoration(new TopSpacingDecoration(spacing));
 
 		adapter = new SearchAdapter(new ArrayList<SearchResult>(), this);
 		recycler.setAdapter(adapter);

@@ -7,6 +7,9 @@
 	android:layout_width="match_parent"
 	android:layout_height="110dp"
 	android:orientation="vertical"
+	android:background="@android:color/black"
+	android:paddingLeft="16dp"
+	android:paddingRight="16dp"
 >
 	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
+import com.cube.lush.player.mobile.base.BaseAdapter;
 import com.cube.lush.player.mobile.channels.holder.ChannelViewHolder;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 
@@ -21,29 +22,31 @@ import lombok.AllArgsConstructor;
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
  */
-@AllArgsConstructor
-public class ChannelsAdapter extends RecyclerView.Adapter<ChannelViewHolder>
+public class ChannelsAdapter extends BaseAdapter<Channel, ChannelViewHolder>
 {
-	private @NonNull List<Channel> channels = new ArrayList<Channel>();
-	private @NonNull ChannelClickListener channelClickListener = null;
+	private ChannelClickListener listener;
 
-	@Override public ChannelViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+	public ChannelsAdapter(@NonNull List<Channel> items, @NonNull ChannelClickListener listener)
 	{
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mobile_item_channels, parent, false);
-		return new ChannelViewHolder(itemView, channelClickListener);
+		super(items);
+		this.listener = listener;
 	}
 
-	@Override public void onBindViewHolder(ChannelViewHolder holder, int position)
+	@Override protected int provideViewHolderLayout()
 	{
-		Channel channel = channels.get(position);
-		holder.setChannel(channel);
+		return R.layout.mobile_item_channels;
+	}
 
-		Drawable drawable = ContextCompat.getDrawable(holder.image.getContext(), channel.getLogo());
+	@NonNull @Override protected ChannelViewHolder createViewHolder(@NonNull View itemView)
+	{
+		return new ChannelViewHolder(itemView, listener);
+	}
+
+	@Override protected void bind(@NonNull ChannelViewHolder holder, @NonNull Channel item)
+	{
+		holder.setChannel(item);
+
+		Drawable drawable = ContextCompat.getDrawable(holder.image.getContext(), item.getLogo());
 		holder.image.setImageDrawable(drawable);
-	}
-
-	@Override public int getItemCount()
-	{
-		return channels.size();
 	}
 }

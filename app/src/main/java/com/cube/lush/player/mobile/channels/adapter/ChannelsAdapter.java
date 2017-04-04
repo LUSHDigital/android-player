@@ -3,22 +3,15 @@ package com.cube.lush.player.mobile.channels.adapter;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.base.BaseAdapter;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.holder.ChannelViewHolder;
-import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import lombok.AllArgsConstructor;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.

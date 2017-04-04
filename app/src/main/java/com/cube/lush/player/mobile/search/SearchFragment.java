@@ -24,8 +24,8 @@ import com.cube.lush.player.mobile.content.ContentFragment;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
-import com.cube.lush.player.mobile.search.adapter.TopSpacingDecoration;
 import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
+import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
 
 import java.util.ArrayList;
 import java.util.List;

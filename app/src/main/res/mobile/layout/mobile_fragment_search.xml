@@ -1,15 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:orientation="vertical"
 	android:background="@android:color/black"
 	tools:context="com.cube.lush.player.mobile.search.SearchFragment"
 >
-	<TextView
+	<android.support.v7.widget.SearchView
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:id="@+id/search"
+		android:layout_margin="16dp"
+		android:background="@color/grey"
+		android:imeOptions="actionSearch"
+		android:inputType="text"
+		android:padding="8dp"
+		app:closeIcon="@drawable/ic_close_white"
+		app:defaultQueryHint="fsdfs"
+		app:queryHint="Search something..."
+		app:searchHintIcon="@null"
+		app:searchIcon="@drawable/ic_search_white"
+	>
+		<requestFocus />
+	</android.support.v7.widget.SearchView>
+
+	<android.support.v7.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:gravity="center"
-		android:text="@string/title_search"
-		style="@style/Text.White.Title"
+		android:id="@+id/recycler"
+		android:background="@color/grey"
 	/>
-</FrameLayout>
+</LinearLayout>

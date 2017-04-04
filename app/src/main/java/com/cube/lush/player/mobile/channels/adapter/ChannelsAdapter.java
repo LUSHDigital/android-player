@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.base.BaseAdapter;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.holder.ChannelViewHolder;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 
@@ -24,9 +25,9 @@ import lombok.AllArgsConstructor;
  */
 public class ChannelsAdapter extends BaseAdapter<Channel, ChannelViewHolder>
 {
-	private ChannelClickListener listener;
+	private RecyclerViewClickedListener listener;
 
-	public ChannelsAdapter(@NonNull List<Channel> items, @NonNull ChannelClickListener listener)
+	public ChannelsAdapter(@NonNull List<Channel> items, @NonNull RecyclerViewClickedListener listener)
 	{
 		super(items);
 		this.listener = listener;
@@ -44,7 +45,7 @@ public class ChannelsAdapter extends BaseAdapter<Channel, ChannelViewHolder>
 
 	@Override protected void bind(@NonNull ChannelViewHolder holder, @NonNull Channel item)
 	{
-		holder.setChannel(item);
+		holder.setItem(item);
 
 		Drawable drawable = ContextCompat.getDrawable(holder.image.getContext(), item.getLogo());
 		holder.image.setImageDrawable(drawable);

@@ -6,6 +6,7 @@ import android.view.View;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.mobile.base.BaseAdapter;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.holder.ContentViewHolder;
 import com.cube.lush.player.mobile.content.listener.ContentClickListener;
 import com.squareup.picasso.Picasso;
@@ -17,9 +18,9 @@ import java.util.List;
  */
 public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
 {
-	private ContentClickListener listener = null;
+	private RecyclerViewClickedListener listener = null;
 
-	public ContentAdapter(@NonNull List<MediaContent> items, @NonNull ContentClickListener listener)
+	public ContentAdapter(@NonNull List<MediaContent> items, @NonNull RecyclerViewClickedListener listener)
 	{
 		super(items);
 		this.listener = listener;
@@ -37,7 +38,7 @@ public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
 
 	@Override protected void bind(@NonNull ContentViewHolder holder, @NonNull MediaContent item)
 	{
-		holder.setMediaContent(item);
+		holder.setItem(item);
 
 		holder.type.setText(item.getType().getName());
 		holder.title.setText(item.getTitle());

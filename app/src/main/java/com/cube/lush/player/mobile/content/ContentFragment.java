@@ -18,6 +18,7 @@ import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.BaseAdapter;
 import com.cube.lush.player.mobile.base.ListDataRetrieval;
 import com.cube.lush.player.mobile.base.ListingFragment;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.content.listener.ContentClickListener;
 import com.cube.lush.player.mobile.details.DetailsFragment;
@@ -25,7 +26,7 @@ import com.cube.lush.player.mobile.details.DetailsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentFragment extends ListingFragment implements ContentClickListener
+public class ContentFragment extends ListingFragment implements RecyclerViewClickedListener<MediaContent>
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CHANNEL = "arg_channel";
@@ -80,7 +81,7 @@ public class ContentFragment extends ListingFragment implements ContentClickList
 		});
 	}
 
-	@Override public void selectedContent(@NonNull MediaContent mediaContent)
+	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent mediaContent)
 	{
 		Toast.makeText(getContext(), getString(R.string.media_selected, mediaContent.getTitle()), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));

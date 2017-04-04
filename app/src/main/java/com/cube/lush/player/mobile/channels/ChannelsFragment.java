@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.channels.adapter.GridSpacingDecoration;
 import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
@@ -26,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChannelsFragment extends Fragment implements ChannelClickListener
+public class ChannelsFragment extends Fragment implements RecyclerViewClickedListener<Channel>
 {
 	@BindView(R.id.recycler)
 	RecyclerView recycler;
@@ -74,8 +75,7 @@ public class ChannelsFragment extends Fragment implements ChannelClickListener
 		return Arrays.asList(Channel.values());
 	}
 
-	@Override
-	public void selectedChannel(@NonNull Channel channel)
+	@Override public void onRecyclerViewItemClicked(@NonNull Channel channel)
 	{
 		Toast.makeText(getContext(), getString(R.string.channel_selected, channel.getTitle()), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));

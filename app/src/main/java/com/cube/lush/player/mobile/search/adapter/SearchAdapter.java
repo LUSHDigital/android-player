@@ -6,8 +6,8 @@ import android.view.View;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.mobile.base.BaseAdapter;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.search.holder.SearchViewHolder;
-import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class SearchAdapter extends BaseAdapter<SearchResult, SearchViewHolder>
 {
-	private SearchResultClickListener listener;
+	private RecyclerViewClickedListener listener;
 
-	public SearchAdapter(@NonNull List<SearchResult> items, @NonNull SearchResultClickListener listener)
+	public SearchAdapter(@NonNull List<SearchResult> items, @NonNull RecyclerViewClickedListener listener)
 	{
 		super(items);
 		this.listener = listener;
@@ -37,7 +37,7 @@ public class SearchAdapter extends BaseAdapter<SearchResult, SearchViewHolder>
 
 	@Override protected void bind(@NonNull SearchViewHolder holder, @NonNull SearchResult item)
 	{
-		holder.setSearchResult(item);
+		holder.setItem(item);
 
 		holder.type.setText(item.getType().getName());
 		holder.title.setText(item.getTitle());

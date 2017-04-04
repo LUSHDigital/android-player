@@ -20,7 +20,6 @@ import com.cube.lush.player.mobile.base.ListDataRetrieval;
 import com.cube.lush.player.mobile.base.ListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
-import com.cube.lush.player.mobile.content.listener.ContentClickListener;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 
 import java.util.ArrayList;

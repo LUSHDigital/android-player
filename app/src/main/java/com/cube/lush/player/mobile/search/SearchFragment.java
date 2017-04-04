@@ -14,17 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
-import com.cube.lush.player.mobile.content.ContentFragment;
-import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
-import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
 import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
 
 import java.util.ArrayList;

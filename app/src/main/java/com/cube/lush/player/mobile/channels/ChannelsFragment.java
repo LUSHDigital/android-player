@@ -17,7 +17,6 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
-import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
 import com.cube.lush.player.mobile.decorators.GridSpacingDecoration;
 import com.cube.lush.player.mobile.content.ContentFragment;
 

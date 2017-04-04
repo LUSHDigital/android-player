@@ -8,7 +8,6 @@ import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.mobile.base.BaseAdapter;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.holder.ContentViewHolder;
-import com.cube.lush.player.mobile.content.listener.ContentClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

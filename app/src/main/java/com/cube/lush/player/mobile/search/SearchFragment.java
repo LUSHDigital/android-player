@@ -4,24 +4,34 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
+import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
+import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
+import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchFragment extends Fragment
+public class SearchFragment extends Fragment implements SearchResultClickListener
 {
+	@BindView(R.id.recycler) RecyclerView recycler;
 	@BindView(R.id.search) SearchView searchView;
+	private SearchAdapter adapter;
 
 	public SearchFragment()
 	{
@@ -68,12 +78,12 @@ public class SearchFragment extends Fragment
 				{
 					@Override public void onSuccess(@NonNull List<SearchResult> items)
 					{
-						// TODO: Implement success
+						adapter.setItems(items);
 					}
 
 					@Override public void onFailure(@Nullable Throwable t)
 					{
-						// TODO: Implement failure
+						adapter.setItems(null);
 					}
 				});
 
@@ -85,5 +95,16 @@ public class SearchFragment extends Fragment
 				return false;
 			}
 		});
+
+		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+		recycler.setLayoutManager(linearLayoutManager);
+
+		adapter = new SearchAdapter(new ArrayList<SearchResult>(), this);
+		recycler.setAdapter(adapter);
+	}
+
+	@Override public void selectedSearchResult(@NonNull SearchResult searchResult)
+	{
+		Toast.makeText(searchView.getContext(), "Search result clicked: " + searchResult.getTitle(), Toast.LENGTH_SHORT).show();
 	}
 }

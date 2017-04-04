@@ -44,7 +44,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder>
 		Picasso.with(holder.image.getContext())
 			.load(searchResult.getThumbnail())
 			.fit()
-			.centerCrop()
+			.centerInside()
 			.into(holder.image);
 	}
 

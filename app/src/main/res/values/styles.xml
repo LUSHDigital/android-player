@@ -117,6 +117,10 @@
 		<item name="android:ellipsize">end</item>
 	</style>
 
+	<style name="Title.Search">
+		<item name="android:textSize">16sp</item>
+	</style>
+
 	<style name="SubTitle">
 		<item name="android:textColor">@color/text_dark</item>
 		<item name="android:textSize">12sp</item>

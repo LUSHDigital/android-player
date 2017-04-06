@@ -72,9 +72,17 @@ public abstract class BaseAdapter<ITEMTYPE, VIEWHOLDER extends RecyclerView.View
 	 */
 	public void setItems(@NonNull List<ITEMTYPE> newItems)
 	{
-		items.clear();
+		clearItems();
 		items.addAll(newItems);
 
 		notifyDataSetChanged();
+	}
+
+	/**
+	 * Clears all items and reverts to an empty list
+	 */
+	public void clearItems()
+	{
+		items.clear();
 	}
 }

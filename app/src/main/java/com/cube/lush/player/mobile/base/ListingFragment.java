@@ -69,7 +69,7 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 
 		if (savedInstanceState == null)
 		{
-			recycler.setLayoutManager(provideLayoutManager());
+			recycler.setLayoutManager(layoutManager);
 			recycler.setAdapter(adapter);
 
 			RecyclerView.ItemDecoration itemDecoration = provideItemDecoration();

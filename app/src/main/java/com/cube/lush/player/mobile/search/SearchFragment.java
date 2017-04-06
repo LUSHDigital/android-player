@@ -18,6 +18,9 @@ import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.base.BaseAdapter;
+import com.cube.lush.player.mobile.base.ListDataRetrieval;
+import com.cube.lush.player.mobile.base.ListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
@@ -28,11 +31,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.jamiecruwys.State;
+import uk.co.jamiecruwys.StatefulFragment;
 
-public class SearchFragment extends Fragment implements RecyclerViewClickedListener<SearchResult>
+public class SearchFragment extends ListingFragment implements RecyclerViewClickedListener<SearchResult>
 {
-	@BindView(R.id.recycler) RecyclerView recycler;
-	@BindView(R.id.search) SearchView searchView;
+	@BindView(R.id.search)
+	SearchView searchView;
+
 	private SearchAdapter adapter;
 
 	public SearchFragment()
@@ -48,9 +54,54 @@ public class SearchFragment extends Fragment implements RecyclerViewClickedListe
 		return fragment;
 	}
 
+	@Override protected int provideLayout()
+	{
+		return R.layout.mobile_fragment_search;
+	}
+
+	@Override protected int provideStatefulViewId()
+	{
+		return R.id.statefulview;
+	}
+
+	@NonNull @Override protected RecyclerView.LayoutManager provideLayoutManager()
+	{
+		return null;
+	}
+
+	@NonNull @Override protected BaseAdapter provideAdapter()
+	{
+		return null;
+	}
+
+	@Override protected void getListData(@NonNull ListDataRetrieval callback)
+	{
+		
+	}
+
+	@Override protected int provideContentLayout()
+	{
+		return R.layout.mobile_fragment_search_content;
+	}
+
+	@Override protected int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override protected int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override protected int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.mobile_fragment_search, container, false);
+		View view = super.onCreateView(inflater, container, savedInstanceState);
 		ButterKnife.bind(this, view);
 
 		return view;
@@ -68,6 +119,8 @@ public class SearchFragment extends Fragment implements RecyclerViewClickedListe
 
 	private void populateUi()
 	{
+		setState(State.EMPTY);
+
 		// Make it default to the expanded state
 		searchView.onActionViewExpanded();
 
@@ -76,16 +129,20 @@ public class SearchFragment extends Fragment implements RecyclerViewClickedListe
 		{
 			@Override public boolean onQueryTextSubmit(String query)
 			{
+				setState(State.LOADING);
+
 				SearchManager.getInstance().search(query, new ResponseHandler<SearchResult>()
 				{
 					@Override public void onSuccess(@NonNull List<SearchResult> items)
 					{
 						adapter.setItems(items);
+						setState(State.SHOWING_CONTENT);
 					}
 
 					@Override public void onFailure(@Nullable Throwable t)
 					{
 						adapter.setItems(null);
+						setState(State.ERROR);
 					}
 				});
 

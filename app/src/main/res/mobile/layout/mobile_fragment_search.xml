@@ -26,10 +26,10 @@
 		<requestFocus />
 	</android.support.v7.widget.SearchView>
 
-	<android.support.v7.widget.RecyclerView
+	<uk.co.jamiecruwys.StatefulView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:id="@+id/recycler"
-		android:background="@color/grey"
+		android:id="@+id/statefulview"
+		android:background="@android:color/black"
 	/>
 </LinearLayout>

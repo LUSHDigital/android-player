@@ -17,11 +17,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.jamiecruwys.State;
+import uk.co.jamiecruwys.StatefulFragment;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
  */
-public abstract class ListingFragment extends Fragment implements ListDataRetrieval
+public abstract class ListingFragment extends StatefulFragment implements ListDataRetrieval
 {
 	/**
 	 * Provide the layout manager
@@ -45,6 +47,35 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 	 */
 	protected abstract void getListData(@NonNull ListDataRetrieval callback);
 
+	/**
+	 * Provide the layouts for each state this view can be in
+	 */
+
+	@Override protected int provideContentLayout()
+	{
+		return R.layout.mobile_listing;
+	}
+
+	@Override protected int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override protected int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override protected int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@Override protected int provideOfflineLayout()
+	{
+		return R.layout.mobile_offline;
+	}
+
 	@BindView(R.id.recycler) RecyclerView recycler;
 	private RecyclerView.LayoutManager layoutManager;
 	private BaseAdapter adapter;
@@ -58,7 +89,7 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.mobile_fragment_listing, container, false);
+		View view = super.onCreateView(inflater, container, savedInstanceState);
 		ButterKnife.bind(this, view);
 		return view;
 	}
@@ -83,8 +114,7 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 	@Override public void onResume()
 	{
 		super.onResume();
-
-		showLoading();
+		setState(State.LOADING);
 		getListData(this);
 	}
 
@@ -92,34 +122,21 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 	{
 		adapter.setItems(items);
 
-		hideLoading();
-
 		if (items.size() <= 0)
 		{
-			// TODO: Show empty state
+			setState(State.EMPTY);
 		}
 		else
 		{
-			// TODO: Show content
+			setState(State.SHOWING_CONTENT);
 		}
 	}
 
 	@Override public void onListDataRetrievalError(@Nullable Throwable throwable)
 	{
-	 	adapter.setItems(null);
-
-		// TODO: Show erorr state
+		adapter.clearItems();
+		setState(State.ERROR);
 	}
 
-	private void showLoading()
-	{
-		final MainActivity mainActivity = ((MainActivity)getActivity());
-		mainActivity.showLoading();
-	}
-
-	private void hideLoading()
-	{
-		final MainActivity mainActivity = ((MainActivity)getActivity());
-		mainActivity.hideLoading();
-	}
+	// TODO: setState(State.OFFLINE);
 }

@@ -71,11 +71,6 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 		return R.layout.mobile_error;
 	}
 
-	@Override protected int provideOfflineLayout()
-	{
-		return R.layout.mobile_offline;
-	}
-
 	@BindView(R.id.recycler) RecyclerView recycler;
 	private RecyclerView.LayoutManager layoutManager;
 	private BaseAdapter adapter;
@@ -137,6 +132,4 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 		adapter.clearItems();
 		setState(State.ERROR);
 	}
-
-	// TODO: setState(State.OFFLINE);
 }

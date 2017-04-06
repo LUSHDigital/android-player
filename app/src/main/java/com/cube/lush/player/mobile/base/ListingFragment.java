@@ -35,6 +35,11 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 	 */
 	@NonNull protected abstract BaseAdapter provideAdapter();
 
+	@Nullable protected RecyclerView.ItemDecoration provideItemDecoration()
+	{
+		return null;
+	}
+
 	/**
 	 * Get the data that will be displayed in the list
 	 */
@@ -66,6 +71,12 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 		{
 			recycler.setLayoutManager(provideLayoutManager());
 			recycler.setAdapter(adapter);
+
+			RecyclerView.ItemDecoration itemDecoration = provideItemDecoration();
+			if (itemDecoration != null)
+			{
+				recycler.addItemDecoration(itemDecoration);
+			}
 		}
 	}
 

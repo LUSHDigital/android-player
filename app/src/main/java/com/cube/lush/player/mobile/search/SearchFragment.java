@@ -14,17 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.content.ContentFragment;
-import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
-import com.cube.lush.player.mobile.search.adapter.TopSpacingDecoration;
-import com.cube.lush.player.mobile.search.listener.SearchResultClickListener;
+import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchFragment extends Fragment implements SearchResultClickListener
+public class SearchFragment extends Fragment implements RecyclerViewClickedListener<SearchResult>
 {
 	@BindView(R.id.recycler) RecyclerView recycler;
 	@BindView(R.id.search) SearchView searchView;
@@ -111,7 +108,7 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
 		recycler.setAdapter(adapter);
 	}
 
-	@Override public void selectedSearchResult(@NonNull SearchResult searchResult)
+	@Override public void onRecyclerViewItemClicked(@NonNull SearchResult searchResult)
 	{
 		Toast.makeText(searchView.getContext(), "Search result clicked: " + searchResult.getTitle(), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(searchResult));

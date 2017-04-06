@@ -1,40 +1,27 @@
 package com.cube.lush.player.mobile.channels.holder;
 
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.mobile.channels.listener.ChannelClickListener;
+import com.cube.lush.player.mobile.base.BaseViewHolder;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Setter;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
  */
-public class ChannelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ChannelViewHolder extends BaseViewHolder<Channel>
+{
 	@BindView(R.id.image) public ImageView image;
-	private ChannelClickListener channelClickListener = null;
-	@Setter private Channel channel;
 
-	public ChannelViewHolder(View itemView, ChannelClickListener channelClickListener)
+	public ChannelViewHolder(@NonNull View itemView, @NonNull RecyclerViewClickedListener<Channel> listener)
 	{
-		super(itemView);
+		super(itemView, listener);
 		ButterKnife.bind(this, itemView);
-
-		this.channelClickListener = channelClickListener;
-		itemView.setOnClickListener(this);
-	}
-
-	@Override
-	public void onClick(View v)
-	{
-		if (channelClickListener != null && channel != null)
-		{
-			channelClickListener.selectedChannel(channel);
-		}
 	}
 }

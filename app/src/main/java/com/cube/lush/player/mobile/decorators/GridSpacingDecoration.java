@@ -1,4 +1,4 @@
-package com.cube.lush.player.mobile.channels.adapter;
+package com.cube.lush.player.mobile.decorators;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

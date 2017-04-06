@@ -98,6 +98,9 @@ dependencies {
 	// Lush Views & Fonts
 	compile 'com.github.LUSHDigital:android-lush-views:-SNAPSHOT'
 
+	// Stateful Views
+	compile 'com.github.JamieCruwys:StatefulView:-SNAPSHOT'
+
 	// Brightcove
 	compile 'com.brightcove.player:exoplayer:4.11.1'
 

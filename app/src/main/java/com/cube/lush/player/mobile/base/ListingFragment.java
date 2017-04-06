@@ -88,7 +88,7 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 		getListData(this);
 	}
 
-	@Override public void onListDataRetrieved(@NonNull List<MediaContent> items)
+	@Override public void onListDataRetrieved(@NonNull List<?> items)
 	{
 		adapter.setItems(items);
 

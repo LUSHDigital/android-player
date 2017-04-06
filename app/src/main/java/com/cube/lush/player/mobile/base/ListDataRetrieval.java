@@ -3,8 +3,6 @@ package com.cube.lush.player.mobile.base;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.cube.lush.player.api.model.MediaContent;
-
 import java.util.List;
 
 /**
@@ -12,7 +10,7 @@ import java.util.List;
  */
 public interface ListDataRetrieval
 {
-	void onListDataRetrieved(@NonNull List<MediaContent> items);
+	void onListDataRetrieved(@NonNull List<?> items);
 
 	void onListDataRetrievalError(@Nullable Throwable throwable);
 }

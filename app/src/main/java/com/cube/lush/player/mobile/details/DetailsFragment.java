@@ -60,22 +60,22 @@ public class DetailsFragment extends StatefulFragment
 		return fragment;
 	}
 
-	@Override protected int provideContentLayout()
+	@Override public int provideContentLayout()
 	{
 		return R.layout.mobile_fragment_details;
 	}
 
-	@Override protected int provideEmptyLayout()
+	@Override public int provideEmptyLayout()
 	{
 		return R.layout.mobile_empty;
 	}
 
-	@Override protected int provideLoadingLayout()
+	@Override public int provideLoadingLayout()
 	{
 		return R.layout.mobile_loading;
 	}
 
-	@Override protected int provideErrorLayout()
+	@Override public int provideErrorLayout()
 	{
 		return R.layout.mobile_error;
 	}

@@ -60,22 +60,22 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 	 * Provide the layouts for each state this view can be in
 	 */
 
-	@Override protected int provideContentLayout()
+	@Override public int provideContentLayout()
 	{
 		return R.layout.mobile_listing;
 	}
 
-	@Override protected int provideEmptyLayout()
+	@Override public int provideEmptyLayout()
 	{
 		return R.layout.mobile_empty;
 	}
 
-	@Override protected int provideLoadingLayout()
+	@Override public int provideLoadingLayout()
 	{
 		return R.layout.mobile_loading;
 	}
 
-	@Override protected int provideErrorLayout()
+	@Override public int provideErrorLayout()
 	{
 		return R.layout.mobile_error;
 	}

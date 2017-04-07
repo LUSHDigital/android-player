@@ -95,32 +95,32 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		return false;
 	}
 
-	@Override protected int provideContentLayout()
+	@Override public int provideContentLayout()
 	{
 		return R.layout.mobile_fragment_search_content;
 	}
 
-	@Override protected int provideEmptyLayout()
+	@Override public int provideEmptyLayout()
 	{
 		return R.layout.mobile_empty;
 	}
 
-	@Override protected int provideLoadingLayout()
+	@Override public int provideLoadingLayout()
 	{
 		return R.layout.mobile_loading;
 	}
 
-	@Override protected int provideErrorLayout()
+	@Override public int provideErrorLayout()
 	{
 		return R.layout.mobile_error;
 	}
 
-	@Override protected int provideLayout()
+	@Override public int provideLayout()
 	{
 		return R.layout.mobile_fragment_search;
 	}
 
-	@Override protected int provideStatefulViewId()
+	@Override public int provideStatefulViewId()
 	{
 		return R.id.statefulview;
 	}

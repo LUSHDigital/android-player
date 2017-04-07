@@ -48,6 +48,15 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 	protected abstract void getListData(@NonNull ListDataRetrieval callback);
 
 	/**
+	 * Whether or not we should reload when the view is resumed
+	 * @return boolean true or false
+	 */
+	protected boolean shouldReloadOnResume()
+	{
+		return true;
+	}
+
+	/**
 	 * Provide the layouts for each state this view can be in
 	 */
 
@@ -71,9 +80,10 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 		return R.layout.mobile_error;
 	}
 
-	@BindView(R.id.recycler) RecyclerView recycler;
-	private RecyclerView.LayoutManager layoutManager;
-	private BaseAdapter adapter;
+	// protected RecyclerView recycler;
+	@BindView(R.id.recycler) protected RecyclerView recycler;
+	protected RecyclerView.LayoutManager layoutManager;
+	protected BaseAdapter adapter;
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
@@ -86,6 +96,7 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		ButterKnife.bind(this, view);
+		// recycler = (RecyclerView)view.findViewById(R.id.recycler);
 		return view;
 	}
 
@@ -109,8 +120,16 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 	@Override public void onResume()
 	{
 		super.onResume();
-		setState(State.LOADING);
-		getListData(this);
+
+		if (shouldReloadOnResume())
+		{
+			setState(State.LOADING);
+			getListData(this);
+		}
+		else
+		{
+			setState(State.EMPTY);
+		}
 	}
 
 	@Override public void onListDataRetrieved(@NonNull List<?> items)

@@ -24,6 +24,7 @@ import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import uk.co.jamiecruwys.StatefulView;
 
 public class LiveFragment extends Fragment
@@ -45,6 +46,7 @@ public class LiveFragment extends Fragment
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.mobile_empty, container, false);
+		ButterKnife.bind(this, view);
 		return view;
 	}
 }

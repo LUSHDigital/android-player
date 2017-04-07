@@ -9,7 +9,7 @@ import uk.co.jamiecruwys.StatefulActivity;
 /**
  * Base activity that performs actions common to all activities in the app.
  */
-public abstract class BaseMobileActivity extends StatefulActivity
+public abstract class BaseMobileActivity extends AppCompatActivity
 {
 	@Override protected void attachBaseContext(Context newBase)
 	{

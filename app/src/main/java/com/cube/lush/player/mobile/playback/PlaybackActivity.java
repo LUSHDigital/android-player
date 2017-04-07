@@ -31,30 +31,9 @@ public class PlaybackActivity extends BaseMobileActivity
 		return intent;
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	@Override protected void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mobile_activity_playback);
-	}
-
-	@Override public int provideContentLayout()
-	{
-		return R.layout.mobile_activity_playback;
-	}
-
-	@Override public int provideEmptyLayout()
-	{
-		return R.layout.mobile_error;
-	}
-
-	@Override public int provideLoadingLayout()
-	{
-		return R.layout.mobile_loading;
-	}
-
-	@Override public int provideErrorLayout()
-	{
-		return R.layout.mobile_error;
 	}
 }

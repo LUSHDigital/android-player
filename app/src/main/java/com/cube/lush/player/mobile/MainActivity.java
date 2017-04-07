@@ -20,7 +20,6 @@ import com.cube.lush.player.mobile.live.LiveFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.jamiecruwys.State;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.search.SearchFragment;
@@ -35,35 +34,15 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     @BindView(R.id.container)
     FrameLayout container;
 
-	@Override public int provideContentLayout()
-	{
-		return R.layout.mobile_activity_main;
-	}
-
-	@Override public int provideEmptyLayout()
-	{
-		return R.layout.mobile_empty;
-	}
-
-	@Override public int provideLoadingLayout()
-	{
-		return R.layout.mobile_loading;
-	}
-
-	@Override public int provideErrorLayout()
-	{
-		return R.layout.mobile_error;
-	}
-
-    @Override
+	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+		setContentView(R.layout.mobile_activity_main);
         ButterKnife.bind(this);
 
-		setState(State.SHOWING_CONTENT);
 		setupNavigation();
-    }
+	}
 
     private void setupNavigation()
 	{

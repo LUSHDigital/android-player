@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
  */
-public abstract class BaseAdapter<ITEMTYPE, VIEWHOLDER extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VIEWHOLDER>
+public abstract class BaseAdapter<ITEMTYPE, VIEWHOLDER extends BaseViewHolder<ITEMTYPE>> extends RecyclerView.Adapter<VIEWHOLDER>
 {
 	/**
 	 * Provide the layout for the view holder
@@ -58,6 +58,8 @@ public abstract class BaseAdapter<ITEMTYPE, VIEWHOLDER extends RecyclerView.View
 	@Override public void onBindViewHolder(VIEWHOLDER holder, int position)
 	{
 		ITEMTYPE item = items.get(position);
+		holder.setItem(item);
+
 		bind(holder, item);
 	}
 

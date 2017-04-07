@@ -37,8 +37,6 @@ public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
 
 	@Override protected void bind(@NonNull ContentViewHolder holder, @NonNull MediaContent item)
 	{
-		holder.setItem(item);
-
 		holder.type.setText(item.getType().getName());
 		holder.title.setText(item.getTitle());
 		holder.length.setText(item.getRelativeDate());

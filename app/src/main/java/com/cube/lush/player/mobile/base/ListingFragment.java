@@ -80,7 +80,6 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 		return R.layout.mobile_error;
 	}
 
-	// protected RecyclerView recycler;
 	@BindView(R.id.recycler) protected RecyclerView recycler;
 	protected RecyclerView.LayoutManager layoutManager;
 	protected BaseAdapter adapter;
@@ -96,7 +95,6 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		ButterKnife.bind(this, view);
-		// recycler = (RecyclerView)view.findViewById(R.id.recycler);
 		return view;
 	}
 

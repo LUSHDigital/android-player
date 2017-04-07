@@ -45,25 +45,8 @@ public class LiveFragment extends ListingFragment implements RecyclerViewClicked
 		return new ContentAdapter(Collections.EMPTY_LIST, this);
 	}
 
-	@Override public int provideContentLayout()
-	{
-		return R.layout.mobile_fragment_live;
-	}
-
-	@Override public int provideEmptyLayout()
-	{
-		return R.layout.mobile_empty;
-	}
-
-	@Override public int provideLoadingLayout()
-	{
-		return R.layout.mobile_loading;
-	}
-
-	@Override public int provideErrorLayout()
-	{
-		return R.layout.mobile_error;
-	}
+	// TODO: Set adapter to use the following layout:
+	// return R.layout.mobile_fragment_live;
 
 	@Override protected void getListData(@NonNull final ListDataRetrieval callback)
 	{

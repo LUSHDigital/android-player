@@ -1,4 +1,4 @@
-package com.cube.lush.player.mobile.content.adapter;
+package com.cube.lush.player.mobile.events.adapter;
 
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -7,19 +7,19 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.mobile.base.BaseAdapter;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
-import com.cube.lush.player.mobile.content.holder.ContentViewHolder;
+import com.cube.lush.player.mobile.events.holder.EventViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
+ * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
  */
-public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
+public class EventsAdapter extends BaseAdapter<MediaContent, EventViewHolder>
 {
-	private RecyclerViewClickedListener listener = null;
+	private RecyclerViewClickedListener listener;
 
-	public ContentAdapter(@NonNull List<MediaContent> items, @NonNull RecyclerViewClickedListener listener)
+	public EventsAdapter(@NonNull List<MediaContent> items, @NonNull RecyclerViewClickedListener listener)
 	{
 		super(items);
 		this.listener = listener;
@@ -30,12 +30,12 @@ public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
 		return R.layout.mobile_item_content;
 	}
 
-	@NonNull @Override protected ContentViewHolder createViewHolder(@NonNull View itemView)
+	@NonNull @Override protected EventViewHolder createViewHolder(@NonNull View itemView)
 	{
-		return new ContentViewHolder(itemView, listener);
+		return new EventViewHolder(itemView, listener);
 	}
 
-	@Override protected void bind(@NonNull ContentViewHolder holder, @NonNull MediaContent item)
+	@Override protected void bind(@NonNull EventViewHolder holder, @NonNull MediaContent item)
 	{
 		holder.type.setText(item.getType().getName());
 		holder.title.setText(item.getTitle());

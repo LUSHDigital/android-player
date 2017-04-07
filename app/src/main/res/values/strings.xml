@@ -36,7 +36,6 @@
 	<string name="retry">Retry</string>
 	<string name="error_retrieving_content">Error retrieving content</string>
 
-	<string name="channel_selected">Selected channel: %1$s</string>
 	<string name="media_selected">Selected media: %1$s</string>
 	<string name="error_with_details">Error: %1$s</string>
 	<string name="minutes_remaining">%1$d minutes remaining</string>

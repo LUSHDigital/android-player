@@ -37,8 +37,6 @@ public class SearchAdapter extends BaseAdapter<SearchResult, SearchViewHolder>
 
 	@Override protected void bind(@NonNull SearchViewHolder holder, @NonNull SearchResult item)
 	{
-		holder.setItem(item);
-
 		holder.type.setText(item.getType().getName());
 		holder.title.setText(item.getTitle());
 

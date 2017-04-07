@@ -28,9 +28,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.jamiecruwys.State;
+import uk.co.jamiecruwys.StatefulFragment;
 
 public class DetailsFragment extends Fragment
 {
+	// TODO: Make stateful
+
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CONTENT = "arg_content";
 	private MediaContent mediaContent;
@@ -58,24 +62,17 @@ public class DetailsFragment extends Fragment
 		return fragment;
 	}
 
-	@Override public void onCreate(@Nullable Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-
-		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
-
-		if (mediaContent == null)
-		{
-			throw new RuntimeException("No media content to show details for");
-		}
-	}
-
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.mobile_fragment_details, container, false);
 		ButterKnife.bind(this, view);
-
 		return view;
+	}
+
+	@Override public void onCreate(@Nullable Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
 	}
 
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -169,14 +166,12 @@ public class DetailsFragment extends Fragment
 
 	private void onTagClicked(@NonNull View view, @NonNull String tag)
 	{
-		Toast.makeText(view.getContext(), "Tag clicked: " + tag, Toast.LENGTH_SHORT).show();
+		// TODO:
 	}
 
 	@OnClick(R.id.play) void onPlayClicked()
 	{
 		Context context = play.getContext();
-
-		Toast.makeText(context, "Play clicked", Toast.LENGTH_SHORT).show();
 		context.startActivity(PlaybackActivity.getIntent(context, mediaContent));
 	}
 

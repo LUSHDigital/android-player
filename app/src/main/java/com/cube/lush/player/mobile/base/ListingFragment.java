@@ -17,11 +17,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.jamiecruwys.State;
+import uk.co.jamiecruwys.StatefulFragment;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
  */
-public abstract class ListingFragment extends Fragment implements ListDataRetrieval
+public abstract class ListingFragment extends StatefulFragment implements ListDataRetrieval
 {
 	/**
 	 * Provide the layout manager
@@ -45,31 +47,63 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 	 */
 	protected abstract void getListData(@NonNull ListDataRetrieval callback);
 
-	@BindView(R.id.recycler) RecyclerView recycler;
-	private RecyclerView.LayoutManager layoutManager;
-	private BaseAdapter adapter;
+	/**
+	 * Whether or not we should reload when the view is resumed
+	 * @return boolean true or false
+	 */
+	protected boolean shouldReloadOnResume()
+	{
+		return true;
+	}
+
+	/**
+	 * Provide the layouts for each state this view can be in
+	 */
+
+	@Override public int provideContentLayout()
+	{
+		return R.layout.mobile_listing;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@BindView(R.id.recycler) protected RecyclerView recycler;
+	protected BaseAdapter adapter;
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.layoutManager = provideLayoutManager();
-		this.adapter = provideAdapter();
 	}
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.mobile_fragment_listing, container, false);
-		ButterKnife.bind(this, view);
-		return view;
-	}
+View view = super.onCreateView(inflater, container, savedInstanceState);
+			ButterKnife.bind(this, view);
+			return view;
+		}
 
-	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		if (savedInstanceState == null)
+		@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
 		{
-			recycler.setLayoutManager(layoutManager);
+			super.onActivityCreated(savedInstanceState);
+
+			if (savedInstanceState == null)
+			{
+				recycler.setLayoutManager(provideLayoutManager());
+
+				adapter = provideAdapter();
 			recycler.setAdapter(adapter);
 
 			RecyclerView.ItemDecoration itemDecoration = provideItemDecoration();
@@ -84,42 +118,34 @@ public abstract class ListingFragment extends Fragment implements ListDataRetrie
 	{
 		super.onResume();
 
-		showLoading();
-		getListData(this);
+		if (shouldReloadOnResume())
+		{
+			setState(State.LOADING);
+			getListData(this);
+		}
+		else
+		{
+			setState(State.EMPTY);
+		}
 	}
 
 	@Override public void onListDataRetrieved(@NonNull List<?> items)
 	{
 		adapter.setItems(items);
 
-		hideLoading();
-
 		if (items.size() <= 0)
 		{
-			// TODO: Show empty state
+			setState(State.EMPTY);
 		}
 		else
 		{
-			// TODO: Show content
+			setState(State.SHOWING_CONTENT);
 		}
 	}
 
 	@Override public void onListDataRetrievalError(@Nullable Throwable throwable)
 	{
-	 	adapter.setItems(null);
-
-		// TODO: Show erorr state
-	}
-
-	private void showLoading()
-	{
-		final MainActivity mainActivity = ((MainActivity)getActivity());
-		mainActivity.showLoading();
-	}
-
-	private void hideLoading()
-	{
-		final MainActivity mainActivity = ((MainActivity)getActivity());
-		mainActivity.hideLoading();
+		adapter.clearItems();
+		setState(State.ERROR);
 	}
 }

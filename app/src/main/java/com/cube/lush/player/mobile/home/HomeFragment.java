@@ -1,14 +1,26 @@
 package com.cube.lush.player.mobile.home;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.mobile.base.BaseAdapter;
+import com.cube.lush.player.mobile.base.ListDataRetrieval;
+import com.cube.lush.player.mobile.base.ListingFragment;
+import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
+import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 
-public class HomeFragment extends Fragment
+import java.util.Collections;
+
+public class HomeFragment extends ListingFragment implements RecyclerViewClickedListener<MediaContent>
 {
 	public HomeFragment()
 	{
@@ -23,9 +35,23 @@ public class HomeFragment extends Fragment
 		return fragment;
 	}
 
-	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	@NonNull @Override protected RecyclerView.LayoutManager provideLayoutManager()
 	{
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.mobile_fragment_home, container, false);
+		return new LinearLayoutManager(getContext());
+	}
+
+	@NonNull @Override protected BaseAdapter provideAdapter()
+	{
+		return new ContentAdapter(Collections.EMPTY_LIST, this);
+	}
+
+	@Override protected void getListData(@NonNull ListDataRetrieval callback)
+	{
+		callback.onListDataRetrieved(Collections.EMPTY_LIST);
+	}
+
+	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)
+	{
+		// TODO:
 	}
 }

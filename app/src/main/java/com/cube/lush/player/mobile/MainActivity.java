@@ -34,15 +34,15 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     @BindView(R.id.container)
     FrameLayout container;
 
-    @Override
+	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mobile_activity_main);
+		setContentView(R.layout.mobile_activity_main);
         ButterKnife.bind(this);
 
 		setupNavigation();
-    }
+	}
 
     private void setupNavigation()
 	{
@@ -124,32 +124,6 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		}
 
 		transaction.commit();
-	}
-
-	public void showLoading()
-	{
-		getSupportFragmentManager().beginTransaction()
-			.add(container.getId(), new SpinnerFragment(), SpinnerFragment.SPINNER_FRAGMENT_TAG)
-			.commit();
-	}
-
-	public void hideLoading()
-	{
-		FragmentManager fragmentManager = getSupportFragmentManager();
-
-		if (fragmentManager.isDestroyed())
-		{
-			return;
-		}
-
-		Fragment fragment = fragmentManager.findFragmentByTag(SpinnerFragment.SPINNER_FRAGMENT_TAG);
-
-		if (fragment != null)
-		{
-			fragmentManager.beginTransaction()
-				.remove(fragment)
-				.commit();
-		}
 	}
 
 	@Override public boolean onKeyDown(int keyCode, KeyEvent event)

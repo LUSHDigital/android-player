@@ -38,8 +38,6 @@ public class ChannelsAdapter extends BaseAdapter<Channel, ChannelViewHolder>
 
 	@Override protected void bind(@NonNull ChannelViewHolder holder, @NonNull Channel item)
 	{
-		holder.setItem(item);
-
 		Drawable drawable = ContextCompat.getDrawable(holder.image.getContext(), item.getLogo());
 		holder.image.setImageDrawable(drawable);
 	}

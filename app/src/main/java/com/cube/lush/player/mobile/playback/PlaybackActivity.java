@@ -9,11 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.mobile.base.BaseMobileActivity;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 31/03/2017.
  */
-public class PlaybackActivity extends AppCompatActivity
+public class PlaybackActivity extends BaseMobileActivity
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_MEDIA_CONTENT = "media_content";
@@ -30,8 +31,7 @@ public class PlaybackActivity extends AppCompatActivity
 		return intent;
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState)
+	@Override protected void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mobile_activity_playback);

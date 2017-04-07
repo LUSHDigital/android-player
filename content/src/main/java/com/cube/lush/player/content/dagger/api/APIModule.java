@@ -59,19 +59,19 @@ public class APIModule
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
 		// Channel interceptors
-		builder.addInterceptor(new MockCosmeticsChannelInterceptor(context));
-		builder.addInterceptor(new MockGorillaChannelInterceptor(context));
-		builder.addInterceptor(new MockKitchenChannelInterceptor(context));
-		builder.addInterceptor(new MockLushLifeChannelInterceptor(context));
-		builder.addInterceptor(new MockSoapboxChannelInterceptor(context));
-		builder.addInterceptor(new MockTimesChannelInterceptor(context));
+//		builder.addInterceptor(new MockCosmeticsChannelInterceptor(context));
+//		builder.addInterceptor(new MockGorillaChannelInterceptor(context));
+//		builder.addInterceptor(new MockKitchenChannelInterceptor(context));
+//		builder.addInterceptor(new MockLushLifeChannelInterceptor(context));
+//		builder.addInterceptor(new MockSoapboxChannelInterceptor(context));
+//		builder.addInterceptor(new MockTimesChannelInterceptor(context));
 
 		// Other interceptors
-		builder.addInterceptor(new MockPlaylistInterceptor(context));
-		builder.addInterceptor(new MockProgrammeInterceptor(context));
-		builder.addInterceptor(new MockRadiosInterceptor(context));
-		builder.addInterceptor(new MockSearchInterceptor(context));
-		builder.addInterceptor(new MockVideosInterceptor(context));
+//		builder.addInterceptor(new MockPlaylistInterceptor(context));
+//		builder.addInterceptor(new MockProgrammeInterceptor(context));
+//		builder.addInterceptor(new MockRadiosInterceptor(context));
+//		builder.addInterceptor(new MockSearchInterceptor(context));
+//		builder.addInterceptor(new MockVideosInterceptor(context));
 
 		return builder.build();
 	}

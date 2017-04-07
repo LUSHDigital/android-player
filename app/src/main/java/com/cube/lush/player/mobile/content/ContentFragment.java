@@ -65,7 +65,7 @@ public class ContentFragment extends ListingFragment implements RecyclerViewClic
 
 	@Override protected void getListData(@NonNull final ListDataRetrieval callback)
 	{
-		MediaManager.getInstance().getChannelContent(channel, CategoryContentType.TV, new ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getChannelContent(channel, null, new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{

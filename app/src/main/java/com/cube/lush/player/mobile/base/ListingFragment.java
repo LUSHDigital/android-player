@@ -81,30 +81,29 @@ public abstract class ListingFragment extends StatefulFragment implements ListDa
 	}
 
 	@BindView(R.id.recycler) protected RecyclerView recycler;
-	protected RecyclerView.LayoutManager layoutManager;
 	protected BaseAdapter adapter;
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		this.layoutManager = provideLayoutManager();
-		this.adapter = provideAdapter();
 	}
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-		ButterKnife.bind(this, view);
-		return view;
-	}
+View view = super.onCreateView(inflater, container, savedInstanceState);
+			ButterKnife.bind(this, view);
+			return view;
+		}
 
-	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		if (savedInstanceState == null)
+		@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
 		{
-			recycler.setLayoutManager(layoutManager);
+			super.onActivityCreated(savedInstanceState);
+
+			if (savedInstanceState == null)
+			{
+				recycler.setLayoutManager(provideLayoutManager());
+
+				adapter = provideAdapter();
 			recycler.setAdapter(adapter);
 
 			RecyclerView.ItemDecoration itemDecoration = provideItemDecoration();

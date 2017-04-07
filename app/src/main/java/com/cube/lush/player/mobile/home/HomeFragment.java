@@ -52,6 +52,6 @@ public class HomeFragment extends ListingFragment implements RecyclerViewClicked
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)
 	{
-		Toast.makeText(getContext(), "Home item clicked: " + item.getTitle(), Toast.LENGTH_SHORT);
+		// TODO:
 	}
 }

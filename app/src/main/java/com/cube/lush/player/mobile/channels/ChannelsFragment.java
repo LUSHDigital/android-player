@@ -64,7 +64,6 @@ public class ChannelsFragment extends ListingFragment implements RecyclerViewCli
 
 	@Override public void onRecyclerViewItemClicked(@NonNull Channel channel)
 	{
-		Toast.makeText(getContext(), getString(R.string.channel_selected, channel.getTitle()), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
 	}
 }

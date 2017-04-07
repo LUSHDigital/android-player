@@ -169,7 +169,6 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 
 	@Override public void onRecyclerViewItemClicked(@NonNull SearchResult searchResult)
 	{
-		Toast.makeText(searchView.getContext(), "Search result clicked: " + searchResult.getTitle(), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(searchResult));
 	}
 }

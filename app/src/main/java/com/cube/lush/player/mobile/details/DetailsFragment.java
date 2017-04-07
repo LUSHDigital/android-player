@@ -165,14 +165,12 @@ public class DetailsFragment extends Fragment
 
 	private void onTagClicked(@NonNull View view, @NonNull String tag)
 	{
-		Toast.makeText(view.getContext(), "Tag clicked: " + tag, Toast.LENGTH_SHORT).show();
+		// TODO:
 	}
 
 	@OnClick(R.id.play) void onPlayClicked()
 	{
 		Context context = play.getContext();
-
-		Toast.makeText(context, "Play clicked", Toast.LENGTH_SHORT).show();
 		context.startActivity(PlaybackActivity.getIntent(context, mediaContent));
 	}
 

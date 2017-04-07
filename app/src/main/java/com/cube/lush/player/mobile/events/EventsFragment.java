@@ -52,6 +52,6 @@ public class EventsFragment extends ListingFragment implements RecyclerViewClick
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)
 	{
-		Toast.makeText(getContext(), "Selected event: " + item.getTitle(), Toast.LENGTH_SHORT);
+		// TODO:
 	}
 }

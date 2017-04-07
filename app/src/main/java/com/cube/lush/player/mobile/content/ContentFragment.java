@@ -82,7 +82,6 @@ public class ContentFragment extends ListingFragment implements RecyclerViewClic
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent mediaContent)
 	{
-		Toast.makeText(getContext(), getString(R.string.media_selected, mediaContent.getTitle()), Toast.LENGTH_SHORT).show();
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));
 	}
 }

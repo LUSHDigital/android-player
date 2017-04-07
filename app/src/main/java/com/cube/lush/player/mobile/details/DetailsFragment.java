@@ -31,8 +31,10 @@ import butterknife.OnClick;
 import uk.co.jamiecruwys.State;
 import uk.co.jamiecruwys.StatefulFragment;
 
-public class DetailsFragment extends StatefulFragment
+public class DetailsFragment extends Fragment
 {
+	// TODO: Make stateful
+
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CONTENT = "arg_content";
 	private MediaContent mediaContent;
@@ -60,40 +62,16 @@ public class DetailsFragment extends StatefulFragment
 		return fragment;
 	}
 
-	@Override public int provideContentLayout()
+	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return R.layout.mobile_fragment_details;
-	}
-
-	@Override public int provideEmptyLayout()
-	{
-		return R.layout.mobile_empty;
-	}
-
-	@Override public int provideLoadingLayout()
-	{
-		return R.layout.mobile_loading;
-	}
-
-	@Override public int provideErrorLayout()
-	{
-		return R.layout.mobile_error;
+		View view = inflater.inflate(R.layout.mobile_fragment_details, container, false);
+		return view;
 	}
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
-
-		if (mediaContent == null)
-		{
-			setState(State.ERROR);
-		}
-		else
-		{
-			setState(State.SHOWING_CONTENT);
-		}
 	}
 
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)

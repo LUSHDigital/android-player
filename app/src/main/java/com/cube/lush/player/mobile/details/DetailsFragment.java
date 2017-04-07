@@ -28,8 +28,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.jamiecruwys.State;
+import uk.co.jamiecruwys.StatefulFragment;
 
-public class DetailsFragment extends Fragment
+public class DetailsFragment extends StatefulFragment
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CONTENT = "arg_content";
@@ -58,6 +60,26 @@ public class DetailsFragment extends Fragment
 		return fragment;
 	}
 
+	@Override protected int provideContentLayout()
+	{
+		return R.layout.mobile_fragment_details;
+	}
+
+	@Override protected int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override protected int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override protected int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -66,16 +88,12 @@ public class DetailsFragment extends Fragment
 
 		if (mediaContent == null)
 		{
-			throw new RuntimeException("No media content to show details for");
+			setState(State.ERROR);
 		}
-	}
-
-	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-	{
-		View view = inflater.inflate(R.layout.mobile_fragment_details, container, false);
-		ButterKnife.bind(this, view);
-
-		return view;
+		else
+		{
+			setState(State.SHOWING_CONTENT);
+		}
 	}
 
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)

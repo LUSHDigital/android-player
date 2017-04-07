@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 
-public class LiveFragment extends Fragment
+import uk.co.jamiecruwys.StatefulFragment;
+
+public class LiveFragment extends StatefulFragment
 {
 	public LiveFragment()
 	{
@@ -23,9 +25,23 @@ public class LiveFragment extends Fragment
 		return fragment;
 	}
 
-	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	@Override protected int provideContentLayout()
 	{
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.mobile_fragment_live, container, false);
+		return R.layout.mobile_fragment_live;
+	}
+
+	@Override protected int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override protected int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override protected int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
 	}
 }

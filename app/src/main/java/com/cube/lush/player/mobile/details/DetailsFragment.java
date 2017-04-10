@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
@@ -28,8 +27,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.jamiecruwys.State;
-import uk.co.jamiecruwys.StatefulFragment;
 
 public class DetailsFragment extends Fragment
 {

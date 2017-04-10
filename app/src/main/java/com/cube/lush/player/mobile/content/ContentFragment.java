@@ -3,21 +3,15 @@ package com.cube.lush.player.mobile.content;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.CategoryContentType;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.ListDataRetrieval;
-import com.cube.lush.player.mobile.base.ListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
@@ -25,7 +19,10 @@ import com.cube.lush.player.mobile.details.DetailsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentFragment extends ListingFragment implements RecyclerViewClickedListener<MediaContent>
+import uk.co.jamiecruwys.StatefulListingFragment;
+import uk.co.jamiecruwys.contracts.ListingData;
+
+public class ContentFragment extends StatefulListingFragment<MediaContent> implements RecyclerViewClickedListener<MediaContent>
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CHANNEL = "arg_channel";
@@ -49,35 +46,44 @@ public class ContentFragment extends ListingFragment implements RecyclerViewClic
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
 		channel = (Channel)getArguments().getSerializable(ARG_CHANNEL);
 	}
 
-	@NonNull @Override protected RecyclerView.LayoutManager provideLayoutManager()
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
 	{
-		return new LinearLayoutManager(getContext());
+		return new ContentAdapter(items, this);
 	}
 
-	@NonNull @Override protected BaseAdapter provideAdapter()
-	{
-		return new ContentAdapter(new ArrayList<MediaContent>(), this);
-	}
-
-	@Override protected void getListData(@NonNull final ListDataRetrieval callback)
+	@Override protected void getListData(@NonNull final ListingData callback)
 	{
 		MediaManager.getInstance().getChannelContent(channel, null, new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
 				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				callback.onListDataRetrieved(items);
+				callback.onListingDataRetrieved(items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListDataRetrievalError(t);
+				callback.onListingDataError(t);
 			}
 		});
+	}
+
+	@Override public int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
 	}
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent mediaContent)

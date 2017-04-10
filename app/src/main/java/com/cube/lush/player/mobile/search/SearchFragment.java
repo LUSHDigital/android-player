@@ -3,7 +3,6 @@ package com.cube.lush.player.mobile.search;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -11,16 +10,12 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.ListDataRetrieval;
-import com.cube.lush.player.mobile.base.ListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
@@ -31,9 +26,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.jamiecruwys.State;
+import uk.co.jamiecruwys.StatefulListingFragment;
+import uk.co.jamiecruwys.ViewState;
+import uk.co.jamiecruwys.contracts.ListingData;
 
-public class SearchFragment extends ListingFragment implements RecyclerViewClickedListener<SearchResult>
+public class SearchFragment extends StatefulListingFragment<SearchResult> implements RecyclerViewClickedListener<SearchResult>
 {
 	@BindView(R.id.search) SearchView searchView;
 	public static String query = "";
@@ -51,14 +48,17 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		return fragment;
 	}
 
-	@NonNull @Override protected RecyclerView.LayoutManager provideLayoutManager()
+	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		return new LinearLayoutManager(getContext());
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+		ButterKnife.bind(this, view);
+
+		return view;
 	}
 
-	@NonNull @Override protected BaseAdapter provideAdapter()
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<SearchResult> items)
 	{
-		return new SearchAdapter(new ArrayList<SearchResult>(), this);
+		return new SearchAdapter(items, this);
 	}
 
 	@Nullable @Override protected RecyclerView.ItemDecoration provideItemDecoration()
@@ -67,7 +67,7 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		return new TopSpacingDecoration(spacing);
 	}
 
-	@Override protected void getListData(@NonNull ListDataRetrieval callback)
+	@Override protected void getListData(@NonNull final ListingData callback)
 	{
 		if (TextUtils.isEmpty(query))
 		{
@@ -78,41 +78,14 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		{
 			@Override public void onSuccess(@NonNull List<SearchResult> items)
 			{
-				adapter.setItems(items);
-				setState(State.SHOWING_CONTENT);
+				callback.onListingDataRetrieved(items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				adapter.setItems(null);
-				setState(State.ERROR);
+				callback.onListingDataError(t);
 			}
 		});
-	}
-
-	@Override protected boolean shouldReloadOnResume()
-	{
-		return false;
-	}
-
-	@Override public int provideContentLayout()
-	{
-		return R.layout.mobile_fragment_search_content;
-	}
-
-	@Override public int provideEmptyLayout()
-	{
-		return R.layout.mobile_empty;
-	}
-
-	@Override public int provideLoadingLayout()
-	{
-		return R.layout.mobile_loading;
-	}
-
-	@Override public int provideErrorLayout()
-	{
-		return R.layout.mobile_error;
 	}
 
 	@Override public int provideLayout()
@@ -125,12 +98,29 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		return R.id.statefulview;
 	}
 
-	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	@Override public int provideLoadedLayout()
 	{
-		View view = super.onCreateView(inflater, container, savedInstanceState);
-		ButterKnife.bind(this, view);
+		return R.layout.mobile_fragment_search_content;
+	}
 
-		return view;
+	@Override public int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@Override protected boolean shouldReloadOnResume()
+	{
+		return false;
 	}
 
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -140,6 +130,7 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		if (savedInstanceState == null)
 		{
 			populateUi();
+			setViewState(ViewState.EMPTY);
 		}
 	}
 
@@ -148,7 +139,7 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		// Make it default to the expanded state
 		searchView.onActionViewExpanded();
 
-		final ListDataRetrieval callback = this;
+		final ListingData callback = this;
 
 		// Set the listener to get data on submit
 		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
@@ -167,8 +158,8 @@ public class SearchFragment extends ListingFragment implements RecyclerViewClick
 		});
 	}
 
-	@Override public void onRecyclerViewItemClicked(@NonNull SearchResult searchResult)
+	@Override public void onRecyclerViewItemClicked(@NonNull SearchResult item)
 	{
-		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(searchResult));
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
 	}
 }

@@ -41,7 +41,8 @@ public abstract class BaseAdapter<ITEMTYPE, VIEWHOLDER extends BaseViewHolder<IT
 	@NonNull private List<ITEMTYPE> items = new ArrayList<ITEMTYPE>();
 
 	/**
-	 * Basic constructor that takes the list items. You can provide an empty list
+	 * Basic constructor that takes the list items and the callback to make state changes.
+	 * You can provide an empty list.
 	 * @param items that can be empty, but not null
 	 */
 	public BaseAdapter(@NonNull List<ITEMTYPE> items)
@@ -66,25 +67,5 @@ public abstract class BaseAdapter<ITEMTYPE, VIEWHOLDER extends BaseViewHolder<IT
 	@Override public int getItemCount()
 	{
 		return items.size();
-	}
-
-	/**
-	 * Replaces the existing items with a new set
-	 * @param newItems to replace the existing items with
-	 */
-	public void setItems(@NonNull List<ITEMTYPE> newItems)
-	{
-		clearItems();
-		items.addAll(newItems);
-
-		notifyDataSetChanged();
-	}
-
-	/**
-	 * Clears all items and reverts to an empty list
-	 */
-	public void clearItems()
-	{
-		items.clear();
 	}
 }

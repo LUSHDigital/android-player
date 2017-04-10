@@ -6,14 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.widget.Toast;
 
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.ListDataRetrieval;
-import com.cube.lush.player.mobile.base.ListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.decorators.GridSpacingDecoration;
@@ -23,7 +19,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ChannelsFragment extends ListingFragment implements RecyclerViewClickedListener<Channel>
+import uk.co.jamiecruwys.StatefulListingFragment;
+import uk.co.jamiecruwys.contracts.ListingData;
+
+public class ChannelsFragment extends StatefulListingFragment<Channel> implements RecyclerViewClickedListener<Channel>
 {
 	public ChannelsFragment()
 	{
@@ -44,9 +43,9 @@ public class ChannelsFragment extends ListingFragment implements RecyclerViewCli
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
 
-	@NonNull @Override protected BaseAdapter provideAdapter()
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<Channel> items)
 	{
-		return new ChannelsAdapter(new ArrayList<Channel>(), this);
+		return new ChannelsAdapter(items, this);
 	}
 
 	@Nullable @Override protected RecyclerView.ItemDecoration provideItemDecoration()
@@ -56,14 +55,29 @@ public class ChannelsFragment extends ListingFragment implements RecyclerViewCli
 		return new GridSpacingDecoration(spacing, NUMBER_COLUMNS);
 	}
 
-	@Override protected void getListData(@NonNull ListDataRetrieval callback)
+	@Override protected void getListData(@NonNull ListingData listingData)
 	{
 		List<Channel> channels = Arrays.asList(Channel.values());
-		callback.onListDataRetrieved(channels);
+		listingData.onListingDataRetrieved(channels);
 	}
 
-	@Override public void onRecyclerViewItemClicked(@NonNull Channel channel)
+	@Override public int provideLoadingLayout()
 	{
-		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@Override public void onRecyclerViewItemClicked(@NonNull Channel item)
+	{
+		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(item));
 	}
 }

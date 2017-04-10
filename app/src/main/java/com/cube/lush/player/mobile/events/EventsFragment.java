@@ -2,25 +2,20 @@ package com.cube.lush.player.mobile.events;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.ListDataRetrieval;
-import com.cube.lush.player.mobile.base.ListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.events.adapter.EventsAdapter;
 
 import java.util.Collections;
+import java.util.List;
 
-public class EventsFragment extends ListingFragment implements RecyclerViewClickedListener<MediaContent>
+import uk.co.jamiecruwys.StatefulListingFragment;
+import uk.co.jamiecruwys.contracts.ListingData;
+
+public class EventsFragment extends StatefulListingFragment<MediaContent> implements RecyclerViewClickedListener<MediaContent>
 {
 	public EventsFragment()
 	{
@@ -35,19 +30,29 @@ public class EventsFragment extends ListingFragment implements RecyclerViewClick
 		return fragment;
 	}
 
-	@NonNull @Override protected RecyclerView.LayoutManager provideLayoutManager()
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
 	{
-		return new LinearLayoutManager(getContext());
+		return new EventsAdapter(items, this);
 	}
 
-	@NonNull @Override protected BaseAdapter provideAdapter()
+	@Override protected void getListData(@NonNull ListingData callback)
 	{
-		return new EventsAdapter(Collections.EMPTY_LIST, this);
+		callback.onListingDataRetrieved(Collections.EMPTY_LIST);
 	}
 
-	@Override protected void getListData(@NonNull ListDataRetrieval callback)
+	@Override public int provideLoadingLayout()
 	{
-		callback.onListDataRetrieved(Collections.EMPTY_LIST);
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
 	}
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)

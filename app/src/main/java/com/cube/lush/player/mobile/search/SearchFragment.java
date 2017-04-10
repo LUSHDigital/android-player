@@ -130,7 +130,6 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		if (savedInstanceState == null)
 		{
 			populateUi();
-			setViewState(ViewState.EMPTY);
 		}
 	}
 

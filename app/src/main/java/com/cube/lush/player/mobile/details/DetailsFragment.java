@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +26,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import uk.co.jamiecruwys.StatefulFragment;
+import uk.co.jamiecruwys.ViewState;
 
-public class DetailsFragment extends Fragment
+public class DetailsFragment extends StatefulFragment
 {
-	// TODO: Make stateful
-
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CONTENT = "arg_content";
 	private MediaContent mediaContent;
@@ -61,9 +60,34 @@ public class DetailsFragment extends Fragment
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.mobile_fragment_details, container, false);
+		View view = super.onCreateView(inflater, container, savedInstanceState);
 		ButterKnife.bind(this, view);
 		return view;
+	}
+
+	@Override public int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideLoadedLayout()
+	{
+		return R.layout.mobile_fragment_details;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@Override public ViewState provideInitialViewState()
+	{
+		return ViewState.LOADED;
 	}
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)

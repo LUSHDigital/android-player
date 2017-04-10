@@ -7,14 +7,14 @@ import android.support.annotation.Nullable;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.mobile.base.BaseMobileActivity;
 
-import uk.co.jamiecruwys.StatefulActivity;
 import uk.co.jamiecruwys.ViewState;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 31/03/2017.
  */
-public class PlaybackActivity extends StatefulActivity
+public class PlaybackActivity extends BaseMobileActivity
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_MEDIA_CONTENT = "media_content";

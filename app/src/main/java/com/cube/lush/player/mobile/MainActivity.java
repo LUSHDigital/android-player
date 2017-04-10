@@ -12,19 +12,19 @@ import android.widget.FrameLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
 import com.cube.lush.player.mobile.events.EventsFragment;
 import com.cube.lush.player.mobile.home.HomeFragment;
 import com.cube.lush.player.mobile.live.LiveFragment;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.search.SearchFragment;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import uk.co.jamiecruwys.ViewState;
 
 public class MainActivity extends BaseMobileActivity implements AHBottomNavigation.OnTabSelectedListener
 {
@@ -35,13 +35,36 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     FrameLayout container;
 
 	@Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-		setContentView(R.layout.mobile_activity_main);
-        ButterKnife.bind(this);
-
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		ButterKnife.bind(this);
 		setupNavigation();
+	}
+
+	@Override public int provideLoadingLayout()
+	{
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideLoadedLayout()
+	{
+		return R.layout.mobile_activity_main;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@Override public ViewState provideInitialViewState()
+	{
+		return ViewState.LOADED;
 	}
 
     private void setupNavigation()

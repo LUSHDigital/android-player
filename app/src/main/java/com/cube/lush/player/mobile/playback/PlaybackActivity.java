@@ -2,19 +2,19 @@ package com.cube.lush.player.mobile.playback;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.mobile.base.BaseMobileActivity;
+
+import uk.co.jamiecruwys.StatefulActivity;
+import uk.co.jamiecruwys.ViewState;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 31/03/2017.
  */
-public class PlaybackActivity extends BaseMobileActivity
+public class PlaybackActivity extends StatefulActivity
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_MEDIA_CONTENT = "media_content";
@@ -31,9 +31,28 @@ public class PlaybackActivity extends BaseMobileActivity
 		return intent;
 	}
 
-	@Override protected void onCreate(@Nullable Bundle savedInstanceState)
+	@Override public int provideLoadingLayout()
 	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mobile_activity_playback);
+		return R.layout.mobile_loading;
+	}
+
+	@Override public int provideEmptyLayout()
+	{
+		return R.layout.mobile_empty;
+	}
+
+	@Override public int provideLoadedLayout()
+	{
+		return R.layout.mobile_activity_playback;
+	}
+
+	@Override public int provideErrorLayout()
+	{
+		return R.layout.mobile_error;
+	}
+
+	@Override public ViewState provideInitialViewState()
+	{
+		return ViewState.LOADING;
 	}
 }

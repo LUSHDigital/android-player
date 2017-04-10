@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.edge.PlaylistListener;
@@ -33,6 +32,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import uk.co.jamiecruwys.StatefulActivity;
+import uk.co.jamiecruwys.ViewState;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 31/03/2017.
@@ -44,17 +45,6 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	public PlaybackFragment()
 	{
 		// Required empty public constructor
-	}
-
-	@Override public void onActivityCreated(Bundle savedInstanceState)
-	{
-		super.onActivityCreated(savedInstanceState);
-
-		if (getActivity() != null && getActivity().getIntent() != null)
-		{
-			mediaContent = (MediaContent)getActivity().getIntent().getSerializableExtra(PlaybackActivity.EXTRA_MEDIA_CONTENT);
-			playMediaContent(mediaContent);
-		}
 	}
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -69,6 +59,25 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
 		return view;
+	}
+
+	@Override public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+
+		if (getActivity() == null)
+		{
+			return;
+		}
+
+		if (getActivity().getIntent() == null)
+		{
+			((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+			return;
+		}
+
+		mediaContent = (MediaContent)getActivity().getIntent().getSerializableExtra(PlaybackActivity.EXTRA_MEDIA_CONTENT);
+		playMediaContent(mediaContent);
 	}
 
 	public void playMediaContent(@NonNull MediaContent mediaContent)
@@ -118,25 +127,28 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
-				if (!items.isEmpty())
+				if (getActivity() == null)
 				{
-					Programme programme = items.get(0);
-
-					if (programme == null)
-					{
-						return;
-					}
-
-					playMediaContent(programme);
+					return;
 				}
+
+				if (items.isEmpty() || items.get(0) == null)
+				{
+					((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+					return;
+				}
+
+				playMediaContent(items.get(0));
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				if (context != null)
+				if (getActivity() == null)
 				{
-					Toast.makeText(context, R.string.media_unplayable, Toast.LENGTH_SHORT).show();
+					return;
 				}
+
+				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
 			}
 		});
 	}
@@ -155,6 +167,8 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				{
 					return;
 				}
+
+				((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
 
 				brightcoveVideoView.add(video);
 				brightcoveVideoView.start();
@@ -177,19 +191,25 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			{
 				super.onError(error);
 
-				Activity activity = getActivity();
-
-				if (activity != null)
+				if (getActivity() == null)
 				{
-					activity.finish();
-					Toast.makeText(activity, getString(R.string.error_with_details, error), Toast.LENGTH_LONG).show();
+					return;
 				}
+
+				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
 			}
 		});
 	}
 
 	private void playAudio(@NonNull String fileUrl)
 	{
+		if (getActivity() == null)
+		{
+			return;
+		}
+
+		((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
+
 		brightcoveVideoView.add(Video.createVideo(fileUrl, DeliveryType.MP4));
 		brightcoveVideoView.start();
 		brightcoveVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
@@ -224,6 +244,8 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 				if (videoInfo != null)
 				{
+					((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
+
 					brightcoveVideoView.add(videoInfo.getVideo());
 					brightcoveVideoView.seekTo((int) (System.currentTimeMillis() - videoInfo.getStartTimeUtc()));
 					brightcoveVideoView.start();
@@ -238,7 +260,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				}
 				else
 				{
-					getActivity().finish();
+					((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
 				}
 			}
 
@@ -247,13 +269,12 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			{
 				super.onError(error);
 
-				Activity activity = getActivity();
-
-				if (activity != null)
+				if (getActivity() == null)
 				{
-					activity.finish();
-					Toast.makeText(activity, getString(R.string.error_with_details, error), Toast.LENGTH_LONG).show();
+					return;
 				}
+
+				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
 			}
 		});
 	}
@@ -273,24 +294,24 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 				if (!items.isEmpty() && !TextUtils.isEmpty(items.get(0).getId()))
 				{
+					((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
 					playPlaylist(items.get(0).getId());
 				}
 				else
 				{
-					getActivity().finish();
+					((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
 				}
 			}
 
 			@Override
 			public void onFailure(@Nullable Throwable t)
 			{
-				Activity activity = getActivity();
-
-				if (activity != null)
+				if (getActivity() == null)
 				{
-					activity.finish();
-					Toast.makeText(activity, R.string.error_live_playlist, Toast.LENGTH_LONG).show();
+					return;
 				}
+
+				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
 			}
 		});
 	}

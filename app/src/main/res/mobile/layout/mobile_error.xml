@@ -12,7 +12,7 @@
 		android:layout_centerInParent="true"
 		android:gravity="center"
 		android:padding="8dp"
-		android:text="Error retriving content!"
+		android:text="Error retrieving content!"
 		android:textSize="24sp"
 		style="@style/Text.White"
 	/>

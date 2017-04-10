@@ -66,6 +66,12 @@ android {
 	}
 }
 
+
+configurations.all {
+	// Check for updates every build
+	resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 def supportLibraryVersion = "25.3.1"
 def butterKnifeVersion = "8.4.0"
 def daggerVersion = "2.10"
@@ -99,7 +105,10 @@ dependencies {
 	compile 'com.github.LUSHDigital:android-lush-views:-SNAPSHOT'
 
 	// Stateful Views
-	compile 'com.github.JamieCruwys:StatefulView:-SNAPSHOT'
+	compile ('com.github.JamieCruwys:StatefulView:-SNAPSHOT')
+	{
+		changing = true
+	}
 
 	// Brightcove
 	compile 'com.brightcove.player:exoplayer:4.11.1'

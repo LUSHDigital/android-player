@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.mobile.LushTab;
+import com.cube.lush.player.mobile.MainActivity;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulFragment;
 
 public class LiveFragment extends StatefulFragment
@@ -50,5 +53,10 @@ public class LiveFragment extends StatefulFragment
 	@Override public int provideErrorLayout()
 	{
 		return R.layout.live_error;
+	}
+
+	@OnClick(R.id.show_channels) void onShowChannelsClicked()
+	{
+		((MainActivity)getActivity()).selectTab(LushTab.CHANNELS);
 	}
 }

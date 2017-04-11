@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge>
-	<include
-		xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		layout="@layout/default_empty">
-	</include>
-</merge>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@android:color/black"
+>
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:gravity="center"
+		android:padding="8dp"
+		android:text="No content found!"
+		android:textSize="24sp"
+		style="@style/Text.White"
+	/>
+</RelativeLayout>

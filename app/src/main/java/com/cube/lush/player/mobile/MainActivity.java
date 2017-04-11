@@ -97,7 +97,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		bottomNavigation.setOnTabSelectedListener(this);
 
 		// Auto selected home
-		bottomNavigation.setCurrentItem(0);
+		selectTab(LushTab.HOME);
 	}
 
 	@Override public boolean onTabSelected(int position, boolean wasSelected)
@@ -124,12 +124,17 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		}
 	}
 
+	public void selectTab(@NonNull LushTab tab)
+	{
+		bottomNavigation.setCurrentItem(tab.getPosition());
+	}
+
 	public void showFragment(@NonNull Fragment fragment)
 	{
 		showFragment(fragment, true);
 	}
 
-	public void showNoHistoryFragment(@NonNull Fragment fragment)
+	private void showNoHistoryFragment(@NonNull Fragment fragment)
 	{
 		showFragment(fragment, false);
 	}

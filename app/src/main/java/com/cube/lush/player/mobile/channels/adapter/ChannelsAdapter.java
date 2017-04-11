@@ -28,7 +28,7 @@ public class ChannelsAdapter extends BaseAdapter<Channel, ChannelViewHolder>
 
 	@Override protected int provideViewHolderLayout()
 	{
-		return R.layout.mobile_item_channels;
+		return R.layout.channel_item;
 	}
 
 	@NonNull @Override protected ChannelViewHolder createViewHolder(@NonNull View itemView)

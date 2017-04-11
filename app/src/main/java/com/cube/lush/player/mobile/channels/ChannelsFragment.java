@@ -7,15 +7,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 
-import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
+import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
-import com.cube.lush.player.mobile.decorators.GridSpacingDecoration;
 import com.cube.lush.player.mobile.content.ContentFragment;
+import com.cube.lush.player.mobile.decorators.GridSpacingDecoration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,17 +62,17 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.channel_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.channel_empty;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.channel_error;
 	}
 
 	@Override public void onRecyclerViewItemClicked(@NonNull Channel item)

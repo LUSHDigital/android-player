@@ -59,6 +59,8 @@ android {
 
 	sourceSets {
 		main {
+			res.srcDirs += 'src/main/res/base'
+			res.srcDirs += 'src/main/res/channel'
 			res.srcDirs += 'src/main/res/launcher'
 			res.srcDirs += 'src/main/res/mobile'
 			res.srcDirs += 'src/main/res/tv'

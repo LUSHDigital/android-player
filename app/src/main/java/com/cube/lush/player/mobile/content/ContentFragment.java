@@ -16,7 +16,6 @@ import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.jamiecruwys.StatefulListingFragment;
@@ -73,17 +72,17 @@ public class ContentFragment extends StatefulListingFragment<MediaContent> imple
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.content_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.content_empty;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.content_error;
 	}
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent mediaContent)

@@ -27,7 +27,7 @@ public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
 
 	@Override protected int provideViewHolderLayout()
 	{
-		return R.layout.mobile_item_content;
+		return R.layout.content_item;
 	}
 
 	@NonNull @Override protected ContentViewHolder createViewHolder(@NonNull View itemView)

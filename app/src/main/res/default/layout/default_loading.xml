@@ -31,38 +31,3 @@
 		/>
 	</LinearLayout>
 </RelativeLayout>
-
-<!--<RelativeLayout-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--&gt;-->
-<!--<LinearLayout-->
-	<!--android:layout_width="wrap_content"-->
-	<!--android:layout_height="wrap_content"-->
-	<!--android:orientation="vertical"-->
-	<!--android:layout_centerInParent="true"-->
-	<!--android:gravity="center"-->
-<!--&gt;-->
-	<!--<ProgressBar-->
-		<!--android:layout_width="wrap_content"-->
-		<!--android:layout_height="wrap_content"-->
-		<!--android:id="@+id/progress"-->
-		<!--android:indeterminate="true"-->
-		<!--android:indeterminateTint="@android:color/white"-->
-		<!--android:indeterminateTintMode="src_in"-->
-		<!--android:visibility="visible"-->
-		<!--style="@android:style/Widget.Material.Light.ProgressBar.Large"-->
-	<!--/>-->
-
-	<!--<TextView-->
-		<!--android:layout_width="wrap_content"-->
-		<!--android:layout_height="wrap_content"-->
-		<!--android:padding="16dp"-->
-		<!--android:text="@string/loading"-->
-		<!--android:textColor="@color/text_light"-->
-		<!--android:textSize="20sp"-->
-		<!--style="@style/Text.White.HelveticaBold.Title"-->
-	<!--/>-->
-<!--</LinearLayout>-->
-<!--</RelativeLayout>-->

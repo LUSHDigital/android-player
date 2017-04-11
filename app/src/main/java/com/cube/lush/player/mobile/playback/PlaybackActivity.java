@@ -33,22 +33,22 @@ public class PlaybackActivity extends BaseMobileActivity
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.playback_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.playback_empty;
 	}
 
 	@Override public int provideLoadedLayout()
 	{
-		return R.layout.mobile_activity_playback;
+		return R.layout.playback_loaded;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.playback_error;
 	}
 
 	@Override public ViewState provideInitialViewState()

@@ -59,18 +59,19 @@ android {
 
 	sourceSets {
 		main {
-			res.srcDirs += 'src/main/res/default'
 			res.srcDirs += 'src/main/res/channel'
 			res.srcDirs += 'src/main/res/content'
+			res.srcDirs += 'src/main/res/default'
 			res.srcDirs += 'src/main/res/detail'
-			res.srcDirs += 'src/main/res/main'
-			res.srcDirs += 'src/main/res/home'
-			res.srcDirs += 'src/main/res/live'
-			res.srcDirs += 'src/main/res/playback'
 			res.srcDirs += 'src/main/res/event'
-			res.srcDirs += 'src/main/res/search'
+			res.srcDirs += 'src/main/res/home'
 			res.srcDirs += 'src/main/res/launcher'
+			res.srcDirs += 'src/main/res/live'
+			res.srcDirs += 'src/main/res/main'
 			res.srcDirs += 'src/main/res/mobile'
+			res.srcDirs += 'src/main/res/playback'
+			res.srcDirs += 'src/main/res/search'
+			res.srcDirs += 'src/main/res/tag'
 			res.srcDirs += 'src/main/res/tv'
 		}
 	}

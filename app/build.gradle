@@ -61,6 +61,7 @@ android {
 		main {
 			res.srcDirs += 'src/main/res/base'
 			res.srcDirs += 'src/main/res/channel'
+			res.srcDirs += 'src/main/res/event'
 			res.srcDirs += 'src/main/res/search'
 			res.srcDirs += 'src/main/res/launcher'
 			res.srcDirs += 'src/main/res/mobile'

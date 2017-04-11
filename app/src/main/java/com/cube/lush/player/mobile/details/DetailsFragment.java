@@ -67,22 +67,22 @@ public class DetailsFragment extends StatefulFragment
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.detail_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.detail_empty;
 	}
 
 	@Override public int provideLoadedLayout()
 	{
-		return R.layout.mobile_fragment_details;
+		return R.layout.detail_loaded;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.detail_error;
 	}
 
 	@Override public ViewState provideInitialViewState()

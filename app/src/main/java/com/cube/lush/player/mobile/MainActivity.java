@@ -44,22 +44,22 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.main_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.main_empty;
 	}
 
 	@Override public int provideLoadedLayout()
 	{
-		return R.layout.mobile_activity_main;
+		return R.layout.main_loaded;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.main_error;
 	}
 
 	@Override public ViewState provideInitialViewState()

@@ -63,6 +63,7 @@ android {
 			res.srcDirs += 'src/main/res/channel'
 			res.srcDirs += 'src/main/res/content'
 			res.srcDirs += 'src/main/res/detail'
+			res.srcDirs += 'src/main/res/main'
 			res.srcDirs += 'src/main/res/home'
 			res.srcDirs += 'src/main/res/live'
 			res.srcDirs += 'src/main/res/playback'

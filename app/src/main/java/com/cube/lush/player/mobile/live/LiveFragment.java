@@ -34,21 +34,21 @@ public class LiveFragment extends StatefulFragment
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.live_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_live_empty;
+		return R.layout.live_empty;
 	}
 
 	@Override public int provideLoadedLayout()
 	{
-		return R.layout.mobile_fragment_live;
+		return R.layout.live_loaded;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.live_error;
 	}
 }

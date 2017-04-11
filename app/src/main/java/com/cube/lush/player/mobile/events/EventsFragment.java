@@ -42,17 +42,17 @@ public class EventsFragment extends StatefulListingFragment<MediaContent> implem
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.event_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.event_empty;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.event_error;
 	}
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)

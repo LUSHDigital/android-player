@@ -162,7 +162,7 @@ public class DetailsFragment extends StatefulFragment
 
 		for (final String tag : tags)
 		{
-			View view = inflater.inflate(R.layout.mobile_item_tag, tagList, false);
+			View view = inflater.inflate(R.layout.tag_item, tagList, false);
 			TextView text = (TextView)view.findViewById(R.id.text);
 			text.setText(tag);
 

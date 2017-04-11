@@ -1,8 +1,6 @@
 package com.cube.lush.player.mobile.live;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +39,7 @@ public class LiveFragment extends StatefulFragment
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.mobile_live_empty;
 	}
 
 	@Override public int provideLoadedLayout()

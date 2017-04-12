@@ -44,22 +44,22 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.main_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.main_empty;
 	}
 
 	@Override public int provideLoadedLayout()
 	{
-		return R.layout.mobile_activity_main;
+		return R.layout.main_loaded;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.main_error;
 	}
 
 	@Override public ViewState provideInitialViewState()
@@ -97,7 +97,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		bottomNavigation.setOnTabSelectedListener(this);
 
 		// Auto selected home
-		bottomNavigation.setCurrentItem(0);
+		selectTab(LushTab.HOME);
 	}
 
 	@Override public boolean onTabSelected(int position, boolean wasSelected)
@@ -124,12 +124,17 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		}
 	}
 
+	public void selectTab(@NonNull LushTab tab)
+	{
+		bottomNavigation.setCurrentItem(tab.getPosition());
+	}
+
 	public void showFragment(@NonNull Fragment fragment)
 	{
 		showFragment(fragment, true);
 	}
 
-	public void showNoHistoryFragment(@NonNull Fragment fragment)
+	private void showNoHistoryFragment(@NonNull Fragment fragment)
 	{
 		showFragment(fragment, false);
 	}

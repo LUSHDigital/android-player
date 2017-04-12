@@ -42,17 +42,17 @@ public class HomeFragment extends StatefulListingFragment<MediaContent> implemen
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.home_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.home_empty;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.home_error;
 	}
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)

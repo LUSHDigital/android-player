@@ -27,7 +27,7 @@ public class EventsAdapter extends BaseAdapter<MediaContent, EventViewHolder>
 
 	@Override protected int provideViewHolderLayout()
 	{
-		return R.layout.mobile_item_content;
+		return R.layout.event_item;
 	}
 
 	@NonNull @Override protected EventViewHolder createViewHolder(@NonNull View itemView)

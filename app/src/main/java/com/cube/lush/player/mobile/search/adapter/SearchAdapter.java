@@ -27,7 +27,7 @@ public class SearchAdapter extends BaseAdapter<SearchResult, SearchViewHolder>
 
 	@Override protected int provideViewHolderLayout()
 	{
-		return R.layout.mobile_item_search;
+		return R.layout.search_item;
 	}
 
 	@NonNull @Override protected SearchViewHolder createViewHolder(@NonNull View itemView)

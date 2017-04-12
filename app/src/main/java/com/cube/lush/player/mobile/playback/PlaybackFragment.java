@@ -49,7 +49,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = inflater.inflate(R.layout.mobile_fragment_playback, container, false);
+		View view = inflater.inflate(R.layout.playback_fragment, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
 		ButterKnife.bind(this, view);
 

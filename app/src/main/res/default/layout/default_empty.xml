@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@android:color/black"
+	android:gravity="center"
+	android:padding="16dp"
+>
+	<ImageView
+		android:layout_width="140dp"
+		android:layout_height="140dp"
+		android:id="@+id/empty_image"
+		android:scaleType="centerInside"
+		android:tint="@color/white"
+		app:srcCompat="@drawable/channel_lush_times"
+	/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="4dp"
+		android:gravity="center"
+		android:text="Sorry, no episodes here right now "
+		android:textSize="32sp"
+		style="@style/Text.White.HelveticaBold"
+	/>
+</LinearLayout>

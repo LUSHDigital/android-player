@@ -17,17 +17,15 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
+import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
-import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.jamiecruwys.StatefulListingFragment;
-import uk.co.jamiecruwys.ViewState;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 public class SearchFragment extends StatefulListingFragment<SearchResult> implements RecyclerViewClickedListener<SearchResult>
@@ -90,7 +88,7 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 
 	@Override public int provideLayout()
 	{
-		return R.layout.mobile_fragment_search;
+		return R.layout.search_layout;
 	}
 
 	@Override public int provideStatefulViewId()
@@ -100,22 +98,22 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 
 	@Override public int provideLoadedLayout()
 	{
-		return R.layout.mobile_fragment_search_content;
+		return R.layout.search_loaded;
 	}
 
 	@Override public int provideLoadingLayout()
 	{
-		return R.layout.mobile_loading;
+		return R.layout.search_loading;
 	}
 
 	@Override public int provideEmptyLayout()
 	{
-		return R.layout.mobile_empty;
+		return R.layout.search_empty;
 	}
 
 	@Override public int provideErrorLayout()
 	{
-		return R.layout.mobile_error;
+		return R.layout.search_error;
 	}
 
 	@Override protected boolean shouldReloadOnResume()

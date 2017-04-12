@@ -86,20 +86,7 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 
 	@NonNull @Override public String getTitleForFilterOption(CategoryContentType contentType)
 	{
-		if (contentType == CategoryContentType.ALL)
-		{
-			return "All Episodes";
-		}
-		else if (contentType == CategoryContentType.TV)
-		{
-			return "TV";
-		}
-		else if (contentType == CategoryContentType.RADIO)
-		{
-			return "Radio";
-		}
-
-		return "Unknown";
+		return contentType.getDisplayName();
 	}
 
 	@NonNull @Override public CategoryContentType provideDefaultTab()

@@ -14,17 +14,23 @@ import lombok.Getter;
 public enum CategoryContentType
 {
 	@SuppressWarnings("HardCodedStringLiteral")
-	ALL(null),
+	ALL(null, "All Episodes"),
 
 	@SuppressWarnings("HardCodedStringLiteral")
-	TV("tv_program"),
+	TV("tv_program", "TV"),
 
 	@SuppressWarnings("HardCodedStringLiteral")
-	RADIO("radio_programme");
+	RADIO("radio_programme", "Radio");
 
 	/**
 	 * The name the Lush API expects on the {@link com.cube.lush.player.api.LushAPI#getCategories(String, String)} endpoint.
 	 */
 	@Getter
-	private String name;
+	private String apiContentType;
+
+	/**
+	 * The name used for tabs when you want to filter by category content type
+	 */
+	@Getter
+	private String displayName;
 }

@@ -361,7 +361,7 @@ public class MediaManager
 	                              @Nullable CategoryContentType contentType,
 	                              @NonNull final ResponseHandler<MediaContent> handler)
 	{
-		String contentTypeName = contentType == null ? null : contentType.getName();
+		String contentTypeName = contentType == null ? null : contentType.getApiContentType();
 		Call<List<MediaContent>> channelCall = api.getCategories(channelId, contentTypeName);
 
 		channelCall.enqueue(new Callback<List<MediaContent>>()

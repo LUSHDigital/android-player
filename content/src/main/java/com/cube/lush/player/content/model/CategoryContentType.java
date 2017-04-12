@@ -14,6 +14,9 @@ import lombok.Getter;
 public enum CategoryContentType
 {
 	@SuppressWarnings("HardCodedStringLiteral")
+	ALL(""),
+
+	@SuppressWarnings("HardCodedStringLiteral")
 	TV("tv_program"),
 
 	@SuppressWarnings("HardCodedStringLiteral")

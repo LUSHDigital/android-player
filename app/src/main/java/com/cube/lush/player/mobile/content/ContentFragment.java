@@ -9,19 +9,21 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.content.model.CategoryContentType;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
-public class ContentFragment extends StatefulListingFragment<MediaContent> implements RecyclerViewClickedListener<MediaContent>
+public class ContentFragment extends FilterableListingFragment<MediaContent, CategoryContentType> implements RecyclerViewClickedListener<MediaContent>
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CHANNEL = "arg_channel";
@@ -53,9 +55,21 @@ public class ContentFragment extends StatefulListingFragment<MediaContent> imple
 		return new ContentAdapter(items, this);
 	}
 
-	@Override protected void getListData(@NonNull final ListingData callback)
+	@NonNull @Override public List<CategoryContentType> provideFilterOptions()
 	{
-		MediaManager.getInstance().getChannelContent(channel, null, new ResponseHandler<MediaContent>()
+		ArrayList<CategoryContentType> options = new ArrayList<CategoryContentType>();
+
+		for (CategoryContentType contentType : CategoryContentType.values())
+		{
+			options.add(contentType);
+		}
+
+		return options;
+	}
+
+	@Override public void getListDataForFilterOption(@NonNull CategoryContentType contentType, @NonNull final ListingData callback)
+	{
+		MediaManager.getInstance().getChannelContent(channel, contentType, new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
@@ -68,6 +82,24 @@ public class ContentFragment extends StatefulListingFragment<MediaContent> imple
 				callback.onListingDataError(t);
 			}
 		});
+	}
+
+	@NonNull @Override public String getTitleForFilterOption(CategoryContentType contentType)
+	{
+		if (contentType == CategoryContentType.ALL)
+		{
+			return "All Episodes";
+		}
+		else if (contentType == CategoryContentType.TV)
+		{
+			return "TV";
+		}
+		else if (contentType == CategoryContentType.RADIO)
+		{
+			return "Radio";
+		}
+
+		return "Unknown";
 	}
 
 	@Override public int provideLoadingLayout()

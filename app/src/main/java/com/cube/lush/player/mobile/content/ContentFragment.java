@@ -80,6 +80,11 @@ public class ContentFragment extends StatefulListingFragment<MediaContent> imple
 		return R.layout.content_empty;
 	}
 
+	@Override public int provideLoadedLayout()
+	{
+		return R.layout.content_loaded;
+	}
+
 	@Override public int provideErrorLayout()
 	{
 		return R.layout.content_error;

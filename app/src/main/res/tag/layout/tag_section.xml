@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:id="@+id/tag_section"
+	android:orientation="vertical"
+>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:maxLines="1"
+		android:text="@string/tags"
+		style="@style/Title"
+	/>
+
+	<org.apmem.tools.layouts.FlowLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/tag_list"
+		android:layout_marginBottom="8dp"
+		android:layout_marginTop="8dp"
+	/>
+</LinearLayout>

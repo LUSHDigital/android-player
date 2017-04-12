@@ -1,57 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cube.lush.player.mobile.ErrorView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:custom="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	custom:description="fsfsdf"
-	custom:error_icon="@drawable/ic_error"
-	custom:title="error 123"
-/>
-
-<!--<LinearLayout-->
-	<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-	<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-	<!--android:layout_width="match_parent"-->
-	<!--android:layout_height="match_parent"-->
-	<!--android:orientation="vertical"-->
-	<!--android:background="@android:color/black"-->
-	<!--android:gravity="center"-->
-	<!--android:padding="16dp"-->
-<!--&gt;-->
-	<!--<ImageView-->
-		<!--android:layout_width="90dp"-->
-		<!--android:layout_height="90dp"-->
-		<!--android:id="@+id/image"-->
-		<!--android:layout_margin="16dp"-->
-		<!--android:tint="@color/white"-->
-		<!--app:srcCompat="@drawable/ic_error"-->
-	<!--/>-->
-
-	<!--<LinearLayout-->
-		<!--android:layout_width="match_parent"-->
-		<!--android:layout_height="wrap_content"-->
-		<!--android:orientation="vertical"-->
-		<!--android:layout_margin="16dp"-->
-	<!--&gt;-->
-		<!--<TextView-->
-			<!--android:layout_width="wrap_content"-->
-			<!--android:layout_height="wrap_content"-->
-			<!--android:layout_gravity="center"-->
-			<!--android:gravity="center"-->
-			<!--android:text="Whoops..."-->
-			<!--android:textSize="32sp"-->
-			<!--style="@style/Text.White.HelveticaBold"-->
-		<!--/>-->
-
-		<!--<TextView-->
-			<!--android:layout_width="wrap_content"-->
-			<!--android:layout_height="wrap_content"-->
-			<!--android:layout_marginTop="16dp"-->
-			<!--android:gravity="center"-->
-			<!--android:text="You seem to be offline. Check your internet connection and try again"-->
-			<!--android:textSize="20sp"-->
-			<!--style="@style/Text.White"-->
-		<!--/>-->
-	<!--</LinearLayout>-->
-<!--</LinearLayout>-->
+<merge>
+	<include
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		layout="@layout/default_error">
+	</include>
+</merge>

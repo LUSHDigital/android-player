@@ -5,6 +5,9 @@
 	<color name="colorAccent">#FF4081</color>
 	<color name="grey">#252525</color>
 
+	<color name="tab_unselected">#333333</color>
+	<color name="tab_selected">#5B5B5B</color>
+
 	<!-- TV Colours -->
 	<color name="primary">@android:color/black</color>
 	<color name="primary_dark">@android:color/black</color>

@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.cube.lush.player.R;
 
@@ -27,37 +27,61 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 
 	@NonNull public abstract String getTitleForFilterOption(FILTER_OPTION option);
 
+	@NonNull public abstract FILTER_OPTION provideDefaultTab();
+
 	private FILTER_OPTION chosenOption;
+	private LinearLayout tabContainer;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
-		LinearLayout tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
+		tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
 
+		FILTER_OPTION defaultOption = provideDefaultTab();
 		final ListingData callback = this;
 
 		for (final FILTER_OPTION option : provideFilterOptions())
 		{
-			View itemView = inflater.inflate(R.layout.default_filter_item, tabContainer, false);
-			TextView title = (TextView)itemView.findViewById(R.id.title);
+			Button itemView = (Button)inflater.inflate(R.layout.default_filter_item, tabContainer, false);
 
 			String titleString = getTitleForFilterOption(option);
-			title.setText(titleString);
+			itemView.setText(titleString);
 
 			itemView.setOnClickListener(new View.OnClickListener()
 			{
-				@Override public void onClick(View v)
+				@Override public void onClick(View view)
 				{
 					chosenOption = option;
+
+					clearButtonStates();
+					view.setActivated(true);
+
 					setViewState(ViewState.LOADING);
 					getListDataForFilterOption(option, callback);
 				}
 			});
 
+			if (option == defaultOption)
+			{
+				chosenOption = defaultOption;
+
+				clearButtonStates();
+				itemView.setActivated(true);
+			}
+
 			tabContainer.addView(itemView);
 		}
 
 		return view;
+	}
+
+	private void clearButtonStates()
+	{
+		for (int index = 0; index < tabContainer.getChildCount(); index++)
+		{
+			Button childView = (Button)tabContainer.getChildAt(index);
+			childView.setActivated(false);
+		}
 	}
 
 	@Override public int provideLayout()

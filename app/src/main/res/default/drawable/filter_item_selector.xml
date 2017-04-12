@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:drawable="@color/tab_unselected"
+		android:state_activated="false"
+	/>
+
+	<item
+		android:drawable="@color/tab_selected"
+		android:state_activated="true"
+	/>
+</selector>

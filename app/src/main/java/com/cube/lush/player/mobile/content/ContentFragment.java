@@ -102,6 +102,11 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 		return "Unknown";
 	}
 
+	@NonNull @Override public CategoryContentType provideDefaultTab()
+	{
+		return CategoryContentType.ALL;
+	}
+
 	@Override public int provideLoadingLayout()
 	{
 		return R.layout.content_loading;

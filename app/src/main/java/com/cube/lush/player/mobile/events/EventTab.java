@@ -1,4 +1,4 @@
-package com.cube.lush.player.mobile.home;
+package com.cube.lush.player.mobile.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,10 +7,10 @@ import lombok.Getter;
  * Created by Jamie Cruwys of 3 SIDED CUBE on 12/04/2017.
  */
 @AllArgsConstructor
-public enum HomeTab
+public enum EventTab
 {
 	@SuppressWarnings("HardCodedStringLiteral")
-	ALL("All Episodes", null),
+	ALL("All Events", null),
 
 	@SuppressWarnings("HardCodedStringLiteral")
 	SUMMIT("Lush Summit 2017", "summit"),

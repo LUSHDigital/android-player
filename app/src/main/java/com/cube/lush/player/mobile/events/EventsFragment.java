@@ -2,20 +2,25 @@ package com.cube.lush.player.mobile.events;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
+import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.events.adapter.EventsAdapter;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
-public class EventsFragment extends StatefulListingFragment<MediaContent> implements RecyclerViewClickedListener<MediaContent>
+public class EventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements RecyclerViewClickedListener<MediaContent>
 {
 	public EventsFragment()
 	{
@@ -35,9 +40,42 @@ public class EventsFragment extends StatefulListingFragment<MediaContent> implem
 		return new EventsAdapter(items, this);
 	}
 
-	@Override protected void getListData(@NonNull ListingData callback)
+	@NonNull @Override public List provideFilterOptions()
 	{
-		callback.onListingDataRetrieved(Collections.EMPTY_LIST);
+		ArrayList<EventTab> tabs = new ArrayList<EventTab>();
+
+		for (EventTab tab : EventTab.values())
+		{
+			tabs.add(tab);
+		}
+
+		return tabs;
+	}
+
+	@Override public void getListDataForFilterOption(@NonNull EventTab eventTab, @NonNull final ListingData callback)
+	{
+		MediaManager.getInstance().getContentForTag(eventTab.getTag(), new ResponseHandler<MediaContent>()
+		{
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			{
+				callback.onListingDataRetrieved(items);
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				callback.onListingDataError(t);
+			}
+		});
+	}
+
+	@NonNull @Override public String getTitleForFilterOption(EventTab eventTab)
+	{
+		return eventTab.getDisplayName();
+	}
+
+	@NonNull @Override public EventTab provideDefaultTab()
+	{
+		return EventTab.ALL;
 	}
 
 	@Override public int provideLoadingLayout()
@@ -57,6 +95,6 @@ public class EventsFragment extends StatefulListingFragment<MediaContent> implem
 
 	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent item)
 	{
-		// TODO:
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
 	}
 }

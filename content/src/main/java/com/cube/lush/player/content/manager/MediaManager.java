@@ -2,18 +2,19 @@ package com.cube.lush.player.content.manager;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.brightcove.player.edge.Catalog;
 import com.brightcove.player.event.EventEmitterImpl;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
-import com.cube.lush.player.content.BuildConfig;
 import com.cube.lush.player.api.LushAPI;
-import com.cube.lush.player.api.model.VideoContent;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.api.model.RadioContent;
+import com.cube.lush.player.api.model.VideoContent;
+import com.cube.lush.player.content.BuildConfig;
 import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.model.CategoryContentType;
@@ -214,6 +215,79 @@ public class MediaManager
 				{
 					handler.onFailure(t);
 				}
+			}
+		});
+	}
+
+	/**
+	 * Gets content for a tag
+	 * @param tag
+	 * @param handler
+	 */
+	public void getContentForTag(@NonNull final String tag, @NonNull final ResponseHandler<MediaContent> handler)
+	{
+		getAllContent(new ResponseHandler<MediaContent>()
+		{
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			{
+				// If the tag is empty, just return all results
+				if (TextUtils.isEmpty(tag))
+				{
+					handler.onSuccess(items);
+					return;
+				}
+
+				ArrayList<MediaContent> results = new ArrayList<MediaContent>();
+
+				for (MediaContent item : items)
+				{
+					if (item.getTags() != null && item.getTags().contains(tag))
+					{
+						results.add(item);
+					}
+				}
+
+				handler.onSuccess(results);
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				handler.onFailure(t);
+			}
+		});
+	}
+
+	/**
+	 * Gets all of the video and radio content
+	 * @param handler
+	 */
+	public void getAllContent(@NonNull final ResponseHandler<MediaContent> handler)
+	{
+		getVideos(new ResponseHandler<VideoContent>()
+		{
+			@Override public void onSuccess(@NonNull final List<VideoContent> videos)
+			{
+				getRadios(new ResponseHandler<RadioContent>()
+				{
+					@Override public void onSuccess(@NonNull final List<RadioContent> radios)
+					{
+						ArrayList<MediaContent> items = new ArrayList<MediaContent>();
+						items.addAll(videos);
+						items.addAll(radios);
+
+						handler.onSuccess(items);
+					}
+
+					@Override public void onFailure(@Nullable Throwable t)
+					{
+						handler.onFailure(t);
+					}
+				});
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				handler.onFailure(t);
 			}
 		});
 	}

@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.api.model.RadioContent;
-import com.cube.lush.player.api.model.VideoContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
@@ -19,7 +16,6 @@ import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
@@ -58,29 +54,11 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 
 	@Override public void getListDataForFilterOption(@NonNull final HomeTab homeTab, @NonNull final ListingData callback)
 	{
-		callback.onListingDataRetrieved(Collections.EMPTY_LIST);
-
-		MediaManager.getInstance().getVideos(new ResponseHandler<VideoContent>()
+		MediaManager.getInstance().getContentForTag(homeTab.getTag(), new ResponseHandler<MediaContent>()
 		{
-			@Override public void onSuccess(@NonNull final List<VideoContent> videoItems)
+			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
-				MediaManager.getInstance().getRadios(new ResponseHandler<RadioContent>()
-				{
-					@Override public void onSuccess(@NonNull final List<RadioContent> radioItems)
-					{
-						ArrayList<MediaContent> items = new ArrayList<MediaContent>();
-						items.addAll(videoItems);
-						items.addAll(radioItems);
-
-						List<MediaContent> results = filterContentByTag(items, homeTab.getTag());
-						callback.onListingDataRetrieved(results);
-					}
-
-					@Override public void onFailure(@Nullable Throwable t)
-					{
-						callback.onListingDataError(t);
-					}
-				});
+				callback.onListingDataRetrieved(items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
@@ -88,26 +66,6 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 				callback.onListingDataError(t);
 			}
 		});
-	}
-
-	private List<MediaContent> filterContentByTag(@NonNull ArrayList<MediaContent> items, @Nullable String tag)
-	{
-		if (TextUtils.isEmpty(tag))
-		{
-			return items;
-		}
-
-		ArrayList<MediaContent> results = new ArrayList<MediaContent>();
-
-		for (MediaContent item : items)
-		{
-			if (item.getTags() != null && item.getTags().contains(tag))
-			{
-				results.add(item);
-			}
-		}
-
-		return results;
 	}
 
 	@NonNull @Override public String getTitleForFilterOption(HomeTab homeTab)

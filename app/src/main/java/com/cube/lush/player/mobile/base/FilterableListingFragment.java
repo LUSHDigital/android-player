@@ -61,18 +61,31 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 				}
 			});
 
-			if (option == defaultOption)
-			{
-				chosenOption = defaultOption;
-
-				clearButtonStates();
-				itemView.setActivated(true);
-			}
-
 			tabContainer.addView(itemView);
 		}
 
+		chosenOption = defaultOption;
+		selectOption(defaultOption);
+
 		return view;
+	}
+
+	public void selectOption(@NonNull FILTER_OPTION option)
+	{
+		clearButtonStates();
+
+		String titleForOption = getTitleForFilterOption(option);
+
+		for (int index = 0; index < tabContainer.getChildCount(); index++)
+		{
+			Button childView = (Button)tabContainer.getChildAt(index);
+
+			if (childView.getText().equals(titleForOption))
+			{
+				childView.setActivated(true);
+				return;
+			}
+		}
 	}
 
 	private void clearButtonStates()

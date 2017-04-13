@@ -12,6 +12,7 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.EventTabSelection;
+import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.events.adapter.AllEventsAdapter;
@@ -19,13 +20,12 @@ import com.cube.lush.player.mobile.events.adapter.AllEventsAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 13/04/2017.
  */
-public class AllEventsFragment extends StatefulListingFragment<MediaContent> implements RecyclerViewClickedListener<MediaContent>,EventTabSelection
+public class AllEventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements RecyclerViewClickedListener<MediaContent>,EventTabSelection
 {
 	public AllEventsFragment()
 	{
@@ -52,7 +52,19 @@ public class AllEventsFragment extends StatefulListingFragment<MediaContent> imp
 		return new AllEventsAdapter(getContext(), tabs, items, this, this);
 	}
 
-	@Override protected void getListData(@NonNull final ListingData callback)
+	@NonNull @Override public List<EventTab> provideFilterOptions()
+	{
+		ArrayList<EventTab> tabs = new ArrayList<EventTab>();
+
+		for (EventTab tab : EventTab.values())
+		{
+			tabs.add(tab);
+		}
+
+		return tabs;
+	}
+
+	@Override public void getListDataForFilterOption(@NonNull EventTab eventTab, @NonNull final ListingData callback)
 	{
 		MediaManager.getInstance().getAllContent(new ResponseHandler<MediaContent>()
 		{
@@ -66,6 +78,16 @@ public class AllEventsFragment extends StatefulListingFragment<MediaContent> imp
 				callback.onListingDataError(t);
 			}
 		});
+	}
+
+	@NonNull @Override public String getTitleForFilterOption(EventTab eventTab)
+	{
+		return eventTab.getDisplayName();
+	}
+
+	@NonNull @Override public EventTab provideDefaultTab()
+	{
+		return EventTab.ALL;
 	}
 
 	@Override public int provideLoadingLayout()
@@ -90,6 +112,7 @@ public class AllEventsFragment extends StatefulListingFragment<MediaContent> imp
 
 	@Override public void selectTab(@NonNull EventTab tab)
 	{
+		selectOption(tab);
 		Toast.makeText(getContext(), "Should select tab: " + tab.getDisplayName(), Toast.LENGTH_SHORT).show();
 	}
 }

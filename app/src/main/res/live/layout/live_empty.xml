@@ -28,7 +28,6 @@
 		android:gravity="center"
 		android:padding="16dp"
 	>
-
 		<ImageView
 			android:layout_width="90dp"
 			android:layout_height="90dp"
@@ -51,7 +50,6 @@
 				android:text="We're not live 'n' kicking right now..."
 				android:textSize="32sp"
 				style="@style/Text.White.HelveticaBold"
-
 			/>
 
 			<TextView
@@ -74,6 +72,5 @@
 			android:textAllCaps="true"
 			style="@style/LushButton.White"
 		/>
-
 	</LinearLayout>
 </RelativeLayout>

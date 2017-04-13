@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
@@ -158,5 +159,13 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 	@Override public void onRecyclerViewItemClicked(@NonNull SearchResult item)
 	{
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
+	}
+
+	@OnClick(R.id.search_again) void onSearchAgainClicked()
+	{
+		// Clear existing query and show the expanded state, ready for the user to input their new query
+		searchView.setQuery("", false);
+		searchView.onActionViewCollapsed();
+		searchView.onActionViewExpanded();
 	}
 }

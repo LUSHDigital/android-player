@@ -96,6 +96,7 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 
 	@Override protected void getListData(@NonNull ListingData listingData)
 	{
+		setViewState(ViewState.LOADING);
 		getListDataForFilterOption(chosenOption, listingData);
 	}
 }

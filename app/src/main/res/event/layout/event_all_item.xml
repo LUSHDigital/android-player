@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/section_title"
+		android:paddingLeft="16dp"
+		android:paddingRight="16dp"
+		android:paddingTop="16dp"
+		android:text="Lush Summit 2017"
+		android:textSize="18sp"
+		style="@style/Text.White.HelveticaBold"
+	/>
+
+	<android.support.v7.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/event_recycler"
+	/>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="12dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:background="@android:color/black"
+	/>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/event_more"
+		android:layout_margin="16dp"
+		android:text="More from this event"
+		android:textAllCaps="true"
+		style="@style/LushButton.Black"
+	/>
+</LinearLayout>

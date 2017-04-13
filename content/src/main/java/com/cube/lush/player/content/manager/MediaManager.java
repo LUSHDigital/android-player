@@ -230,24 +230,8 @@ public class MediaManager
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
-				// If the tag is empty, just return all results
-				if (TextUtils.isEmpty(tag))
-				{
-					handler.onSuccess(items);
-					return;
-				}
-
-				ArrayList<MediaContent> results = new ArrayList<MediaContent>();
-
-				for (MediaContent item : items)
-				{
-					if (item.getTags() != null && item.getTags().contains(tag))
-					{
-						results.add(item);
-					}
-				}
-
-				handler.onSuccess(results);
+				List<MediaContent> filteredMediaContent = filterContentByTag(tag, items);
+				handler.onSuccess(filteredMediaContent);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
@@ -255,6 +239,27 @@ public class MediaManager
 				handler.onFailure(t);
 			}
 		});
+	}
+
+	public List<MediaContent> filterContentByTag(@NonNull final String tag, @NonNull List<MediaContent> items)
+	{
+		// If the tag is empty, just return all results
+		if (TextUtils.isEmpty(tag))
+		{
+			return items;
+		}
+
+		ArrayList<MediaContent> results = new ArrayList<MediaContent>();
+
+		for (MediaContent item : items)
+		{
+			if (item.getTags() != null && item.getTags().contains(tag))
+			{
+				results.add(item);
+			}
+		}
+
+		return results;
 	}
 
 	/**

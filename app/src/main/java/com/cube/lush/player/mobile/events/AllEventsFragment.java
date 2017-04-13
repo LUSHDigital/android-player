@@ -25,7 +25,7 @@ import uk.co.jamiecruwys.contracts.ListingData;
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 13/04/2017.
  */
-public class AllEventsFragment extends StatefulListingFragment implements RecyclerViewClickedListener<MediaContent>,EventTabSelection
+public class AllEventsFragment extends StatefulListingFragment<MediaContent> implements RecyclerViewClickedListener<MediaContent>,EventTabSelection
 {
 	public AllEventsFragment()
 	{
@@ -40,7 +40,7 @@ public class AllEventsFragment extends StatefulListingFragment implements Recycl
 		return fragment;
 	}
 
-	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List items)
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
 	{
 		ArrayList<EventTab> tabs = new ArrayList<EventTab>();
 

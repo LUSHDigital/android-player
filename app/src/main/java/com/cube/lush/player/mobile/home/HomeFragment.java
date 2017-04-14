@@ -16,7 +16,6 @@ import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.lush.lib.listener.OnListItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;

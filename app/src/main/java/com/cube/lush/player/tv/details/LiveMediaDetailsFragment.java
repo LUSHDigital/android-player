@@ -25,8 +25,8 @@ import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.util.BrightcoveUtils;
 import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
-import com.cube.lush.player.common.playback.PlaybackActivity;
-import com.cube.lush.player.common.playback.PlaybackMethod;
+import com.cube.lush.player.tv.playback.PlaybackActivity;
+import com.cube.lush.player.tv.playback.PlaybackMethod;
 
 import java.util.List;
 

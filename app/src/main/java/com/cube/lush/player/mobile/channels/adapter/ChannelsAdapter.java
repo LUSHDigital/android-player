@@ -1,44 +1,31 @@
 package com.cube.lush.player.mobile.channels.adapter;
 
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.holder.ChannelViewHolder;
+import com.lush.lib.adapter.BaseSelectableListAdapter;
+import com.lush.lib.listener.OnListItemClickListener;
+import com.lush.view.holder.BaseViewHolder;
 
 import java.util.List;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
  */
-public class ChannelsAdapter extends BaseAdapter<Channel, ChannelViewHolder>
+public class ChannelsAdapter extends BaseSelectableListAdapter<Channel>
 {
-	private RecyclerViewClickedListener listener;
-
-	public ChannelsAdapter(@NonNull List<Channel> items, @NonNull RecyclerViewClickedListener listener)
+	public ChannelsAdapter(List<Channel> items, OnListItemClickListener<Channel> listener)
 	{
-		super(items);
-		this.listener = listener;
+		super(items, listener);
 	}
 
-	@Override protected int provideViewHolderLayout()
+	@Override public BaseViewHolder<Channel> onCreateViewHolder(ViewGroup parent, int viewType)
 	{
-		return R.layout.channel_item;
-	}
-
-	@NonNull @Override protected ChannelViewHolder createViewHolder(@NonNull View itemView)
-	{
-		return new ChannelViewHolder(itemView, listener);
-	}
-
-	@Override protected void bind(@NonNull ChannelViewHolder holder, @NonNull Channel item)
-	{
-		Drawable drawable = ContextCompat.getDrawable(holder.image.getContext(), item.getLogo());
-		holder.image.setImageDrawable(drawable);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.channel_item, parent, false);
+		return new ChannelViewHolder(view);
 	}
 }

@@ -16,10 +16,10 @@ import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
+import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
-public class SearchFragment extends StatefulListingFragment<SearchResult> implements RecyclerViewClickedListener<SearchResult>
+public class SearchFragment extends StatefulListingFragment<SearchResult> implements OnListItemClickListener<SearchResult>
 {
 	@BindView(R.id.search) SearchView searchView;
 	public static String query = "";
@@ -156,9 +156,9 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		});
 	}
 
-	@Override public void onRecyclerViewItemClicked(@NonNull SearchResult item)
+	@Override public void onItemClick(SearchResult searchResult, View view)
 	{
-		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(searchResult));
 	}
 
 	@OnClick(R.id.search_again) void onSearchAgainClicked()

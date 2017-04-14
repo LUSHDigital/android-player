@@ -1,14 +1,13 @@
 package com.cube.lush.player.mobile.events.holder;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.mobile.base.BaseViewHolder;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
+import com.lush.view.holder.BaseViewHolder;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,9 +22,22 @@ public class EventViewHolder extends BaseViewHolder<MediaContent>
 	@BindView(R.id.title) public TextView title;
 	@BindView(R.id.length) public TextView length;
 
-	public EventViewHolder(@NonNull View itemView, @NonNull RecyclerViewClickedListener<MediaContent> listener)
+	public EventViewHolder(View view)
 	{
-		super(itemView, listener);
-		ButterKnife.bind(this, itemView);
+		super(view);
+		ButterKnife.bind(this, view);
+	}
+
+	@Override public void bind(MediaContent mediaContent)
+	{
+		type.setText(mediaContent.getType().getName());
+		title.setText(mediaContent.getTitle());
+		length.setText(mediaContent.getRelativeDate());
+
+		Picasso.with(image.getContext())
+			.load(mediaContent.getThumbnail())
+			.fit()
+			.centerCrop()
+			.into(image);
 	}
 }

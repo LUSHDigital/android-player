@@ -1,5 +1,10 @@
 package com.cube.lush.player.mobile.home;
 
+import com.cube.lush.player.mobile.events.EventTab;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,4 +32,16 @@ public enum HomeTab
 	 * Name of the tag that will be used to find the content
 	 */
 	@Getter private String tag;
+
+	public static List<HomeTab> listValues()
+	{
+		ArrayList<HomeTab> items = new ArrayList<>();
+
+		for (HomeTab item : HomeTab.values())
+		{
+			items.add(item);
+		}
+
+		return items;
+	}
 }

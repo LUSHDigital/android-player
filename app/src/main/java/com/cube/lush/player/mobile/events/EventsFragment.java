@@ -16,7 +16,6 @@ import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.events.adapter.EventsAdapter;
 import com.lush.lib.listener.OnListItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
@@ -46,14 +45,7 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 
 	@NonNull @Override public List provideFilterOptions()
 	{
-		ArrayList<EventTab> tabs = new ArrayList<EventTab>();
-
-		for (EventTab tab : EventTab.values())
-		{
-			tabs.add(tab);
-		}
-
-		return tabs;
+		return EventTab.listValues();
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull EventTab eventTab, @NonNull final ListingData callback)

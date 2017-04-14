@@ -46,14 +46,7 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 
 	@NonNull @Override public List<HomeTab> provideFilterOptions()
 	{
-		ArrayList<HomeTab> tabs= new ArrayList<HomeTab>();
-
-		for (HomeTab tab : HomeTab.values())
-		{
-			tabs.add(tab);
-		}
-
-		return tabs;
+		return HomeTab.listValues();
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull final HomeTab homeTab, @NonNull final ListingData callback)

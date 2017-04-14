@@ -61,14 +61,7 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 
 	@NonNull @Override public List<CategoryContentType> provideFilterOptions()
 	{
-		ArrayList<CategoryContentType> options = new ArrayList<CategoryContentType>();
-
-		for (CategoryContentType contentType : CategoryContentType.values())
-		{
-			options.add(contentType);
-		}
-
-		return options;
+		return CategoryContentType.listValues();
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull CategoryContentType contentType, @NonNull final ListingData callback)

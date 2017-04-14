@@ -1,50 +1,32 @@
 package com.cube.lush.player.mobile.content.adapter;
 
-import android.support.annotation.NonNull;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.holder.ContentViewHolder;
-import com.squareup.picasso.Picasso;
+import com.lush.lib.adapter.BaseSelectableListAdapter;
+import com.lush.lib.listener.OnListItemClickListener;
+import com.lush.view.holder.BaseViewHolder;
 
 import java.util.List;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
  */
-public class ContentAdapter extends BaseAdapter<MediaContent, ContentViewHolder>
+public class ContentAdapter extends BaseSelectableListAdapter<MediaContent>
 {
-	private RecyclerViewClickedListener listener = null;
-
-	public ContentAdapter(@NonNull List<MediaContent> items, @NonNull RecyclerViewClickedListener listener)
+	public ContentAdapter(List<MediaContent> items, OnListItemClickListener<MediaContent> listener)
 	{
-		super(items);
-		this.listener = listener;
+		super(items, listener);
 	}
 
-	@Override protected int provideViewHolderLayout()
+	@Override public BaseViewHolder<MediaContent> onCreateViewHolder(ViewGroup parent, int viewType)
 	{
-		return R.layout.content_item;
-	}
-
-	@NonNull @Override protected ContentViewHolder createViewHolder(@NonNull View itemView)
-	{
-		return new ContentViewHolder(itemView, listener);
-	}
-
-	@Override protected void bind(@NonNull ContentViewHolder holder, @NonNull MediaContent item)
-	{
-		holder.type.setText(item.getType().getName());
-		holder.title.setText(item.getTitle());
-		holder.length.setText(item.getRelativeDate());
-
-		Picasso.with(holder.image.getContext())
-			.load(item.getThumbnail())
-			.fit()
-			.centerCrop()
-			.into(holder.image);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.content_item, parent, false);
+		return new ContentViewHolder(view);
 	}
 }

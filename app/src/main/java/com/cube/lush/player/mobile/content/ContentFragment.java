@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
@@ -14,16 +15,16 @@ import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.FilterableListingFragment;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
+import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
-public class ContentFragment extends FilterableListingFragment<MediaContent, CategoryContentType> implements RecyclerViewClickedListener<MediaContent>
+public class ContentFragment extends FilterableListingFragment<MediaContent, CategoryContentType> implements OnListItemClickListener<MediaContent>
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CHANNEL = "arg_channel";
@@ -114,7 +115,7 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 		return R.layout.content_error;
 	}
 
-	@Override public void onRecyclerViewItemClicked(@NonNull MediaContent mediaContent)
+	@Override public void onItemClick(MediaContent mediaContent, View view)
 	{
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));
 	}

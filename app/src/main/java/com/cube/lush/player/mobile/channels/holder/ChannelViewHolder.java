@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Created by Jamie Cruwys.
  */
 public class ChannelViewHolder extends BaseViewHolder<Channel>
 {

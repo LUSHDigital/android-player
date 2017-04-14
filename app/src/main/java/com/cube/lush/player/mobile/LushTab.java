@@ -3,6 +3,9 @@ package com.cube.lush.player.mobile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 @AllArgsConstructor
 public enum LushTab
 {

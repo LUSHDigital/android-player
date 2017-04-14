@@ -41,6 +41,9 @@ import uk.co.jamiecruwys.ViewState;
 import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
 import static android.text.format.DateUtils.FORMAT_UTC;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class LiveFragment extends StatefulFragment
 {
 	@BindView(R.id.thumbnail) ImageView thumbnail;

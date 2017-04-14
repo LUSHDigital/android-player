@@ -14,7 +14,7 @@ import com.lush.view.holder.BaseViewHolder;
 import java.util.List;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Created by Jamie Cruwys.
  */
 public class EventsAdapter extends BaseSelectableListAdapter<MediaContent>
 {

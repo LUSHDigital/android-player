@@ -36,7 +36,7 @@ import uk.co.jamiecruwys.StatefulActivity;
 import uk.co.jamiecruwys.ViewState;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 31/03/2017.
+ * Created by Jamie Cruwys.
  */
 public class PlaybackFragment extends BrightcovePlayerFragment
 {

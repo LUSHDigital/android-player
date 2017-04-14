@@ -22,6 +22,9 @@ import java.util.List;
 import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class ChannelsFragment extends StatefulListingFragment<Channel> implements OnListItemClickListener<Channel>
 {
 	public ChannelsFragment()

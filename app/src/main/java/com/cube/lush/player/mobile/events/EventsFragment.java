@@ -21,6 +21,9 @@ import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class EventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements OnListItemClickListener<MediaContent>
 {
 	public EventsFragment()

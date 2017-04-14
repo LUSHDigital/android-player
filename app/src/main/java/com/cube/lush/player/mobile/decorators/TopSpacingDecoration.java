@@ -7,7 +7,7 @@ import android.view.View;
 import lombok.AllArgsConstructor;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 04/04/2017.
+ * Created by Jamie Cruwys.
  */
 @AllArgsConstructor
 public class TopSpacingDecoration extends RecyclerView.ItemDecoration

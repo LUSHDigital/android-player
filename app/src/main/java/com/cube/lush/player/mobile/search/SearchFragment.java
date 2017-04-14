@@ -29,6 +29,9 @@ import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class SearchFragment extends StatefulListingFragment<SearchResult> implements OnListItemClickListener<SearchResult>
 {
 	@BindView(R.id.search) SearchView searchView;

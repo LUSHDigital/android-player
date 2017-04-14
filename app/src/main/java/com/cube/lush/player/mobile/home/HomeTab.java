@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 12/04/2017.
+ * Created by Jamie Cruwys.
  */
 @AllArgsConstructor
 public enum HomeTab

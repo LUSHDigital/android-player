@@ -24,6 +24,9 @@ import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class ContentFragment extends FilterableListingFragment<MediaContent, CategoryContentType> implements OnListItemClickListener<MediaContent>
 {
 	@SuppressWarnings("HardCodedStringLiteral")

@@ -1,6 +1,5 @@
 package com.cube.lush.player.mobile.content.holder;
 
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Created by Jamie Cruwys.
  */
 public class ContentViewHolder extends BaseViewHolder<MediaContent>
 {

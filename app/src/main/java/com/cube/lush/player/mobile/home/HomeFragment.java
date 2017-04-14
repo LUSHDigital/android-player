@@ -21,6 +21,9 @@ import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTab> implements OnListItemClickListener<MediaContent>
 {
 	public HomeFragment()

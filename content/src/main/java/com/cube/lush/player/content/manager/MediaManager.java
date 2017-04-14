@@ -142,6 +142,18 @@ public class MediaManager
 		return null;
 	}
 
+	public void getChannels(@NonNull final ResponseHandler<Channel> handler)
+	{
+		ArrayList<Channel> channels = new ArrayList<Channel>();
+
+		for (Channel channel : Channel.values())
+		{
+			channels.add(channel);
+		}
+
+		handler.onSuccess(channels);
+	}
+
 	/**
 	 * Gets all of the media content, which is videos and radios
 	 *

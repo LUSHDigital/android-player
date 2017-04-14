@@ -71,11 +71,6 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		if (TextUtils.isEmpty(query))
-		{
-			return;
-		}
-
 		SearchManager.getInstance().search(query, new ResponseHandler<SearchResult>()
 		{
 			@Override public void onSuccess(@NonNull List<SearchResult> items)

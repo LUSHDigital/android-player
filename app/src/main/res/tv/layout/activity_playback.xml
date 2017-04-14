@@ -6,8 +6,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:id="@+id/playback_fragment"
-	android:name="com.cube.lush.player.common.playback.PlaybackFragment"
-	tools:context=".common.playback.PlaybackActivity"
+	android:name="com.cube.lush.player.tv.playback.PlaybackFragment"
+	tools:context=".tv.playback.PlaybackActivity"
 	tools:deviceIds="tv"
 	tools:ignore="MergeRootFrame"
 />

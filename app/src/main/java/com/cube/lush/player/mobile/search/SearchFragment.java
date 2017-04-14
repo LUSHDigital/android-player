@@ -16,7 +16,7 @@ import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.decorators.TopSpacingDecoration;
+import com.cube.lush.player.mobile.decoration.TopSpacingDecoration;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
 import com.lush.lib.listener.OnListItemClickListener;

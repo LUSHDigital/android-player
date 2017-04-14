@@ -13,7 +13,7 @@ import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.content.ContentFragment;
-import com.cube.lush.player.mobile.decorators.GridSpacingDecoration;
+import com.cube.lush.player.mobile.decoration.GridSpacingDecoration;
 import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.Arrays;

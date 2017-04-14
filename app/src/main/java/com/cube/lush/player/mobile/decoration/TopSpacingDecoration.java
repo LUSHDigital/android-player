@@ -1,4 +1,4 @@
-package com.cube.lush.player.mobile.decorators;
+package com.cube.lush.player.mobile.decoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

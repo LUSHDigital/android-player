@@ -34,11 +34,12 @@ import java.util.List;
 import butterknife.ButterKnife;
 import uk.co.jamiecruwys.StatefulActivity;
 import uk.co.jamiecruwys.ViewState;
+import uk.co.jamiecruwys.contracts.ViewStateChange;
 
 /**
  * Created by Jamie Cruwys.
  */
-public class PlaybackFragment extends BrightcovePlayerFragment
+public class PlaybackFragment extends BrightcovePlayerFragment implements ViewStateChange
 {
 	private MediaContent mediaContent;
 
@@ -72,7 +73,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 		if (getActivity().getIntent() == null)
 		{
-			((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+			setViewState(ViewState.ERROR);
 			return;
 		}
 
@@ -134,7 +135,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 				if (items.isEmpty() || items.get(0) == null)
 				{
-					((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+					setViewState(ViewState.ERROR);
 					return;
 				}
 
@@ -148,7 +149,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 					return;
 				}
 
-				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+				setViewState(ViewState.ERROR);
 			}
 		});
 	}
@@ -168,7 +169,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 					return;
 				}
 
-				((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
+				setViewState(ViewState.LOADED);
 
 				brightcoveVideoView.add(video);
 				brightcoveVideoView.start();
@@ -196,7 +197,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 					return;
 				}
 
-				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+				setViewState(ViewState.ERROR);
 			}
 		});
 	}
@@ -208,7 +209,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			return;
 		}
 
-		((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
+		setViewState(ViewState.LOADED);
 
 		brightcoveVideoView.add(Video.createVideo(fileUrl, DeliveryType.MP4));
 		brightcoveVideoView.start();
@@ -244,7 +245,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 				if (videoInfo != null)
 				{
-					((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
+					setViewState(ViewState.LOADED);
 
 					brightcoveVideoView.add(videoInfo.getVideo());
 					brightcoveVideoView.seekTo((int) (System.currentTimeMillis() - videoInfo.getStartTimeUtc()));
@@ -260,7 +261,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				}
 				else
 				{
-					((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+					setViewState(ViewState.ERROR);
 				}
 			}
 
@@ -274,7 +275,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 					return;
 				}
 
-				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+				setViewState(ViewState.ERROR);
 			}
 		});
 	}
@@ -294,12 +295,12 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 				if (!items.isEmpty() && !TextUtils.isEmpty(items.get(0).getId()))
 				{
-					((StatefulActivity)getActivity()).setViewState(ViewState.LOADED);
+					setViewState(ViewState.LOADED);
 					playPlaylist(items.get(0).getId());
 				}
 				else
 				{
-					((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+					setViewState(ViewState.ERROR);
 				}
 			}
 
@@ -311,8 +312,18 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 					return;
 				}
 
-				((StatefulActivity)getActivity()).setViewState(ViewState.ERROR);
+				setViewState(ViewState.ERROR);
 			}
 		});
+	}
+
+	@Override public void setViewState(@NonNull ViewState viewState)
+	{
+		((StatefulActivity)getActivity()).setViewState(viewState);
+	}
+
+	@NonNull @Override public ViewState getViewState()
+	{
+		return ((StatefulActivity)getActivity()).getViewState();
 	}
 }

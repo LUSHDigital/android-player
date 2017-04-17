@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulFragment;
 import uk.co.jamiecruwys.ViewState;
+import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
  * Created by Jamie Cruwys.
@@ -91,6 +92,11 @@ public class DetailsFragment extends StatefulFragment
 	@Override public ViewState provideInitialViewState()
 	{
 		return ViewState.LOADED;
+	}
+
+	@Override protected void getListData(@NonNull ListingData listingData)
+	{
+		// No data to retrieve as it is passed via arguments to this fragment
 	}
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)

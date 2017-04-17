@@ -1,12 +1,15 @@
 package com.cube.lush.player.content.manager;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.api.model.SearchResult;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,8 +43,14 @@ public class SearchManager
 		DaggerComponents.getInstance().getApi().inject(this);
 	}
 
-	public void search(@NonNull final String searchTerm, @NonNull final ResponseHandler<SearchResult> handler)
+	public void search(@Nullable final String searchTerm, @NonNull final ResponseHandler<SearchResult> handler)
 	{
+		if (TextUtils.isEmpty(searchTerm))
+		{
+			handler.onSuccess(Collections.EMPTY_LIST);
+			return;
+		}
+
 		Call<List<SearchResult>> searchCall = api.search(searchTerm);
 
 		searchCall.enqueue(new Callback<List<SearchResult>>()

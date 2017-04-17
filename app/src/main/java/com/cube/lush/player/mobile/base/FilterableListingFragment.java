@@ -17,7 +17,7 @@ import uk.co.jamiecruwys.ViewState;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 12/04/2017.
+ * Created by Jamie Cruwys.
  */
 public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extends StatefulListingFragment<ITEM_TYPE>
 {

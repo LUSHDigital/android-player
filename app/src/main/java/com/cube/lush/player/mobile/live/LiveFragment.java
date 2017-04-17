@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,11 +38,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulFragment;
 import uk.co.jamiecruwys.ViewState;
+import uk.co.jamiecruwys.contracts.ListingData;
 
 import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
 import static android.text.format.DateUtils.FORMAT_UTC;
 
-public class LiveFragment extends StatefulFragment
+/**
+ * Created by Jamie Cruwys.
+ */
+public class LiveFragment extends StatefulFragment<Playlist>
 {
 	@BindView(R.id.thumbnail) ImageView thumbnail;
 	@BindView(R.id.meta) TextView meta;
@@ -72,81 +77,6 @@ public class LiveFragment extends StatefulFragment
 		return view;
 	}
 
-	@Override public void onResume()
-	{
-		super.onResume();
-
-		// Get the live content
-		MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()
-		{
-			@Override
-			public void onSuccess(@NonNull List<MediaContent> items)
-			{
-				if (getActivity() == null)
-				{
-					setViewState(ViewState.ERROR);
-					return;
-				}
-
-				if (items.isEmpty())
-				{
-					setViewState(ViewState.EMPTY);
-					return;
-				}
-
-				final String playlistId = items.get(0).getId();
-
-				// Get the playlist that is live
-				MediaManager.getInstance().getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
-				{
-					@Override
-					public void onPlaylist(Playlist playlist)
-					{
-						if (getActivity() == null)
-						{
-							setViewState(ViewState.ERROR);
-							return;
-						}
-
-						if (playlist == null)
-						{
-							setViewState(ViewState.EMPTY);
-							return;
-						}
-
-						VideoInfo liveVideoInfo = MediaManager.getInstance().findCurrentLiveVideo(playlist);
-
-						if (liveVideoInfo == null)
-						{
-							setViewState(ViewState.EMPTY);
-							return;
-						}
-
-						setLiveVideoInfo(playlistId, liveVideoInfo);
-					}
-
-					@Override
-					public void onError(String error)
-					{
-						super.onError(error);
-						setViewState(ViewState.ERROR);
-					}
-				});
-			}
-
-			@Override
-			public void onFailure(@Nullable Throwable t)
-			{
-				setViewState(ViewState.ERROR);
-			}
-		});
-	}
-
-	@Override public ViewState provideInitialViewState()
-	{
-		return ViewState.LOADING;
-	}
-
 	@Override public int provideLoadingLayout()
 	{
 		return R.layout.live_loading;
@@ -167,9 +97,88 @@ public class LiveFragment extends StatefulFragment
 		return R.layout.live_error;
 	}
 
-	@OnClick(R.id.show_channels) void onShowChannelsClicked()
+	@Override public ViewState provideInitialViewState()
 	{
-		((MainActivity)getActivity()).selectTab(LushTab.CHANNELS);
+		return ViewState.LOADING;
+	}
+
+	@Override protected boolean shouldReloadOnResume()
+	{
+		return true;
+	}
+
+	@Override protected void getListData(@NonNull final ListingData callback)
+	{
+		// Get the live content
+		MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()
+		{
+			@Override
+			public void onSuccess(@NonNull List<MediaContent> items)
+			{
+				if (getActivity() == null || items.isEmpty())
+				{
+					callback.onListingDataError(null);
+					return;
+				}
+
+				final String playlistId = items.get(0).getId();
+
+				// Get the playlist that is live
+				MediaManager.getInstance().getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
+				{
+					@Override
+					public void onPlaylist(Playlist playlist)
+					{
+						if (getActivity() == null || playlist == null)
+						{
+							callback.onListingDataError(null);
+							return;
+						}
+
+						playlist.getProperties().put("id", playlistId);
+
+						ArrayList<Playlist> playlists = new ArrayList<>();
+						playlists.add(playlist);
+
+						callback.onListingDataRetrieved(playlists);
+					}
+
+					@Override
+					public void onError(String error)
+					{
+						callback.onListingDataError(null);
+					}
+				});
+			}
+
+			@Override
+			public void onFailure(@Nullable Throwable t)
+			{
+				callback.onListingDataError(t);
+			}
+		});
+	}
+
+	@Override public void onListingDataRetrieved(@NonNull List<Playlist> items)
+	{
+		super.onListingDataRetrieved(items);
+
+		if (getViewState() == ViewState.LOADED)
+		{
+			// Will only be one playlist element
+			Playlist playlist = items.get(0);
+			String playlistId = playlist.getStringProperty("id");
+
+			VideoInfo liveVideoInfo = MediaManager.getInstance().findCurrentLiveVideo(playlist);
+
+			if (liveVideoInfo == null)
+			{
+				setViewState(ViewState.EMPTY);
+				return;
+			}
+
+			setLiveVideoInfo(playlistId, liveVideoInfo);
+		}
 	}
 
 	private void setLiveVideoInfo(@NonNull final String playlistId, @NonNull VideoInfo videoInfo)
@@ -218,6 +227,11 @@ public class LiveFragment extends StatefulFragment
 
 		// TODO: Description
 		// TODO: Tags
+	}
+
+	@OnClick(R.id.show_channels) void onShowChannelsClicked()
+	{
+		((MainActivity)getActivity()).selectTab(LushTab.CHANNELS);
 	}
 
 	@OnClick(R.id.share) void onShareClicked()

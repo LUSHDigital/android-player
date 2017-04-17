@@ -26,6 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.jamiecruwys.ViewState;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class MainActivity extends BaseMobileActivity implements AHBottomNavigation.OnTabSelectedListener
 {
     @BindView(R.id.bottom_navigation)

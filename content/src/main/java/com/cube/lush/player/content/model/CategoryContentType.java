@@ -1,5 +1,8 @@
 package com.cube.lush.player.content.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -33,4 +36,16 @@ public enum CategoryContentType
 	 */
 	@Getter
 	private String displayName;
+
+	public static List<CategoryContentType> listValues()
+	{
+		ArrayList<CategoryContentType> items = new ArrayList<>();
+
+		for (CategoryContentType item : CategoryContentType.values())
+		{
+			items.add(item);
+		}
+
+		return items;
+	}
 }

@@ -1,10 +1,15 @@
 package com.cube.lush.player.mobile.events;
 
+import com.cube.lush.player.content.model.CategoryContentType;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 12/04/2017.
+ * Created by Jamie Cruwys.
  */
 @AllArgsConstructor
 public enum EventTab
@@ -27,4 +32,16 @@ public enum EventTab
 	 * Name of the tag that will be used to find the content
 	 */
 	@Getter private String tag;
+
+	public static List<EventTab> listValues()
+	{
+		ArrayList<EventTab> items = new ArrayList<>();
+
+		for (EventTab item : EventTab.values())
+		{
+			items.add(item);
+		}
+
+		return items;
+	}
 }

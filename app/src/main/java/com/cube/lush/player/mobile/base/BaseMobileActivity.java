@@ -6,7 +6,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import uk.co.jamiecruwys.StatefulActivity;
 
 /**
- * Base activity that performs actions common to all activities in the app.
+ * Created by Jamie Cruwys.
  */
 public abstract class BaseMobileActivity extends StatefulActivity
 {

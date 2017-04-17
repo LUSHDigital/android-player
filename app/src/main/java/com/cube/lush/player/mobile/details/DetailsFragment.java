@@ -29,6 +29,9 @@ import butterknife.OnClick;
 import uk.co.jamiecruwys.StatefulFragment;
 import uk.co.jamiecruwys.ViewState;
 
+/**
+ * Created by Jamie Cruwys.
+ */
 public class DetailsFragment extends StatefulFragment
 {
 	@SuppressWarnings("HardCodedStringLiteral")

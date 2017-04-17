@@ -1,50 +1,31 @@
 package com.cube.lush.player.mobile.events.adapter;
 
-import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.mobile.base.BaseAdapter;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.events.holder.EventViewHolder;
-import com.squareup.picasso.Picasso;
+import com.lush.lib.adapter.BaseSelectableListAdapter;
+import com.lush.lib.listener.OnListItemClickListener;
+import com.lush.view.holder.BaseViewHolder;
 
 import java.util.List;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Created by Jamie Cruwys.
  */
-public class EventsAdapter extends BaseAdapter<MediaContent, EventViewHolder>
+public class EventsAdapter extends BaseSelectableListAdapter<MediaContent>
 {
-	private RecyclerViewClickedListener listener;
-
-	public EventsAdapter(@NonNull List<MediaContent> items, @NonNull RecyclerViewClickedListener listener)
+	public EventsAdapter(List<MediaContent> items, OnListItemClickListener<MediaContent> listener)
 	{
-		super(items);
-		this.listener = listener;
+		super(items, listener);
 	}
 
-	@Override protected int provideViewHolderLayout()
+	@Override public BaseViewHolder<MediaContent> onCreateViewHolder(ViewGroup parent, int viewType)
 	{
-		return R.layout.event_item;
-	}
-
-	@NonNull @Override protected EventViewHolder createViewHolder(@NonNull View itemView)
-	{
-		return new EventViewHolder(itemView, listener);
-	}
-
-	@Override protected void bind(@NonNull EventViewHolder holder, @NonNull MediaContent item)
-	{
-		holder.type.setText(item.getType().getName());
-		holder.title.setText(item.getTitle());
-		holder.length.setText(item.getRelativeDate());
-
-		Picasso.with(holder.image.getContext())
-			.load(item.getThumbnail())
-			.fit()
-			.centerCrop()
-			.into(holder.image);
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
+		return new EventViewHolder(view);
 	}
 }

@@ -6,14 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.View;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.content.ContentFragment;
-import com.cube.lush.player.mobile.decorators.GridSpacingDecoration;
+import com.cube.lush.player.mobile.decoration.GridSpacingDecoration;
+import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +24,10 @@ import java.util.List;
 import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
-public class ChannelsFragment extends StatefulListingFragment<Channel> implements RecyclerViewClickedListener<Channel>
+/**
+ * Created by Jamie Cruwys.
+ */
+public class ChannelsFragment extends StatefulListingFragment<Channel> implements OnListItemClickListener<Channel>
 {
 	public ChannelsFragment()
 	{
@@ -54,10 +60,20 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 		return new GridSpacingDecoration(spacing, NUMBER_COLUMNS);
 	}
 
-	@Override protected void getListData(@NonNull ListingData listingData)
+	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		List<Channel> channels = Arrays.asList(Channel.values());
-		listingData.onListingDataRetrieved(channels);
+		MediaManager.getInstance().getChannels(new ResponseHandler<Channel>()
+		{
+			@Override public void onSuccess(@NonNull List<Channel> items)
+			{
+				callback.onListingDataRetrieved(items);
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
+			{
+				callback.onListingDataError(t);
+			}
+		});
 	}
 
 	@Override public int provideLoadingLayout()
@@ -75,8 +91,8 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 		return R.layout.channel_error;
 	}
 
-	@Override public void onRecyclerViewItemClicked(@NonNull Channel item)
+	@Override public void onItemClick(Channel channel, View view)
 	{
-		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(item));
+		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
 	}
 }

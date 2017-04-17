@@ -1,27 +1,33 @@
 package com.cube.lush.player.mobile.channels.holder;
 
-import android.support.annotation.NonNull;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.model.Channel;
-import com.cube.lush.player.mobile.base.BaseViewHolder;
-import com.cube.lush.player.mobile.base.RecyclerViewClickedListener;
+import com.lush.view.holder.BaseViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Created by Jamie Cruwys.
  */
 public class ChannelViewHolder extends BaseViewHolder<Channel>
 {
 	@BindView(R.id.image) public ImageView image;
 
-	public ChannelViewHolder(@NonNull View itemView, @NonNull RecyclerViewClickedListener<Channel> listener)
+	public ChannelViewHolder(View view)
 	{
-		super(itemView, listener);
-		ButterKnife.bind(this, itemView);
+		super(view);
+		ButterKnife.bind(this, view);
+	}
+
+	@Override public void bind(Channel channel)
+	{
+		Drawable drawable = ContextCompat.getDrawable(image.getContext(), channel.getLogo());
+		image.setImageDrawable(drawable);
 	}
 }

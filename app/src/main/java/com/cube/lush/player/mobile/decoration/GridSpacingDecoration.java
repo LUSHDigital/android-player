@@ -1,4 +1,4 @@
-package com.cube.lush.player.mobile.decorators;
+package com.cube.lush.player.mobile.decoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import lombok.AllArgsConstructor;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 28/03/2017.
+ * Created by Jamie Cruwys.
  */
 @AllArgsConstructor
 public class GridSpacingDecoration extends RecyclerView.ItemDecoration

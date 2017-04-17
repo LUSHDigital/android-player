@@ -13,7 +13,7 @@ import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.details.DetailsFragment;
-import com.cube.lush.player.mobile.events.adapter.AllEventsAdapter;
+import com.cube.lush.player.mobile.events.adapter.EventsAdapter;
 import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.List;
@@ -21,18 +21,18 @@ import java.util.List;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 13/04/2017.
+ * Created by Jamie Cruwys.
  */
-public class AllEventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements OnListItemClickListener<MediaContent>, EventTabSelection
+public class EventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements OnListItemClickListener<MediaContent>, EventTabSelection
 {
-	public AllEventsFragment()
+	public EventsFragment()
 	{
 		// Required empty public constructor
 	}
 
-	public static AllEventsFragment newInstance()
+	public static EventsFragment newInstance()
 	{
-		AllEventsFragment fragment = new AllEventsFragment();
+		EventsFragment fragment = new EventsFragment();
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
 		return fragment;
@@ -71,7 +71,7 @@ public class AllEventsFragment extends FilterableListingFragment<MediaContent, E
 
 	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
 	{
-		return new AllEventsAdapter(items, this, this);
+		return new EventsAdapter(items, this, this);
 	}
 
 	@Override public int provideLoadingLayout()

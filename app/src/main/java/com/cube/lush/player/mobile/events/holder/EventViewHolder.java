@@ -22,9 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 13/04/2017.
+ * Created by Jamie Cruwys.
  */
-public class AllEventViewHolder extends BaseViewHolder<EventTab>
+public class EventViewHolder extends BaseViewHolder<EventTab>
 {
 	@BindView(R.id.section_title) public TextView title;
 	@BindView(R.id.event_recycler) public RecyclerView eventRecycler;
@@ -34,7 +34,7 @@ public class AllEventViewHolder extends BaseViewHolder<EventTab>
 	private final OnListItemClickListener<MediaContent> itemListener;
 	private final EventTabSelection tabListener;
 
-	public AllEventViewHolder(@NonNull View view, @NonNull List<MediaContent> items, @NonNull OnListItemClickListener<MediaContent> itemListener, @NonNull EventTabSelection tabListener)
+	public EventViewHolder(@NonNull View view, @NonNull List<MediaContent> items, @NonNull OnListItemClickListener<MediaContent> itemListener, @NonNull EventTabSelection tabListener)
 	{
 		super(view);
 		this.items = items;

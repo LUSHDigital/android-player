@@ -9,7 +9,7 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.mobile.events.EventTabSelection;
 import com.cube.lush.player.mobile.events.EventTab;
-import com.cube.lush.player.mobile.events.holder.AllEventViewHolder;
+import com.cube.lush.player.mobile.events.holder.EventViewHolder;
 import com.lush.lib.adapter.BaseListAdapter;
 import com.lush.lib.listener.OnListItemClickListener;
 import com.lush.view.holder.BaseViewHolder;
@@ -17,15 +17,15 @@ import com.lush.view.holder.BaseViewHolder;
 import java.util.List;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 13/04/2017.
+ * Created by Jamie Cruwys.
  */
-public class AllEventsAdapter extends BaseListAdapter<EventTab>
+public class EventsAdapter extends BaseListAdapter<EventTab>
 {
 	private final List<MediaContent> items;
 	private final OnListItemClickListener<MediaContent> itemListener;
 	private final EventTabSelection tabListener;
 
-	public AllEventsAdapter(@NonNull List<MediaContent> items, @NonNull OnListItemClickListener<MediaContent> itemListener, @NonNull EventTabSelection tabListener)
+	public EventsAdapter(@NonNull List<MediaContent> items, @NonNull OnListItemClickListener<MediaContent> itemListener, @NonNull EventTabSelection tabListener)
 	{
 		super(EventTab.listValues(), null);
 		this.items = items;
@@ -36,6 +36,6 @@ public class AllEventsAdapter extends BaseListAdapter<EventTab>
 	@Override public BaseViewHolder<EventTab> onCreateViewHolder(ViewGroup parent, int viewType)
 	{
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_all_item, parent, false);
-		return new AllEventViewHolder(view, items, itemListener, tabListener);
+		return new EventViewHolder(view, items, itemListener, tabListener);
 	}
 }

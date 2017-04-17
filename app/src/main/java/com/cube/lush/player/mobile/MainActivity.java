@@ -15,7 +15,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
-import com.cube.lush.player.mobile.events.AllEventsFragment;
 import com.cube.lush.player.mobile.events.EventsFragment;
 import com.cube.lush.player.mobile.home.HomeFragment;
 import com.cube.lush.player.mobile.live.LiveFragment;
@@ -118,7 +117,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 				showNoHistoryFragment(ChannelsFragment.newInstance());
 				return true;
 			case 3:
-				showNoHistoryFragment(AllEventsFragment.newInstance());
+				showNoHistoryFragment(EventsFragment.newInstance());
 				return true;
 			case 4:
 				showNoHistoryFragment(SearchFragment.newInstance());

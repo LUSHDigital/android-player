@@ -83,9 +83,11 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 			if (childView.getText().equals(titleForOption))
 			{
 				childView.setActivated(true);
-				return;
+				continue;
 			}
 		}
+
+		getListDataForFilterOption(option, this);
 	}
 
 	private void clearButtonStates()

@@ -19,6 +19,7 @@ import com.lush.view.holder.BaseViewHolder;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 13/04/2017.
@@ -39,6 +40,7 @@ public class AllEventViewHolder extends BaseViewHolder<EventTab>
 		this.items = items;
 		this.itemListener = itemListener;
 		this.tabListener = tabListener;
+		ButterKnife.bind(this, view);
 	}
 
 	@Override public void bind(final EventTab eventTab)

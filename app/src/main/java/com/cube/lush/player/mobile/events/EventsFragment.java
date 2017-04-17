@@ -11,7 +11,6 @@ import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.base.EventTabSelection;
 import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.events.adapter.AllEventsAdapter;

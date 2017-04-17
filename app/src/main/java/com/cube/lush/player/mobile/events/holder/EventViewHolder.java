@@ -10,9 +10,9 @@ import android.widget.TextView;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.mobile.base.EventTabSelection;
+import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
+import com.cube.lush.player.mobile.events.EventTabSelection;
 import com.cube.lush.player.mobile.events.EventTab;
-import com.cube.lush.player.mobile.events.adapter.EventsAdapter;
 import com.lush.lib.listener.OnListItemClickListener;
 import com.lush.view.holder.BaseViewHolder;
 
@@ -51,8 +51,9 @@ public class AllEventViewHolder extends BaseViewHolder<EventTab>
 		eventRecycler.setLayoutManager(linearLayoutManager);
 
 		List<MediaContent> eventMediaContent = MediaManager.getInstance().filterContentByTag(eventTab.getTag(), items);
-		EventsAdapter eventsAdapter = new EventsAdapter(eventMediaContent, itemListener);
-		eventRecycler.setAdapter(eventsAdapter);
+
+		ContentAdapter contentAdapter = new ContentAdapter(eventMediaContent, itemListener);
+		eventRecycler.setAdapter(contentAdapter);
 
 		moreButton.setOnClickListener(new View.OnClickListener()
 		{

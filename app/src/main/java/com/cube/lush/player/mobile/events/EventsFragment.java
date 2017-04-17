@@ -23,7 +23,7 @@ import uk.co.jamiecruwys.contracts.ListingData;
 /**
  * Created by Jamie Cruwys.
  */
-public class EventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements OnListItemClickListener<MediaContent>
+public class EventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements OnListItemClickListener<MediaContent>, EventTabSelection
 {
 	public EventsFragment()
 	{
@@ -38,19 +38,14 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 		return fragment;
 	}
 
-	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
-	{
-		return new EventsAdapter(items, this);
-	}
-
-	@NonNull @Override public List provideFilterOptions()
+	@NonNull @Override public List<EventTab> provideFilterOptions()
 	{
 		return EventTab.listValues();
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull EventTab eventTab, @NonNull final ListingData callback)
 	{
-		MediaManager.getInstance().getContentForTag(eventTab.getTag(), new ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getAllContent(new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
@@ -74,6 +69,11 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 		return EventTab.ALL;
 	}
 
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
+	{
+		return new EventsAdapter(items, this, this);
+	}
+
 	@Override public int provideLoadingLayout()
 	{
 		return R.layout.event_loading;
@@ -89,8 +89,13 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 		return R.layout.event_error;
 	}
 
-	@Override public void onItemClick(MediaContent mediaContent, View view)
+	@Override public void onItemClick(MediaContent item, View view)
 	{
-		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
+	}
+
+	@Override public void selectTab(@NonNull EventTab tab)
+	{
+		selectOption(tab);
 	}
 }

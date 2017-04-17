@@ -1,7 +1,5 @@
 package com.cube.lush.player.mobile.events;
 
-import com.cube.lush.player.content.model.CategoryContentType;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.content.TagContentFragment;
 import com.cube.lush.player.mobile.playback.PlaybackActivity;
 import com.squareup.picasso.Picasso;
 
@@ -197,7 +199,7 @@ public class DetailsFragment extends StatefulFragment
 
 	private void onTagClicked(@NonNull View view, @NonNull String tag)
 	{
-		// TODO:
+		((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
 	}
 
 	@OnClick(R.id.play) void onPlayClicked()

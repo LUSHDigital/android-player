@@ -3,6 +3,7 @@ package com.cube.lush.player.mobile.home;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -38,11 +39,6 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 		return fragment;
 	}
 
-	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
-	{
-		return new ContentAdapter(items, this);
-	}
-
 	@NonNull @Override public List<HomeTab> provideFilterOptions()
 	{
 		return HomeTab.listValues();
@@ -72,6 +68,21 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 	@NonNull @Override public HomeTab provideDefaultTab()
 	{
 		return HomeTab.ALL;
+	}
+
+	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(HomeTab homeTab)
+	{
+		return new LinearLayoutManager(getContext());
+	}
+
+	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(HomeTab homeTab, @NonNull List<MediaContent> items)
+	{
+		return new ContentAdapter(items, this);
+	}
+
+	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(HomeTab homeTab)
+	{
+		return null;
 	}
 
 	@Override public int provideLoadingLayout()

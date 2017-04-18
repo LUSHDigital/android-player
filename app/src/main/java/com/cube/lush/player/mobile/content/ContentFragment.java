@@ -3,6 +3,7 @@ package com.cube.lush.player.mobile.content;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -19,7 +20,6 @@ import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.lush.lib.listener.OnListItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
@@ -54,11 +54,6 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 		channel = (Channel)getArguments().getSerializable(ARG_CHANNEL);
 	}
 
-	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
-	{
-		return new ContentAdapter(items, this);
-	}
-
 	@NonNull @Override public List<CategoryContentType> provideFilterOptions()
 	{
 		return CategoryContentType.listValues();
@@ -89,6 +84,21 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 	@NonNull @Override public CategoryContentType provideDefaultTab()
 	{
 		return CategoryContentType.ALL;
+	}
+
+	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
+	{
+		return new LinearLayoutManager(getContext());
+	}
+
+	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(CategoryContentType categoryContentType, @NonNull List<MediaContent> items)
+	{
+		return new ContentAdapter(items, this);
+	}
+
+	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(CategoryContentType categoryContentType)
+	{
+		return null;
 	}
 
 	@Override public int provideLoadingLayout()

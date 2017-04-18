@@ -2,6 +2,7 @@
 <resources>
 	<!-- Mobile Dimensions -->
 	<integer name="channel_columns">2</integer>
+	<integer name="horizontal_paging_items">6</integer>
 	<integer name="description_condensed_lines">3</integer>
 	<integer name="description_expanded_lines">100</integer>
 </resources>

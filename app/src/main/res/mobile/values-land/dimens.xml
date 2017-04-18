@@ -2,4 +2,5 @@
 <resources>
 	<!-- Mobile Dimensions -->
 	<integer name="channel_columns">3</integer>
+	<integer name="horizontal_paging_items">8</integer>
 </resources>

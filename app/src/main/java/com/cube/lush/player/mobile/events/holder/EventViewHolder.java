@@ -51,8 +51,10 @@ public class EventViewHolder extends BaseViewHolder<EventTab>
 	{
 		title.setText(eventTab.getDisplayName());
 
-		final int MAX_HORIZONTAL_ITEMS = 6;
+		final int MAX_HORIZONTAL_ITEMS = title.getContext().getResources().getInteger(R.integer.horizontal_paging_items);
 		List<MediaContent> eventMediaContent = MediaManager.getInstance().filterContentByTag(eventTab.getTag(), items, MAX_HORIZONTAL_ITEMS);
+
+		indicatorContainer.removeAllViews();
 
 		for (int index = 0; index < eventMediaContent.size(); index++)
 		{

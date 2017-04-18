@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
@@ -52,6 +55,16 @@ public class ContentFragment extends FilterableListingFragment<MediaContent, Cat
 	{
 		super.onCreate(savedInstanceState);
 		channel = (Channel)getArguments().getSerializable(ARG_CHANNEL);
+	}
+
+	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+	{
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+
+		TextView channelName = (TextView)view.findViewById(R.id.channel_name);
+		channelName.setText(channel.getTitle());
+
+		return view;
 	}
 
 	@NonNull @Override public List<CategoryContentType> provideFilterOptions()

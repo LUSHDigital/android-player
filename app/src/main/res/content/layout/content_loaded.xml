@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/recycler"
-	android:background="@android:color/black"
-/>
+	android:orientation="vertical"
+>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/channel_name"
+		android:padding="16dp"
+		style="@style/Title"
+		tools:text="Lush Times"
+	/>
+
+	<android.support.v7.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/recycler"
+		android:background="@android:color/black"
+	/>
+</LinearLayout>

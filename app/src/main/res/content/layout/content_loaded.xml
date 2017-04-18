@@ -10,7 +10,7 @@
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/channel_name"
+		android:id="@+id/content_title"
 		android:padding="16dp"
 		style="@style/Title"
 		tools:text="Lush Times"

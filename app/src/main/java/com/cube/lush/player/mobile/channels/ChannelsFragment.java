@@ -14,11 +14,10 @@ import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
-import com.cube.lush.player.mobile.content.ContentFragment;
+import com.cube.lush.player.mobile.content.ChannelContentFragment;
 import com.cube.lush.player.mobile.decoration.GridSpacingDecoration;
 import com.lush.lib.listener.OnListItemClickListener;
 
-import java.util.Arrays;
 import java.util.List;
 
 import uk.co.jamiecruwys.StatefulListingFragment;
@@ -93,6 +92,6 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 
 	@Override public void onItemClick(Channel channel, View view)
 	{
-		((MainActivity)getActivity()).showFragment(ContentFragment.newInstance(channel));
+		((MainActivity)getActivity()).showFragment(ChannelContentFragment.newInstance(channel));
 	}
 }

@@ -71,6 +71,11 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 		return view;
 	}
 
+	// TODO:
+	// https://docs.brightcove.com/en/perform/mobile-sdks/brightcove-player-sdk-for-android/reference/current/javadoc/com/brightcove/player/mediacontroller/package-summary.html
+	// https://gist.github.com/pajatopmr/e277cddf711a7b531116
+	// https://github.com/BrightcoveOS/android-player-samples/blob/master/brightcove-player-controls/CustomizedControlsSampleApp/src/main/res/layout/my_tv_media_controller.xml
+
 	private void removeBrightcoveControl(@IdRes int layoutId, @NonNull View rootView)
 	{
 		View view = rootView.findViewById(layoutId);

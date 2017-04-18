@@ -2,6 +2,8 @@ package com.cube.lush.player.mobile.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +25,17 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 {
 	@NonNull public abstract List<FILTER_OPTION> provideFilterOptions();
 
-	public abstract void getListDataForFilterOption(@NonNull FILTER_OPTION option, @NonNull ListingData listingData);
+	public abstract void getListDataForFilterOption(@NonNull FILTER_OPTION option, @NonNull ListingData callback);
 
 	@NonNull public abstract String getTitleForFilterOption(FILTER_OPTION option);
 
 	@NonNull public abstract FILTER_OPTION provideDefaultTab();
+
+	@NonNull public abstract RecyclerView.LayoutManager provideLayoutManagerForFilterOption(FILTER_OPTION option);
+
+	@NonNull public abstract RecyclerView.Adapter provideAdapterForFilterOption(FILTER_OPTION option, @NonNull List<ITEM_TYPE> items);
+
+	@Nullable public abstract RecyclerView.ItemDecoration provideItemDecorationForFilterOption(FILTER_OPTION option);
 
 	private FILTER_OPTION chosenOption;
 	private LinearLayout tabContainer;
@@ -87,7 +95,8 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 			}
 		}
 
-		getListDataForFilterOption(option, this);
+		chosenOption = option;
+		getListData(this);
 	}
 
 	private void clearButtonStates()
@@ -109,9 +118,38 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 		return R.id.statefulview;
 	}
 
-	@Override protected void getListData(@NonNull ListingData listingData)
+	@Override protected void getListData(@NonNull ListingData callback)
 	{
-		setViewState(ViewState.LOADING);
-		getListDataForFilterOption(chosenOption, listingData);
+	 	setViewState(ViewState.LOADING);
+		getListDataForFilterOption(chosenOption, callback);
+	}
+
+	@Override public void onListingDataRetrieved(@NonNull List<ITEM_TYPE> items)
+	{
+		refresh(items);
+
+		if (items.isEmpty())
+		{
+			setViewState(ViewState.EMPTY);
+		}
+		else
+		{
+			setViewState(ViewState.LOADED);
+		}
+	}
+
+	@NonNull protected RecyclerView.LayoutManager provideLayoutManager()
+	{
+		return provideLayoutManagerForFilterOption(chosenOption);
+	}
+
+	@NonNull protected RecyclerView.Adapter provideAdapter(@NonNull List<ITEM_TYPE> items)
+	{
+		return provideAdapterForFilterOption(chosenOption, items);
+	}
+
+	@Nullable protected RecyclerView.ItemDecoration provideItemDecoration()
+	{
+		return provideItemDecorationForFilterOption(chosenOption);
 	}
 }

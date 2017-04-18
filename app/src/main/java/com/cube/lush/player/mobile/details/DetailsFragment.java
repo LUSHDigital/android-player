@@ -97,6 +97,7 @@ public class DetailsFragment extends StatefulFragment
 	@Override protected void getListData(@NonNull ListingData listingData)
 	{
 		// No data to retrieve as it is passed via arguments to this fragment
+		setViewState(ViewState.LOADED);
 	}
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)

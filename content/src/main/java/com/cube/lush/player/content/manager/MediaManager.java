@@ -1,5 +1,6 @@
 package com.cube.lush.player.content.manager;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -236,13 +237,13 @@ public class MediaManager
 	 * @param tag
 	 * @param handler
 	 */
-	public void getContentForTag(@NonNull final String tag, @NonNull final ResponseHandler<MediaContent> handler)
+	public void getContentForTag(@NonNull final String tag, @IntRange(from = 1) final int maxResults, @NonNull final ResponseHandler<MediaContent> handler)
 	{
 		getAllContent(new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{
-				List<MediaContent> filteredMediaContent = filterContentByTag(tag, items);
+				List<MediaContent> filteredMediaContent = filterContentByTag(tag, items, maxResults);
 				handler.onSuccess(filteredMediaContent);
 			}
 
@@ -253,12 +254,13 @@ public class MediaManager
 		});
 	}
 
-	public List<MediaContent> filterContentByTag(@NonNull final String tag, @NonNull List<MediaContent> items)
+	public List<MediaContent> filterContentByTag(@NonNull final String tag, @NonNull List<MediaContent> items, @IntRange(from = 1) int maxResults)
 	{
 		// If the tag is empty, just return all results
 		if (TextUtils.isEmpty(tag))
 		{
-			return items;
+			// Return a set of results up to the maxResult size
+			return limitListSize(items, maxResults);
 		}
 
 		ArrayList<MediaContent> results = new ArrayList<MediaContent>();
@@ -271,7 +273,18 @@ public class MediaManager
 			}
 		}
 
-		return results;
+		// Only return a set of results up to the maxResult size
+		return limitListSize(results, maxResults);
+	}
+
+	private List<MediaContent> limitListSize(@NonNull List<MediaContent> items, @IntRange(from = 1) int maxSize)
+	{
+		if (items.size() < maxSize)
+		{
+			return items;
+		}
+
+		return items.subList(0, maxSize);
 	}
 
 	/**

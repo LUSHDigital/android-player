@@ -27,6 +27,7 @@ import com.cube.lush.player.api.model.RadioContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -91,6 +92,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 		// Load image
 		Picasso.with(brightcoveVideoView.getContext())
 			.load(mediaContent.getThumbnail())
+			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 			.into(brightcoveVideoView.getStillView());
 
 		ContentType contentType = mediaContent.getType();

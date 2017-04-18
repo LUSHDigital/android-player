@@ -20,11 +20,12 @@ import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
+import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
-import com.cube.lush.player.R;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -65,10 +66,10 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 
 			if (!TextUtils.isEmpty(backgroundUrl) && brightcoveVideoView != null && brightcoveVideoView.getStillView() != null && playbackMethod != null && playbackMethod == PlaybackMethod.FILE_URL)
 			{
-
 				Picasso.with(brightcoveVideoView.getContext())
-					   .load(backgroundUrl)
-					   .into(brightcoveVideoView.getStillView());
+					.load(backgroundUrl)
+					.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+					.into(brightcoveVideoView.getStillView());
 			}
 
 			if (playbackMethod != null && !TextUtils.isEmpty(playbackMethodValue))

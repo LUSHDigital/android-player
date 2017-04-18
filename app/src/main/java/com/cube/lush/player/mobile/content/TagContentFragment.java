@@ -110,6 +110,6 @@ public class TagContentFragment extends BaseContentFragment
 
 	@NonNull @Override public String provideContentTitle()
 	{
-		return tag;
+		return "#" + tag;
 	}
 }

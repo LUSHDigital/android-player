@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.media.DeliveryType;
+import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
@@ -53,6 +55,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 	{
 		View view = inflater.inflate(R.layout.playback_fragment, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
+		brightcoveVideoView.setMediaController(new BrightcoveMediaController(brightcoveVideoView, R.layout.lush_brightcove_controller));
 		ButterKnife.bind(this, view);
 
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -60,7 +63,22 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 		Analytics analytics = brightcoveVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
+//		removeBrightcoveControl(R.id.captions, view);
+//		removeBrightcoveControl(R.id.full_screen, view);
+//		removeBrightcoveControl(R.id.fast_forward, view);
+//		removeBrightcoveControl(R.id.rewind, view);
+
 		return view;
+	}
+
+	private void removeBrightcoveControl(@IdRes int layoutId, @NonNull View rootView)
+	{
+		View view = rootView.findViewById(layoutId);
+
+		if (view != null)
+		{
+			view.setVisibility(View.GONE);
+		}
 	}
 
 	@Override public void onActivityCreated(Bundle savedInstanceState)

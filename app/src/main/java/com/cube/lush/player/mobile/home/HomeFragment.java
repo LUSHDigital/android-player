@@ -50,7 +50,7 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 
 	@Override public void getListDataForFilterOption(@NonNull final HomeTab homeTab, @NonNull final ListingData callback)
 	{
-		MediaManager.getInstance().getContentForTag(homeTab.getTag(), new ResponseHandler<MediaContent>()
+		MediaManager.getInstance().getContentForTag(homeTab.getTag(), 50, new ResponseHandler<MediaContent>()
 		{
 			@Override public void onSuccess(@NonNull List<MediaContent> items)
 			{

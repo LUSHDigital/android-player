@@ -17,7 +17,6 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
 import com.cube.lush.player.mobile.events.EventsFragment;
-import com.cube.lush.player.mobile.events.holder.EventViewHolder;
 import com.cube.lush.player.mobile.home.HomeFragment;
 import com.cube.lush.player.mobile.live.LiveFragment;
 import com.cube.lush.player.mobile.search.SearchFragment;

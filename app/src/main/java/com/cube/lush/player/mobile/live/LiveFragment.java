@@ -220,7 +220,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 				mediaContent.setId(playlistId);
 				mediaContent.setType(ContentType.TV);
 
-				Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent);
+				Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent, 0);
 				getActivity().startActivity(playbackIntent);
 			}
 		});

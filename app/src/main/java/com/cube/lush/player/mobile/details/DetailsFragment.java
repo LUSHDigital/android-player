@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.appcompat.BrightcovePlayerFragment;
@@ -30,6 +29,7 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.TagContentFragment;
+import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -77,7 +77,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		View view = inflater.inflate(R.layout.detail_loaded, container, false);
 		baseVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
 
-		// Our custom media controller, which is in one line for portrait
+		// Our custom media controller, which is in one line
 		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(baseVideoView, R.layout.one_line_brightcove_media_controller);
 		baseVideoView.setMediaController(brightcoveMediaController);
 
@@ -194,37 +194,6 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		tagSection.setVisibility(View.GONE);
 	}
 
-//	@Override public int provideLoadingLayout()
-//	{
-//		return R.layout.detail_loading;
-//	}
-//
-//	@Override public int provideEmptyLayout()
-//	{
-//		return R.layout.detail_empty;
-//	}
-//
-//	@Override public int provideLoadedLayout()
-//	{
-//		return R.layout.detail_loaded;
-//	}
-//
-//	@Override public int provideErrorLayout()
-//	{
-//		return R.layout.detail_error;
-//	}
-//
-//	@Override public ViewState provideInitialViewState()
-//	{
-//		return ViewState.LOADED;
-//	}
-//
-//	@Override protected void getListData(@NonNull ListingData listingData)
-//	{
-//		 No data to retrieve as it is passed via arguments to this fragment
-//		setViewState(ViewState.LOADED);
-//	}
-
 	@OnClick(R.id.playOverlay) void onPlayClicked(View view)
 	{
 		playOverlay.setVisibility(View.GONE);
@@ -334,6 +303,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		// Use current seek position and pass it off to the playback activity/fragment to continue playback
 		int currentSeekPosition = baseVideoView.getCurrentPosition();
 
-		Toast.makeText(getContext(), "Clicked full screen button", Toast.LENGTH_SHORT).show();
+		Intent fullscreenPlaybackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent, currentSeekPosition);
+		startActivity(fullscreenPlaybackIntent);
 	}
 }

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.appcompat.BrightcovePlayerFragment;
@@ -48,7 +49,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	private static final String ARG_CONTENT = "arg_content";
 	private MediaContent mediaContent;
 
-	@BindView(R.id.play) ImageView play;
+	@BindView(R.id.playOverlay) ImageView playOverlay;
 	@BindView(R.id.content_type) TextView contentType;
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
@@ -75,13 +76,14 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		View view = inflater.inflate(R.layout.detail_loaded, container, false);
 		baseVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
 
-		ButterKnife.bind(this, view);
-
 		// Our custom media controller, which is in one line for portrait
 		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(baseVideoView, R.layout.one_line_brightcove_media_controller);
 		baseVideoView.setMediaController(brightcoveMediaController);
 
+		// Brightcove player onCreateView
 		super.onCreateView(inflater, container, savedInstanceState);
+
+		ButterKnife.bind(this, view);
 
 		// Setup account credentials
 		Analytics analytics = baseVideoView.getAnalytics();
@@ -217,9 +219,9 @@ public class DetailsFragment extends BrightcovePlayerFragment
 //		setViewState(ViewState.LOADED);
 //	}
 
-	@OnClick(R.id.play) void onPlayClicked(View view)
+	@OnClick(R.id.playOverlay) void onPlayClicked(View view)
 	{
-		play.setVisibility(View.GONE);
+		playOverlay.setVisibility(View.GONE);
 
 		String mediaId = mediaContent.getId();
 
@@ -308,5 +310,13 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	private void onTagClicked(@NonNull View view, @NonNull String tag)
 	{
 		((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
+	}
+
+	@OnClick(R.id.full_screen) void onFullscreenClicked()
+	{
+		// Use current seek position and pass it off to the playback activity/fragment to continue playback
+		int currentSeekPosition = baseVideoView.getCurrentPosition();
+
+		Toast.makeText(getContext(), "Clicked full screen button", Toast.LENGTH_SHORT).show();
 	}
 }

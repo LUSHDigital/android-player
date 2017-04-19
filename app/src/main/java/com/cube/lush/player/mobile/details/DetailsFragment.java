@@ -14,13 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brightcove.player.analytics.Analytics;
+import com.brightcove.player.appcompat.BrightcovePlayerFragment;
 import com.brightcove.player.edge.VideoListener;
+import com.brightcove.player.media.DeliveryType;
 import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
-import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.TagContentFragment;
@@ -51,7 +55,6 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
 	@BindView(R.id.tag_list) FlowLayout tagList;
 	@BindView(R.id.tag_section) LinearLayout tagSection;
-	@BindView(R.id.brightcove_video_view) BaseVideoView brightcoveVideoView;
 
 	public DetailsFragment()
 	{
@@ -70,16 +73,18 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.detail_loaded, container, false);
+		baseVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
+
 		ButterKnife.bind(this, view);
 
 		// Our custom media controller, which is in one line for portrait
-		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(brightcoveVideoView, R.layout.lush_brightcove_controller);
-		brightcoveVideoView.setMediaController(brightcoveMediaController);
+		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(baseVideoView, R.layout.one_line_brightcove_media_controller);
+		baseVideoView.setMediaController(brightcoveMediaController);
 
 		super.onCreateView(inflater, container, savedInstanceState);
 
 		// Setup account credentials
-		Analytics analytics = brightcoveVideoView.getAnalytics();
+		Analytics analytics = baseVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
 		return view;
@@ -112,10 +117,10 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		}
 
 		// Load image into brightcove video view
-		Picasso.with(brightcoveVideoView.getContext())
+		Picasso.with(baseVideoView.getContext())
 			.load(mediaContent.getThumbnail())
 			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-			.into(brightcoveVideoView.getStillView());
+			.into(baseVideoView.getStillView());
 
 		List<String> tags = mediaContent.getTags();
 
@@ -212,24 +217,64 @@ public class DetailsFragment extends BrightcovePlayerFragment
 //		setViewState(ViewState.LOADED);
 //	}
 
-	@OnClick(R.id.play) void onPlayClicked()
+	@OnClick(R.id.play) void onPlayClicked(View view)
 	{
-		String videoId = mediaContent.getId();
+		play.setVisibility(View.GONE);
 
-		MediaManager.getInstance().getCatalog().findVideoByID(videoId, new VideoListener()
+		String mediaId = mediaContent.getId();
+
+		if (mediaContent.getType() == ContentType.TV)
 		{
-			@Override
-			public void onVideo(Video video)
+			// TV Content from Brightcove
+			MediaManager.getInstance().getCatalog().findVideoByID(mediaId, new VideoListener()
 			{
-				brightcoveVideoView.add(video);
-				brightcoveVideoView.start();
-			}
+				@Override
+				public void onVideo(Video video)
+				{
+					playVideo(video);
+				}
 
-			@Override public void onError(String error)
+				@Override public void onError(String error)
+				{
+					super.onError(error);
+				}
+			});
+		}
+		else if (mediaContent.getType() == ContentType.RADIO)
+		{
+			// Radio Content from mp3 files, shown as videos in the brightcove player
+			MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
 			{
-				super.onError(error);
-			}
-		});
+				@Override public void onSuccess(@NonNull List<Programme> items)
+				{
+					if (items.isEmpty())
+					{
+						return;
+					}
+
+					Programme programme = items.get(0);
+
+					if (programme == null)
+					{
+						return;
+					}
+
+					Video video = Video.createVideo(programme.getUrl(), DeliveryType.MP4);
+					playVideo(video);
+				}
+
+				@Override public void onFailure(@Nullable Throwable t)
+				{
+
+				}
+			});
+		}
+	}
+
+	public void playVideo(@NonNull Video video)
+	{
+		baseVideoView.add(video);
+		baseVideoView.start();
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()

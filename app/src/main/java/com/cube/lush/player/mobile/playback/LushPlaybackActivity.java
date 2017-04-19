@@ -43,7 +43,7 @@ public class LushPlaybackActivity extends BrightcovePlayer
 		// notifications and to control logging.
 		setContentView(R.layout.playback_fragment);
 		brightcoveVideoView = (BrightcoveExoPlayerVideoView) findViewById(R.id.brightcove_video_view);
-		brightcoveVideoView.setMediaController(new BrightcoveMediaController(brightcoveVideoView, R.layout.one_line_brightcove_controller));
+		brightcoveVideoView.setMediaController(new BrightcoveMediaController(brightcoveVideoView, R.layout.one_line_brightcove_media_controller));
 		super.onCreate(savedInstanceState);
 
 		Analytics analytics = brightcoveVideoView.getAnalytics();

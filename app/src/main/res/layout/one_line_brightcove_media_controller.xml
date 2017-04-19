@@ -113,6 +113,15 @@
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:id="@id/vr_mode"
+		android:layout_gravity="center_vertical"
+		android:text="@string/brightcove_controls_vr_mode"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:id="@id/full_screen"
 		android:layout_gravity="center_vertical"
 		android:padding="4dp"

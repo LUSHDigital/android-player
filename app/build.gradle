@@ -122,7 +122,8 @@ dependencies {
 	}
 
 	// Brightcove
-	compile 'com.brightcove.player:exoplayer:4.11.1'
+	compile 'com.brightcove.player:exoplayer:4.13.4'
+	compile "com.brightcove.player:android-appcompat-plugin:4.13.4"
 
 	// Flow layout
 	compile 'org.apmem.tools:layouts:1.10@aar'

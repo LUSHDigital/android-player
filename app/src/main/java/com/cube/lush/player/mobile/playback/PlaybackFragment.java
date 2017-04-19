@@ -54,7 +54,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 	{
 		View view = inflater.inflate(R.layout.playback_fragment, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
-		brightcoveVideoView.setMediaController(new BrightcoveMediaController(brightcoveVideoView, R.layout.lush_brightcove_controller));
+		brightcoveVideoView.setMediaController(new BrightcoveMediaController(brightcoveVideoView, R.layout.one_line_brightcove_media_controller));
 		ButterKnife.bind(this, view);
 
 		super.onCreateView(inflater, container, savedInstanceState);

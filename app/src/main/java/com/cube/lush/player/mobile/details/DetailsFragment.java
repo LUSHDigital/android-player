@@ -1,6 +1,7 @@
 package com.cube.lush.player.mobile.details;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -118,11 +119,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 			description.setText(mediaContent.getDescription().trim());
 		}
 
-		// Load image into brightcove video view
-		Picasso.with(baseVideoView.getContext())
-			.load(mediaContent.getThumbnail())
-			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-			.into(baseVideoView.getStillView());
+		loadBrightcoveStillImage();
 
 		List<String> tags = mediaContent.getTags();
 
@@ -155,6 +152,15 @@ public class DetailsFragment extends BrightcovePlayerFragment
 				description.setMaxLines(condensedMaxLines);
 			}
 		});
+	}
+
+	private void loadBrightcoveStillImage()
+	{
+		// Load image into brightcove video view
+		Picasso.with(baseVideoView.getContext())
+			.load(mediaContent.getThumbnail())
+			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+			.into(baseVideoView.getStillView());
 	}
 
 	private void showTags(@NonNull List<String> tags)
@@ -277,6 +283,17 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	{
 		baseVideoView.add(video);
 		baseVideoView.start();
+		baseVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+		{
+			@Override public void onCompletion(MediaPlayer mp)
+			{
+				baseVideoView.stopPlayback();
+				playOverlay.setVisibility(View.VISIBLE);
+
+				// TODO: Get the still view to show again
+				loadBrightcoveStillImage();
+			}
+		});
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()

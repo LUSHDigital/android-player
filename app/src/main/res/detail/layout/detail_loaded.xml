@@ -14,20 +14,18 @@
 	>
 		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="200dp"
+			android:layout_height="220dp"
 		>
-			<ImageView
+			<com.brightcove.player.view.BrightcoveExoPlayerVideoView
 				android:layout_width="match_parent"
-				android:layout_height="200dp"
-				android:id="@+id/thumbnail"
-				android:scaleType="centerCrop"
-				tools:src="@drawable/caption_background"
+				android:layout_height="match_parent"
+				android:id="@+id/brightcove_video_view"
 			/>
 
 			<ImageButton
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/play"
+				android:id="@+id/playOverlay"
 				android:layout_centerInParent="true"
 				android:background="@android:color/transparent"
 				app:srcCompat="@drawable/ic_play"

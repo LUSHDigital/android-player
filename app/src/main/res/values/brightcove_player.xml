@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Overrides Brightcove TV control bar, so we can choose which controls to enable or disable -->
+	<style name="BrightcoveControlBar.TV">
+		<item name="brightcove_marker_color">@color/bmc_seekbar_marker_tv</item>
+		<item name="brightcove_rewind">true</item>
+		<item name="brightcove_fast_forward">true</item>
+		<item name="brightcove_full_screen">false</item>
+		<item name="brightcove_audio_tracks">true</item>
+		<item name="brightcove_closed_captions">true</item>
+		<item name="brightcove_player_options">true</item>
+		<item name="brightcove_vr_mode">false</item>
+	</style>
+
+	<!-- Overrides Brightcove Mobile control bar, so we can choose which controls to enable or disable -->
+	<style name="BrightcoveControlBarDefault">
+		<item name="brightcove_audio_tracks">false</item>
+		<item name="brightcove_closed_captions">false</item>
+		<item name="brightcove_full_screen">true</item>
+		<item name="brightcove_live">false</item>
+		<item name="brightcove_play">true</item>
+		<item name="brightcove_rewind">false</item>
+		<item name="brightcove_fast_forward">false</item>
+		<item name="brightcove_seekbar">true</item>
+		<item name="brightcove_vr_mode">false</item>
+		<item name="brightcove_animation_style">fade</item>
+		<item name="brightcove_marker_color">@color/bmc_seekbar_marker</item>
+		<item name="brightcove_timeout">@integer/default_animation_timeout</item>
+		<item name="brightcove_align">true</item>
+	</style>
+</resources>

@@ -35,6 +35,12 @@
 			android:theme="@style/Mobile.AppTheme"
 		/>
 
+		<activity
+			android:name="com.cube.lush.player.mobile.playback.LushPlaybackActivity"
+			android:theme="@style/Mobile.AppTheme"
+			android:configChanges="orientation"
+		/>
+
 		<!-- TV -->
 		<activity
 			android:name="com.cube.lush.player.tv.MainActivity"

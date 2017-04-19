@@ -15,6 +15,7 @@ import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.media.DeliveryType;
+import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
@@ -53,6 +54,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 	{
 		View view = inflater.inflate(R.layout.playback_fragment, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
+		brightcoveVideoView.setMediaController(new BrightcoveMediaController(brightcoveVideoView, R.layout.one_line_brightcove_media_controller));
 		ButterKnife.bind(this, view);
 
 		super.onCreateView(inflater, container, savedInstanceState);

@@ -25,7 +25,7 @@ import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.content.util.BrightcoveUtils;
 import com.cube.lush.player.mobile.LushTab;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.playback.PlaybackActivity;
+import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -220,7 +220,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 				mediaContent.setId(playlistId);
 				mediaContent.setType(ContentType.TV);
 
-				Intent playbackIntent = PlaybackActivity.getIntent(getContext(), mediaContent);
+				Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent, 0);
 				getActivity().startActivity(playbackIntent);
 			}
 		});

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -63,27 +62,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment implements ViewSt
 		Analytics analytics = brightcoveVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
-//		removeBrightcoveControl(R.id.captions, view);
-//		removeBrightcoveControl(R.id.full_screen, view);
-//		removeBrightcoveControl(R.id.fast_forward, view);
-//		removeBrightcoveControl(R.id.rewind, view);
-
 		return view;
-	}
-
-	// TODO:
-	// https://docs.brightcove.com/en/perform/mobile-sdks/brightcove-player-sdk-for-android/reference/current/javadoc/com/brightcove/player/mediacontroller/package-summary.html
-	// https://gist.github.com/pajatopmr/e277cddf711a7b531116
-	// https://github.com/BrightcoveOS/android-player-samples/blob/master/brightcove-player-controls/CustomizedControlsSampleApp/src/main/res/layout/my_tv_media_controller.xml
-
-	private void removeBrightcoveControl(@IdRes int layoutId, @NonNull View rootView)
-	{
-		View view = rootView.findViewById(layoutId);
-
-		if (view != null)
-		{
-			view.setVisibility(View.GONE);
-		}
 	}
 
 	@Override public void onActivityCreated(Bundle savedInstanceState)

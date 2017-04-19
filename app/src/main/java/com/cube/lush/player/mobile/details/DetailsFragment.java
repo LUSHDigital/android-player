@@ -1,6 +1,5 @@
 package com.cube.lush.player.mobile.details;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +13,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.brightcove.player.analytics.Analytics;
+import com.brightcove.player.edge.VideoListener;
+import com.brightcove.player.mediacontroller.BrightcoveMediaController;
+import com.brightcove.player.model.Video;
+import com.brightcove.player.view.BaseVideoView;
+import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.TagContentFragment;
-import com.cube.lush.player.mobile.playback.PlaybackActivity;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -28,20 +34,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.jamiecruwys.StatefulFragment;
-import uk.co.jamiecruwys.ViewState;
-import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
  * Created by Jamie Cruwys.
  */
-public class DetailsFragment extends StatefulFragment
+public class DetailsFragment extends BrightcovePlayerFragment
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CONTENT = "arg_content";
 	private MediaContent mediaContent;
 
-	@BindView(R.id.thumbnail) ImageView thumbnail;
 	@BindView(R.id.play) ImageView play;
 	@BindView(R.id.content_type) TextView contentType;
 	@BindView(R.id.title) TextView title;
@@ -49,6 +51,7 @@ public class DetailsFragment extends StatefulFragment
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
 	@BindView(R.id.tag_list) FlowLayout tagList;
 	@BindView(R.id.tag_section) LinearLayout tagSection;
+	@BindView(R.id.brightcove_video_view) BaseVideoView brightcoveVideoView;
 
 	public DetailsFragment()
 	{
@@ -66,40 +69,20 @@ public class DetailsFragment extends StatefulFragment
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view = super.onCreateView(inflater, container, savedInstanceState);
+		View view = inflater.inflate(R.layout.detail_loaded, container, false);
 		ButterKnife.bind(this, view);
+
+		// Our custom media controller, which is in one line for portrait
+		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(brightcoveVideoView, R.layout.lush_brightcove_controller);
+		brightcoveVideoView.setMediaController(brightcoveMediaController);
+
+		super.onCreateView(inflater, container, savedInstanceState);
+
+		// Setup account credentials
+		Analytics analytics = brightcoveVideoView.getAnalytics();
+		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
+
 		return view;
-	}
-
-	@Override public int provideLoadingLayout()
-	{
-		return R.layout.detail_loading;
-	}
-
-	@Override public int provideEmptyLayout()
-	{
-		return R.layout.detail_empty;
-	}
-
-	@Override public int provideLoadedLayout()
-	{
-		return R.layout.detail_loaded;
-	}
-
-	@Override public int provideErrorLayout()
-	{
-		return R.layout.detail_error;
-	}
-
-	@Override public ViewState provideInitialViewState()
-	{
-		return ViewState.LOADED;
-	}
-
-	@Override protected void getListData(@NonNull ListingData listingData)
-	{
-		// No data to retrieve as it is passed via arguments to this fragment
-		setViewState(ViewState.LOADED);
 	}
 
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
@@ -128,10 +111,11 @@ public class DetailsFragment extends StatefulFragment
 			description.setText(mediaContent.getDescription().trim());
 		}
 
-		// Populate image
-		Picasso.with(thumbnail.getContext())
+		// Load image into brightcove video view
+		Picasso.with(brightcoveVideoView.getContext())
 			.load(mediaContent.getThumbnail())
-			.into(thumbnail);
+			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+			.into(brightcoveVideoView.getStillView());
 
 		List<String> tags = mediaContent.getTags();
 
@@ -197,15 +181,55 @@ public class DetailsFragment extends StatefulFragment
 		tagSection.setVisibility(View.GONE);
 	}
 
-	private void onTagClicked(@NonNull View view, @NonNull String tag)
-	{
-		((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
-	}
+//	@Override public int provideLoadingLayout()
+//	{
+//		return R.layout.detail_loading;
+//	}
+//
+//	@Override public int provideEmptyLayout()
+//	{
+//		return R.layout.detail_empty;
+//	}
+//
+//	@Override public int provideLoadedLayout()
+//	{
+//		return R.layout.detail_loaded;
+//	}
+//
+//	@Override public int provideErrorLayout()
+//	{
+//		return R.layout.detail_error;
+//	}
+//
+//	@Override public ViewState provideInitialViewState()
+//	{
+//		return ViewState.LOADED;
+//	}
+//
+//	@Override protected void getListData(@NonNull ListingData listingData)
+//	{
+//		 No data to retrieve as it is passed via arguments to this fragment
+//		setViewState(ViewState.LOADED);
+//	}
 
 	@OnClick(R.id.play) void onPlayClicked()
 	{
-		Context context = play.getContext();
-		context.startActivity(PlaybackActivity.getIntent(context, mediaContent));
+		String videoId = mediaContent.getId();
+
+		MediaManager.getInstance().getCatalog().findVideoByID(videoId, new VideoListener()
+		{
+			@Override
+			public void onVideo(Video video)
+			{
+				brightcoveVideoView.add(video);
+				brightcoveVideoView.start();
+			}
+
+			@Override public void onError(String error)
+			{
+				super.onError(error);
+			}
+		});
 	}
 
 	@OnClick(R.id.toggle_description_length) void onToggleDescriptionLengthClicked()
@@ -234,5 +258,10 @@ public class DetailsFragment extends StatefulFragment
 		shareIntent.setType("text/plain");
 
 		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
+	}
+
+	private void onTagClicked(@NonNull View view, @NonNull String tag)
+	{
+		((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
 	}
 }

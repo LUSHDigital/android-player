@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.brightcove.player.mediacontroller.BrightcoveControlBar
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:bmc="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:id="@+id/brightcove_control_bar"
+	android:orientation="horizontal"
+	android:layout_gravity="bottom"
+	android:background="@color/bmc_background"
+	android:padding="8dp"
+	style="@style/BrightcoveControlBar"
+	tools:ignore="Overdraw, InconsistentLayout">
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/play"
+		android:layout_gravity="center_vertical"
+		android:text="@string/brightcove_controls_play"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/rewind"
+		android:layout_gravity="center_vertical"
+		android:text="@string/brightcove_controls_rewind"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/current_time"
+		android:layout_gravity="center_vertical"
+		android:padding="4dp"
+		android:text="@string/time_placeholder"
+		android:textColor="@color/bmc_time_text"
+		android:visibility="gone" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/time_separator"
+		android:layout_gravity="center_vertical"
+		android:padding="4dp"
+		android:text="@string/time_separator"
+		android:textColor="@color/bmc_time_text"
+		android:visibility="gone"
+		tools:ignore="InconsistentLayout" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/end_time"
+		android:layout_gravity="center_vertical"
+		android:padding="4dp"
+		android:text="@string/time_placeholder"
+		android:textColor="@color/bmc_time_text"
+		android:visibility="gone" />
+
+	<com.brightcove.player.mediacontroller.BrightcoveSeekBar
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:id="@id/seek_bar"
+		android:layout_gravity="center_vertical"
+		android:layout_weight="1"
+		android:indeterminateOnly="false"
+		android:splitTrack="false"
+		android:visibility="gone"
+		style="@style/BrightcoveSeekBar"
+		bmc:brightcove_marker_color="@color/bmc_seekbar_marker"
+		bmc:brightcove_marker_width="5.0" />
+
+	<View
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:id="@id/one_line_spacer"
+		android:layout_weight="1"
+		android:visibility="gone"
+		tools:ignore="InconsistentLayout" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/live"
+		android:layout_gravity="center_vertical"
+		android:text="@string/brightcove_controls_live"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/audio_tracks"
+		android:layout_gravity="center_vertical"
+		android:text="@string/brightcove_controls_audio_tracks"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/captions"
+		android:layout_gravity="center_vertical"
+		android:text="@string/brightcove_controls_captions"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@id/full_screen"
+		android:layout_gravity="center_vertical"
+		android:padding="4dp"
+		android:text="@string/brightcove_controls_enter_full_screen"
+		android:visibility="gone"
+		style="@style/BorderlessButton" />
+
+</com.brightcove.player.mediacontroller.BrightcoveControlBar>

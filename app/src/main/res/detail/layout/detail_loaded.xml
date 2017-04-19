@@ -16,12 +16,10 @@
 			android:layout_width="match_parent"
 			android:layout_height="200dp"
 		>
-			<ImageView
+			<com.brightcove.player.view.BrightcoveExoPlayerVideoView
 				android:layout_width="match_parent"
-				android:layout_height="200dp"
-				android:id="@+id/thumbnail"
-				android:scaleType="centerCrop"
-				tools:src="@drawable/caption_background"
+				android:layout_height="match_parent"
+				android:id="@+id/brightcove_video_view"
 			/>
 
 			<ImageButton

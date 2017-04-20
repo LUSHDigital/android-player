@@ -112,7 +112,7 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 	{
 		if (eventTab == EventTab.ALL)
 		{
-			int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
+			int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources().getDisplayMetrics()));
 			return new TopSpacingDecoration(spacing);
 		}
 

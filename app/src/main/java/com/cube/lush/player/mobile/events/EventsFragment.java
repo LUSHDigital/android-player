@@ -3,7 +3,7 @@ package com.cube.lush.player.mobile.events;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -93,7 +93,18 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 
 	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(EventTab eventTab)
 	{
-		return new LinearLayoutManager(getContext());
+		final int NUMBER_COLUMNS;
+
+		if (eventTab == EventTab.ALL)
+		{
+			NUMBER_COLUMNS = getResources().getInteger(R.integer.paging_columns);
+		}
+		else
+		{
+			NUMBER_COLUMNS = getResources().getInteger(R.integer.events_columns);
+		}
+
+		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
 
 	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(EventTab eventTab, @NonNull List<MediaContent> items)

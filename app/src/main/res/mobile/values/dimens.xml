@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Mobile Dimensions -->
+	<integer name="home_columns">1</integer>
 	<integer name="channel_columns">2</integer>
-	<integer name="horizontal_paging_items">6</integer>
+	<integer name="events_columns">1</integer>
+
+	<integer name="paging_columns">1</integer>
+	<integer name="paging_page_size">1</integer>
+	<integer name="paging_max_items">6</integer>
+
 	<integer name="description_condensed_lines">3</integer>
 	<integer name="description_expanded_lines">100</integer>
 </resources>

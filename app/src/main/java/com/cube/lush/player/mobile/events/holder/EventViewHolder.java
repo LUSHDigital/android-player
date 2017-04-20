@@ -51,7 +51,9 @@ public class EventViewHolder extends BaseViewHolder<EventTab>
 	{
 		title.setText(eventTab.getDisplayName());
 
-		final int MAX_HORIZONTAL_ITEMS = title.getContext().getResources().getInteger(R.integer.horizontal_paging_items);
+		final int MAX_HORIZONTAL_ITEMS = title.getContext().getResources().getInteger(R.integer.paging_max_items);
+		final int PAGE_SIZE = title.getContext().getResources().getInteger(R.integer.paging_page_size);
+
 		List<MediaContent> eventMediaContent = MediaManager.getInstance().filterContentByTag(eventTab.getTag(), items, MAX_HORIZONTAL_ITEMS);
 
 		indicatorContainer.removeAllViews();
@@ -70,15 +72,16 @@ public class EventViewHolder extends BaseViewHolder<EventTab>
 			indicatorContainer.addView(view);
 		}
 
-		final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(eventRecycler.getContext(), LinearLayoutManager.HORIZONTAL, false);
-		eventRecycler.setLayoutManager(linearLayoutManager);
+		// TODO: Use PAGE_SIZE
+		final LinearLayoutManager layoutManager = new LinearLayoutManager(eventRecycler.getContext(), LinearLayoutManager.HORIZONTAL, false);
+		eventRecycler.setLayoutManager(layoutManager);
 
 		eventRecycler.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
 			@Override public void onScrolled(RecyclerView recyclerView, int dx, int dy)
 			{
 				super.onScrolled(recyclerView, dx, dy);
-				int firstVisisbleItem = linearLayoutManager.findFirstVisibleItemPosition();
+				int firstVisisbleItem = layoutManager.findFirstVisibleItemPosition();
 
 				Log.e("POS", "pos=" + firstVisisbleItem);
 

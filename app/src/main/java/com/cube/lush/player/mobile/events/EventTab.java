@@ -1,5 +1,7 @@
 package com.cube.lush.player.mobile.events;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +43,17 @@ public enum EventTab
 		}
 
 		return items;
+	}
+
+	public static List<EventTab> listValuesExcluding(@NonNull EventTab... tabsToExclude)
+	{
+		List<EventTab> tabs = listValues();
+
+		for (EventTab tabToExclude : tabsToExclude)
+		{
+			tabs.remove(tabToExclude);
+		}
+
+		return tabs;
 	}
 }

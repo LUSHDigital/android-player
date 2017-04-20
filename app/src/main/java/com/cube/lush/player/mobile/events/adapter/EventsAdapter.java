@@ -27,7 +27,7 @@ public class EventsAdapter extends BaseListAdapter<EventTab>
 
 	public EventsAdapter(@NonNull List<MediaContent> items, @NonNull OnListItemClickListener<MediaContent> itemListener, @NonNull EventTabSelection tabListener)
 	{
-		super(EventTab.listValues(), null);
+		super(EventTab.listValuesExcluding(EventTab.ALL), null);
 		this.items = items;
 		this.itemListener = itemListener;
 		this.tabListener = tabListener;

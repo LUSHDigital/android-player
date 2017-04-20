@@ -21,7 +21,7 @@ public enum EventTab
 	SUMMIT("Lush Summit 2017", "summit"),
 
 	@SuppressWarnings("HardCodedStringLiteral")
-	SHOWCASE("Creative Showcase", "showcase 2016");
+	SHOWCASE("Creative Showcase 2016", "showcase 2016");
 
 	/**
 	 * The name used for the tabs in the UI

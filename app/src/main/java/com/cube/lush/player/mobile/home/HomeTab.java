@@ -1,7 +1,5 @@
 package com.cube.lush.player.mobile.home;
 
-import com.cube.lush.player.mobile.events.EventTab;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ public enum HomeTab
 	SUMMIT("Lush Summit 2017", "summit"),
 
 	@SuppressWarnings("HardCodedStringLiteral")
-	SHOWCASE("Creative Showcase", "showcase 2016");
+	SHOWCASE("Creative Showcase 2016", "showcase 2016");
 
 	/**
 	 * The name used for the tabs in the UI

@@ -42,6 +42,6 @@
 		android:layout_margin="16dp"
 		android:text="More from this event"
 		android:textAllCaps="true"
-		style="@style/LushButton.Black"
+		style="@style/LushButton.WhiteSecondary"
 	/>
 </LinearLayout>

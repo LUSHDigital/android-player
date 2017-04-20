@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -99,12 +100,12 @@ public class LiveFragment extends StatefulFragment<Playlist>
 
 	@Override public ViewState provideInitialViewState()
 	{
-		return ViewState.LOADING;
+		return ViewState.EMPTY;
 	}
 
 	@Override protected boolean shouldReloadOnResume()
 	{
-		return true;
+		return false;
 	}
 
 	@Override protected void getListData(@NonNull final ListingData callback)
@@ -115,9 +116,15 @@ public class LiveFragment extends StatefulFragment<Playlist>
 			@Override
 			public void onSuccess(@NonNull List<MediaContent> items)
 			{
-				if (getActivity() == null || items.isEmpty())
+				if (getActivity() == null)
 				{
 					callback.onListingDataError(null);
+					return;
+				}
+
+				if (items.isEmpty())
+				{
+					callback.onListingDataRetrieved(Collections.EMPTY_LIST);
 					return;
 				}
 

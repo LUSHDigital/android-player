@@ -138,4 +138,9 @@
 	<style name="Description.Dark">
 		<item name="android:textColor">@color/text_dark</item>
 	</style>
+
+	<style name="LushButton.WhiteSecondary">
+		<item name="android:textColor">@drawable/state_button_text_white</item>
+		<item name="android:background">@drawable/state_button_white_secondary</item>
+	</style>
 </resources>

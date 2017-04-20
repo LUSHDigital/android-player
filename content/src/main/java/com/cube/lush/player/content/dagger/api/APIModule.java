@@ -5,16 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.api.interceptors.MockPlaylistInterceptor;
-import com.cube.lush.player.api.interceptors.MockProgrammeInterceptor;
-import com.cube.lush.player.api.interceptors.MockRadiosInterceptor;
-import com.cube.lush.player.api.interceptors.MockSearchInterceptor;
-import com.cube.lush.player.api.interceptors.MockVideosInterceptor;
-import com.cube.lush.player.api.interceptors.channels.MockCosmeticsChannelInterceptor;
-import com.cube.lush.player.api.interceptors.channels.MockGorillaChannelInterceptor;
-import com.cube.lush.player.api.interceptors.channels.MockKitchenChannelInterceptor;
-import com.cube.lush.player.api.interceptors.channels.MockLushLifeChannelInterceptor;
-import com.cube.lush.player.api.interceptors.channels.MockSoapboxChannelInterceptor;
-import com.cube.lush.player.api.interceptors.channels.MockTimesChannelInterceptor;
 import com.cube.lush.player.api.util.HtmlStringAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -58,6 +48,9 @@ public class APIModule
 	{
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
+		// Mock the playlist endpoint so it doesn't show live content
+		builder.addInterceptor(new MockPlaylistInterceptor(context));
+
 		// Channel interceptors
 //		builder.addInterceptor(new MockCosmeticsChannelInterceptor(context));
 //		builder.addInterceptor(new MockGorillaChannelInterceptor(context));
@@ -67,7 +60,6 @@ public class APIModule
 //		builder.addInterceptor(new MockTimesChannelInterceptor(context));
 
 		// Other interceptors
-//		builder.addInterceptor(new MockPlaylistInterceptor(context));
 //		builder.addInterceptor(new MockProgrammeInterceptor(context));
 //		builder.addInterceptor(new MockRadiosInterceptor(context));
 //		builder.addInterceptor(new MockSearchInterceptor(context));

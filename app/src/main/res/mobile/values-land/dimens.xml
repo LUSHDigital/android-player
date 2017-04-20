@@ -11,4 +11,6 @@
 
 	<integer name="description_condensed_lines">3</integer>
 	<integer name="description_expanded_lines">100</integer>
+
+	<dimen name="video_height">220dp</dimen>
 </resources>

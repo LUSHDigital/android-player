@@ -4,6 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
+	android:background="@android:color/black"
 >
 	<TextView
 		android:layout_width="match_parent"
@@ -29,9 +30,9 @@
 		android:id="@+id/indicator_container"
 		android:orientation="horizontal"
 		android:layout_marginLeft="16dp"
-		android:gravity="center"
 		android:layout_marginRight="16dp"
 		android:background="@android:color/black"
+		android:gravity="center"
 	/>
 
 	<Button

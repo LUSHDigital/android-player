@@ -4,6 +4,8 @@
 	<integer name="home_columns">1</integer>
 	<integer name="channel_columns">2</integer>
 	<integer name="events_columns">1</integer>
+	<integer name="channel_content_columns">1</integer>
+	<integer name="tag_content_columns">1</integer>
 
 	<integer name="paging_columns">1</integer>
 	<integer name="paging_page_size">1</integer>

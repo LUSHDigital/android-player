@@ -1,8 +1,10 @@
 package com.cube.lush.player.mobile.base;
 
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,8 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
+
+		view.setBackgroundColor(provideBackgroundColor());
 
 		FILTER_OPTION defaultOption = provideDefaultTab();
 		final ListingData callback = this;
@@ -151,5 +155,10 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 	@Nullable protected RecyclerView.ItemDecoration provideItemDecoration()
 	{
 		return provideItemDecorationForFilterOption(chosenOption);
+	}
+
+	@ColorInt public int provideBackgroundColor()
+	{
+		return ContextCompat.getColor(getContext(), android.R.color.black);
 	}
 }

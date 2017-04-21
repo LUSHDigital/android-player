@@ -113,7 +113,16 @@ public class TagContentFragment extends BaseContentFragment
 
 	@NonNull @Override public String provideContentTitle()
 	{
-		return "Tag: #" + tag;
+		tag = tag.trim();
+
+		String title = "Tag: ";
+
+		if (tag.startsWith("#"))
+		{
+			return title + tag;
+		}
+
+		return title + "#" + tag;
 	}
 
 	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)

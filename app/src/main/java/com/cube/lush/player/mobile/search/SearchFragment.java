@@ -82,12 +82,18 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		{
 			@Override public void onSuccess(@NonNull List<SearchResult> items)
 			{
-				callback.onListingDataRetrieved(items);
+				if (!isAdded() || getActivity() == null)
+				{
+					callback.onListingDataRetrieved(items);
+				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				if (!isAdded() || getActivity() == null)
+				{
+					callback.onListingDataError(t);
+				}
 			}
 		});
 	}

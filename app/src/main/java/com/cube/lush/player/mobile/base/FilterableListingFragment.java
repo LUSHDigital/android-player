@@ -131,6 +131,12 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 
 	@Override public void onListingDataRetrieved(@NonNull List<ITEM_TYPE> items)
 	{
+		// Cover us from null points from the activity/fragment being detached
+		if (!isAdded() || getActivity() == null)
+		{
+			return;
+		}
+
 		refresh(items);
 
 		if (items.isEmpty())

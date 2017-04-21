@@ -75,6 +75,11 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 		});
 	}
 
+	@Override public int provideLoadedLayout()
+	{
+		return R.layout.channel_layout;
+	}
+
 	@Override public int provideLoadingLayout()
 	{
 		return R.layout.channel_loading;

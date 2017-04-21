@@ -18,4 +18,7 @@
 	<dimen name="filter_tab_min_width">120dp</dimen>
 
 	<dimen name="search_item_height">110dp</dimen>
+
+	<dimen name="channel_item_height">168dp</dimen>
+	<dimen name="channel_image_size">120dp</dimen>
 </resources>

@@ -40,6 +40,7 @@ public class InsideSpacingItemDecoration extends RecyclerView.ItemDecoration
 		boolean isFirstRow = index < columns;
 		boolean isLastRow = index >= (items - columns);
 
+		boolean isSingleColumn = columns == 1;
 		boolean isLeftColumn = index % columns == 0;
 		boolean isRightColumn = index % columns == (columns - 1);
 
@@ -60,16 +61,20 @@ public class InsideSpacingItemDecoration extends RecyclerView.ItemDecoration
 			bottom = bottomSpace;
 		}
 
-		// Apply left spacing to all columns apart from the furthest left one
-		if (!isLeftColumn)
+		// Can only space the inside if there is more than one column
+		if (!isSingleColumn)
 		{
-			left = leftSpace;
-		}
+			// Apply left spacing to all columns apart from the furthest left one
+			if (!isLeftColumn)
+			{
+				left = leftSpace;
+			}
 
-		// Apply right spacing to all columns apart from the furthest right one
-		if (!isRightColumn)
-		{
-			right = rightSpace;
+			// Apply right spacing to all columns apart from the furthest right one
+			if (!isRightColumn)
+			{
+				right = rightSpace;
+			}
 		}
 
 		outRect.top = top;

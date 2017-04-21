@@ -15,7 +15,7 @@ import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.content.ChannelContentFragment;
-import com.cube.lush.player.mobile.decoration.GridSpacingDecoration;
+import com.cube.lush.player.mobile.decoration.InsideSpacingItemDecoration;
 import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 	{
 		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.channel_columns);
 		int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
-		return new GridSpacingDecoration(spacing, NUMBER_COLUMNS);
+		return new InsideSpacingItemDecoration(spacing, NUMBER_COLUMNS);
 	}
 
 	@Override protected void getListData(@NonNull final ListingData callback)

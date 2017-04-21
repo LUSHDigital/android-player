@@ -47,6 +47,7 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
 
+		recycler.setBackgroundColor(provideBackgroundColor());
 		view.setBackgroundColor(provideBackgroundColor());
 
 		FILTER_OPTION defaultOption = provideDefaultTab();

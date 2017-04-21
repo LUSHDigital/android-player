@@ -4,16 +4,32 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import lombok.AllArgsConstructor;
-
 /**
  * Created by Jamie Cruwys.
  */
-@AllArgsConstructor
-public class GridSpacingDecoration extends RecyclerView.ItemDecoration
+public class InsideSpacingItemDecoration extends RecyclerView.ItemDecoration
 {
-	private int space;
+	private int topSpace, bottomSpace, leftSpace, rightSpace;
 	private int columns;
+
+	public InsideSpacingItemDecoration(int space, int columns)
+	{
+		this(space, space, columns);
+	}
+
+	public InsideSpacingItemDecoration(int verticalSpace, int horizontalSpace, int columns)
+	{
+		this(verticalSpace, verticalSpace, horizontalSpace, horizontalSpace, columns);
+	}
+
+	public InsideSpacingItemDecoration(int topSpace, int bottomSpace, int leftSpace, int rightSpace, int columns)
+	{
+		this.topSpace = topSpace;
+		this.bottomSpace = bottomSpace;
+		this.leftSpace = leftSpace;
+		this.rightSpace = rightSpace;
+		this.columns = columns;
+	}
 
 	@Override
 	public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
@@ -27,17 +43,34 @@ public class GridSpacingDecoration extends RecyclerView.ItemDecoration
 		boolean isLeftColumn = index % columns == 0;
 		boolean isRightColumn = index % columns == (columns - 1);
 
+		int top = 0;
+		int bottom = 0;
+		int left = 0;
+		int right = 0;
+
 		// Apply top spacing to all rows apart from the first
-		int top = !isFirstRow ? space : 0;
+		if (!isFirstRow)
+		{
+			top = topSpace;
+		}
 
 		// Apply bottom spacing to all rows apart from the last
-		int bottom = !isLastRow ? space : 0;
+		if (!isLastRow)
+		{
+			bottom = bottomSpace;
+		}
 
 		// Apply left spacing to all columns apart from the furthest left one
-		int left = !isLeftColumn ? space : 0;
+		if (!isLeftColumn)
+		{
+			left = leftSpace;
+		}
 
 		// Apply right spacing to all columns apart from the furthest right one
-		int right = !isRightColumn ? space : 0;
+		if (!isRightColumn)
+		{
+			right = rightSpace;
+		}
 
 		outRect.top = top;
 		outRect.bottom = bottom;

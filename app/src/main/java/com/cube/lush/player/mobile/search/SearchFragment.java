@@ -3,9 +3,9 @@ package com.cube.lush.player.mobile.search;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.cube.lush.player.api.model.SearchResult;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.mobile.MainActivity;
-import com.cube.lush.player.mobile.decoration.TopSpacingDecoration;
+import com.cube.lush.player.mobile.decoration.InsideSpacingItemDecoration;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.search.adapter.SearchAdapter;
 import com.lush.lib.listener.OnListItemClickListener;
@@ -63,10 +63,17 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		return new SearchAdapter(items, this);
 	}
 
+	@NonNull @Override protected RecyclerView.LayoutManager provideLayoutManager()
+	{
+		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.search_columns);
+		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
+	}
+
 	@Nullable @Override protected RecyclerView.ItemDecoration provideItemDecoration()
 	{
 		int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
-		return new TopSpacingDecoration(spacing);
+		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.search_columns);
+		return new InsideSpacingItemDecoration(spacing, 0, 0, 0, NUMBER_COLUMNS);
 	}
 
 	@Override protected void getListData(@NonNull final ListingData callback)

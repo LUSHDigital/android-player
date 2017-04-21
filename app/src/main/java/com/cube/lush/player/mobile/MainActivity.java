@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
@@ -38,7 +39,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     @BindView(R.id.container)
     FrameLayout container;
 
-	private LushTab currentTab;
+//	private LushTab currentTab;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +47,11 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		super.onCreate(savedInstanceState);
 		ButterKnife.bind(this);
 		setupNavigation();
+
+		if (savedInstanceState == null)
+		{
+			selectTab(LushTab.HOME);
+		}
 	}
 
 	private void setupNavigation()
@@ -77,13 +83,14 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		// Tab selection
 		bottomNavigation.setOnTabSelectedListener(this);
 
-		currentTab = LushTab.HOME;
+//		selectTab(LushTab.HOME);
 	}
 
 	@Override protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
-		currentTab = (LushTab)savedInstanceState.getSerializable("currentTab");
+		Log.d("t", "t");
+//		currentTab = (LushTab)savedInstanceState.getSerializable("currentTab");
 	}
 
 	@Override public int provideLoadingLayout()
@@ -111,12 +118,10 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		return ViewState.LOADED;
 	}
 
-
-
 	@Override protected void onResume()
 	{
 		super.onResume();
-		selectTab(currentTab);
+//		selectTab(currentTab);
 	}
 
 	@Override public boolean onTabSelected(int position, boolean wasSelected)
@@ -125,23 +130,23 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		{
 			case 0:
 				showNoHistoryFragment(HomeFragment.newInstance());
-				currentTab = LushTab.HOME;
+//				currentTab = LushTab.HOME;
 				return true;
 			case 1:
 				showNoHistoryFragment(LiveFragment.newInstance());
-				currentTab = LushTab.LIVE;
+//				currentTab = LushTab.LIVE;
 				return true;
 			case 2:
 				showNoHistoryFragment(ChannelsFragment.newInstance());
-				currentTab = LushTab.CHANNELS;
+//				currentTab = LushTab.CHANNELS;
 				return true;
 			case 3:
 				showNoHistoryFragment(EventsFragment.newInstance());
-				currentTab = LushTab.EVENTS;
+//				currentTab = LushTab.EVENTS;
 				return true;
 			case 4:
 				showNoHistoryFragment(SearchFragment.newInstance());
-				currentTab = LushTab.SEARCH;
+//				currentTab = LushTab.SEARCH;
 				return true;
 			default:
 				throw new RuntimeException("Unknown tab selected");
@@ -150,7 +155,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 
 	public void selectTab(@NonNull LushTab tab)
 	{
-		currentTab = tab;
+//		currentTab = tab;
 		bottomNavigation.setCurrentItem(tab.getPosition());
 	}
 
@@ -167,13 +172,17 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 	private void showFragment(@NonNull Fragment fragment, boolean preserveHistory)
 	{
 		FragmentManager fragmentManager = getSupportFragmentManager();
-
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		transaction.replace(container.getId(), fragment);
 
 		if (preserveHistory)
 		{
+			transaction.add(container.getId(), fragment);
 			transaction.addToBackStack(null);
+		}
+		else
+		{
+			// Tab selection
+			transaction.replace(container.getId(), fragment);
 		}
 
 		transaction.commit();
@@ -198,7 +207,7 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 
 	@Override protected void onSaveInstanceState(Bundle outState)
 	{
-		outState.putSerializable("currentTab", currentTab);
+//		outState.putSerializable("currentTab", currentTab);
 		super.onSaveInstanceState(outState);
 	}
 

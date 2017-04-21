@@ -48,7 +48,6 @@
 			android:label="@string/app_name"
 			android:logo="@mipmap/ic_launcher"
 			android:theme="@style/TV.AppTheme"
-			android:configChanges="orientation|screenLayout|keyboard"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

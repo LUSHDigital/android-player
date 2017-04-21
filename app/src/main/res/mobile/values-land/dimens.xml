@@ -6,7 +6,7 @@
 	<integer name="events_columns">2</integer>
 	<integer name="channel_content_columns">2</integer>
 	<integer name="tag_content_columns">2</integer>
-	<integer name="search_columns">2</integer>
+	<integer name="search_columns">1</integer>
 
 	<integer name="paging_columns">1</integer>
 	<integer name="paging_page_size">2</integer>

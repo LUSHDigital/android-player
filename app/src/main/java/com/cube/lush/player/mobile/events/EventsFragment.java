@@ -3,7 +3,6 @@ package com.cube.lush.player.mobile.events;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -157,10 +156,5 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 	@Override public void selectTab(@NonNull EventTab tab)
 	{
 		selectOption(tab);
-	}
-
-	@Override public int provideBackgroundColor()
-	{
-		return ContextCompat.getColor(getContext(), R.color.grey);
 	}
 }

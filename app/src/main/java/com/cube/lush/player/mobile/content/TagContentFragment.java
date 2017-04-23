@@ -3,7 +3,11 @@ package com.cube.lush.player.mobile.content;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.RadioContent;
 import com.cube.lush.player.api.model.VideoContent;
@@ -110,6 +114,27 @@ public class TagContentFragment extends BaseContentFragment
 
 	@NonNull @Override public String provideContentTitle()
 	{
-		return "Tag: #" + tag;
+		tag = tag.trim();
+
+		String title = "Tag: ";
+
+		if (tag.startsWith("#"))
+		{
+			return title + tag;
+		}
+
+		return title + "#" + tag;
+	}
+
+	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
+	{
+		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.tag_content_columns);
+		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
+	}
+
+	@Override public void onSaveInstanceState(Bundle outState)
+	{
+		outState.putString(ARG_TAG, tag);
+		super.onSaveInstanceState(outState);
 	}
 }

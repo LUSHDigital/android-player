@@ -168,6 +168,12 @@ public class LiveFragment extends StatefulFragment<Playlist>
 
 	@Override public void onListingDataRetrieved(@NonNull List<Playlist> items)
 	{
+		// Cover us from null pointers where the activity/fragment is detached
+		if (!isAdded() || getActivity() == null)
+		{
+			return;
+		}
+
 		super.onListingDataRetrieved(items);
 
 		if (getViewState() == ViewState.LOADED)

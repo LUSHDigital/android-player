@@ -8,7 +8,7 @@
 	android:ellipsize="end"
 	android:gravity="center"
 	android:lines="1"
-	android:minWidth="120dp"
+	android:minWidth="@dimen/filter_tab_min_width"
 	android:padding="16dp"
 	android:textAllCaps="false"
 	style="@style/Text.White"

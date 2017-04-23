@@ -1,8 +1,11 @@
 package com.cube.lush.player.mobile.base;
 
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.cube.lush.player.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 import uk.co.jamiecruwys.StatefulListingFragment;
@@ -21,7 +25,7 @@ import uk.co.jamiecruwys.contracts.ListingData;
 /**
  * Created by Jamie Cruwys.
  */
-public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extends StatefulListingFragment<ITEM_TYPE>
+public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends Serializable> extends StatefulListingFragment<ITEM_TYPE>
 {
 	@NonNull public abstract List<FILTER_OPTION> provideFilterOptions();
 
@@ -37,6 +41,8 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 
 	@Nullable public abstract RecyclerView.ItemDecoration provideItemDecorationForFilterOption(FILTER_OPTION option);
 
+	private static final String ARG_FILTER_OPTION = "filter_option";
+
 	private FILTER_OPTION chosenOption;
 	private LinearLayout tabContainer;
 
@@ -45,7 +51,18 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 		tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
 
-		FILTER_OPTION defaultOption = provideDefaultTab();
+		recycler.setBackgroundColor(provideBackgroundColor());
+		view.setBackgroundColor(provideBackgroundColor());
+
+		if (savedInstanceState == null)
+		{
+			chosenOption = provideDefaultTab();
+		}
+		else
+		{
+			chosenOption = (FILTER_OPTION)savedInstanceState.getSerializable(ARG_FILTER_OPTION);
+		}
+
 		final ListingData callback = this;
 
 		for (final FILTER_OPTION option : provideFilterOptions())
@@ -72,8 +89,7 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 			tabContainer.addView(itemView);
 		}
 
-		chosenOption = defaultOption;
-		selectOption(defaultOption);
+		selectOption(chosenOption);
 
 		return view;
 	}
@@ -124,20 +140,6 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 		getListDataForFilterOption(chosenOption, callback);
 	}
 
-	@Override public void onListingDataRetrieved(@NonNull List<ITEM_TYPE> items)
-	{
-		refresh(items);
-
-		if (items.isEmpty())
-		{
-			setViewState(ViewState.EMPTY);
-		}
-		else
-		{
-			setViewState(ViewState.LOADED);
-		}
-	}
-
 	@NonNull protected RecyclerView.LayoutManager provideLayoutManager()
 	{
 		return provideLayoutManagerForFilterOption(chosenOption);
@@ -151,5 +153,16 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 	@Nullable protected RecyclerView.ItemDecoration provideItemDecoration()
 	{
 		return provideItemDecorationForFilterOption(chosenOption);
+	}
+
+	@ColorInt public int provideBackgroundColor()
+	{
+		return ContextCompat.getColor(getContext(), android.R.color.black);
+	}
+
+	@Override public void onSaveInstanceState(Bundle outState)
+	{
+		outState.putSerializable(ARG_FILTER_OPTION, chosenOption);
+		super.onSaveInstanceState(outState);
 	}
 }

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,8 @@ import uk.co.jamiecruwys.contracts.ListingData;
  */
 public class SearchFragment extends StatefulListingFragment<SearchResult> implements OnListItemClickListener<SearchResult>
 {
+	private static final String ARG_QUERY = "search_query";
+
 	@BindView(R.id.search) SearchView searchView;
 	public static String query = "";
 
@@ -136,10 +139,12 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
+		populateUi();
 
-		if (savedInstanceState == null)
+		if (savedInstanceState != null)
 		{
-			populateUi();
+			String query = savedInstanceState.getString(ARG_QUERY, null);
+			searchView.setQuery(query, true);
 		}
 	}
 
@@ -178,5 +183,17 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		searchView.setQuery("", false);
 		searchView.onActionViewCollapsed();
 		searchView.onActionViewExpanded();
+	}
+
+	@Override public void onSaveInstanceState(Bundle outState)
+	{
+		CharSequence query = searchView.getQuery();
+
+		if (!TextUtils.isEmpty(query))
+		{
+			outState.putString(ARG_QUERY, String.valueOf(query));
+		}
+
+		super.onSaveInstanceState(outState);
 	}
 }

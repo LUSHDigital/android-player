@@ -97,16 +97,17 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	{
 		super.onCreate(savedInstanceState);
 		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
+
+		if (savedInstanceState != null)
+		{
+			mediaContent = (MediaContent)savedInstanceState.getSerializable(ARG_CONTENT);
+		}
 	}
 
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
 	{
 		super.onActivityCreated(savedInstanceState);
-
-		if (savedInstanceState == null)
-		{
-			populateUi();
-		}
+		populateUi();
 	}
 
 	private void populateUi()
@@ -305,5 +306,11 @@ public class DetailsFragment extends BrightcovePlayerFragment
 
 		Intent fullscreenPlaybackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent, currentSeekPosition);
 		startActivity(fullscreenPlaybackIntent);
+	}
+
+	@Override public void onSaveInstanceState(Bundle bundle)
+	{
+		bundle.putSerializable(ARG_CONTENT, mediaContent);
+		super.onSaveInstanceState(bundle);
 	}
 }

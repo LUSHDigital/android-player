@@ -39,8 +39,6 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
     @BindView(R.id.container)
     FrameLayout container;
 
-//	private LushTab currentTab;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -82,15 +80,6 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 
 		// Tab selection
 		bottomNavigation.setOnTabSelectedListener(this);
-
-//		selectTab(LushTab.HOME);
-	}
-
-	@Override protected void onRestoreInstanceState(Bundle savedInstanceState)
-	{
-		super.onRestoreInstanceState(savedInstanceState);
-		Log.d("t", "t");
-//		currentTab = (LushTab)savedInstanceState.getSerializable("currentTab");
 	}
 
 	@Override public int provideLoadingLayout()
@@ -118,35 +107,24 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		return ViewState.LOADED;
 	}
 
-	@Override protected void onResume()
-	{
-		super.onResume();
-//		selectTab(currentTab);
-	}
-
 	@Override public boolean onTabSelected(int position, boolean wasSelected)
 	{
 		switch (position)
 		{
 			case 0:
 				showNoHistoryFragment(HomeFragment.newInstance());
-//				currentTab = LushTab.HOME;
 				return true;
 			case 1:
 				showNoHistoryFragment(LiveFragment.newInstance());
-//				currentTab = LushTab.LIVE;
 				return true;
 			case 2:
 				showNoHistoryFragment(ChannelsFragment.newInstance());
-//				currentTab = LushTab.CHANNELS;
 				return true;
 			case 3:
 				showNoHistoryFragment(EventsFragment.newInstance());
-//				currentTab = LushTab.EVENTS;
 				return true;
 			case 4:
 				showNoHistoryFragment(SearchFragment.newInstance());
-//				currentTab = LushTab.SEARCH;
 				return true;
 			default:
 				throw new RuntimeException("Unknown tab selected");
@@ -155,7 +133,6 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 
 	public void selectTab(@NonNull LushTab tab)
 	{
-//		currentTab = tab;
 		bottomNavigation.setCurrentItem(tab.getPosition());
 	}
 
@@ -203,16 +180,5 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		}
 
 		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override protected void onSaveInstanceState(Bundle outState)
-	{
-//		outState.putSerializable("currentTab", currentTab);
-		super.onSaveInstanceState(outState);
-	}
-
-	@Override public void onConfigurationChanged(Configuration newConfig)
-	{
-		super.onConfigurationChanged(newConfig);
 	}
 }

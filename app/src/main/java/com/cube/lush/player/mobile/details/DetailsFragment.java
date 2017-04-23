@@ -48,6 +48,8 @@ public class DetailsFragment extends BrightcovePlayerFragment
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_CONTENT = "arg_content";
+	private static final String ARG_WATCHED_MILLISECONDS = "arg_watched_milliseconds";
+	private static final String ARG_PLAYING = "arg_playing";
 	private MediaContent mediaContent;
 
 	@BindView(R.id.playOverlay) ImageView playOverlay;
@@ -72,6 +74,17 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		return fragment;
 	}
 
+	@Override public void onCreate(@Nullable Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
+
+		if (savedInstanceState != null)
+		{
+			mediaContent = (MediaContent)savedInstanceState.getSerializable(ARG_CONTENT);
+		}
+	}
+
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = inflater.inflate(R.layout.detail_loaded, container, false);
@@ -90,18 +103,20 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		Analytics analytics = baseVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
-		return view;
-	}
-
-	@Override public void onCreate(@Nullable Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
-
 		if (savedInstanceState != null)
 		{
-			mediaContent = (MediaContent)savedInstanceState.getSerializable(ARG_CONTENT);
+			int watchedMilliseconds = savedInstanceState.getInt(ARG_WATCHED_MILLISECONDS, 0);
+			baseVideoView.seekTo(watchedMilliseconds);
+
+			boolean wasPlaying = savedInstanceState.getBoolean(ARG_PLAYING, false);
+
+			if (wasPlaying)
+			{
+				onPlayClicked();
+			}
 		}
+
+		return view;
 	}
 
 	@Override public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -195,7 +210,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		tagSection.setVisibility(View.GONE);
 	}
 
-	@OnClick(R.id.playOverlay) void onPlayClicked(View view)
+	@OnClick(R.id.playOverlay) void onPlayClicked()
 	{
 		playOverlay.setVisibility(View.GONE);
 
@@ -311,6 +326,9 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@Override public void onSaveInstanceState(Bundle bundle)
 	{
 		bundle.putSerializable(ARG_CONTENT, mediaContent);
+		bundle.putInt(ARG_WATCHED_MILLISECONDS, baseVideoView.getCurrentPosition());
+		bundle.putBoolean(ARG_PLAYING, baseVideoView.isPlaying());
+
 		super.onSaveInstanceState(bundle);
 	}
 }

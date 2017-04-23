@@ -52,7 +52,7 @@ public abstract class BaseContentFragment extends FilterableListingFragment<Medi
 		return CategoryContentType.ALL;
 	}
 
-	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
+	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
 	{
 		return new LinearLayoutManager(getContext());
 	}

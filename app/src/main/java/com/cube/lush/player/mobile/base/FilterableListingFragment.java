@@ -5,6 +5,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 
 	@NonNull public abstract FILTER_OPTION provideDefaultTab();
 
-	@NonNull public abstract RecyclerView.LayoutManager provideLayoutManagerForFilterOption(FILTER_OPTION option);
+	@NonNull public abstract LinearLayoutManager provideLayoutManagerForFilterOption(FILTER_OPTION option);
 
 	@NonNull public abstract RecyclerView.Adapter provideAdapterForFilterOption(FILTER_OPTION option, @NonNull List<ITEM_TYPE> items);
 

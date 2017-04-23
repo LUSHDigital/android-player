@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -70,7 +71,7 @@ public class HomeFragment extends FilterableListingFragment<MediaContent, HomeTa
 		return HomeTab.ALL;
 	}
 
-	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(HomeTab homeTab)
+	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(HomeTab homeTab)
 	{
 		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.home_columns);
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);

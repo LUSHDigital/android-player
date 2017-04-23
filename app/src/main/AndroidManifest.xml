@@ -30,12 +30,6 @@
 		</activity>
 
 		<activity
-			android:name="com.cube.lush.player.mobile.playback.PlaybackActivity"
-			android:screenOrientation="sensorLandscape"
-			android:theme="@style/Mobile.AppTheme"
-		/>
-
-		<activity
 			android:name="com.cube.lush.player.mobile.playback.LushPlaybackActivity"
 			android:theme="@style/Mobile.AppTheme"
 			android:configChanges="orientation"

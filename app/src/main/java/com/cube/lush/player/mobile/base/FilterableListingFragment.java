@@ -35,18 +35,16 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 
 	@NonNull public abstract FILTER_OPTION provideDefaultTab();
 
-	@NonNull public abstract LinearLayoutManager provideLayoutManagerForFilterOption(FILTER_OPTION option);
+	@NonNull public abstract RecyclerView.LayoutManager provideLayoutManagerForFilterOption(FILTER_OPTION option);
 
 	@NonNull public abstract RecyclerView.Adapter provideAdapterForFilterOption(FILTER_OPTION option, @NonNull List<ITEM_TYPE> items);
 
 	@Nullable public abstract RecyclerView.ItemDecoration provideItemDecorationForFilterOption(FILTER_OPTION option);
 
 	private static final String ARG_FILTER_OPTION = "filter_option";
-	private static final String ARG_SCROLL_POSITION = "adapter_position";
 
 	private FILTER_OPTION chosenOption;
 	private LinearLayout tabContainer;
-	private int scrollPosition = 0;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -63,11 +61,6 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 		else
 		{
 			chosenOption = (FILTER_OPTION)savedInstanceState.getSerializable(ARG_FILTER_OPTION);
-		}
-
-		if (savedInstanceState != null)
-		{
-			scrollPosition = savedInstanceState.getInt(ARG_SCROLL_POSITION, 0);
 		}
 
 		final ListingData callback = this;
@@ -147,26 +140,6 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 		getListDataForFilterOption(chosenOption, callback);
 	}
 
-	@Override public void onListingDataRetrieved(@NonNull List<ITEM_TYPE> items)
-	{
-		// Cover us from null points from the activity/fragment being detached
-		if (!isAdded() || getActivity() == null)
-		{
-			return;
-		}
-
-		refresh(items);
-
-		if (items.isEmpty())
-		{
-			setViewState(ViewState.EMPTY);
-		}
-		else
-		{
-			setViewState(ViewState.LOADED);
-		}
-	}
-
 	@NonNull protected RecyclerView.LayoutManager provideLayoutManager()
 	{
 		return provideLayoutManagerForFilterOption(chosenOption);
@@ -190,17 +163,6 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 	@Override public void onSaveInstanceState(Bundle outState)
 	{
 		outState.putSerializable(ARG_FILTER_OPTION, chosenOption);
-
-		LinearLayoutManager layoutManager = (LinearLayoutManager)recycler.getLayoutManager();
-		int adapterPosition = layoutManager.findFirstVisibleItemPosition();
-
-		outState.putInt(ARG_SCROLL_POSITION, adapterPosition);
 		super.onSaveInstanceState(outState);
-	}
-
-	@Override public void refresh(@NonNull List<ITEM_TYPE> items)
-	{
-		super.refresh(items);
-		recycler.scrollToPosition(scrollPosition);
 	}
 }

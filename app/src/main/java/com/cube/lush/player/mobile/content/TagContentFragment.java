@@ -130,4 +130,10 @@ public class TagContentFragment extends BaseContentFragment
 		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.tag_content_columns);
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
+
+	@Override public void onSaveInstanceState(Bundle outState)
+	{
+		outState.putString(ARG_TAG, tag);
+		super.onSaveInstanceState(outState);
+	}
 }

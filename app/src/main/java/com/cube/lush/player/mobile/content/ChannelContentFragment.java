@@ -76,4 +76,10 @@ public class ChannelContentFragment extends BaseContentFragment
 		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.channel_content_columns);
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
+
+	@Override public void onSaveInstanceState(Bundle outState)
+	{
+		outState.putSerializable(ARG_CHANNEL, channel);
+		super.onSaveInstanceState(outState);
+	}
 }

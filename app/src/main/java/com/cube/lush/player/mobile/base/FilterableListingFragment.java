@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.cube.lush.player.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 import uk.co.jamiecruwys.StatefulListingFragment;
@@ -23,7 +24,7 @@ import uk.co.jamiecruwys.contracts.ListingData;
 /**
  * Created by Jamie Cruwys.
  */
-public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extends StatefulListingFragment<ITEM_TYPE>
+public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends Serializable> extends StatefulListingFragment<ITEM_TYPE>
 {
 	@NonNull public abstract List<FILTER_OPTION> provideFilterOptions();
 
@@ -39,6 +40,8 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 
 	@Nullable public abstract RecyclerView.ItemDecoration provideItemDecorationForFilterOption(FILTER_OPTION option);
 
+	private static final String ARG_FILTER_OPTION = "filter_option";
+
 	private FILTER_OPTION chosenOption;
 	private LinearLayout tabContainer;
 
@@ -50,7 +53,15 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 		recycler.setBackgroundColor(provideBackgroundColor());
 		view.setBackgroundColor(provideBackgroundColor());
 
-		FILTER_OPTION defaultOption = provideDefaultTab();
+		if (savedInstanceState == null)
+		{
+			chosenOption = provideDefaultTab();
+		}
+		else
+		{
+			chosenOption = (FILTER_OPTION)savedInstanceState.getSerializable(ARG_FILTER_OPTION);
+		}
+
 		final ListingData callback = this;
 
 		for (final FILTER_OPTION option : provideFilterOptions())
@@ -77,8 +88,7 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 			tabContainer.addView(itemView);
 		}
 
-		chosenOption = defaultOption;
-		selectOption(defaultOption);
+		selectOption(chosenOption);
 
 		return view;
 	}
@@ -167,5 +177,11 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION> extend
 	@ColorInt public int provideBackgroundColor()
 	{
 		return ContextCompat.getColor(getContext(), android.R.color.black);
+	}
+
+	@Override public void onSaveInstanceState(Bundle outState)
+	{
+		outState.putSerializable(ARG_FILTER_OPTION, chosenOption);
+		super.onSaveInstanceState(outState);
 	}
 }

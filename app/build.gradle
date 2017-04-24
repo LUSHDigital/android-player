@@ -55,6 +55,19 @@ android {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
+
+		applicationVariants.all { variant ->
+			variant.outputs.each { output ->
+				def apk = output.outputFile;
+
+				def appName = "${applicationId}";
+				def versionName = defaultConfig.versionName;
+				def versionCode = defaultConfig.versionCode;
+
+				def newName = appName + "-v" + versionName + "-" + versionCode + ".apk";
+				output.outputFile = new File(apk.parentFile, newName);
+			}
+		}
 	}
 
 	sourceSets {
@@ -76,7 +89,6 @@ android {
 		}
 	}
 }
-
 
 configurations.all {
 	// Check for updates every build

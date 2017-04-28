@@ -73,13 +73,16 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 	public void onStart()
 	{
 		super.onStart();
-		handler.post(scheduledFetch);
+		// TODO: Add back live check once the API works again.
+		// handler.post(scheduledFetch);
+
+		OffAirFragment.show(getChildFragmentManager(), contentContainer);
 	}
 
 	@Override
 	public void onStop()
 	{
-		handler.removeCallbacks(scheduledFetch);
+		// handler.removeCallbacks(scheduledFetch);
 		super.onStop();
 	}
 

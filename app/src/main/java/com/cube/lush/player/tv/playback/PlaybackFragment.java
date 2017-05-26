@@ -16,6 +16,7 @@ import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.media.DeliveryType;
+import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
@@ -42,6 +43,10 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		View view = inflater.inflate(R.layout.fragment_playback, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
+
+		// Our custom media controller, which is in one line
+		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(brightcoveVideoView, R.layout.custom_tv_media_controller);
+		brightcoveVideoView.setMediaController(brightcoveMediaController);
 
 		super.onCreateView(inflater, container, savedInstanceState);
 

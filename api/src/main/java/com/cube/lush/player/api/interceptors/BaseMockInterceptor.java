@@ -1,4 +1,4 @@
-package com.cube.lush.player.api.interceptors.base;
+package com.cube.lush.player.api.interceptors;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -43,15 +43,14 @@ public abstract class BaseMockInterceptor implements Interceptor
 		HttpUrl url = originalRequest.url();
 
 		// 0 - lushtvapi
-		// 1 - v1
-		// 2 - views
-		// 3 - endpoint e.g. categories
+		// 1 - v2
+		// 2 - endpoint e.g. categories
 		List<String> strings = url.pathSegments();
-		String originalEndpoint = strings.get(3);
+		String originalEndpoint = strings.get(2);
 		String endpointToIntercept = provideEndpointName();
 
 		// If the request is for this interceptors endpoint, then replace the response with our mock one
-		if (originalEndpoint.equals(endpointToIntercept))
+		if (originalEndpoint.startsWith(endpointToIntercept))
 		{
 			return true;
 		}

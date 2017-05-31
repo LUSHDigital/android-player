@@ -4,22 +4,22 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 29/03/2017.
+ * Created by Jamie Cruwys of 3 SIDED CUBE on 31/05/2017.
  */
-public class MockSearchInterceptor extends BaseMockInterceptor
+public class MockEventsInterceptor extends BaseMockInterceptor
 {
-	public MockSearchInterceptor(@NonNull Context context)
+	public MockEventsInterceptor(@NonNull Context context)
 	{
 		super(context);
 	}
 
 	@Override protected String provideEndpointName()
 	{
-		return "programme-search/";
+		return "events";
 	}
 
 	@Override protected String provideJsonFileName()
 	{
-		return "mock/api/programmes.json";
+		return "mock/api/events.json";
 	}
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
-import com.cube.lush.player.api.interceptors.MockPlaylistInterceptor;
+import com.cube.lush.player.api.interceptors.MockLivePlaylistInterceptor;
 import com.cube.lush.player.api.util.HtmlStringAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,7 +49,7 @@ public class APIModule
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
 		// Mock the playlist endpoint so it doesn't show live content
-		builder.addInterceptor(new MockPlaylistInterceptor(context));
+		builder.addInterceptor(new MockLivePlaylistInterceptor(context));
 
 		// Channel interceptors
 //		builder.addInterceptor(new MockCosmeticsChannelInterceptor(context));

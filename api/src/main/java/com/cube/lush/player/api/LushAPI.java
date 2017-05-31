@@ -49,7 +49,6 @@ public interface LushAPI
 	@GET("events/{event_tag}")
 	Call<List<Programme>> getEventProgrammes(@Path("event_tag") String eventTag);
 
-
 	/**
 	 * Gets programmes for a tag
 	 * @param tag to get the programmes for

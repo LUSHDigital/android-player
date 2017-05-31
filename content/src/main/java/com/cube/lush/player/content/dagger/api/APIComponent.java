@@ -3,6 +3,7 @@ package com.cube.lush.player.content.dagger.api;
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.manager.SearchManager;
+import com.cube.lush.player.content.repository.Repository;
 
 import javax.inject.Singleton;
 
@@ -21,4 +22,6 @@ public interface APIComponent
 	// Consumes the dependency
 	void inject(MediaManager mediaManager);
 	void inject(SearchManager searchManager);
+
+	void inject(Repository repository);
 }

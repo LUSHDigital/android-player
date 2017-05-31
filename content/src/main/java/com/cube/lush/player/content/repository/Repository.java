@@ -17,7 +17,9 @@ import javax.inject.Inject;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys on 26/05/2017.
+ * Repository designed to be able to allow you to cache, know which content is new and get the data from the network
+ *
+ * @author Jamie Cruwys
  */
 public abstract class Repository<T>
 {
@@ -42,9 +44,8 @@ public abstract class Repository<T>
 	/**
 	 * Get items from the network and callback using the response handler
 	 * @param callback to use to provide the results of the network request
-	 * @return a Set<T> of the results. This can be empty, but not null.
 	 */
-	abstract @NonNull Set<T> getItemsFromNetwork(@NonNull ResponseHandler<T> callback);
+	abstract void getItemsFromNetwork(@NonNull ResponseHandler<T> callback);
 
 	/**
 	 * Provide the cache expiry time using the constants in {@link Repository}
@@ -59,7 +60,7 @@ public abstract class Repository<T>
 	 * Get items from either the cache, or make a network request if the cache has expired.
 	 * @return {@link Set<T>} of items which can be empty, but not null.
 	 */
-	public void getItems(@NonNull final ItemRetrieval<T> callback)
+	protected void getItems(@NonNull final ItemRetrieval<T> callback)
 	{
 		if (cacheOutdated())
 		{

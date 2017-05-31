@@ -2,24 +2,29 @@ package com.cube.lush.player.content.util;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Programme;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * Various pre-defined orderings of media.
+ * Orders a set of programmes
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public enum MediaSorter
 {
 	MOST_RECENT_FIRST,
 	OLDEST_FIRST;
 
-	public <T extends MediaContent> List<T> sort(@NonNull List<T> items)
+	/**
+	 * Sorts items
+	 *
+	 * @param items
+	 * @return programmes
+	 */
+	public List<Programme> sort(@NonNull List<Programme> items)
 	{
 		if (this == MOST_RECENT_FIRST)
 		{
@@ -38,15 +43,15 @@ public enum MediaSorter
 	 *
 	 * @param items
 	 * @param ascending true for ascending, false for descending
-	 * @return
+	 * @return programmes
 	 */
-	private <T extends MediaContent> List<T> byDateAscending(@NonNull List<T> items, final boolean ascending)
+	private List<Programme> byDateAscending(@NonNull List<Programme> items, final boolean ascending)
 	{
-		Collections.sort(items, new Comparator<MediaContent>()
+		Collections.sort(items, new Comparator<Programme>()
 		{
-			@Override public int compare(MediaContent mediaContent, MediaContent t1)
+			@Override public int compare(Programme programme, Programme t1)
 			{
-				int result = mediaContent.getDate().compareTo(t1.getDate());
+				int result = programme.getDate().compareTo(t1.getDate());
 
 				// Currently ordered with the oldest date first e.g. 1st July, 1st August, 1st September
 

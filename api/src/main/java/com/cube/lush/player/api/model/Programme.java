@@ -14,7 +14,9 @@ import lombok.Data;
 import static android.text.format.DateUtils.DAY_IN_MILLIS;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 31/05/2017.
+ * Programme API model
+ *
+ * @author Jamie Cruwys
  */
 @Data
 public class Programme implements Serializable

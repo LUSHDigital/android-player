@@ -10,9 +10,9 @@ import org.unbescape.html.HtmlEscape;
 import java.io.IOException;
 
 /**
- * Wraps the default Gson string adapter to unescape the strings it gets back from the Lush API, which are often HTML escaped.
+ * Wraps the default Gson string adapter to unescape strings it gets back from the API, which could be HTML escaped.
  *
- * Created by tim on 28/11/2016.
+ * @author Jamie Cruwys
  */
 public class HtmlStringAdapter extends TypeAdapter<String>
 {
@@ -27,7 +27,7 @@ public class HtmlStringAdapter extends TypeAdapter<String>
 	@Override
 	public void write(JsonWriter out, String value) throws IOException
 	{
-		// We don't need to care about HTML-escaping strings for the Lush API so just pass through
+		// We don't need to care about HTML-escaping strings for the API so just pass through
 		wrappedAdapter.write(out, value);
 	}
 }

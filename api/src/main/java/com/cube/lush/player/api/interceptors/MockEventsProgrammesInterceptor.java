@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 31/05/2017.
+ * Interceptor for getting programmmes for an event
+ *
+ * @author Jamie Cruwys
  */
 public class MockEventsProgrammesInterceptor extends BaseMockInterceptor
 {

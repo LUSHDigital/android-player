@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 29/03/2017.
+ * Interceptor for getting the live playlist
+ *
+ * @author Jamie Cruwys
  */
 public class MockLivePlaylistInterceptor extends BaseMockInterceptor
 {

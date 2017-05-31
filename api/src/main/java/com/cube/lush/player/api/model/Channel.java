@@ -5,7 +5,9 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 31/05/2017.
+ * Channel API model
+ *
+ * @author Jamie Cruwys
  */
 @Data
 public class Channel implements Serializable

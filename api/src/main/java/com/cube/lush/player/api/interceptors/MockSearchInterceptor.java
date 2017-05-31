@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 29/03/2017.
+ * Interceptor for search
+ *
+ * @author Jamie Cruwys
  */
 public class MockSearchInterceptor extends BaseMockInterceptor
 {

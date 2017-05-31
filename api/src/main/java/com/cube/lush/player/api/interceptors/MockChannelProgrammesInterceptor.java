@@ -6,6 +6,12 @@ import android.support.annotation.NonNull;
 /**
  * Created by Jamie Cruwys of 3 SIDED CUBE on 31/05/2017.
  */
+
+/**
+ * Interceptor for getting programmmes for a channel
+ *
+ * @author Jamie Cruwys
+ */
 public class MockChannelProgrammesInterceptor extends BaseMockInterceptor
 {
 	public MockChannelProgrammesInterceptor(@NonNull Context context)

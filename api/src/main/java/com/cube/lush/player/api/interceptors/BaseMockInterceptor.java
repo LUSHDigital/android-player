@@ -16,7 +16,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 29/03/2017.
+ * Base Mock Interceptor which abstracts away most of the interceptor work
+ *
+ * @author Jamie Cruwys
  */
 public abstract class BaseMockInterceptor implements Interceptor
 {

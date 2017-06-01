@@ -13,7 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys.
+ * Content View Holder
+ *
+ * @author Jamie Cruwys
  */
 public class ContentViewHolder extends BaseViewHolder<Programme>
 {

@@ -5,25 +5,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.api.model.RadioContent;
-import com.cube.lush.player.api.model.VideoContent;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.CategoryContentType;
+import com.cube.lush.player.content.repository.TaggedProgrammeRepository;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.base.BaseContentFragment;
+import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 18/04/2017.
+ * Tag Content Fragment
+ *
+ * @author Jamie Cruwys
  */
 public class TagContentFragment extends BaseContentFragment
 {
@@ -52,64 +52,46 @@ public class TagContentFragment extends BaseContentFragment
 		tag = getArguments().getString(ARG_TAG, "");
 	}
 
-	@Override public void getListDataForFilterOption(@NonNull CategoryContentType contentType, @NonNull final ListingData callback)
+	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		if (contentType == CategoryContentType.ALL)
+		TaggedProgrammeRepository.INSTANCE.setTag(tag);
+
+		TaggedProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
-			MediaManager.getInstance().getContentForTag(tag, 50, new ResponseHandler<MediaContent>()
+			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
-				@Override public void onSuccess(@NonNull List<MediaContent> items)
+				if (filterOption == ProgrammeFilterOption.ALL)
 				{
 					MediaSorter.MOST_RECENT_FIRST.sort(items);
 					callback.onListingDataRetrieved(items);
 				}
-
-				@Override public void onFailure(@Nullable Throwable t)
+				else if (filterOption == ProgrammeFilterOption.TV)
 				{
-					callback.onListingDataError(t);
+					Set<Programme> videos = TaggedProgrammeRepository.INSTANCE.getVideos();
+
+					List videosList = new ArrayList();
+					videosList.addAll(videos);
+					MediaSorter.MOST_RECENT_FIRST.sort(videosList);
+
+					callback.onListingDataRetrieved(videosList);
 				}
-			});
-		}
-		else if (contentType == CategoryContentType.TV)
-		{
-			MediaManager.getInstance().getVideos(new ResponseHandler<VideoContent>()
+				else if (filterOption == ProgrammeFilterOption.RADIO)
+				{
+					Set<Programme> radios = TaggedProgrammeRepository.INSTANCE.getRadios();
+
+					List radiosList = new ArrayList();
+					radiosList.addAll(radios);
+					MediaSorter.MOST_RECENT_FIRST.sort(radiosList);
+
+					callback.onListingDataRetrieved(radiosList);
+				}
+			}
+
+			@Override public void onFailure(@Nullable Throwable t)
 			{
-				@Override public void onSuccess(@NonNull List<VideoContent> items)
-				{
-					ArrayList<MediaContent> mediaContent = new ArrayList<MediaContent>();
-					mediaContent.addAll(items);
-
-					List<MediaContent> filteredContent = MediaManager.getInstance().filterContentByTag(tag, mediaContent, 50);
-
-					callback.onListingDataRetrieved(filteredContent);
-				}
-
-				@Override public void onFailure(@Nullable Throwable t)
-				{
-					callback.onListingDataError(t);
-				}
-			});
-		}
-		else if (contentType == CategoryContentType.RADIO)
-		{
-			MediaManager.getInstance().getRadios(new ResponseHandler<RadioContent>()
-			{
-				@Override public void onSuccess(@NonNull List<RadioContent> items)
-				{
-					ArrayList<MediaContent> mediaContent = new ArrayList<MediaContent>();
-					mediaContent.addAll(items);
-
-					List<MediaContent> filteredContent = MediaManager.getInstance().filterContentByTag(tag, mediaContent, 50);
-
-					callback.onListingDataRetrieved(filteredContent);
-				}
-
-				@Override public void onFailure(@Nullable Throwable t)
-				{
-					callback.onListingDataError(t);
-				}
-			});
-		}
+				callback.onListingDataError(t);
+			}
+		});
 	}
 
 	@NonNull @Override public String provideContentTitle()
@@ -126,7 +108,7 @@ public class TagContentFragment extends BaseContentFragment
 		return title + "#" + tag;
 	}
 
-	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
+	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(ProgrammeFilterOption filterOption)
 	{
 		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.tag_content_columns);
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);

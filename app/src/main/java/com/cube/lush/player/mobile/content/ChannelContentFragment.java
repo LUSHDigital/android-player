@@ -20,7 +20,9 @@ import java.util.List;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 18/04/2017.
+ * Channel Content Fragment
+ *
+ * @author Jamie Cruwys
  */
 public class ChannelContentFragment extends BaseContentFragment
 {

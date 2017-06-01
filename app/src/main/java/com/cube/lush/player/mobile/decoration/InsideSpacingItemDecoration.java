@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by Jamie Cruwys.
+ * Inside Spacing Decoration, for list items where spacing is applied to the inside of the area
+ *
+ * @author Jamie Cruwys
  */
 public class InsideSpacingItemDecoration extends RecyclerView.ItemDecoration
 {

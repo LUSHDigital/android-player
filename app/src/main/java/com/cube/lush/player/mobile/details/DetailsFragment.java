@@ -43,7 +43,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Jamie Cruwys.
+ * Details Fragment
+ *
+ * @author Jamie Cruwys
  */
 public class DetailsFragment extends BrightcovePlayerFragment
 {

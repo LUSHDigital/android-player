@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
-import com.cube.lush.player.api.interceptors.MockLivePlaylistInterceptor;
 import com.cube.lush.player.api.util.HtmlStringAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +17,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Dagger API Module
+ *
+ * @author Jamie Cruwys
  */
 @Module
 public class APIModule
@@ -49,21 +50,21 @@ public class APIModule
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
 		// Mock the playlist endpoint so it doesn't show live content
-		builder.addInterceptor(new MockLivePlaylistInterceptor(context));
+		// builder.addInterceptor(new MockLivePlaylistInterceptor(context));
 
 		// Channel interceptors
-//		builder.addInterceptor(new MockCosmeticsChannelInterceptor(context));
-//		builder.addInterceptor(new MockGorillaChannelInterceptor(context));
-//		builder.addInterceptor(new MockKitchenChannelInterceptor(context));
-//		builder.addInterceptor(new MockLushLifeChannelInterceptor(context));
-//		builder.addInterceptor(new MockSoapboxChannelInterceptor(context));
-//		builder.addInterceptor(new MockTimesChannelInterceptor(context));
+		// builder.addInterceptor(new MockChannelsInterceptor(context));
+		// builder.addInterceptor(new MockChannelProgrammesInterceptor(context));
 
-		// Other interceptors
-//		builder.addInterceptor(new MockProgrammeInterceptor(context));
-//		builder.addInterceptor(new MockRadiosInterceptor(context));
-//		builder.addInterceptor(new MockSearchInterceptor(context));
-//		builder.addInterceptor(new MockVideosInterceptor(context));
+		// Event interceptors
+		// builder.addInterceptor(new MockEventsInterceptor(context));
+		// builder.addInterceptor(new MockEventsProgrammesInterceptor(context));
+
+		// Search interceptors
+		// builder.addInterceptor(new MockSearchInterceptor(context));
+
+		// Tag interceptors
+		// builder.addInterceptor(new MockTagProgrammesInterceptor(context));
 
 		return builder.build();
 	}

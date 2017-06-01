@@ -3,12 +3,12 @@ package com.cube.lush.player.content.repository;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.cube.lush.player.api.LushAPI;
 import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +39,8 @@ public abstract class Repository<T>
 
 	public interface ItemRetrieval<T>
 	{
-		void onItemsRetrieved(Set<T> items);
+		void onItemsRetrieved(@NonNull Set<T> items);
+		void onItemRetrievalFailed(@NonNull Throwable throwable);
 	}
 
 	public Repository()
@@ -66,7 +67,7 @@ public abstract class Repository<T>
 	 * Get items from either the cache, or make a network request if the cache has expired.
 	 * @return {@link Set<T>} of items which can be empty, but not null.
 	 */
-	protected void getItems(@NonNull final ItemRetrieval<T> callback)
+	public void getItems(@NonNull final ResponseHandler<T> callback)
 	{
 		if (cacheOutdated())
 		{
@@ -79,7 +80,7 @@ public abstract class Repository<T>
 				@Override public void onSuccess(@NonNull List<T> latestItems)
 				{
 					updateItems(latestItems);
-					callback.onItemsRetrieved(items);
+					callback.onSuccess(latestItems);
 				}
 
 				/**
@@ -88,13 +89,16 @@ public abstract class Repository<T>
 				 */
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					Log.e(TAG, "Repository request failed with reason:" + t);
+					callback.onFailure(t);
 				}
 			});
 		}
 		else
 		{
-			callback.onItemsRetrieved(items);
+			List cachedItems = new ArrayList<>();
+			cachedItems.addAll(items);
+
+			callback.onSuccess(cachedItems);
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.cube.lush.player.mobile.details;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.midi.MidiDeviceInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -50,7 +51,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	private static final String ARG_CONTENT = "arg_content";
 	private static final String ARG_WATCHED_MILLISECONDS = "arg_watched_milliseconds";
 	private static final String ARG_PLAYING = "arg_playing";
-	private MediaContent mediaContent;
+	private Programme mediaContent;
 
 	@BindView(R.id.playOverlay) ImageView playOverlay;
 	@BindView(R.id.content_type) TextView contentType;
@@ -65,11 +66,11 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		// Required empty public constructor
 	}
 
-	public static DetailsFragment newInstance(@NonNull MediaContent mediaContent)
+	public static DetailsFragment newInstance(@NonNull Programme programme)
 	{
 		DetailsFragment fragment = new DetailsFragment();
 		Bundle args = new Bundle();
-		args.putSerializable(ARG_CONTENT, mediaContent);
+		args.putSerializable(ARG_CONTENT, programme);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -77,11 +78,11 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		mediaContent = (MediaContent)getArguments().getSerializable(ARG_CONTENT);
+		mediaContent = (Programme)getArguments().getSerializable(ARG_CONTENT);
 
 		if (savedInstanceState != null)
 		{
-			mediaContent = (MediaContent)savedInstanceState.getSerializable(ARG_CONTENT);
+			mediaContent = (Programme)savedInstanceState.getSerializable(ARG_CONTENT);
 		}
 	}
 

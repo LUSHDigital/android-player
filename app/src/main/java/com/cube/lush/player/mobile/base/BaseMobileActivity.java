@@ -6,7 +6,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import uk.co.jamiecruwys.StatefulActivity;
 
 /**
- * Created by Jamie Cruwys.
+ * Base activity for mobile
+ *
+ * @author Jamie Cruwys
  */
 public abstract class BaseMobileActivity extends StatefulActivity
 {

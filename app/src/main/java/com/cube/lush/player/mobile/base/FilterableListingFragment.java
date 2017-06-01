@@ -5,7 +5,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,9 @@ import uk.co.jamiecruwys.ViewState;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys.
+ * Filterable Listing Fragment which provides most of the functionality for statefulviews and leaves little to be implemented by the subclasses
+ *
+ * @author Jamie Cruwys
  */
 public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends Serializable> extends StatefulListingFragment<ITEM_TYPE>
 {

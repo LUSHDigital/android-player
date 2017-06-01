@@ -9,9 +9,9 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.Channel;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.Channel;
+import com.cube.lush.player.content.repository.ChannelRepository;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.channels.adapter.ChannelsAdapter;
 import com.cube.lush.player.mobile.content.ChannelContentFragment;
@@ -24,7 +24,9 @@ import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys.
+ * Channels Fragment
+ *
+ * @author Jamie Cruwys
  */
 public class ChannelsFragment extends StatefulListingFragment<Channel> implements OnListItemClickListener<Channel>
 {
@@ -61,7 +63,7 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		MediaManager.getInstance().getChannels(new ResponseHandler<Channel>()
+		ChannelRepository.INSTANCE.getItems(new ResponseHandler<Channel>()
 		{
 			@Override public void onSuccess(@NonNull List<Channel> items)
 			{

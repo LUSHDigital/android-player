@@ -5,16 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Channel;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.CategoryContentType;
-import com.cube.lush.player.content.model.Channel;
+import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.base.BaseContentFragment;
+import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 
 import java.util.List;
 
@@ -50,11 +49,13 @@ public class ChannelContentFragment extends BaseContentFragment
 		channel = (Channel)getArguments().getSerializable(ARG_CHANNEL);
 	}
 
-	@Override public void getListDataForFilterOption(@NonNull CategoryContentType contentType, @NonNull final ListingData callback)
+	@Override public void getListDataForFilterOption(@NonNull ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		MediaManager.getInstance().getChannelContent(channel, contentType, new ResponseHandler<MediaContent>()
+		ChannelProgrammesRepository.INSTANCE.setChannelTag(channel.getTag());
+
+		ChannelProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
-			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				MediaSorter.MOST_RECENT_FIRST.sort(items);
 				callback.onListingDataRetrieved(items);
@@ -69,10 +70,10 @@ public class ChannelContentFragment extends BaseContentFragment
 
 	@NonNull @Override public String provideContentTitle()
 	{
-		return channel.getTitle();
+		return channel.getName();
 	}
 
-	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
+	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(ProgrammeFilterOption filterOption)
 	{
 		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.channel_content_columns);
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);

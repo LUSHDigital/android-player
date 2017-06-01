@@ -1,35 +1,27 @@
 package com.cube.lush.player.mobile.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Types of content. This is for use with {@link com.cube.lush.player.api.LushAPI#getCategories(String, String)} requests, and distinct from {@link ContentType}
- * which is for more general use.
+ * Filter options for lists of programmes
  *
  * @author Jamie Cruwys
  */
 @AllArgsConstructor
-public enum  ContentTypeTab
+public enum ProgrammeFilterOption
 {
 	ALL("All Episodes"),
 	TV("TV"),
 	RADIO("Radio");
 
-	/**
-	 * The name used for tabs when you want to filter by category content type
-	 */
 	@Getter private String name;
 
-	public static List<CategoryContentType> listValues()
+	public static List<ProgrammeFilterOption> listValues()
 	{
-		ArrayList<CategoryContentType> items = new ArrayList<>();
-
-		for (CategoryContentType item : CategoryContentType.values())
-		{
-			items.add(item);
-		}
-
-		return items;
+		return Arrays.asList(ProgrammeFilterOption.values());
 	}
 }

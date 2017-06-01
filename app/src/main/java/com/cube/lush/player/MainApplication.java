@@ -4,8 +4,9 @@ import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.lush.LushApplication;
 
 /**
+ * Main Application
+ *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public class MainApplication extends LushApplication
 {

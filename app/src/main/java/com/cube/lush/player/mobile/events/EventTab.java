@@ -2,14 +2,16 @@ package com.cube.lush.player.mobile.events;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys.
+ * Event Tab
+ *
+ * @author Jamie Cruwys
  */
 @AllArgsConstructor
 public enum EventTab
@@ -35,14 +37,7 @@ public enum EventTab
 
 	public static List<EventTab> listValues()
 	{
-		ArrayList<EventTab> items = new ArrayList<>();
-
-		for (EventTab item : EventTab.values())
-		{
-			items.add(item);
-		}
-
-		return items;
+		return Arrays.asList(EventTab.values());
 	}
 
 	public static List<EventTab> listValuesExcluding(@NonNull EventTab... tabsToExclude)

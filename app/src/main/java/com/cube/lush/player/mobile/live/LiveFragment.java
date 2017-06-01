@@ -18,11 +18,13 @@ import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
-import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.VideoInfo;
+import com.cube.lush.player.api.model.LivePlaylist;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.brightcove.BrightcoveUtils;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.model.VideoInfo;
+import com.cube.lush.player.content.repository.LivePlaylistRepository;
 import com.cube.lush.player.mobile.LushTab;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
@@ -45,7 +47,9 @@ import static android.text.format.DateUtils.FORMAT_SHOW_TIME;
 import static android.text.format.DateUtils.FORMAT_UTC;
 
 /**
- * Created by Jamie Cruwys.
+ * Live Fragment
+ *
+ * @author Jamie Cruwys
  */
 public class LiveFragment extends StatefulFragment<Playlist>
 {
@@ -110,11 +114,9 @@ public class LiveFragment extends StatefulFragment<Playlist>
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		// Get the live content
-		MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()
+		LivePlaylistRepository.INSTANCE.getItems(new ResponseHandler<LivePlaylist>()
 		{
-			@Override
-			public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<LivePlaylist> items)
 			{
 				if (getActivity() == null)
 				{
@@ -131,7 +133,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 				final String playlistId = items.get(0).getId();
 
 				// Get the playlist that is live
-				MediaManager.getInstance().getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
+				BrightcoveCatalog.INSTANCE.getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
 				{
 					@Override
 					public void onPlaylist(Playlist playlist)
@@ -158,10 +160,9 @@ public class LiveFragment extends StatefulFragment<Playlist>
 				});
 			}
 
-			@Override
-			public void onFailure(@Nullable Throwable t)
+			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				callback.onListingDataError(null);
 			}
 		});
 	}
@@ -182,7 +183,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 			Playlist playlist = items.get(0);
 			String playlistId = playlist.getStringProperty("id");
 
-			VideoInfo liveVideoInfo = MediaManager.getInstance().findCurrentLiveVideo(playlist);
+			VideoInfo liveVideoInfo = BrightcoveUtils.findCurrentLiveVideo(playlist);
 
 			if (liveVideoInfo == null)
 			{
@@ -229,11 +230,11 @@ public class LiveFragment extends StatefulFragment<Playlist>
 		{
 			@Override public void onClick(View v)
 			{
-				MediaContent mediaContent = new MediaContent();
-				mediaContent.setId(playlistId);
-				mediaContent.setType(ContentType.TV);
+				Programme programme = new Programme();
+				programme.setId(playlistId);
+				programme.setType(ContentType.TV);
 
-				Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent, 0);
+				Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), programme, 0);
 				getActivity().startActivity(playbackIntent);
 			}
 		});

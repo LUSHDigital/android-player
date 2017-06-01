@@ -1,13 +1,15 @@
 package com.cube.lush.player.mobile.home;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys.
+ * Home Tab
+ *
+ * @author Jamie Cruwys
  */
 @AllArgsConstructor
 public enum HomeTab
@@ -33,13 +35,6 @@ public enum HomeTab
 
 	public static List<HomeTab> listValues()
 	{
-		ArrayList<HomeTab> items = new ArrayList<>();
-
-		for (HomeTab item : HomeTab.values())
-		{
-			items.add(item);
-		}
-
-		return items;
+		return Arrays.asList(HomeTab.values());
 	}
 }

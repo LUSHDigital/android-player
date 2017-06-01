@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.SearchResult;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.SearchManager;
+import com.cube.lush.player.content.repository.SearchProgrammeRepository;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.decoration.InsideSpacingItemDecoration;
 import com.cube.lush.player.mobile.details.DetailsFragment;
@@ -31,9 +31,11 @@ import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys.
+ * Search Fragment
+ *
+ * @author Jamie Cruwys
  */
-public class SearchFragment extends StatefulListingFragment<SearchResult> implements OnListItemClickListener<SearchResult>
+public class SearchFragment extends StatefulListingFragment<Programme> implements OnListItemClickListener<Programme>
 {
 	private static final String ARG_QUERY = "search_query";
 
@@ -61,7 +63,7 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		return view;
 	}
 
-	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<SearchResult> items)
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<Programme> items)
 	{
 		return new SearchAdapter(items, this);
 	}
@@ -81,9 +83,10 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		SearchManager.getInstance().search(query, new ResponseHandler<SearchResult>()
+		SearchProgrammeRepository.INSTANCE.setSearchTerm(query);
+		SearchProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
-			@Override public void onSuccess(@NonNull List<SearchResult> items)
+			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				if (isAdded() && getActivity() != null)
 				{
@@ -172,7 +175,7 @@ public class SearchFragment extends StatefulListingFragment<SearchResult> implem
 		});
 	}
 
-	@Override public void onItemClick(SearchResult searchResult, View view)
+	@Override public void onItemClick(Programme searchResult, View view)
 	{
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(searchResult));
 	}

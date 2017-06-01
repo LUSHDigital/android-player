@@ -72,4 +72,18 @@ public interface LushAPI
 	 */
 	@GET("views/playlist")
 	Call<List<LivePlaylist>> getLivePlaylist(@Query("offset") String offset);
+
+	/**
+	 * Gets a list of the latest tv programmes
+	 * @return latest tv programmes
+	 */
+	@GET("views/videos")
+	Call<List<Programme>> getVideoArchive();
+
+	/**
+	 * Gets a list of the latest tv programmes
+	 * @return latest tv programmes
+	 */
+	@GET("views/radio")
+	Call<List<Programme>> getRadioArchive();
 }

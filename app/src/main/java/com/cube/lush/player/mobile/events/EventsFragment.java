@@ -10,9 +10,10 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.content.repository.EventProgrammesRepository;
+import com.cube.lush.player.content.repository.LatestProgrammesRepository;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
@@ -26,9 +27,11 @@ import java.util.List;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys.
+ * Events Fragment
+ *
+ * @author Jamie Cruwys
  */
-public class EventsFragment extends FilterableListingFragment<MediaContent, EventTab> implements OnListItemClickListener<MediaContent>, EventTabSelection
+public class EventsFragment extends FilterableListingFragment<Programme, EventTab> implements OnListItemClickListener<Programme>, EventTabSelection
 {
 	public EventsFragment()
 	{
@@ -52,9 +55,9 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 	{
 		if (eventTab == EventTab.ALL)
 		{
-			MediaManager.getInstance().getAllContent(new ResponseHandler<MediaContent>()
+			LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 			{
-				@Override public void onSuccess(@NonNull List<MediaContent> items)
+				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
 					callback.onListingDataRetrieved(items);
 				}
@@ -67,9 +70,10 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 		}
 		else
 		{
-			MediaManager.getInstance().getContentForTag(eventTab.getTag(), 50, new ResponseHandler<MediaContent>()
+			EventProgrammesRepository.INSTANCE.setEventTag(eventTab.getTag());
+			EventProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 			{
-				@Override public void onSuccess(@NonNull List<MediaContent> items)
+				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
 					callback.onListingDataRetrieved(items);
 				}
@@ -108,7 +112,7 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
 
-	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(EventTab eventTab, @NonNull List<MediaContent> items)
+	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(EventTab eventTab, @NonNull List<Programme> items)
 	{
 		if (eventTab == EventTab.ALL)
 		{
@@ -149,7 +153,7 @@ public class EventsFragment extends FilterableListingFragment<MediaContent, Even
 		return R.layout.event_error;
 	}
 
-	@Override public void onItemClick(MediaContent item, View view)
+	@Override public void onItemClick(Programme item, View view)
 	{
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
 	}

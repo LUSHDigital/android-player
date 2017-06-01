@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.content.repository.LatestProgrammesRepository;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
@@ -22,9 +22,11 @@ import uk.co.jamiecruwys.StatefulListingFragment;
 import uk.co.jamiecruwys.contracts.ListingData;
 
 /**
- * Created by Jamie Cruwys.
+ * Home Fragment
+ *
+ * @author Jamie Cruwys
  */
-public class HomeFragment extends StatefulListingFragment<MediaContent> implements OnListItemClickListener<MediaContent>
+public class HomeFragment extends StatefulListingFragment<Programme> implements OnListItemClickListener<Programme>
 {
 	public HomeFragment()
 	{
@@ -45,16 +47,16 @@ public class HomeFragment extends StatefulListingFragment<MediaContent> implemen
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
 
-	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<MediaContent> items)
+	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<Programme> items)
 	{
 		return new ContentAdapter(items, this);
 	}
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		MediaManager.getInstance().getAllContent(new ResponseHandler<MediaContent>()
+		LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
-			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				callback.onListingDataRetrieved(items);
 			}
@@ -81,8 +83,8 @@ public class HomeFragment extends StatefulListingFragment<MediaContent> implemen
 		return R.layout.home_error;
 	}
 
-	@Override public void onItemClick(MediaContent mediaContent, View view)
+	@Override public void onItemClick(Programme programme, View view)
 	{
-		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));
+		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(programme));
 	}
 }

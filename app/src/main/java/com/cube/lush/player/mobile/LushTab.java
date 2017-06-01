@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys.
+ * Lush Tab
+ *
+ * @author Jamie Cruwys
  */
 @AllArgsConstructor
 public enum LushTab

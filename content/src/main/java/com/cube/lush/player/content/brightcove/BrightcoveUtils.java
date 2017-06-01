@@ -71,7 +71,7 @@ public class BrightcoveUtils
 	 * @return
 	 */
 	@Nullable
-	public VideoInfo findCurrentLiveVideo(Playlist playlist)
+	public static VideoInfo findCurrentLiveVideo(Playlist playlist)
 	{
 		long nowUtc = System.currentTimeMillis();
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.cube.lush.player.api.LushAPI;
+import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
 import java.util.HashSet;
@@ -39,6 +40,11 @@ public abstract class Repository<T>
 	public interface ItemRetrieval<T>
 	{
 		void onItemsRetrieved(Set<T> items);
+	}
+
+	public Repository()
+	{
+		DaggerComponents.getInstance().getApi().inject(this);
 	}
 
 	/**

@@ -17,7 +17,7 @@ import lombok.Getter;
 public class DaggerComponents
 {
 	@SuppressWarnings("HardCodedStringLiteral")
-	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v1/views/";
+	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v2/";
 
 	private static DaggerComponents instance;
 	private static Context context;

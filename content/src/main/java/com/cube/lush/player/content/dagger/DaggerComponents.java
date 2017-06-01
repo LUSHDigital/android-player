@@ -10,7 +10,9 @@ import com.cube.lush.player.content.dagger.api.DaggerAPIComponent;
 import lombok.Getter;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 23/03/2017.
+ * Dagger components
+ *
+ * @author Jamie Cruwys
  */
 public class DaggerComponents
 {

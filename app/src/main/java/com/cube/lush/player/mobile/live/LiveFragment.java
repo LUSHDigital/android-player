@@ -22,7 +22,7 @@ import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
-import com.cube.lush.player.content.util.BrightcoveUtils;
+import com.cube.lush.player.content.brightcove.BrightcoveUtils;
 import com.cube.lush.player.mobile.LushTab;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;

@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * Interface for outcomes given in response to a request for a list of items.
  *
+ * @param <T> response data model
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public interface ResponseHandler<T>
 {

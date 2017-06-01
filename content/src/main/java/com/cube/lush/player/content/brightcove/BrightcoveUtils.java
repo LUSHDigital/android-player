@@ -1,4 +1,4 @@
-package com.cube.lush.player.content.util;
+package com.cube.lush.player.content.brightcove;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

@@ -35,10 +35,10 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_START_TIME = "start_time";
 
-	@NonNull private MediaContent mediaContent;
+	@NonNull private Programme programme;
 	@IntRange(from = 0) private int startTimeMilliseconds;
 
-	public static Intent getIntent(@NonNull Context context, @NonNull MediaContent mediaContent, @IntRange(from = 0) int startTimeMilliseconds)
+	public static Intent getIntent(@NonNull Context context, @NonNull Programme mediaContent, @IntRange(from = 0) int startTimeMilliseconds)
 	{
 		Intent intent = new Intent(context, LushPlaybackActivity.class);
 		intent.putExtra(EXTRA_MEDIA_CONTENT, mediaContent);
@@ -60,7 +60,7 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 		Analytics analytics = baseVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
-		mediaContent = (MediaContent)getIntent().getSerializableExtra(EXTRA_MEDIA_CONTENT);
+		programme = (MediaContent)getIntent().getSerializableExtra(EXTRA_MEDIA_CONTENT);
 		startTimeMilliseconds = getIntent().getIntExtra(EXTRA_START_TIME, 0);
 	}
 
@@ -73,7 +73,7 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 	@Override protected void onResume()
 	{
 		super.onResume();
-		playMediaContent(mediaContent, startTimeMilliseconds);
+		playMediaContent(programme, startTimeMilliseconds);
 	}
 
 	private void playMediaContent(@NonNull MediaContent mediaContent, @IntRange(from = 0) int startTimeMilliseconds)

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.api.model.Tag;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.TaggedProgrammeRepository;
 import com.cube.lush.player.content.util.MediaSorter;
@@ -30,18 +31,18 @@ public class TagContentFragment extends BaseContentFragment
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String ARG_TAG = "arg_tag";
 
-	private String tag;
+	private Tag tag;
 
 	public TagContentFragment()
 	{
 		// Required empty public constructor
 	}
 
-	public static TagContentFragment newInstance(@NonNull String tag)
+	public static TagContentFragment newInstance(@NonNull Tag tag)
 	{
 		TagContentFragment fragment = new TagContentFragment();
 		Bundle args = new Bundle();
-		args.putString(ARG_TAG, tag);
+		args.putSerializable(ARG_TAG, tag);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -49,12 +50,12 @@ public class TagContentFragment extends BaseContentFragment
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		tag = getArguments().getString(ARG_TAG, "");
+		tag = (Tag)getArguments().getSerializable(ARG_TAG);
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		TaggedProgrammeRepository.INSTANCE.setTag(tag);
+		TaggedProgrammeRepository.INSTANCE.setTag(tag.getName());
 
 		TaggedProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
@@ -96,16 +97,7 @@ public class TagContentFragment extends BaseContentFragment
 
 	@NonNull @Override public String provideContentTitle()
 	{
-		tag = tag.trim();
-
-		String title = "Tag: ";
-
-		if (tag.startsWith("#"))
-		{
-			return title + tag;
-		}
-
-		return title + "#" + tag;
+		return "Tag: " + tag.getName();
 	}
 
 	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(ProgrammeFilterOption filterOption)
@@ -116,7 +108,7 @@ public class TagContentFragment extends BaseContentFragment
 
 	@Override public void onSaveInstanceState(Bundle outState)
 	{
-		outState.putString(ARG_TAG, tag);
+		outState.putSerializable(ARG_TAG, tag);
 		super.onSaveInstanceState(outState);
 	}
 }

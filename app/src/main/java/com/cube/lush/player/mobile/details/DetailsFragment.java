@@ -2,7 +2,6 @@ package com.cube.lush.player.mobile.details;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.media.midi.MidiDeviceInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,10 +23,9 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
-import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.Programme;
-import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
+import com.cube.lush.player.api.model.Tag;
+import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.TagContentFragment;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
@@ -53,7 +51,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	private static final String ARG_CONTENT = "arg_content";
 	private static final String ARG_WATCHED_MILLISECONDS = "arg_watched_milliseconds";
 	private static final String ARG_PLAYING = "arg_playing";
-	private Programme mediaContent;
+	private Programme programme;
 
 	@BindView(R.id.playOverlay) ImageView playOverlay;
 	@BindView(R.id.content_type) TextView contentType;
@@ -80,11 +78,11 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@Override public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		mediaContent = (Programme)getArguments().getSerializable(ARG_CONTENT);
+		programme = (Programme)getArguments().getSerializable(ARG_CONTENT);
 
 		if (savedInstanceState != null)
 		{
-			mediaContent = (Programme)savedInstanceState.getSerializable(ARG_CONTENT);
+			programme = (Programme)savedInstanceState.getSerializable(ARG_CONTENT);
 		}
 	}
 
@@ -130,17 +128,17 @@ public class DetailsFragment extends BrightcovePlayerFragment
 
 	private void populateUi()
 	{
-		contentType.setText(mediaContent.getType().getName());
-		title.setText(mediaContent.getTitle());
+		contentType.setText(programme.getType().getName());
+		title.setText(programme.getTitle());
 
-		if (!TextUtils.isEmpty(mediaContent.getDescription()))
+		if (!TextUtils.isEmpty(programme.getDescription()))
 		{
-			description.setText(mediaContent.getDescription().trim());
+			description.setText(programme.getDescription().trim());
 		}
 
 		loadBrightcoveStillImage();
 
-		List<String> tags = mediaContent.getTags();
+		List<Tag> tags = programme.getTags();
 
 		if (tags.isEmpty())
 		{
@@ -177,22 +175,22 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	{
 		// Load image into brightcove video view
 		Picasso.with(baseVideoView.getContext())
-			.load(mediaContent.getThumbnail())
+			.load(programme.getThumbnail())
 			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 			.into(baseVideoView.getStillView());
 	}
 
-	private void showTags(@NonNull List<String> tags)
+	private void showTags(@NonNull List<Tag> tags)
 	{
 		// Populate tags ui
 		tagList.removeAllViews();
 		LayoutInflater inflater = LayoutInflater.from(tagList.getContext());
 
-		for (final String tag : tags)
+		for (final Tag tag : tags)
 		{
 			View view = inflater.inflate(R.layout.tag_item, tagList, false);
 			TextView text = (TextView)view.findViewById(R.id.text);
-			text.setText(tag);
+			text.setText(tag.getName());
 
 			view.setOnClickListener(new View.OnClickListener()
 			{
@@ -217,12 +215,12 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	{
 		playOverlay.setVisibility(View.GONE);
 
-		String mediaId = mediaContent.getId();
+		String mediaId = programme.getId();
 
-		if (mediaContent.getType() == ContentType.TV)
+		if (programme.getType() == ContentType.TV)
 		{
 			// TV Content from Brightcove
-			MediaManager.getInstance().getCatalog().findVideoByID(mediaId, new VideoListener()
+			BrightcoveCatalog.INSTANCE.getCatalog().findVideoByID(mediaId, new VideoListener()
 			{
 				@Override
 				public void onVideo(Video video)
@@ -236,34 +234,11 @@ public class DetailsFragment extends BrightcovePlayerFragment
 				}
 			});
 		}
-		else if (mediaContent.getType() == ContentType.RADIO)
+		else if (programme.getType() == ContentType.RADIO)
 		{
 			// Radio Content from mp3 files, shown as videos in the brightcove player
-			MediaManager.getInstance().getProgramme(mediaId, new ResponseHandler<Programme>()
-			{
-				@Override public void onSuccess(@NonNull List<Programme> items)
-				{
-					if (items.isEmpty())
-					{
-						return;
-					}
-
-					Programme programme = items.get(0);
-
-					if (programme == null)
-					{
-						return;
-					}
-
-					Video video = Video.createVideo(programme.getUrl(), DeliveryType.MP4);
-					playVideo(video);
-				}
-
-				@Override public void onFailure(@Nullable Throwable t)
-				{
-
-				}
-			});
+			Video video = Video.createVideo(programme.getFile(), DeliveryType.MP4);
+			playVideo(video);
 		}
 	}
 
@@ -306,13 +281,13 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@OnClick(R.id.share) void onShareClicked()
 	{
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.putExtra(Intent.EXTRA_TEXT, mediaContent.getWebLink());
+		shareIntent.putExtra(Intent.EXTRA_TEXT, programme.getWebLink());
 		shareIntent.setType("text/plain");
 
 		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 	}
 
-	private void onTagClicked(@NonNull View view, @NonNull String tag)
+	private void onTagClicked(@NonNull View view, @NonNull Tag tag)
 	{
 		((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
 	}
@@ -322,13 +297,13 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		// Use current seek position and pass it off to the playback activity/fragment to continue playback
 		int currentSeekPosition = baseVideoView.getCurrentPosition();
 
-		Intent fullscreenPlaybackIntent = LushPlaybackActivity.getIntent(getContext(), mediaContent, currentSeekPosition);
+		Intent fullscreenPlaybackIntent = LushPlaybackActivity.getIntent(getContext(), programme, currentSeekPosition);
 		startActivity(fullscreenPlaybackIntent);
 	}
 
 	@Override public void onSaveInstanceState(Bundle bundle)
 	{
-		bundle.putSerializable(ARG_CONTENT, mediaContent);
+		bundle.putSerializable(ARG_CONTENT, programme);
 		bundle.putInt(ARG_WATCHED_MILLISECONDS, baseVideoView.getCurrentPosition());
 		bundle.putBoolean(ARG_PLAYING, baseVideoView.isPlaying());
 

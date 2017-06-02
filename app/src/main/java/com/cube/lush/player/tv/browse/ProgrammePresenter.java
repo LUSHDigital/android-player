@@ -7,8 +7,8 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.tv.view.CardView;
 import com.squareup.picasso.Picasso;
 
@@ -17,12 +17,11 @@ import lombok.Data;
 import static android.text.format.DateUtils.DAY_IN_MILLIS;
 
 /**
- * Presents information about various types of {@link MediaContent} inside a {@link CardView}.
+ * Presents information about various types of {@link com.cube.lush.player.api.model.Programme} inside a {@link CardView}.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
-public class MediaPresenter extends Presenter
+public class ProgrammePresenter extends Presenter
 {
 	@Override public ViewHolder onCreateViewHolder(ViewGroup parent)
 	{
@@ -30,26 +29,26 @@ public class MediaPresenter extends Presenter
 
 		CardView cardView = new CardView(context);
 
-		return new MediaViewHolder(cardView);
+		return new ProgrammeViewHolder(cardView);
 	}
 
 	@Override public void onBindViewHolder(ViewHolder viewHolder, Object item)
 	{
-		MediaContent mediaContent = (MediaContent)item;
-		MediaViewHolder mediaViewHolder = (MediaViewHolder)viewHolder;
-		CardView cardView = mediaViewHolder.getCardView();
+		Programme programme = (Programme)item;
+		ProgrammeViewHolder programmeViewHolder = (ProgrammeViewHolder)viewHolder;
+		CardView cardView = programmeViewHolder.getCardView();
 
-		if (mediaContent.getType() != null)
+		if (programme.getType() != null)
 		{
 			cardView.getMediaTypeView().setVisibility(View.VISIBLE);
-			cardView.setMediaText(mediaContent.getType().getName());
+			cardView.setMediaText(programme.getType().getName());
 		}
 		else
 		{
 			cardView.getMediaTypeView().setVisibility(View.GONE);
 		}
 
-		String title = mediaContent.getTitle();
+		String title = programme.getTitle();
 
 		if (!TextUtils.isEmpty(title))
 		{
@@ -62,10 +61,10 @@ public class MediaPresenter extends Presenter
 		}
 
 		// We assume the date is in UTC as the Lush API doesn't specify otherwise
-		if (mediaContent.getDate() != null)
+		if (programme.getDate() != null)
 		{
 			long now = System.currentTimeMillis();
-			long time = Math.min(mediaContent.getDate().getTime(), now); // Make sure we don't show content as being in the future
+			long time = Math.min(programme.getDate().getTime(), now); // Make sure we don't show content as being in the future
 			CharSequence description = DateUtils.getRelativeTimeSpanString(time, now, DAY_IN_MILLIS);
 
 			if (!TextUtils.isEmpty(description))
@@ -93,7 +92,7 @@ public class MediaPresenter extends Presenter
 		cardView.setMainImageDimensions(width, imageHeight);
 
 		Picasso.with(cardView.getContext())
-			.load(mediaContent.getThumbnail())
+			.load(programme.getThumbnail())
 			.into(cardView.getMainImageView());
 	}
 
@@ -103,11 +102,11 @@ public class MediaPresenter extends Presenter
 	}
 
 	@Data
-	static class MediaViewHolder extends ViewHolder {
-		private MediaContent content;
+	static class ProgrammeViewHolder extends ViewHolder {
+		private Programme programme;
 		private CardView cardView;
 
-		public MediaViewHolder(View view) {
+		public ProgrammeViewHolder(View view) {
 			super(view);
 			cardView = (CardView) view;
 		}

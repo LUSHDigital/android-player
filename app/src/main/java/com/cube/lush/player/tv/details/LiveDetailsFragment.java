@@ -17,13 +17,15 @@ import android.view.animation.AnimationUtils;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
-import com.cube.lush.player.api.model.ContentType;
-import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.ContentType;
+import com.cube.lush.player.api.model.LivePlaylist;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.brightcove.BrightcoveUtils;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.model.VideoInfo;
+import com.cube.lush.player.content.repository.LivePlaylistRepository;
 import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.tv.playback.PlaybackActivity;
 import com.cube.lush.player.tv.playback.PlaybackMethod;
@@ -37,16 +39,15 @@ import static android.text.format.DateUtils.FORMAT_UTC;
  * Displays details and a preview of the current live Lush playlist.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
-public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implements BrowseFragment.MainFragmentAdapterProvider
+public class LiveDetailsFragment extends BaseDetailsFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
 	/**
 	 * How often the live content should be refreshed in order to update current show / time remaining etc.
 	 */
 	private static final long REFRESH_INTERVAL_MS = 1000 * 60;
 
-	private BrowseFragment.MainFragmentAdapter<LiveMediaDetailsFragment> mainFragmentAdapter;
+	private BrowseFragment.MainFragmentAdapter<LiveDetailsFragment> mainFragmentAdapter;
 	/**
 	 * Handler to auto-refresh the live content with
 	 */
@@ -88,10 +89,9 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 
 	private void fetchPlaylist()
 	{
-		MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()
+		LivePlaylistRepository.INSTANCE.getItems(new ResponseHandler<LivePlaylist>()
 		{
-			@Override
-			public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<LivePlaylist> items)
 			{
 				// This method is designed to be called from async methods so make sure we've not lost context since then
 				if (getActivity() == null)
@@ -109,8 +109,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 				}
 			}
 
-			@Override
-			public void onFailure(@Nullable Throwable t)
+			@Override public void onFailure(@Nullable Throwable t)
 			{
 				populateError();
 			}
@@ -131,7 +130,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 
 	private void setPlaylistId(final String playlistId)
 	{
-		MediaManager.getInstance().getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
+		BrightcoveCatalog.INSTANCE.getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
 		{
 			@Override
 			public void onPlaylist(Playlist playlist)
@@ -142,7 +141,7 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 					return;
 				}
 
-				VideoInfo liveVideoInfo = MediaManager.getInstance().findCurrentLiveVideo(playlist);
+				VideoInfo liveVideoInfo = BrightcoveUtils.findCurrentLiveVideo(playlist);
 
 				if (liveVideoInfo != null)
 				{
@@ -171,18 +170,18 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 
 		// We construct a dummy MediaContent item to represent the live content for the base class to use
 		Video video = videoInfo.getVideo();
-		MediaContent liveMediaContent = new MediaContent();
-		liveMediaContent.setId(playlistId);
-		liveMediaContent.setType(ContentType.TV);
+		Programme liveProgramme = new Programme();
+		liveProgramme.setId(playlistId);
+		liveProgramme.setType(ContentType.TV);
 
 		String name = BrightcoveUtils.getVideoName(video);
 		if (TextUtils.isEmpty(name))
 		{
-			liveMediaContent.setTitle(getString(R.string.live_no_title));
+			liveProgramme.setTitle(getString(R.string.live_no_title));
 		}
 		else
 		{
-			liveMediaContent.setTitle(String.format(getString(R.string.live_title), name));
+			liveProgramme.setTitle(String.format(getString(R.string.live_title), name));
 		}
 
 		long timeRemainingMillis = videoInfo.getEndTimeUtc() - nowUtc;
@@ -193,13 +192,13 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		                                               videoInfo.getEndTimeUtc(),
 		                                               FORMAT_SHOW_TIME | FORMAT_UTC));
 
-		liveMediaContent.setThumbnail(BrightcoveUtils.getVideoThumbnail(video));
+		liveProgramme.setThumbnail(BrightcoveUtils.getVideoThumbnail(video));
 
-		populateContentView(liveMediaContent);
+		populateContentView(liveProgramme);
 	}
 
 	@Override
-	public void populateContentView(@NonNull MediaContent item)
+	public void populateContentView(@NonNull Programme item)
 	{
 		super.populateContentView(item);
 
@@ -230,17 +229,17 @@ public class LiveMediaDetailsFragment extends BaseMediaDetailsFragment implement
 		Context context = getActivity();
 		String id = null;
 
-		if (mediaContent != null)
+		if (programme != null)
 		{
-			id = mediaContent.getId();
+			id = programme.getId();
 		}
 
-		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id, mediaContent.getThumbnail());
+		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id, programme.getThumbnail());
 		getActivity().startActivity(intent);
 	}
 
 	@Override
-	public BrowseFragment.MainFragmentAdapter<LiveMediaDetailsFragment> getMainFragmentAdapter()
+	public BrowseFragment.MainFragmentAdapter<LiveDetailsFragment> getMainFragmentAdapter()
 	{
 		if (mainFragmentAdapter == null)
 		{

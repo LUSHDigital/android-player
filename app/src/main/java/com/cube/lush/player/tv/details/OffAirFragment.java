@@ -17,7 +17,6 @@ import com.cube.lush.player.tv.playback.PlaybackFragment;
  * Displays details and a preview of the current live Lush playlist.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public class OffAirFragment extends PlaybackFragment implements BrowseFragment.MainFragmentAdapterProvider
 {

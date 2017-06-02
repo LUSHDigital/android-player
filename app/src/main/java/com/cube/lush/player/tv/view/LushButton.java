@@ -14,7 +14,7 @@ import android.widget.Button;
 /**
  * Custom extension of Button that provides nicer focusing behaviour (dims and undims)
  *
- * Created by tim on 06/12/2016.
+ * @author
  */
 public class LushButton extends Button
 {

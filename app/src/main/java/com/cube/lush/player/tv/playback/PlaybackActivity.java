@@ -10,6 +10,11 @@ import android.text.TextUtils;
 import com.cube.lush.player.tv.base.BaseTVActivity;
 import com.cube.lush.player.R;
 
+/**
+ * Playback Activity
+ *
+ * @author Jamie Cruwys
+ */
 public class PlaybackActivity extends BaseTVActivity
 {
 	@SuppressWarnings("HardCodedStringLiteral")

@@ -20,7 +20,7 @@ public class ChannelRepository extends Repository<Channel>
 {
 	private ChannelRepository() { }
 
-	private static final ChannelRepository INSTANCE = new ChannelRepository();
+	public static final ChannelRepository INSTANCE = new ChannelRepository();
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Channel> callback)
 	{

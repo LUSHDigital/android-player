@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.cube.lush.player.content.model.Channel;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.Channel;
 import com.cube.lush.player.tv.view.CardView;
 
 import lombok.Data;
@@ -17,7 +17,6 @@ import lombok.Data;
  * Presents information about Lush channels in a {@link CardView}.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public class ChannelPresenter extends Presenter
 {
@@ -36,11 +35,11 @@ public class ChannelPresenter extends Presenter
 		ChannelViewHolder mediaViewHolder = (ChannelViewHolder)viewHolder;
 		CardView cardView = mediaViewHolder.getCardView();
 
-		String description = channel.getDescription();
+		String name = channel.getName();
 
-		if (!TextUtils.isEmpty(description))
+		if (!TextUtils.isEmpty(name))
 		{
-			cardView.setContentText(description);
+			cardView.setContentText(name);
 		}
 		else
 		{
@@ -53,7 +52,9 @@ public class ChannelPresenter extends Presenter
 
 		cardView.setMainImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
 		cardView.getMainImageView().setPadding(16, 16, 16, 16);
-		cardView.getMainImageView().setImageResource(channel.getLogo());
+
+		// TODO: Set channel logo
+		// cardView.getMainImageView().setImageResource(channel.getLogo());
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

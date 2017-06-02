@@ -76,7 +76,8 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		bottomNavigation.setDefaultBackgroundColor(Color.WHITE);
 
 		// Forces titles to show, which the standard bottom bar does not support
-		bottomNavigation.setForceTitlesDisplay(true);
+		// TODO: Fix
+		// bottomNavigation.setForceTitlesDisplay(true);
 
 		// Tab selection
 		bottomNavigation.setOnTabSelectedListener(this);

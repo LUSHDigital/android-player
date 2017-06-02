@@ -5,7 +5,8 @@ import android.support.v17.leanback.widget.VerticalGridPresenter;
 /**
  * Custom extension of Leanback's {@link GridPresenter} that enforces three equal-width columns
  * <p>
- * Created by tim on 30/11/2016.
+ *
+ * @author Jamie Cruwys
  */
 public class GridPresenter extends VerticalGridPresenter
 {

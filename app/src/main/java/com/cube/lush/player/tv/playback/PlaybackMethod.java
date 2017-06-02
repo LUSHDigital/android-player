@@ -1,8 +1,9 @@
 package com.cube.lush.player.tv.playback;
 
 /**
+ * Playback Method
+ *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public enum PlaybackMethod
 {

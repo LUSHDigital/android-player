@@ -4,9 +4,9 @@ import android.app.Fragment;
 import android.support.v17.leanback.app.BrowseFragment;
 
 /**
- * A very basic implementation of {@link BrowseFragment.MainFragmentAdapter} which doesn't do anything in particular.
+ * A very basic implementation of {@link BrowseFragment.MainFragmentAdapter}.
  *
- * Created by tim on 29/11/2016.
+ * @author Jamie Cruwys
  */
 public class BasicMainFragmentAdapter<T extends Fragment> extends BrowseFragment.MainFragmentAdapter<T>
 {

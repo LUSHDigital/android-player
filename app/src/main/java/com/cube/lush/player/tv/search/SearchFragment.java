@@ -21,12 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cube.lush.player.api.model.SearchResult;
-import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.SearchManager;
 import com.cube.lush.player.R;
-import com.cube.lush.player.tv.browse.MediaPresenter;
-import com.cube.lush.player.tv.details.MediaDetailsActivity;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.repository.SearchProgrammeRepository;
+import com.cube.lush.player.tv.browse.ProgrammePresenter;
+import com.cube.lush.player.tv.details.ProgrammeDetailsActivity;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 /**
  * Allows the user to perform a simple keyboard or voice search on Lush content.
  *
- * Created by tim on 24/11/2016.
+ * @author Jamie Cruwys
  */
 public class SearchFragment extends android.support.v17.leanback.app.SearchFragment implements android.support.v17.leanback.app.SearchFragment.SearchResultProvider,
                                                                                                OnItemViewClickedListener
@@ -63,7 +63,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 
 		// We use a custom presenter so that we can show the results in a vertical grid type structure, as per the design requirements.
 		rowsAdapter = new ArrayObjectAdapter(new SearchResultsPresenter());
-		searchAdapter = new ArrayObjectAdapter(new MediaPresenter());
+		searchAdapter = new ArrayObjectAdapter(new ProgrammePresenter());
 
 		setSearchResultProvider(this);
 		setOnItemViewClickedListener(this);
@@ -125,9 +125,10 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 			return;
 		}
 
-		SearchManager.getInstance().search(query, new ResponseHandler<SearchResult>()
+		SearchProgrammeRepository.INSTANCE.setSearchTerm(query);
+		SearchProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
-			@Override public void onSuccess(@NonNull List<SearchResult> items)
+			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				searchAdapter.clear();
 				searchAdapter.addAll(0, items);
@@ -149,10 +150,10 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 	public void onItemClicked(Presenter.ViewHolder itemViewHolder, final Object item, RowPresenter.ViewHolder rowViewHolder, Row row)
 	{
 		final Context context = itemViewHolder.view.getContext();
-		SearchResult searchResult = (SearchResult)item;
+		Programme programme = (Programme)item;
 
-		Intent intent = new Intent(context, MediaDetailsActivity.class);
-		intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA, searchResult);
+		Intent intent = new Intent(context, ProgrammeDetailsActivity.class);
+		intent.putExtra(ProgrammeDetailsActivity.EXTRA_PROGRAMME, programme);
 		startActivity(intent);
 	}
 }

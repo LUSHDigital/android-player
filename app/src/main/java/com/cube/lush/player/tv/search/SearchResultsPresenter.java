@@ -8,7 +8,8 @@ import android.support.v17.leanback.widget.RowPresenter;
  * Modifies the default ListRowPresenter to render its items over a specified number of rows, to keep with the vertical grid-style used throughout the rest of
  * the app.
  * <p>
- * Created by tim on 05/12/2016.
+ *
+ * @author Jamie Cruwys
  */
 public class SearchResultsPresenter extends ListRowPresenter
 {

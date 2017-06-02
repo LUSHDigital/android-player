@@ -16,9 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.tv.state.ErrorFragment;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.tv.state.ErrorFragment;
 import com.cube.lush.player.tv.state.SpinnerFragment;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -31,11 +31,11 @@ import butterknife.OnClick;
  * Base class for showing information about a specific media item, and allows the user to play it.
  * <p />
  * The screen consists of two panels, one on the left-side showing details about the media, and the one on the right showing a preview of the video.
- * Extending classes can tweak when the left and right panels are revealed by consulting the {@link MediaDetailsFlow}.
+ * Extending classes can tweak when the left and right panels are revealed by consulting the {@link DetailsFlow}.
  *
- * Created by tim on 24/11/2016.
+ * @author Jamie Cruwys
  */
-public abstract class BaseMediaDetailsFragment extends BrandedFragment implements MediaDetailsFlow
+public abstract class BaseDetailsFragment extends BrandedFragment implements DetailsFlow
 {
 	@BindView(R.id.container) protected ViewGroup contentContainer;
 	@BindView(R.id.left_panel) protected ViewGroup leftPanel;
@@ -47,7 +47,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	@BindView(R.id.start_end_time) protected TextView startEndTime;
 	@BindView(R.id.description) protected TextView description;
 	@BindView(R.id.time_remaining) protected TextView timeRemaining;
-	protected MediaContent mediaContent;
+	protected Programme programme;
 
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -79,16 +79,16 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			return;
 		}
 
-		Object item = intent.getSerializableExtra(MediaDetailsActivity.EXTRA_MEDIA);
+		Object item = intent.getSerializableExtra(ProgrammeDetailsActivity.EXTRA_PROGRAMME);
 
-		if (item instanceof MediaContent)
+		if (item instanceof Programme)
 		{
-			populateContentView((MediaContent) item);
+			populateContentView((Programme) item);
 		}
 	}
 
 	@Override
-	public void populateContentView(MediaContent item)
+	public void populateContentView(Programme item)
 	{
 		// This method is designed to be called from async methods so make sure we've not lost context since then
 		if (getActivity() == null)
@@ -96,12 +96,12 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 			return;
 		}
 
-		mediaContent = item;
+		programme = item;
 		title.setText(item.getTitle());
 		description.setText(item.getDescription());
 		leftPanel.setVisibility(View.VISIBLE);
 		SpinnerFragment.hide(getChildFragmentManager());
-		populateHiddenView(mediaContent);
+		populateHiddenView(programme);
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public abstract class BaseMediaDetailsFragment extends BrandedFragment implement
 	 *
 	 * @param item that will be used to populate the view
 	 */
-	@Override public void populateHiddenView(@NonNull MediaContent item)
+	@Override public void populateHiddenView(@NonNull Programme item)
 	{
 		if (backgroundImage != null && !TextUtils.isEmpty(item.getThumbnail()))
 		{

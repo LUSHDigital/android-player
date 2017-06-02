@@ -4,36 +4,38 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Channel;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-import com.cube.lush.player.content.model.CategoryContentType;
-import com.cube.lush.player.content.model.Channel;
+import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
+import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 import com.cube.lush.player.tv.adapter.DiffingAdapter;
 import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
-import com.cube.lush.player.tv.browse.MediaPresenter;
+import com.cube.lush.player.tv.browse.ProgrammePresenter;
 
 import java.util.List;
 
 /**
- * Created by tim on 06/12/2016.
+ * Channel Browse Fragment
+ *
+ * @author Jamie Cruwys
  */
 public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 {
 	private Channel channel;
-	private CategoryContentType contentType;
+	private ProgrammeFilterOption filterOption;
 
 	/**
 	 * Use a {@link DiffingAdapter} so the grid will smoothly update when changes occur.
 	 */
-	private DiffingAdapter<MediaContent> mediaAdapter = new DiffingAdapter<>(new MediaPresenter());
+	private DiffingAdapter<Programme> mediaAdapter = new DiffingAdapter<>(new ProgrammePresenter());
 
-	public static ChannelBrowseFragment create(Channel channel, CategoryContentType contentType)
+	public static ChannelBrowseFragment create(Channel channel, ProgrammeFilterOption contentType)
 	{
 		ChannelBrowseFragment channelBrowseFragment = new ChannelBrowseFragment();
 		channelBrowseFragment.channel = channel;
-		channelBrowseFragment.contentType = contentType;
+		channelBrowseFragment.filterOption = contentType;
 		return channelBrowseFragment;
 	}
 
@@ -41,10 +43,10 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		mediaAdapter.setEqualityTester(new DiffingAdapter.EqualityTester<MediaContent>()
+		mediaAdapter.setEqualityTester(new DiffingAdapter.EqualityTester<Programme>()
 		{
 			@Override
-			public boolean isEqual(MediaContent t1, MediaContent t2)
+			public boolean isEqual(Programme t1, Programme t2)
 			{
 				return t1.getId().equals(t2.getId());
 			}
@@ -55,9 +57,10 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		MediaManager.getInstance().getChannelContent(channel, contentType, new ResponseHandler<MediaContent>()
+		ChannelProgrammesRepository.INSTANCE.setChannelTag(channel.getTag());
+		ChannelProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
-			@Override public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				setLoadingFinished(false);
 				MediaSorter.MOST_RECENT_FIRST.sort(items);

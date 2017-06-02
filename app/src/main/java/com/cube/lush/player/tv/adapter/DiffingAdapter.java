@@ -17,7 +17,7 @@ import lombok.Data;
  * <p />
  * The adapter is already set up to notify observers with the minimal set of changes whenever {@link #setItems(List)} is called.
  *
- * Created by tim on 08/12/2016.
+ * @author Jamie Cruwys
  */
 @Data
 public class DiffingAdapter<T> extends ObjectAdapter

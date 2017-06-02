@@ -11,7 +11,7 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.tv.base.LushBrowseFragment;
 import com.cube.lush.player.tv.browse.MenuFragmentFactory;
 import com.cube.lush.player.tv.channels.ChannelsFragment;
-import com.cube.lush.player.tv.details.LiveMediaDetailsFragment;
+import com.cube.lush.player.tv.details.LiveDetailsFragment;
 import com.cube.lush.player.tv.home.HomeFragment;
 
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class MainFragment extends LushBrowseFragment
 		// Setup the fragment factory for the menu items
 		MenuFragmentFactory fragmentFactory = new MenuFragmentFactory();
 		fragmentFactory.registerFragment(homeRow, new HomeFragment());
-		fragmentFactory.registerFragment(liveRow, new LiveMediaDetailsFragment());
+		fragmentFactory.registerFragment(liveRow, new LiveDetailsFragment());
 		fragmentFactory.registerFragment(channelsRow, new ChannelsFragment());
 		getMainFragmentRegistry().registerFragment(PageRow.class, fragmentFactory);
 

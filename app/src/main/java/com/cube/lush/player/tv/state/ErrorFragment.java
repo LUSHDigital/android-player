@@ -11,7 +11,6 @@ import com.cube.lush.player.R;
  * Displayed to the user in order to indicate that data is loading.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public class ErrorFragment extends android.support.v17.leanback.app.ErrorFragment
 {

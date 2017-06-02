@@ -1,19 +1,18 @@
 package com.cube.lush.player.tv.state;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.cube.lush.player.R;
 
 /**
  * Displayed to the user in order to indicate that data is loading.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public class SpinnerFragment extends Fragment
 {

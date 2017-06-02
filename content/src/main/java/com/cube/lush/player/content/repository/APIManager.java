@@ -1,6 +1,5 @@
-package com.cube.lush.player.content.dagger.api;
+package com.cube.lush.player.content.repository;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
@@ -8,35 +7,39 @@ import com.cube.lush.player.api.util.HtmlStringAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Dagger API Module
+ * API Manager
  *
  * @author Jamie Cruwys
  */
-@Module
-public class APIModule
+public class APIManager
 {
-	@SuppressWarnings("HardCodedStringLiteral")
+	private APIManager() { }
+
+	public static final APIManager INSTANCE = new APIManager();
 	private static final String DATE_FORMAT = "dd/MM/yyyy";
+	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v2/";
 
-	private Context context;
-	private String baseUrl;
-
-	public APIModule(@NonNull Context context, @NonNull String baseUrl)
+	public LushAPI getAPI()
 	{
-		this.context = context;
-		this.baseUrl = baseUrl;
+		return getRetrofit(BASE_URL).create(LushAPI.class);
 	}
 
-	@Provides @Singleton Gson provideGson()
+	private Retrofit getRetrofit(@NonNull String baseUrl)
+	{
+		Retrofit.Builder builder = new Retrofit.Builder();
+		builder.addConverterFactory(GsonConverterFactory.create(getGson()));
+		builder.client(getOkHttpClient());
+		builder.baseUrl(baseUrl);
+
+		return builder.build();
+	}
+
+	private Gson getGson()
 	{
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(String.class, new HtmlStringAdapter());
@@ -45,7 +48,7 @@ public class APIModule
 		return gsonBuilder.create();
 	}
 
-	@Provides @Singleton OkHttpClient provideOkHttp()
+	private OkHttpClient getOkHttpClient()
 	{
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
@@ -67,20 +70,5 @@ public class APIModule
 		// builder.addInterceptor(new MockTagProgrammesInterceptor(context));
 
 		return builder.build();
-	}
-
-	@Provides @Singleton Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient)
-	{
-		Retrofit.Builder builder = new Retrofit.Builder();
-		builder.addConverterFactory(GsonConverterFactory.create(gson));
-		builder.client(okHttpClient);
-		builder.baseUrl(baseUrl);
-
-		return builder.build();
-	}
-
-	@Provides @Singleton LushAPI provideLushAPI(Retrofit retrofit)
-	{
-		return retrofit.create(LushAPI.class);
 	}
 }

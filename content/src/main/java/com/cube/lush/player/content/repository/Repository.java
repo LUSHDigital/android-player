@@ -5,15 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.cube.lush.player.api.LushAPI;
-import com.cube.lush.player.content.dagger.DaggerComponents;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.inject.Inject;
 
 import lombok.Getter;
 
@@ -35,7 +32,7 @@ public abstract class Repository<T>
 	@Getter private Set<T> newItems = new HashSet<>();
 	private long lastRequestTime = 0;
 
-	@Inject protected LushAPI api;
+	protected LushAPI api;
 
 	public interface ItemRetrieval<T>
 	{
@@ -45,7 +42,7 @@ public abstract class Repository<T>
 
 	public Repository()
 	{
-		DaggerComponents.getInstance().getApi().inject(this);
+		api = APIManager.INSTANCE.getAPI();
 	}
 
 	/**

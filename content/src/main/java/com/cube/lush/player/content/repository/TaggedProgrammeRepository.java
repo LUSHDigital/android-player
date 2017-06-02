@@ -26,11 +26,6 @@ public class TaggedProgrammeRepository extends ProgrammeRepository
 
 	@Getter @Setter @NonNull private String tag = "";
 
-	@Override protected void getItems(@NonNull ItemRetrieval<Programme> callback)
-	{
-		super.getItems(callback);
-	}
-
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{
 		Call<List<Programme>> programmes = api.getProgrammesForTag(tag);

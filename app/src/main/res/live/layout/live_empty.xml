@@ -59,7 +59,6 @@
 
 	<Button
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
 		android:id="@+id/show_channels"
 		android:layout_margin="16dp"
 		android:text="Explore our channels"

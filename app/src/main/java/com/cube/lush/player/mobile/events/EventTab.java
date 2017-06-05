@@ -2,7 +2,9 @@ package com.cube.lush.player.mobile.events;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -42,11 +44,19 @@ public enum EventTab
 
 	public static List<EventTab> listValuesExcluding(@NonNull EventTab... tabsToExclude)
 	{
-		List<EventTab> tabs = listValues();
+		List<EventTab> tabs = new ArrayList<>(listValues());
 
-		for (EventTab tabToExclude : tabsToExclude)
+		if (tabs == null)
 		{
-			tabs.remove(tabToExclude);
+			tabs = Collections.EMPTY_LIST;
+		}
+
+		if (!tabs.isEmpty())
+		{
+			for (EventTab tabToExclude : tabsToExclude)
+			{
+				tabs.remove(tabToExclude);
+			}
 		}
 
 		return tabs;

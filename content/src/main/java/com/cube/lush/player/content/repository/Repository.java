@@ -105,7 +105,7 @@ public abstract class Repository<T>
 	 */
 	private boolean cacheOutdated()
 	{
-		return System.currentTimeMillis() - lastRequestTime < getCacheExpiryTime();
+		return System.currentTimeMillis() > (lastRequestTime + getCacheExpiryTime());
 	}
 
 	/**

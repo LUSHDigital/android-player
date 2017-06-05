@@ -14,4 +14,15 @@
 		android:id="@+id/image"
 		tools:src="@drawable/channel_lush_kitchen"
 	/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/alternative_text"
+		android:gravity="center"
+		android:padding="32dp"
+		android:textSize="24sp"
+		android:visibility="gone"
+		style="@style/Text.White"
+	/>
 </LinearLayout>

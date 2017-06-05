@@ -93,7 +93,7 @@ dependencies {
 	compile 'com.github.LUSHDigital:android-lush-views:5b66299'
 
 	// Stateful Views
-	compile 'com.github.JamieCruwys:StatefulView:-c08a80f'
+	compile 'com.github.JamieCruwys:StatefulView:5d80732'
 
 	// Brightcove
 	compile 'com.brightcove.player:exoplayer:4.13.5'

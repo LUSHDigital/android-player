@@ -6,8 +6,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:id="@+id/media_details_fragment"
-	android:name="com.cube.lush.player.tv.details.MediaDetailsFragment"
-	tools:context=".tv.details.MediaDetailsActivity"
+	android:name="com.cube.lush.player.tv.details.ProgrammeDetailsFragment"
+	tools:context=".tv.details.ProgrammeDetailsActivity"
 	tools:deviceIds="tv"
 	tools:ignore="MergeRootFrame"
 />

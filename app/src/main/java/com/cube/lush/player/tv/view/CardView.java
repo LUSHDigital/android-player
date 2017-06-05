@@ -17,7 +17,8 @@ import com.cube.lush.player.R;
  * Custom extension of Leanback's {@link ImageCardView} which supports a selection border and displays additional information about the content type (e.g. TV or
  * Radio) in the info view.
  * <p>
- * Created by tim on 01/12/2016.
+ *
+ * @author Jamie Cruwys
  */
 public class CardView extends ImageCardView
 {

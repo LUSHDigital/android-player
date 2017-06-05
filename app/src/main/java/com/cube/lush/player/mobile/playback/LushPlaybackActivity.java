@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.appcompat.BrightcovePlayerActivity;
@@ -17,15 +16,13 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
-import com.cube.lush.player.api.model.MediaContent;
 import com.cube.lush.player.api.model.Programme;
-import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
-
-import java.util.List;
+import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 18/04/2017.
+ * Lush Playback Activity
+ *
+ * @author Jamie Cruwys
  */
 public class LushPlaybackActivity extends BrightcovePlayerActivity
 {
@@ -35,10 +32,10 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_START_TIME = "start_time";
 
-	@NonNull private MediaContent mediaContent;
+	@NonNull private Programme programme;
 	@IntRange(from = 0) private int startTimeMilliseconds;
 
-	public static Intent getIntent(@NonNull Context context, @NonNull MediaContent mediaContent, @IntRange(from = 0) int startTimeMilliseconds)
+	public static Intent getIntent(@NonNull Context context, @NonNull Programme mediaContent, @IntRange(from = 0) int startTimeMilliseconds)
 	{
 		Intent intent = new Intent(context, LushPlaybackActivity.class);
 		intent.putExtra(EXTRA_MEDIA_CONTENT, mediaContent);
@@ -60,7 +57,7 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 		Analytics analytics = baseVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
 
-		mediaContent = (MediaContent)getIntent().getSerializableExtra(EXTRA_MEDIA_CONTENT);
+		programme = (Programme)getIntent().getSerializableExtra(EXTRA_MEDIA_CONTENT);
 		startTimeMilliseconds = getIntent().getIntExtra(EXTRA_START_TIME, 0);
 	}
 
@@ -73,10 +70,10 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 	@Override protected void onResume()
 	{
 		super.onResume();
-		playMediaContent(mediaContent, startTimeMilliseconds);
+		playMediaContent(programme, startTimeMilliseconds);
 	}
 
-	private void playMediaContent(@NonNull MediaContent mediaContent, @IntRange(from = 0) int startTimeMilliseconds)
+	private void playMediaContent(@NonNull Programme mediaContent, @IntRange(from = 0) int startTimeMilliseconds)
 	{
 		if (mediaContent.getType() == ContentType.TV)
 		{
@@ -88,10 +85,11 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 		}
 	}
 
-	private void playTVContent(@NonNull MediaContent tvContent, @IntRange(from = 0) final int startTimeMilliseconds)
+	private void playTVContent(@NonNull Programme tv, @IntRange(from = 0) final int startTimeMilliseconds)
 	{
 		// TV Content from Brightcove
-		MediaManager.getInstance().getCatalog().findVideoByID(tvContent.getId(), new VideoListener()
+
+		BrightcoveCatalog.INSTANCE.getCatalog().findVideoByID(tv.getId(), new VideoListener()
 		{
 			@Override
 			public void onVideo(Video video)
@@ -106,34 +104,11 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 		});
 	}
 
-	private void playRadioContent(@NonNull MediaContent radioContent, @IntRange(from = 0) final int startTimeMilliseconds)
+	private void playRadioContent(@NonNull Programme radio, @IntRange(from = 0) final int startTimeMilliseconds)
 	{
 		// Radio Content from mp3 files, shown as videos in the brightcove player
-		MediaManager.getInstance().getProgramme(radioContent.getId(), new ResponseHandler<Programme>()
-		{
-			@Override public void onSuccess(@NonNull List<Programme> items)
-			{
-				if (items.isEmpty())
-				{
-					return;
-				}
-
-				Programme programme = items.get(0);
-
-				if (programme == null)
-				{
-					return;
-				}
-
-				Video video = Video.createVideo(programme.getUrl(), DeliveryType.MP4);
-				playVideo(video, startTimeMilliseconds);
-			}
-
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-
-			}
-		});
+		Video video = Video.createVideo(radio.getFile(), DeliveryType.MP4);
+		playVideo(video, startTimeMilliseconds);
 	}
 
 	private void playVideo(@NonNull Video video, @IntRange(from = 0) int startTimeMilliseconds)

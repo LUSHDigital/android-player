@@ -1,6 +1,5 @@
 package com.cube.lush.player.mobile;
 
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 
@@ -29,7 +27,9 @@ import butterknife.ButterKnife;
 import uk.co.jamiecruwys.ViewState;
 
 /**
- * Created by Jamie Cruwys.
+ * Main Activity
+ *
+ * @author Jamie Cruwys
  */
 public class MainActivity extends BaseMobileActivity implements AHBottomNavigation.OnTabSelectedListener
 {
@@ -76,7 +76,8 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		bottomNavigation.setDefaultBackgroundColor(Color.WHITE);
 
 		// Forces titles to show, which the standard bottom bar does not support
-		bottomNavigation.setForceTitlesDisplay(true);
+		// TODO: Fix
+		// bottomNavigation.setForceTitlesDisplay(true);
 
 		// Tab selection
 		bottomNavigation.setOnTabSelectedListener(this);

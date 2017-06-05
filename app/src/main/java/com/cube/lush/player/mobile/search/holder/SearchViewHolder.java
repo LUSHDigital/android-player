@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.SearchResult;
+import com.cube.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -13,9 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys.
+ * Search View Holder
+ *
+ * @author Jamie Cruwys
  */
-public class SearchViewHolder extends BaseViewHolder<SearchResult>
+public class SearchViewHolder extends BaseViewHolder<Programme>
 {
 	@BindView(R.id.image) public ImageView image;
 	@BindView(R.id.type) public TextView type;
@@ -27,7 +29,7 @@ public class SearchViewHolder extends BaseViewHolder<SearchResult>
 		ButterKnife.bind(this, view);
 	}
 
-	@Override public void bind(SearchResult searchResult)
+	@Override public void bind(Programme searchResult)
 	{
 		type.setText(searchResult.getType().getName());
 		title.setText(searchResult.getTitle());

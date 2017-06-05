@@ -5,7 +5,9 @@ import com.brightcove.player.model.Video;
 import lombok.Data;
 
 /**
- * Created by tim on 08/12/2016.
+ * Brightcove video wrapper
+ *
+ * @author Jamie Cruwys
  */
 @Data
 public class VideoInfo

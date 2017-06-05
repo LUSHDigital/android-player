@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -13,9 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jamie Cruwys.
+ * Content View Holder
+ *
+ * @author Jamie Cruwys
  */
-public class ContentViewHolder extends BaseViewHolder<MediaContent>
+public class ContentViewHolder extends BaseViewHolder<Programme>
 {
 	@BindView(R.id.image) public ImageView image;
 	@BindView(R.id.type) public TextView type;
@@ -28,7 +30,7 @@ public class ContentViewHolder extends BaseViewHolder<MediaContent>
 		ButterKnife.bind(this, view);
 	}
 
-	@Override public void bind(MediaContent mediaContent)
+	@Override public void bind(Programme mediaContent)
 	{
 		type.setText(mediaContent.getType().getName());
 		title.setText(mediaContent.getTitle());

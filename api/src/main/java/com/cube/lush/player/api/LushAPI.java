@@ -1,77 +1,89 @@
 package com.cube.lush.player.api;
 
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.Channel;
+import com.cube.lush.player.api.model.Event;
+import com.cube.lush.player.api.model.LivePlaylist;
 import com.cube.lush.player.api.model.Programme;
-import com.cube.lush.player.api.model.RadioContent;
-import com.cube.lush.player.api.model.SearchResult;
-import com.cube.lush.player.api.model.VideoContent;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
  * Defines Lush API interface using Retrofit.
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 public interface LushAPI
 {
 	/**
-	 * Retrieves media items belonging to the specified channel ID, and of the specified content type.
-	 *
-	 * @param channel
-	 * 				Corresponding to the ID of an item in {@link com.cube.lush.player.api.model.Channel}.
-	 * @param contentType
-	 * 				Corresponding to the name of an item in {@link com.cube.lush.player.api.model.CategoryContentType}.
-	 * @return
+	 * Get a list of the channels
+	 * @return channels
 	 */
-	@GET("categories")
-	Call<List<MediaContent>> getCategories(@Query("channel") String channel, @Query("type") String contentType);
+	@GET("channels")
+	Call<List<Channel>> getChannels();
 
 	/**
-	 * Retrieves the current live playlist ID for the given timezone offset
-	 *
-	 * @param offset
-	 * 				In the format "x minutes"
-	 * @return
+	 * Get programmes for a channel
+	 * @param channelTag to get the programmes for
+	 * @return programmes
 	 */
-	@GET("playlist")
-	Call<List<MediaContent>> getPlaylist(@Query("offset") String offset);
+	@GET("channels/{channel_tag}")
+	Call<List<Programme>> getChannelProgrammes(@Path("channel_tag") String channelTag);
 
 	/**
-	 * Retrieves videos recently added to the Lush content database and returns up to fifty results.
-	 *
-	 * @return
+	 * Gets a list of the events
+	 * @return events
 	 */
-	@GET("videos")
-	Call<List<VideoContent>> getVideos();
+	@GET("events")
+	Call<List<Event>> getEvents();
 
 	/**
-	 * Retrieves radio shows recently added to the Lush content database and returns up to fifty results.
-	 *
-	 * @return
+	 * Gets programmes for a event
+	 * @param eventTag to get the programmes for
+	 * @return programmes
 	 */
-	@GET("radio")
-	Call<List<RadioContent>> getRadios();
+	@GET("events/{event_tag}")
+	Call<List<Programme>> getEventProgrammes(@Path("event_tag") String eventTag);
 
 	/**
-	 * Performs a text search on the Lush content database and returns up to six results.
-	 *
-	 * @return
+	 * Gets programmes for a tag
+	 * @param tag to get the programmes for
+	 * @return programmes
 	 */
-	@GET("search")
-	Call<List<SearchResult>> search(@Query("title") String searchTerm);
+	@GET("tags/{tag}")
+	Call<List<Programme>> getProgrammesForTag(@Path("tag") String tag);
 
 	/**
-	 * Retrieves more details about the programme with the specified ID.
-	 *
-	 * @param programmeId
-	 * @return
+	 * Performs a text search and returns up to six results
+	 * @param searchTerms, which supports multiple strings if they are separated by at + symbol
+	 * @return results
 	 */
-	@GET("programme")
-	Call<List<Programme>> getProgramme(@Query("id") String programmeId);
+	@GET("programme-search/{search_terms}")
+	Call<List<Programme>> search(@Path("search_terms") String searchTerms);
+
+	/**
+	 * Gets the live playlist, which contains the live playlist id, or empty for the given timezone offset
+	 * @param offset for the timezone, in the format "x minutes"
+	 * @return live playlist content
+	 */
+	@GET("views/playlist")
+	Call<List<LivePlaylist>> getLivePlaylist(@Query("offset") String offset);
+
+	/**
+	 * Gets a list of the latest tv programmes
+	 * @return latest tv programmes
+	 */
+	@GET("views/videos")
+	Call<List<Programme>> getVideoArchive();
+
+	/**
+	 * Gets a list of the latest tv programmes
+	 * @return latest tv programmes
+	 */
+	@GET("views/radio")
+	Call<List<Programme>> getRadioArchive();
 }

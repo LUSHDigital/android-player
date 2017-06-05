@@ -6,10 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Types of content
+ * Content type API enum
  *
  * @author Jamie Cruwys
- * @project lush-player-android-client
  */
 @AllArgsConstructor
 public enum ContentType

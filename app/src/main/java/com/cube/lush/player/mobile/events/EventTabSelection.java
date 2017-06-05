@@ -2,10 +2,9 @@ package com.cube.lush.player.mobile.events;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.mobile.events.EventTab;
-
 /**
- * Created by Jamie Cruwys.
+ * Event Tab Selection
+ * @author Jamie Cruwys.
  */
 public interface EventTabSelection
 {

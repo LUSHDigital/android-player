@@ -10,6 +10,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Base activity that performs actions common to all activities in the app.
+ *
+ * @author Jamie Cruwys
  */
 public class BaseTVActivity extends Activity
 {

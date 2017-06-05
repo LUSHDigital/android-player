@@ -11,7 +11,7 @@ import com.cube.lush.player.R;
 /**
  * Base fragment displaying an interface with a side menu and content view, based on the Leanback {@link BrowseFragment}.
  *
- * Created by tim on 28/11/2016.
+ * @author Jamie Cruwys
  */
 public abstract class LushBrowseFragment extends BrowseFragment
 {

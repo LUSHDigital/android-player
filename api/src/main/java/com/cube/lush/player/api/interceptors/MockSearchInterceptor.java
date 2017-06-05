@@ -3,10 +3,10 @@ package com.cube.lush.player.api.interceptors;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.interceptors.base.BaseMockInterceptor;
-
 /**
- * Created by Jamie Cruwys of 3 SIDED CUBE on 29/03/2017.
+ * Interceptor for search
+ *
+ * @author Jamie Cruwys
  */
 public class MockSearchInterceptor extends BaseMockInterceptor
 {
@@ -17,11 +17,11 @@ public class MockSearchInterceptor extends BaseMockInterceptor
 
 	@Override protected String provideEndpointName()
 	{
-		return "search";
+		return "programme-search/";
 	}
 
 	@Override protected String provideJsonFileName()
 	{
-		return "mock/api/search.json";
+		return "mock/api/programmes.json";
 	}
 }

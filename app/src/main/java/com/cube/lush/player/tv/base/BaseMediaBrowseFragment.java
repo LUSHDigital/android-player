@@ -11,14 +11,14 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
-import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.content.model.Channel;
+import com.cube.lush.player.api.model.Channel;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.tv.state.ErrorFragment;
 import com.cube.lush.player.tv.state.SpinnerFragment;
 import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;
 import com.cube.lush.player.tv.browse.GridPresenter;
 import com.cube.lush.player.tv.channels.ChannelActivity;
-import com.cube.lush.player.tv.details.MediaDetailsActivity;
+import com.cube.lush.player.tv.details.ProgrammeDetailsActivity;
 
 import java.io.Serializable;
 
@@ -27,7 +27,7 @@ import java.io.Serializable;
  * <p />
  * The fragment will automatically display {@link SpinnerFragment} as an overlay until {@link #setLoadingFinished(boolean)} has been called.
  *
- * Created by tim on 30/11/2016.
+ * @author Jamie Cruwys
  */
 public abstract class BaseMediaBrowseFragment extends VerticalGridFragment implements BrowseFragment.MainFragmentAdapterProvider
 {
@@ -55,10 +55,10 @@ public abstract class BaseMediaBrowseFragment extends VerticalGridFragment imple
 					return;
 				}
 
-				if (item instanceof MediaContent)
+				if (item instanceof Programme)
 				{
-					Intent intent = new Intent(context, MediaDetailsActivity.class);
-					intent.putExtra(MediaDetailsActivity.EXTRA_MEDIA, (Serializable) item);
+					Intent intent = new Intent(context, ProgrammeDetailsActivity.class);
+					intent.putExtra(ProgrammeDetailsActivity.EXTRA_PROGRAMME, (Serializable) item);
 					startActivity(intent);
 				}
 				else if (item instanceof Channel)

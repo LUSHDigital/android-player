@@ -16,15 +16,18 @@ import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.media.DeliveryType;
+import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
+import com.cube.lush.player.api.model.LivePlaylist;
+import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
+import com.cube.lush.player.content.brightcove.BrightcoveUtils;
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.cube.lush.player.content.manager.MediaManager;
 import com.cube.lush.player.content.model.VideoInfo;
+import com.cube.lush.player.content.repository.LivePlaylistRepository;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +36,7 @@ import java.util.List;
 /**
  * Uses the Brightcove SDK player to playback Lush-related content, including playlists, specific videos, or remote files.
  *
- * Created by tim on 24/11/2016.
+ * @author Jamie Cruwys
  */
 public class PlaybackFragment extends BrightcovePlayerFragment
 {
@@ -42,6 +45,10 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		View view = inflater.inflate(R.layout.fragment_playback, container, false);
 		brightcoveVideoView = (BaseVideoView) view.findViewById(R.id.brightcove_video_view);
+
+		// Our custom media controller, which is in one line
+		BrightcoveMediaController brightcoveMediaController = new BrightcoveMediaController(brightcoveVideoView, R.layout.custom_tv_media_controller);
+		brightcoveVideoView.setMediaController(brightcoveMediaController);
 
 		super.onCreateView(inflater, container, savedInstanceState);
 
@@ -97,10 +104,9 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		brightcoveVideoView.stopPlayback();
 
-		MediaManager.getInstance().getLiveContent(new ResponseHandler<MediaContent>()
+		LivePlaylistRepository.INSTANCE.getItems(new ResponseHandler<LivePlaylist>()
 		{
-			@Override
-			public void onSuccess(@NonNull List<MediaContent> items)
+			@Override public void onSuccess(@NonNull List<LivePlaylist> items)
 			{
 				// This method is designed to be called from async methods so make sure we've not lost context since then
 				if (getActivity() == null)
@@ -118,8 +124,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 				}
 			}
 
-			@Override
-			public void onFailure(@Nullable Throwable t)
+			@Override public void onFailure(@Nullable Throwable t)
 			{
 				Activity activity = getActivity();
 
@@ -146,7 +151,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			return;
 		}
 
-		MediaManager.getInstance().getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
+		BrightcoveCatalog.INSTANCE.getCatalog().findPlaylistByID(playlistId, new PlaylistListener()
 		{
 			@Override
 			public void onPlaylist(Playlist playlist)
@@ -157,7 +162,8 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 					return;
 				}
 
-				VideoInfo videoInfo = MediaManager.getInstance().findCurrentLiveVideo(playlist);
+
+				VideoInfo videoInfo = BrightcoveUtils.findCurrentLiveVideo(playlist);
 
 				if (videoInfo != null)
 				{
@@ -209,7 +215,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 			return;
 		}
 
-		MediaManager.getInstance().getCatalog().findVideoByID(videoId, new VideoListener()
+		BrightcoveCatalog.INSTANCE.getCatalog().findVideoByID(videoId, new VideoListener()
 		{
 			// Add the video found to the queue with add().
 			// Start playback of the video with start().

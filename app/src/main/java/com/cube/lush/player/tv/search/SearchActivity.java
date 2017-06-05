@@ -6,7 +6,9 @@ import com.cube.lush.player.tv.base.BaseTVActivity;
 import com.cube.lush.player.R;
 
 /**
- * Created by tim on 24/11/2016.
+ * Search Activity
+ *
+ * @author Jamie Cruwys
  */
 public class SearchActivity extends BaseTVActivity
 {

@@ -11,19 +11,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.MediaContent;
-import com.cube.lush.player.content.model.CategoryContentType;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
+import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 import com.lush.lib.listener.OnListItemClickListener;
 
 import java.util.List;
 
 /**
- * Created by Jamie Cruwys.
+ * Base Content Fragment for most of the screens
+ *
+ * @author Jamie Cruwys
  */
-public abstract class BaseContentFragment extends FilterableListingFragment<MediaContent, CategoryContentType> implements OnListItemClickListener<MediaContent>
+public abstract class BaseContentFragment extends FilterableListingFragment<Programme, ProgrammeFilterOption> implements OnListItemClickListener<Programme>
 {
 	@NonNull abstract public String provideContentTitle();
 
@@ -37,32 +39,32 @@ public abstract class BaseContentFragment extends FilterableListingFragment<Medi
 		return view;
 	}
 
-	@NonNull @Override public List<CategoryContentType> provideFilterOptions()
+	@NonNull @Override public List<ProgrammeFilterOption> provideFilterOptions()
 	{
-		return CategoryContentType.listValues();
+		return ProgrammeFilterOption.listValues();
 	}
 
-	@NonNull @Override public String getTitleForFilterOption(CategoryContentType contentType)
+	@NonNull @Override public String getTitleForFilterOption(ProgrammeFilterOption filterOption)
 	{
-		return contentType.getDisplayName();
+		return filterOption.getName();
 	}
 
-	@NonNull @Override public CategoryContentType provideDefaultTab()
+	@NonNull @Override public ProgrammeFilterOption provideDefaultTab()
 	{
-		return CategoryContentType.ALL;
+		return ProgrammeFilterOption.ALL;
 	}
 
-	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(CategoryContentType categoryContentType)
+	@NonNull @Override public RecyclerView.LayoutManager provideLayoutManagerForFilterOption(ProgrammeFilterOption filterOption)
 	{
 		return new LinearLayoutManager(getContext());
 	}
 
-	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(CategoryContentType categoryContentType, @NonNull List<MediaContent> items)
+	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(ProgrammeFilterOption filterOption, @NonNull List<Programme> items)
 	{
 		return new ContentAdapter(items, this);
 	}
 
-	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(CategoryContentType categoryContentType)
+	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(ProgrammeFilterOption filterOption)
 	{
 		return null;
 	}
@@ -87,7 +89,7 @@ public abstract class BaseContentFragment extends FilterableListingFragment<Medi
 		return R.layout.content_error;
 	}
 
-	@Override public void onItemClick(MediaContent mediaContent, View view)
+	@Override public void onItemClick(Programme mediaContent, View view)
 	{
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(mediaContent));
 	}

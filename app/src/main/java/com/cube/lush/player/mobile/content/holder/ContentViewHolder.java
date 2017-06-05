@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.Programme;
+import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
 import com.lush.view.holder.BaseViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -41,5 +42,7 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 			.fit()
 			.centerCrop()
 			.into(image);
+
+		ChannelProgrammesRepository.INSTANCE.isNew(mediaContent)
 	}
 }

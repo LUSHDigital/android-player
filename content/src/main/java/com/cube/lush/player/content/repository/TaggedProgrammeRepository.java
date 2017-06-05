@@ -18,7 +18,7 @@ import retrofit2.Response;
  *
  * @author Jamie Cruwys
  */
-public class TaggedProgrammeRepository extends ProgrammeRepository
+public class TaggedProgrammeRepository extends BaseProgrammeRepository
 {
 	public static final TaggedProgrammeRepository INSTANCE = new TaggedProgrammeRepository();
 

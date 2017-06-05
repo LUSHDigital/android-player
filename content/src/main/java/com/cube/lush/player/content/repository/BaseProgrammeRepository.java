@@ -19,7 +19,7 @@ import static com.cube.lush.player.api.model.ContentType.TV;
  *
  * @author Jamie Cruwys
  */
-abstract class ProgrammeRepository extends Repository<Programme>
+abstract class BaseProgrammeRepository extends Repository<Programme>
 {
 	@Getter protected Set<Programme> videos = new HashSet<>();
 	@Getter protected Set<Programme> radios = new HashSet<>();

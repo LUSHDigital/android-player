@@ -20,7 +20,7 @@ import retrofit2.Response;
  *
  * @author Jamie Cruwys
  */
-public class LatestProgrammesRepository extends ProgrammeRepository
+public class LatestProgrammesRepository extends BaseProgrammeRepository
 {
 	public static final LatestProgrammesRepository INSTANCE = new LatestProgrammesRepository();
 

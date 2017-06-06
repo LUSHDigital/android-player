@@ -18,6 +18,7 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
+import com.cube.lush.player.content.repository.ProgrammeRepository;
 
 /**
  * Lush Playback Activity
@@ -113,6 +114,9 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 
 	private void playVideo(@NonNull Video video, @IntRange(from = 0) int startTimeMilliseconds)
 	{
+		// Mark programme as watched
+		ProgrammeRepository.watched(programme);
+
 		baseVideoView.add(video);
 		baseVideoView.start();
 

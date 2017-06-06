@@ -129,4 +129,13 @@ public abstract class Repository<T>
 	{
 		return items.contains(item);
 	}
+
+	/**
+	 * Mark the item as watched and remove it from the new items
+	 * @param item that we have just watched
+	 */
+	public void watched(@NonNull T item)
+	{
+		newItems.remove(item);
+	}
 }

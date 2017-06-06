@@ -40,4 +40,13 @@ public class ProgrammeRepository
 
 		return false;
 	}
+
+	public static void watched(@NonNull Programme programme)
+	{
+		ChannelProgrammesRepository.INSTANCE.watched(programme);
+		EventProgrammesRepository.INSTANCE.watched(programme);
+		LatestProgrammesRepository.INSTANCE.watched(programme);
+		SearchProgrammeRepository.INSTANCE.watched(programme);
+		TaggedProgrammeRepository.INSTANCE.watched(programme);
+	}
 }

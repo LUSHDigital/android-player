@@ -24,6 +24,7 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 	@BindView(R.id.type) public TextView type;
 	@BindView(R.id.title) public TextView title;
 	@BindView(R.id.length) public TextView length;
+	@BindView(R.id.new_indicator) public ImageView newIndicator;
 
 	public ContentViewHolder(View view)
 	{
@@ -47,7 +48,11 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 
 		if (isNew)
 		{
-
+			newIndicator.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			newIndicator.setVisibility(View.GONE);
 		}
 	}
 }

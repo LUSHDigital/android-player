@@ -24,6 +24,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:id="@+id/image"
+				android:scaleType="centerInside"
 				tools:src="@drawable/channel_lush_times"
 			/>
 
@@ -73,7 +74,7 @@
 						android:id="@+id/type"
 						android:layout_gravity="center"
 						android:layout_marginRight="8dp"
-						android:src="@drawable/circle"
+						tools:src="@drawable/video_icon"
 					/>
 
 					<TextView

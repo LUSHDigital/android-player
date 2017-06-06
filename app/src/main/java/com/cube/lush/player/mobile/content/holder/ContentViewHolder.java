@@ -80,12 +80,11 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 
 			if (type == ContentType.TV)
 			{
-				icon = R.drawable.ic_play;
-
+				icon = R.drawable.video_icon;
 			}
 			else if (type == ContentType.RADIO)
 			{
-				icon = R.drawable.ic_play;
+				icon = R.drawable.radio_icon;
 			}
 
 			Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), icon);

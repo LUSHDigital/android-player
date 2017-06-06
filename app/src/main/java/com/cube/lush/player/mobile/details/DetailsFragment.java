@@ -26,6 +26,7 @@ import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.api.model.Tag;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
+import com.cube.lush.player.content.repository.ProgrammeRepository;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.TagContentFragment;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
@@ -240,6 +241,8 @@ public class DetailsFragment extends BrightcovePlayerFragment
 			Video video = Video.createVideo(programme.getFile(), DeliveryType.MP4);
 			playVideo(video);
 		}
+
+		ProgrammeRepository.watched(programme);
 	}
 
 	public void playVideo(@NonNull Video video)

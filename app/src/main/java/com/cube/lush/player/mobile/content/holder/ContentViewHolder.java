@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.Programme;
-import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
+import com.cube.lush.player.content.repository.ProgrammeRepository;
 import com.lush.view.holder.BaseViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -24,6 +24,7 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 	@BindView(R.id.type) public TextView type;
 	@BindView(R.id.title) public TextView title;
 	@BindView(R.id.length) public TextView length;
+	@BindView(R.id.new_indicator) public ImageView newIndicator;
 
 	public ContentViewHolder(View view)
 	{
@@ -31,18 +32,27 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 		ButterKnife.bind(this, view);
 	}
 
-	@Override public void bind(Programme mediaContent)
+	@Override public void bind(Programme programme)
 	{
-		type.setText(mediaContent.getType().getName());
-		title.setText(mediaContent.getTitle());
-		length.setText(mediaContent.getRelativeDate());
+		type.setText(programme.getType().getName());
+		title.setText(programme.getTitle());
+		length.setText(programme.getRelativeDate());
 
 		Picasso.with(image.getContext())
-			.load(mediaContent.getThumbnail())
+			.load(programme.getThumbnail())
 			.fit()
 			.centerCrop()
 			.into(image);
 
-		ChannelProgrammesRepository.INSTANCE.isNew(mediaContent)
+		boolean isNew = ProgrammeRepository.isNew(programme);
+
+		if (isNew)
+		{
+			newIndicator.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			newIndicator.setVisibility(View.GONE);
+		}
 	}
 }

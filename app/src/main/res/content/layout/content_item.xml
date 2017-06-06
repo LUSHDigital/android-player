@@ -65,6 +65,20 @@
 				android:layout_above="@id/info_section"
 				tools:src="@drawable/channel_lush_kitchen"
 			/>
+
+			<ImageView
+				android:layout_width="20dp"
+				android:layout_height="20dp"
+				android:id="@+id/new_indicator"
+				android:layout_above="@id/info_section"
+				android:layout_alignParentRight="true"
+				android:layout_marginBottom="-10dp"
+				android:layout_marginLeft="16dp"
+				android:layout_marginRight="16dp"
+				android:src="@drawable/circle"
+				android:tint="@color/green"
+				android:visibility="gone"
+			/>
 		</RelativeLayout>
 	</android.support.v7.widget.CardView>
 </LinearLayout>

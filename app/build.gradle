@@ -111,9 +111,15 @@ dependencies {
 	// Google Analytics
 	compile 'com.google.android.gms:play-services-analytics:10.2.0'
 
+	// Firebase crash reporting
+	compile 'com.google.firebase:firebase-core:10.2.6'
+	compile 'com.google.firebase:firebase-crash:10.2.6'
+
 	// Testing
 	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 		exclude group: 'com.android.support', module: 'support-annotations'
 	})
 	testCompile 'junit:junit:4.12'
 }
+
+apply plugin: 'com.google.gms.google-services'

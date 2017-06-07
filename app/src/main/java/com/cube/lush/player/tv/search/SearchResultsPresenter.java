@@ -20,10 +20,7 @@ public class SearchResultsPresenter extends ListRowPresenter
 
 		if (item instanceof ListRow)
 		{
-			final ListRow row = (ListRow) item;
-			int numItems = row.getAdapter().size();
-			int numRows = (numItems + 2) / 3;
-			((ViewHolder) holder).getGridView().setNumRows(numRows);
+			((ViewHolder) holder).getGridView().setNumRows(1);
 		}
 	}
 }

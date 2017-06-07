@@ -14,6 +14,7 @@ import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.EventProgrammesRepository;
 import com.cube.lush.player.content.repository.LatestProgrammesRepository;
+import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.base.FilterableListingFragment;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
@@ -59,6 +60,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 			{
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
+					MediaSorter.MOST_RECENT_FIRST.sort(items);
 					callback.onListingDataRetrieved(items);
 				}
 
@@ -75,6 +77,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 			{
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
+					MediaSorter.MOST_RECENT_FIRST.sort(items);
 					callback.onListingDataRetrieved(items);
 				}
 

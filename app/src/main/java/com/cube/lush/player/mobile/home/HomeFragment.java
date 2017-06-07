@@ -11,6 +11,7 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.LatestProgrammesRepository;
+import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.adapter.ContentAdapter;
 import com.cube.lush.player.mobile.details.DetailsFragment;
@@ -58,6 +59,7 @@ public class HomeFragment extends StatefulListingFragment<Programme> implements 
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
+				MediaSorter.MOST_RECENT_FIRST.sort(items);
 				callback.onListingDataRetrieved(items);
 			}
 

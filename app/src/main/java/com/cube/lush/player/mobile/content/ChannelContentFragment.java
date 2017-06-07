@@ -15,7 +15,9 @@ import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.base.BaseContentFragment;
 import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
@@ -51,16 +53,34 @@ public class ChannelContentFragment extends BaseContentFragment
 		channel = (Channel)getArguments().getSerializable(ARG_CHANNEL);
 	}
 
-	@Override public void getListDataForFilterOption(@NonNull ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
+	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
 		ChannelProgrammesRepository.INSTANCE.setChannelTag(channel.getTag());
-
 		ChannelProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
-				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				callback.onListingDataRetrieved(items);
+				if (filterOption == ProgrammeFilterOption.ALL)
+				{
+					MediaSorter.MOST_RECENT_FIRST.sort(items);
+					callback.onListingDataRetrieved(items);
+				}
+				else if (filterOption == ProgrammeFilterOption.TV)
+				{
+					Set<Programme> videos = ChannelProgrammesRepository.INSTANCE.getVideos();
+					ArrayList<Programme> programmes = new ArrayList<>(videos);
+
+					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
+					callback.onListingDataRetrieved(programmes);
+				}
+				else if (filterOption == ProgrammeFilterOption.RADIO)
+				{
+					Set<Programme> radios = ChannelProgrammesRepository.INSTANCE.getRadios();
+					ArrayList<Programme> programmes = new ArrayList<>(radios);
+
+					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
+					callback.onListingDataRetrieved(programmes);
+				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)

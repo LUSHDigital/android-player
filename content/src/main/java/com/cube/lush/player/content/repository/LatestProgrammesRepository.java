@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
+import com.cube.lush.player.content.util.MediaSorter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 						}
 						else
 						{
+							MediaSorter.MOST_RECENT_FIRST.sort(composite);
 							callback.onSuccess(composite);
 						}
 					}
@@ -103,6 +105,7 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 						}
 						else
 						{
+							MediaSorter.MOST_RECENT_FIRST.sort(composite);
 							callback.onSuccess(composite);
 						}
 					}

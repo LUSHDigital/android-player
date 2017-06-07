@@ -18,7 +18,7 @@ import retrofit2.Response;
  *
  * @author Jamie Cruwys
  */
-public class SearchProgrammeRepository extends Repository<Programme>
+public class SearchProgrammeRepository extends BaseProgrammeRepository
 {
 	public static final SearchProgrammeRepository INSTANCE = new SearchProgrammeRepository();
 

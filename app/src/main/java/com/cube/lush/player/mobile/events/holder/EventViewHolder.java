@@ -15,6 +15,7 @@ import com.cube.lush.player.R;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.EventProgrammesRepository;
+import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.content.adapter.ContentCarouselAdapter;
 import com.cube.lush.player.mobile.events.EventTab;
 import com.cube.lush.player.mobile.events.EventTabSelection;
@@ -65,6 +66,8 @@ public class EventViewHolder extends BaseViewHolder<EventTab>
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				items = items.subList(0, MAX_HORIZONTAL_ITEMS);
+
+				MediaSorter.MOST_RECENT_FIRST.sort(items);
 				bindProgrammes(items);
 			}
 

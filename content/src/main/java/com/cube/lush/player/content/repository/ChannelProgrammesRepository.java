@@ -18,7 +18,7 @@ import retrofit2.Response;
  *
  * @author Jamie Cruwys
  */
-public class ChannelProgrammesRepository extends Repository<Programme>
+public class ChannelProgrammesRepository extends BaseProgrammeRepository
 {
 	public static final ChannelProgrammesRepository INSTANCE = new ChannelProgrammesRepository();
 

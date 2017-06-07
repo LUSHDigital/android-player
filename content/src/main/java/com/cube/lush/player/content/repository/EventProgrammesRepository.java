@@ -18,7 +18,7 @@ import retrofit2.Response;
  *
  * @author Jamie Cruwys
  */
-public class EventProgrammesRepository extends Repository<Programme>
+public class EventProgrammesRepository extends BaseProgrammeRepository
 {
 	public static final EventProgrammesRepository INSTANCE = new EventProgrammesRepository();
 

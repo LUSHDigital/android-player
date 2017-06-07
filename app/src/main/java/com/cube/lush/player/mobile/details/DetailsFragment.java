@@ -241,11 +241,11 @@ public class DetailsFragment extends BrightcovePlayerFragment
 			// Radio Content from mp3 files, shown as videos in the brightcove player
 			Video video = Video.createVideo(programme.getFile(), DeliveryType.MP4);
 			playVideo(video);
+
+			Track.event("Play", programme.getId());
 		}
 
 		ProgrammeRepository.watched(programme);
-
-		Track.event("Play", programme.getId());
 	}
 
 	public void playVideo(@NonNull Video video)

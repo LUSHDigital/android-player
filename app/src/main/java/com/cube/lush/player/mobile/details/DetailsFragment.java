@@ -55,6 +55,8 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	private static final String ARG_PLAYING = "arg_playing";
 	private Programme programme;
 
+	public static final int REQUEST_CODE = 453;
+
 	@BindView(R.id.playOverlay) ImageView playOverlay;
 	@BindView(R.id.content_type) TextView contentType;
 	@BindView(R.id.title) TextView title;
@@ -308,7 +310,15 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		int currentSeekPosition = baseVideoView.getCurrentPosition();
 
 		Intent fullscreenPlaybackIntent = LushPlaybackActivity.getIntent(getContext(), programme, currentSeekPosition);
-		startActivity(fullscreenPlaybackIntent);
+		startActivityForResult(fullscreenPlaybackIntent, REQUEST_CODE);
+	}
+
+	public void seekTo(int milliseconds)
+	{
+		if (baseVideoView != null)
+		{
+			baseVideoView.seekTo(milliseconds);
+		}
 	}
 
 	@Override public void onSaveInstanceState(Bundle bundle)

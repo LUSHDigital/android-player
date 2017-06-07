@@ -22,6 +22,9 @@ import com.cube.lush.player.content.repository.ProgrammeRepository;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Lush Playback Activity
  *
@@ -34,6 +37,8 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 
 	@SuppressWarnings("HardCodedStringLiteral")
 	public static final String EXTRA_START_TIME = "start_time";
+
+	public static final int RESULT_CODE = 236;
 
 	@NonNull private Programme programme;
 	@IntRange(from = 0) private int startTimeMilliseconds;
@@ -56,6 +61,8 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 		baseVideoView.setMediaController(brightcoveMediaController);
 
 		super.onCreate(savedInstanceState);
+
+		ButterKnife.bind(this);
 
 		Analytics analytics = baseVideoView.getAnalytics();
 		analytics.setAccount(com.cube.lush.player.content.BuildConfig.BRIGHTCOVE_ACCOUNT_ID);
@@ -144,6 +151,16 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 				finish();
 			}
 		});
+	}
+
+	@OnClick(R.id.full_screen) void onFullscreenClicked()
+	{
+		// Pass back the current time to anyone who starts this activity for a result
+		Intent intent = new Intent();
+		intent.putExtra(EXTRA_MEDIA_CONTENT, programme);
+		intent.putExtra(EXTRA_START_TIME, baseVideoView.getCurrentPosition());
+		setResult(RESULT_CODE, intent);
+		finish();
 	}
 
 	@Override

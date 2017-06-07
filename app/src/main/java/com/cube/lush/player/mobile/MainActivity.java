@@ -1,5 +1,6 @@
 package com.cube.lush.player.mobile;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,11 +14,14 @@ import android.widget.FrameLayout;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.cube.lush.player.R;
+import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
+import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.events.EventsFragment;
 import com.cube.lush.player.mobile.home.HomeFragment;
 import com.cube.lush.player.mobile.live.LiveFragment;
+import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
 import com.cube.lush.player.mobile.search.SearchFragment;
 
 import java.util.ArrayList;
@@ -180,5 +184,23 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 		}
 
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == LushPlaybackActivity.RESULT_CODE)
+		{
+			Programme programme = (Programme)data.getSerializableExtra(LushPlaybackActivity.EXTRA_MEDIA_CONTENT);
+			int startTime = data.getIntExtra(LushPlaybackActivity.EXTRA_START_TIME, 0);
+
+			Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+
+			if (fragment instanceof DetailsFragment)
+			{
+				DetailsFragment detailsFragment = (DetailsFragment)fragment;
+				detailsFragment.seekTo(startTime);
+			}
+		}
 	}
 }

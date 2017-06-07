@@ -55,7 +55,7 @@ public class TagContentFragment extends BaseContentFragment
 
 	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		TaggedProgrammeRepository.INSTANCE.setTag(tag.getName());
+		TaggedProgrammeRepository.INSTANCE.setTag(tag.getTag());
 		TaggedProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)

@@ -19,6 +19,8 @@ import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.repository.ProgrammeRepository;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 /**
  * Lush Playback Activity
@@ -71,6 +73,16 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 	@Override protected void onResume()
 	{
 		super.onResume();
+
+		if (programme.getType() == ContentType.RADIO)
+		{
+			// Load image into brightcove video view
+			Picasso.with(baseVideoView.getContext())
+				.load(programme.getThumbnail())
+				.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+				.into(baseVideoView.getStillView());
+		}
+
 		playMediaContent(programme, startTimeMilliseconds);
 	}
 

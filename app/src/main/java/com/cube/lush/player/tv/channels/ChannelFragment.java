@@ -1,5 +1,8 @@
 package com.cube.lush.player.tv.channels;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -11,6 +14,8 @@ import com.cube.lush.player.api.model.Channel;
 import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 import com.cube.lush.player.tv.base.LushBrowseFragment;
 import com.cube.lush.player.tv.browse.MenuFragmentFactory;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.Arrays;
 
@@ -38,8 +43,25 @@ public class ChannelFragment extends LushBrowseFragment
 		super.initialiseUI();
 		channel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
 
-		// TODO: Set channel logo
-		// setBadgeDrawable(getResources().getDrawable(channel.getLogo()));
+		Target target = new Target()
+		{
+			@Override
+			public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+			{
+				BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+				setBadgeDrawable(bitmapDrawable);
+			}
+
+			@Override
+			public void onBitmapFailed(Drawable errorDrawable) {}
+
+			@Override
+			public void onPrepareLoad(Drawable placeHolderDrawable) {}
+		};
+
+		Picasso.with(getActivity())
+			.load(channel.getImage())
+			.into(target);
 	}
 
 	private void initialiseData()

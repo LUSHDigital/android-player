@@ -28,6 +28,8 @@ public class TaggedProgrammeRepository extends BaseProgrammeRepository
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{
+		tag = tag.replace("#", "");
+
 		Call<List<Programme>> programmes = api.getProgrammesForTag(tag);
 
 		programmes.enqueue(new Callback<List<Programme>>()

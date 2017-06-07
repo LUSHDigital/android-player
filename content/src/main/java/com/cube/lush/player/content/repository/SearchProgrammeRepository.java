@@ -28,7 +28,10 @@ public class SearchProgrammeRepository extends Repository<Programme>
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{
-		Call<List<Programme>> programmes = api.search(searchTerm);
+		String requestSearchTerm = searchTerm;
+		requestSearchTerm = requestSearchTerm.replace(" ", "+");
+		
+		Call<List<Programme>> programmes = api.search(requestSearchTerm);
 
 		programmes.enqueue(new Callback<List<Programme>>()
 		{

@@ -22,6 +22,7 @@ import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.cube.lush.player.R;
+import com.cube.lush.player.analytics.Track;
 import com.cube.lush.player.api.model.ContentType;
 import com.cube.lush.player.api.model.Programme;
 import com.cube.lush.player.api.model.Tag;
@@ -243,6 +244,8 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		}
 
 		ProgrammeRepository.watched(programme);
+
+		Track.event("Play", programme.getId());
 	}
 
 	public void playVideo(@NonNull Video video)
@@ -258,6 +261,8 @@ public class DetailsFragment extends BrightcovePlayerFragment
 
 				// TODO: Get the still view to show again
 				loadBrightcoveStillImage();
+
+				Track.event("End", programme.getId());
 			}
 		});
 	}
@@ -288,6 +293,8 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		shareIntent.setType("text/plain");
 
 		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
+
+		Track.event("Share", programme.getId());
 	}
 
 	private void onTagClicked(@NonNull View view, @NonNull Tag tag)

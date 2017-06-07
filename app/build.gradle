@@ -108,6 +108,9 @@ dependencies {
 	// Auto generated getters, setters and constructors
 	compile 'org.projectlombok:lombok:1.16.10'
 
+	// Google Analytics
+	compile 'com.google.android.gms:play-services-analytics:10.2.0'
+
 	// Testing
 	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
 		exclude group: 'com.android.support', module: 'support-annotations'

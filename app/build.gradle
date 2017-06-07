@@ -109,7 +109,7 @@ dependencies {
 	compile 'org.projectlombok:lombok:1.16.10'
 
 	// Google Analytics
-	compile 'com.google.android.gms:play-services-analytics:10.2.0'
+	compile 'com.google.android.gms:play-services-analytics:10.2.6'
 
 	// Firebase crash reporting
 	compile 'com.google.firebase:firebase-core:10.2.6'

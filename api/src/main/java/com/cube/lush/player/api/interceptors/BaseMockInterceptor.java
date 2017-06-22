@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.cube.lush.player.api.API;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -42,6 +44,12 @@ public abstract class BaseMockInterceptor implements Interceptor
 	 */
 	protected boolean shouldMockResponse(@NonNull Request originalRequest)
 	{
+		// Only proceed is the API mocked flag is set
+		if (!API.INSTANCE.isMocked())
+		{
+			return false;
+		}
+
 		HttpUrl url = originalRequest.url();
 
 		// 0 - lushtvapi

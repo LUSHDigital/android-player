@@ -2,21 +2,14 @@ package com.cube.lush.player.api.model;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-
 /**
  * Tag API model
  *
  * @author Jamie Cruwys
  */
-@Data
 public class Tag implements Serializable
 {
-	@Getter(AccessLevel.NONE)
 	private String name;
-
 	private String tag;
 
 	/**
@@ -37,5 +30,20 @@ public class Tag implements Serializable
 		}
 
 		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getTag()
+	{
+		return tag;
+	}
+
+	public void setTag(String tag)
+	{
+		this.tag = tag;
 	}
 }

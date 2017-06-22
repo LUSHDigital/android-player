@@ -33,7 +33,7 @@ public abstract class BaseMockInterceptor implements Interceptor
 
 	/**
 	 * Provide the endpoint name that you want to intercept
-	 * @return
+	 * @return string representing the endpoint you want to mock
 	 */
 	protected abstract String provideEndpointName();
 

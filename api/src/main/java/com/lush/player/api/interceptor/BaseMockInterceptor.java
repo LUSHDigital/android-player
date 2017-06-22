@@ -99,7 +99,7 @@ public abstract class BaseMockInterceptor implements Interceptor
 	 *
 	 * @return {@link String} which is the local json
 	 */
-	private String getResponse()
+	protected String getResponse()
 	{
 		String response = "";
 

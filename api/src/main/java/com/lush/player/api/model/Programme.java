@@ -35,10 +35,17 @@ public class Programme implements Serializable
 	public String getRelativeDate()
 	{
 		long now = System.currentTimeMillis();
-		long time = Math.min(date.getTime(), now); // Make sure we don't show content as being in the future
-		CharSequence description = DateUtils.getRelativeTimeSpanString(time, now, DAY_IN_MILLIS);
+		CharSequence description = DateUtils.getRelativeTimeSpanString(getDateTime(), now, DAY_IN_MILLIS);
 
 		return description.toString();
+	}
+
+	public long getDateTime()
+	{
+		long now = System.currentTimeMillis();
+
+		// Make sure we don't show content as being in the future
+		return Math.min(date.getTime(), now);
 	}
 
 	public String getWebLink()

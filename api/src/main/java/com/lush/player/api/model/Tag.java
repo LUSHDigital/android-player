@@ -1,4 +1,4 @@
-package com.cube.lush.player.api.model;
+package com.lush.player.api.model;
 
 import java.io.Serializable;
 

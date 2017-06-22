@@ -1,7 +1,7 @@
 package com.cube.lush.player.content.repository;
 
-import com.cube.lush.player.api.API;
-import com.cube.lush.player.api.LushAPI;
+import com.lush.player.api.API;
+import com.lush.player.api.LushAPI;
 
 /**
  * API Manager

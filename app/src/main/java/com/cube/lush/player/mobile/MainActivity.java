@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
 import com.cube.lush.player.mobile.details.DetailsFragment;

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.tv.view.CardView;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +17,7 @@ import lombok.Data;
 import static android.text.format.DateUtils.DAY_IN_MILLIS;
 
 /**
- * Presents information about various types of {@link com.cube.lush.player.api.model.Programme} inside a {@link CardView}.
+ * Presents information about various types of {@link Programme} inside a {@link CardView}.
  *
  * @author Jamie Cruwys
  */

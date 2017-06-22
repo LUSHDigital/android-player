@@ -1,9 +1,9 @@
-package com.cube.lush.player.api;
+package com.lush.player.api;
 
-import com.cube.lush.player.api.model.Channel;
-import com.cube.lush.player.api.model.Event;
-import com.cube.lush.player.api.model.LivePlaylist;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Channel;
+import com.lush.player.api.model.Event;
+import com.lush.player.api.model.LivePlaylist;
+import com.lush.player.api.model.Programme;
 
 import java.util.List;
 

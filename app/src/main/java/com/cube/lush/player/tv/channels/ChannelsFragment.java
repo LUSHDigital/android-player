@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 
-import com.cube.lush.player.api.model.Channel;
+import com.lush.player.api.model.Channel;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelRepository;
 import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;

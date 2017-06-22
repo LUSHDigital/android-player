@@ -2,7 +2,7 @@ package com.cube.lush.player.content.util;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 
 import java.util.Collections;
 import java.util.Comparator;

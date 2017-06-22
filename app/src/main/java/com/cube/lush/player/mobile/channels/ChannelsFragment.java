@@ -9,7 +9,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Channel;
+import com.lush.player.api.model.Channel;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelRepository;
 import com.cube.lush.player.mobile.MainActivity;

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.cube.lush.player.api.model.Channel;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Channel;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;

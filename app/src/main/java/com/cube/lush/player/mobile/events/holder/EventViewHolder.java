@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.EventProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;

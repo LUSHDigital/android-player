@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.mobile.content.holder.ContentViewHolder;
 import com.lush.lib.adapter.BaseSelectableListAdapter;
 import com.lush.lib.listener.OnListItemClickListener;

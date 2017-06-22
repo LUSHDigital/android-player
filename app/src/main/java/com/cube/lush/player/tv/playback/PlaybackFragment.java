@@ -21,7 +21,7 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.LivePlaylist;
+import com.lush.player.api.model.LivePlaylist;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.brightcove.BrightcoveUtils;
 import com.cube.lush.player.content.handler.ResponseHandler;

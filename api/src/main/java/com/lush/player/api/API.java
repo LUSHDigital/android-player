@@ -1,4 +1,4 @@
-package com.cube.lush.player.api;
+package com.lush.player.api;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

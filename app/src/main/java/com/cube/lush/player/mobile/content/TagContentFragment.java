@@ -7,8 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Programme;
-import com.cube.lush.player.api.model.Tag;
+import com.lush.player.api.model.Programme;
+import com.lush.player.api.model.Tag;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.TaggedProgrammeRepository;
 import com.cube.lush.player.content.util.MediaSorter;

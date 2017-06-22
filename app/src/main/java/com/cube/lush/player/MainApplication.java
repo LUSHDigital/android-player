@@ -1,7 +1,7 @@
 package com.cube.lush.player;
 
 import com.cube.lush.player.analytics.Track;
-import com.cube.lush.player.api.API;
+import com.lush.player.api.API;
 import com.lush.LushApplication;
 
 /**

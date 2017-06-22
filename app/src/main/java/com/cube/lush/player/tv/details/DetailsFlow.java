@@ -2,7 +2,7 @@ package com.cube.lush.player.tv.details;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 
 /**
  * Defines a flow of events used on the {@link ProgrammeDetailsFragment} in order to populate and correctly reveal the details and background content.

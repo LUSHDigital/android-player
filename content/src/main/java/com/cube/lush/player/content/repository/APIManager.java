@@ -3,7 +3,6 @@ package com.cube.lush.player.content.repository;
 import android.support.annotation.NonNull;
 
 import com.cube.lush.player.api.LushAPI;
-import com.cube.lush.player.api.util.HtmlStringAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,7 +41,6 @@ public class APIManager
 	private Gson getGson()
 	{
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(String.class, new HtmlStringAdapter());
 		gsonBuilder.setDateFormat(DATE_FORMAT);
 
 		return gsonBuilder.create();

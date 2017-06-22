@@ -36,7 +36,7 @@ public class TagUnitTest
 		assertEquals("#LushLife", tag.getName());
 	}
 
-	@Test public void trims_space_and_retains_existing_hastag() throws Exception
+	@Test public void trims_space_and_retains_existing_hashtag() throws Exception
 	{
 		tag.setName("    #LushLife");
 		assertEquals("#LushLife", tag.getName());

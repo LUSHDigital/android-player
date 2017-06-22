@@ -1,23 +1,23 @@
-package com.cube.lush.player.api.interceptors;
+package com.lush.player.api.interceptor;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 /**
- * Interceptor for getting programmmes for a tag
+ * Interceptor for getting programmmes for an event
  *
  * @author Jamie Cruwys
  */
-public class MockTagProgrammesInterceptor extends BaseMockInterceptor
+public class MockEventsProgrammesInterceptor extends BaseMockInterceptor
 {
-	public MockTagProgrammesInterceptor(@NonNull Context context)
+	public MockEventsProgrammesInterceptor(@NonNull Context context)
 	{
 		super(context);
 	}
 
 	@Override protected String provideEndpointName()
 	{
-		return "tags/";
+		return "events/";
 	}
 
 	@Override protected String provideJsonFileName()

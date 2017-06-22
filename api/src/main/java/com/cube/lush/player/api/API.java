@@ -3,13 +3,13 @@ package com.cube.lush.player.api;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.interceptors.MockChannelProgrammesInterceptor;
-import com.cube.lush.player.api.interceptors.MockChannelsInterceptor;
-import com.cube.lush.player.api.interceptors.MockEventsInterceptor;
-import com.cube.lush.player.api.interceptors.MockEventsProgrammesInterceptor;
-import com.cube.lush.player.api.interceptors.MockLivePlaylistInterceptor;
-import com.cube.lush.player.api.interceptors.MockSearchInterceptor;
-import com.cube.lush.player.api.interceptors.MockTagProgrammesInterceptor;
+import com.lush.player.api.interceptor.MockChannelProgrammesInterceptor;
+import com.lush.player.api.interceptor.MockChannelsInterceptor;
+import com.lush.player.api.interceptor.MockEventsInterceptor;
+import com.lush.player.api.interceptor.MockEventsProgrammesInterceptor;
+import com.lush.player.api.interceptor.MockLivePlaylistInterceptor;
+import com.lush.player.api.interceptor.MockSearchInterceptor;
+import com.lush.player.api.interceptor.MockTagProgrammesInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

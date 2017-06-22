@@ -1,4 +1,4 @@
-package com.cube.lush.player.api.interceptors;
+package com.lush.player.api.interceptor;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

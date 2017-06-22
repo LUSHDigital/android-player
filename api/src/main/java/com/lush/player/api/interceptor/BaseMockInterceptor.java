@@ -40,7 +40,7 @@ public abstract class BaseMockInterceptor implements Interceptor
 	/**
 	 * Whether or not the response for a particular request should be mocked
 	 * @param originalRequest
-	 * @return
+	 * @return true if response should be mocked, false if it should not be mocked
 	 */
 	protected boolean shouldMockResponse(@NonNull Request originalRequest)
 	{

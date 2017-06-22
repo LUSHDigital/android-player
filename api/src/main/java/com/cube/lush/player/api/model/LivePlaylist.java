@@ -2,8 +2,6 @@ package com.cube.lush.player.api.model;
 
 import java.io.Serializable;
 
-import lombok.Data;
-
 /**
  * LivePlaylist API model
  *

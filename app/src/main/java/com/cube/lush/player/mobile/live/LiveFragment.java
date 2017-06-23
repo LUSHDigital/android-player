@@ -1,7 +1,6 @@
 package com.cube.lush.player.mobile.live;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -217,7 +216,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 
 		long nowUtc = System.currentTimeMillis();
 		long timeRemainingMillis = videoInfo.getEndTimeUtc() - nowUtc;
-		long timeRemainingMins = timeRemainingMillis / 1000 / 60 + 1;
+		long timeRemainingMins = (timeRemainingMillis / 1000 / 60) + 1;
 
 		// Start and end times meta
 		String startEndTimesString = DateUtils.formatDateRange(getContext(), videoInfo.getStartTimeUtc(), videoInfo.getEndTimeUtc(), FORMAT_SHOW_TIME | FORMAT_UTC);
@@ -234,50 +233,16 @@ public class LiveFragment extends StatefulFragment<Playlist>
 				play(playlistId, videoInfo);
 			}
 		});
-
-		play(playlistId, videoInfo);
-
-		// TODO: Description
-		// TODO: Tags
 	}
 
 	private void play(@NonNull String playlistId, @NonNull final VideoInfo videoInfo)
 	{
 		Programme programme = new Programme();
-		programme.setId(playlistId);
+		programme.setId(videoInfo.getVideo().getId());
 		programme.setType(ContentType.TV);
 
 		Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), programme, 0);
 		getActivity().startActivity(playbackIntent);
-
-
-
-
-
-
-		MediaManager.getInstance().getCatalog().findVideoByID("5321597550001", new com.brightcove.player.edge.VideoListener()
-		{
-			@Override public void onVideo(Video video)
-			{
-				brightcoveVideoView.add(video);
-				brightcoveVideoView.start();
-				brightcoveVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-				{
-					@Override
-					public void onCompletion(MediaPlayer mediaPlayer)
-					{
-						finish();
-					}
-				});
-			}
-		});
-
-
-
-
-
-
-
 	}
 
 	@OnClick(R.id.show_channels) void onShowChannelsClicked()

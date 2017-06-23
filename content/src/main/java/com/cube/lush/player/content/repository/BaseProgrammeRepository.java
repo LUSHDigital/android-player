@@ -2,8 +2,8 @@ package com.cube.lush.player.content.repository;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.model.ContentType;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.ContentType;
+import com.lush.player.api.model.Programme;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.Set;
 
 import lombok.Getter;
 
-import static com.cube.lush.player.api.model.ContentType.RADIO;
-import static com.cube.lush.player.api.model.ContentType.TV;
+import static com.lush.player.api.model.ContentType.RADIO;
+import static com.lush.player.api.model.ContentType.TV;
 
 /**
  * Base Programme respository to provide filtering by content type

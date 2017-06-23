@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.tv.playback.PlaybackActivity;
 import com.cube.lush.player.tv.playback.PlaybackMethod;
 

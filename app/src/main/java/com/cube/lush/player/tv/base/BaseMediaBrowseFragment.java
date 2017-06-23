@@ -11,8 +11,8 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 
-import com.cube.lush.player.api.model.Channel;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Channel;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.tv.state.ErrorFragment;
 import com.cube.lush.player.tv.state.SpinnerFragment;
 import com.cube.lush.player.tv.adapter.BasicMainFragmentAdapter;

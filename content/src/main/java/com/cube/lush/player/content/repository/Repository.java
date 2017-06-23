@@ -4,7 +4,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.cube.lush.player.api.LushAPI;
+import com.lush.player.api.LushAPI;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
 import java.util.ArrayList;

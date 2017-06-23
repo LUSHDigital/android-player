@@ -2,7 +2,7 @@ package com.cube.lush.player.content.repository;
 
 import android.support.annotation.NonNull;
 
-import com.cube.lush.player.api.model.LivePlaylist;
+import com.lush.player.api.model.LivePlaylist;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
 import java.util.Date;

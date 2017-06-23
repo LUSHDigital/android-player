@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
 import com.cube.lush.player.analytics.Track;
-import com.cube.lush.player.api.model.Programme;
+import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.SearchProgrammeRepository;
 import com.cube.lush.player.mobile.MainActivity;

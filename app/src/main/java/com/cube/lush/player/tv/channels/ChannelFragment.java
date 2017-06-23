@@ -10,7 +10,7 @@ import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.api.model.Channel;
+import com.lush.player.api.model.Channel;
 import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 import com.cube.lush.player.tv.base.LushBrowseFragment;
 import com.cube.lush.player.tv.browse.MenuFragmentFactory;

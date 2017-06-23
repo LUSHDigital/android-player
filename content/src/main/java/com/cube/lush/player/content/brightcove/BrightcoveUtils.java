@@ -83,19 +83,12 @@ public class BrightcoveUtils
 				{
 					Map customFields = (Map) video.getProperties().get("customFields");
 					Object startTimeString = customFields.get("starttime");
-					Object length = customFields.get("livebroadcastlength");
-					if (startTimeString instanceof String && length instanceof String)
+
+					if (startTimeString instanceof String)
 					{
 						long startTimeUtc = ISO8601Utils.parse((String) startTimeString, new ParsePosition(0)).getTime();
-						String[] lengthParts = ((String)length).split(":"); // length is in the format HH:MM:SS
-						if (lengthParts.length != 3)
-						{
-							continue;
-						}
-						long endTimeUtc = startTimeUtc;
-						endTimeUtc += Long.parseLong(lengthParts[2]) * SECOND;
-						endTimeUtc += Long.parseLong(lengthParts[1]) * MINUTE;
-						endTimeUtc += Long.parseLong(lengthParts[0]) * HOUR;
+						long duration = getDuration(video);
+						long endTimeUtc = startTimeUtc + duration;
 
 						if (nowUtc >= startTimeUtc && nowUtc < endTimeUtc)
 						{
@@ -116,5 +109,50 @@ public class BrightcoveUtils
 		}
 
 		return null;
+	}
+
+	private static long getDuration(@NonNull Video video)
+	{
+		try
+		{
+			Map<String, Object> properties = video.getProperties();
+			Map customFields = (Map) properties.get("customFields");
+
+			Object liveBroadcastLengthObject = customFields.get("livebroadcastlength");
+
+			long duration = 0;
+
+			if (liveBroadcastLengthObject instanceof String)
+			{
+				String liveBroadcastLength = (String)liveBroadcastLengthObject;
+
+				if (liveBroadcastLength != null)
+				{
+					String[] liveBroadcastLengthParts = liveBroadcastLength.split(":"); // length is in the format HH:MM:SS
+
+					if (liveBroadcastLengthParts.length == 3)
+					{
+						duration += Long.parseLong(liveBroadcastLengthParts[2]) * SECOND;
+						duration += Long.parseLong(liveBroadcastLengthParts[1]) * MINUTE;
+						duration += Long.parseLong(liveBroadcastLengthParts[0]) * HOUR;
+					}
+				}
+			}
+
+			if (duration > 0)
+			{
+				return duration;
+			}
+			else
+			{
+				Integer durationProperty = (Integer)properties.get("duration");
+				return durationProperty.longValue();
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.cube.lush.player.mobile.live;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,9 +18,6 @@ import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.cube.lush.player.R;
-import com.lush.player.api.model.ContentType;
-import com.lush.player.api.model.LivePlaylist;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.brightcove.BrightcoveUtils;
 import com.cube.lush.player.content.handler.ResponseHandler;
@@ -28,6 +26,9 @@ import com.cube.lush.player.content.repository.LivePlaylistRepository;
 import com.cube.lush.player.mobile.LushTab;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
+import com.lush.player.api.model.ContentType;
+import com.lush.player.api.model.LivePlaylist;
+import com.lush.player.api.model.Programme;
 import com.squareup.picasso.Picasso;
 
 import org.apmem.tools.layouts.FlowLayout;
@@ -109,7 +110,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 
 	@Override protected boolean shouldReloadOnResume()
 	{
-		return false;
+		return true;
 	}
 
 	@Override protected void getListData(@NonNull final ListingData callback)
@@ -195,7 +196,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 		}
 	}
 
-	private void setLiveVideoInfo(@NonNull final String playlistId, @NonNull VideoInfo videoInfo)
+	private void setLiveVideoInfo(@NonNull final String playlistId, @NonNull final VideoInfo videoInfo)
 	{
 		Video brightcoveVideo = videoInfo.getVideo();
 
@@ -230,17 +231,53 @@ public class LiveFragment extends StatefulFragment<Playlist>
 		{
 			@Override public void onClick(View v)
 			{
-				Programme programme = new Programme();
-				programme.setId(playlistId);
-				programme.setType(ContentType.TV);
-
-				Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), programme, 0);
-				getActivity().startActivity(playbackIntent);
+				play(playlistId, videoInfo);
 			}
 		});
 
+		play(playlistId, videoInfo);
+
 		// TODO: Description
 		// TODO: Tags
+	}
+
+	private void play(@NonNull String playlistId, @NonNull final VideoInfo videoInfo)
+	{
+		Programme programme = new Programme();
+		programme.setId(playlistId);
+		programme.setType(ContentType.TV);
+
+		Intent playbackIntent = LushPlaybackActivity.getIntent(getContext(), programme, 0);
+		getActivity().startActivity(playbackIntent);
+
+
+
+
+
+
+		MediaManager.getInstance().getCatalog().findVideoByID("5321597550001", new com.brightcove.player.edge.VideoListener()
+		{
+			@Override public void onVideo(Video video)
+			{
+				brightcoveVideoView.add(video);
+				brightcoveVideoView.start();
+				brightcoveVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+				{
+					@Override
+					public void onCompletion(MediaPlayer mediaPlayer)
+					{
+						finish();
+					}
+				});
+			}
+		});
+
+
+
+
+
+
+
 	}
 
 	@OnClick(R.id.show_channels) void onShowChannelsClicked()

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.noveogroup.android.check'
 
 repositories {
 	maven {
@@ -49,6 +50,10 @@ android {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
+	}
+
+	lintOptions {
+		abortOnError false
 	}
 }
 

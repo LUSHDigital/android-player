@@ -13,6 +13,8 @@ buildscript {
 
 	    // Google services
 	    classpath 'com.google.gms:google-services:3.1.0'
+
+		classpath 'com.noveogroup.android:check:1.2.4'
     }
 }
 

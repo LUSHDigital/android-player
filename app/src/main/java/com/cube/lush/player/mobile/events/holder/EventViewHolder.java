@@ -73,7 +73,7 @@ public class EventViewHolder extends BaseViewHolder<Event>
 				}
 				else if (items.size() < MAX_HORIZONTAL_ITEMS)
 				{
-					toIndex = items.size() - 1;
+					toIndex = items.size();
 				}
 
 				items = items.subList(0, toIndex);

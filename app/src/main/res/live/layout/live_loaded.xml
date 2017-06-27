@@ -44,11 +44,12 @@
 			/>
 		</LinearLayout>
 
-		<include
+		<com.cube.lush.player.mobile.view.TagSectionView
+			android:id="@+id/tag_section"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_margin="16dp"
-			layout="@layout/tag_section"
+			android:orientation="vertical"
 		/>
 	</LinearLayout>
 </ScrollView>

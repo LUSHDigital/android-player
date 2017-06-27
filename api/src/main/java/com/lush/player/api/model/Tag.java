@@ -12,6 +12,14 @@ public class Tag implements Serializable
 	private String name;
 	private String tag;
 
+	public Tag() { }
+
+	public Tag(String name, String tag)
+	{
+		this.name = name;
+		this.tag = tag;
+	}
+
 	/**
 	 * Getter that ensures that we consistently have a hashtag as the starting character of each tag
 	 */

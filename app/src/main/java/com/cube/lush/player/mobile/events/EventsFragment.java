@@ -10,9 +10,9 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.EventProgrammesRepository;
+import com.cube.lush.player.content.repository.EventRepository;
 import com.cube.lush.player.content.repository.LatestProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.MainActivity;
@@ -22,6 +22,8 @@ import com.cube.lush.player.mobile.decoration.InsideSpacingItemDecoration;
 import com.cube.lush.player.mobile.details.DetailsFragment;
 import com.cube.lush.player.mobile.events.adapter.EventsAdapter;
 import com.lush.lib.listener.OnListItemClickListener;
+import com.lush.player.api.model.Event;
+import com.lush.player.api.model.Programme;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ import uk.co.jamiecruwys.contracts.ListingData;
  *
  * @author Jamie Cruwys
  */
-public class EventsFragment extends FilterableListingFragment<Programme, EventTab> implements OnListItemClickListener<Programme>, EventTabSelection
+public class EventsFragment extends FilterableListingFragment<Programme, Event> implements OnListItemClickListener<Programme>, EventTabSelection
 {
 	public EventsFragment()
 	{
@@ -47,14 +49,14 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 		return fragment;
 	}
 
-	@NonNull @Override public List<EventTab> provideFilterOptions()
+	@NonNull @Override public List<Event> provideFilterOptions()
 	{
-		return EventTab.listValues();
+		return EventRepository.INSTANCE.getEventTabs();
 	}
 
-	@Override public void getListDataForFilterOption(@NonNull EventTab eventTab, @NonNull final ListingData callback)
+	@Override public void getListDataForFilterOption(@NonNull Event event, @NonNull final ListingData callback)
 	{
-		if (eventTab == EventTab.ALL)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 			{
@@ -72,7 +74,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 		}
 		else
 		{
-			EventProgrammesRepository.INSTANCE.setEventTag(eventTab.getTag());
+			EventProgrammesRepository.INSTANCE.setEventTag(event.getTag());
 			EventProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 			{
 				@Override public void onSuccess(@NonNull List<Programme> items)
@@ -89,21 +91,21 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 		}
 	}
 
-	@NonNull @Override public String getTitleForFilterOption(EventTab eventTab)
+	@NonNull @Override public String getTitleForFilterOption(Event event)
 	{
-		return eventTab.getDisplayName();
+		return event.getName();
 	}
 
-	@NonNull @Override public EventTab provideDefaultTab()
+	@NonNull @Override public Event provideDefaultTab()
 	{
-		return EventTab.ALL;
+		return EventRepository.ALL_EVENTS;
 	}
 
-	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(EventTab eventTab)
+	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(Event event)
 	{
 		final int NUMBER_COLUMNS;
 
-		if (eventTab == EventTab.ALL)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			NUMBER_COLUMNS = getResources().getInteger(R.integer.paging_columns);
 		}
@@ -115,9 +117,9 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 		return new GridLayoutManager(getContext(), NUMBER_COLUMNS);
 	}
 
-	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(EventTab eventTab, @NonNull List<Programme> items)
+	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(Event event, @NonNull List<Programme> items)
 	{
-		if (eventTab == EventTab.ALL)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			return new EventsAdapter(items, this, this);
 		}
@@ -127,10 +129,10 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 		}
 	}
 
-	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(EventTab eventTab)
+	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(Event event)
 	{
 		// TODO: Remove top spacing on phones/tablet
-		if (eventTab == EventTab.ALL)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources().getDisplayMetrics()));
 			final int NUMBER_COLUMNS = getResources().getInteger(R.integer.paging_columns);
@@ -161,8 +163,8 @@ public class EventsFragment extends FilterableListingFragment<Programme, EventTa
 		((MainActivity)getActivity()).showFragment(DetailsFragment.newInstance(item));
 	}
 
-	@Override public void selectTab(@NonNull EventTab tab)
+	@Override public void selectTab(@NonNull Event event)
 	{
-		selectOption(tab);
+		selectOption(event);
 	}
 }

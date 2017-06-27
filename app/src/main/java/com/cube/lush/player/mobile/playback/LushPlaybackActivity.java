@@ -15,10 +15,10 @@ import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.cube.lush.player.R;
-import com.lush.player.api.model.ContentType;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.repository.ProgrammeRepository;
+import com.lush.player.api.model.ContentType;
+import com.lush.player.api.model.Programme;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 

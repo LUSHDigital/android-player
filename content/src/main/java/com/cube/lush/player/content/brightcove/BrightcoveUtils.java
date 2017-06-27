@@ -8,9 +8,11 @@ import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.cube.lush.player.content.model.VideoInfo;
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import com.lush.player.api.model.Tag;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,9 @@ public class BrightcoveUtils
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String PROPERTY_THUMBNAIL = "thumbnail";
 
+	@SuppressWarnings("HardCodedStringLiteral")
+	private static final String PROPERTY_TAGS = "tags";
+
 	public static String getVideoName(@NonNull Video video)
 	{
 		return video.getStringProperty(PROPERTY_NAME);
@@ -64,6 +69,32 @@ public class BrightcoveUtils
 		return video.getStringProperty(PROPERTY_THUMBNAIL);
 	}
 
+	public static List<Tag> getVideoTags(@NonNull Video video)
+	{
+		Object tagsObject = video.getProperties().get(PROPERTY_TAGS);
+		ArrayList<Tag> tags = new ArrayList<>();
+
+		if (tagsObject instanceof List)
+		{
+			List tagsList = (List)tagsObject;
+
+			if (!tagsList.isEmpty())
+			{
+				for (Object tagItem : tagsList)
+				{
+					if (tagItem instanceof String)
+					{
+						String tagString = (String)tagItem;
+
+						tags.add(new Tag(tagString, tagString));
+					}
+				}
+			}
+		}
+
+		return tags;
+	}
+
 	/**
 	 * Determines which video, if any, in a playlist is currently "live"
 	 *
@@ -83,19 +114,12 @@ public class BrightcoveUtils
 				{
 					Map customFields = (Map) video.getProperties().get("customFields");
 					Object startTimeString = customFields.get("starttime");
-					Object length = customFields.get("livebroadcastlength");
-					if (startTimeString instanceof String && length instanceof String)
+
+					if (startTimeString instanceof String)
 					{
 						long startTimeUtc = ISO8601Utils.parse((String) startTimeString, new ParsePosition(0)).getTime();
-						String[] lengthParts = ((String)length).split(":"); // length is in the format HH:MM:SS
-						if (lengthParts.length != 3)
-						{
-							continue;
-						}
-						long endTimeUtc = startTimeUtc;
-						endTimeUtc += Long.parseLong(lengthParts[2]) * SECOND;
-						endTimeUtc += Long.parseLong(lengthParts[1]) * MINUTE;
-						endTimeUtc += Long.parseLong(lengthParts[0]) * HOUR;
+						long duration = getDuration(video);
+						long endTimeUtc = startTimeUtc + duration;
 
 						if (nowUtc >= startTimeUtc && nowUtc < endTimeUtc)
 						{
@@ -116,5 +140,50 @@ public class BrightcoveUtils
 		}
 
 		return null;
+	}
+
+	private static long getDuration(@NonNull Video video)
+	{
+		try
+		{
+			Map<String, Object> properties = video.getProperties();
+			Map customFields = (Map) properties.get("customFields");
+
+			Object liveBroadcastLengthObject = customFields.get("livebroadcastlength");
+
+			long duration = 0;
+
+			if (liveBroadcastLengthObject instanceof String)
+			{
+				String liveBroadcastLength = (String)liveBroadcastLengthObject;
+
+				if (liveBroadcastLength != null)
+				{
+					String[] liveBroadcastLengthParts = liveBroadcastLength.split(":"); // length is in the format HH:MM:SS
+
+					if (liveBroadcastLengthParts.length == 3)
+					{
+						duration += Long.parseLong(liveBroadcastLengthParts[2]) * SECOND;
+						duration += Long.parseLong(liveBroadcastLengthParts[1]) * MINUTE;
+						duration += Long.parseLong(liveBroadcastLengthParts[0]) * HOUR;
+					}
+				}
+			}
+
+			if (duration > 0)
+			{
+				return duration;
+			}
+			else
+			{
+				Integer durationProperty = (Integer)properties.get("duration");
+				return durationProperty.longValue();
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }

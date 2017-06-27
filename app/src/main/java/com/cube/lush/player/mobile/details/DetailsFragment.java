@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brightcove.player.analytics.Analytics;
@@ -23,18 +22,18 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.cube.lush.player.R;
 import com.cube.lush.player.analytics.Track;
-import com.lush.player.api.model.ContentType;
-import com.lush.player.api.model.Programme;
-import com.lush.player.api.model.Tag;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.repository.ProgrammeRepository;
 import com.cube.lush.player.mobile.MainActivity;
 import com.cube.lush.player.mobile.content.TagContentFragment;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
+import com.cube.lush.player.mobile.view.TagClickListener;
+import com.cube.lush.player.mobile.view.TagSectionView;
+import com.lush.player.api.model.ContentType;
+import com.lush.player.api.model.Programme;
+import com.lush.player.api.model.Tag;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
-
-import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.List;
 
@@ -62,8 +61,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
-	@BindView(R.id.tag_list) FlowLayout tagList;
-	@BindView(R.id.tag_section) LinearLayout tagSection;
+	@BindView(R.id.tag_section) TagSectionView tagSection;
 
 	public DetailsFragment()
 	{
@@ -121,6 +119,15 @@ public class DetailsFragment extends BrightcovePlayerFragment
 			}
 		}
 
+		tagSection.setTagClickListener(new TagClickListener()
+		{
+			@Override
+			public void onTagClick(@NonNull Tag tag)
+			{
+				((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
+			}
+		});
+
 		return view;
 	}
 
@@ -143,15 +150,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		loadBrightcoveStillImage();
 
 		List<Tag> tags = programme.getTags();
-
-		if (tags.isEmpty())
-		{
-			hideTags();
-		}
-		else
-		{
-			showTags(tags);
-		}
+		tagSection.setTags(tags);
 
 		description.post(new Runnable()
 		{
@@ -182,37 +181,6 @@ public class DetailsFragment extends BrightcovePlayerFragment
 			.load(programme.getThumbnail())
 			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
 			.into(baseVideoView.getStillView());
-	}
-
-	private void showTags(@NonNull List<Tag> tags)
-	{
-		// Populate tags ui
-		tagList.removeAllViews();
-		LayoutInflater inflater = LayoutInflater.from(tagList.getContext());
-
-		for (final Tag tag : tags)
-		{
-			View view = inflater.inflate(R.layout.tag_item, tagList, false);
-			TextView text = (TextView)view.findViewById(R.id.text);
-			text.setText(tag.getName());
-
-			view.setOnClickListener(new View.OnClickListener()
-			{
-				@Override public void onClick(View view)
-				{
-					onTagClicked(view, tag);
-				}
-			});
-
-			tagList.addView(view);
-		}
-
-		tagSection.setVisibility(View.VISIBLE);
-	}
-
-	private void hideTags()
-	{
-		tagSection.setVisibility(View.GONE);
 	}
 
 	@OnClick(R.id.playOverlay) void onPlayClicked()
@@ -297,11 +265,6 @@ public class DetailsFragment extends BrightcovePlayerFragment
 		startActivity(Intent.createChooser(shareIntent, getString(R.string.share_via)));
 
 		Track.event("Share", programme.getId());
-	}
-
-	private void onTagClicked(@NonNull View view, @NonNull Tag tag)
-	{
-		((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
 	}
 
 	@OnClick(R.id.full_screen) void onFullscreenClicked()

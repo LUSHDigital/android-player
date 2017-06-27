@@ -64,7 +64,7 @@ public abstract class Repository<T>
 	 * Get items from either the cache, or make a network request if the cache has expired.
 	 * @return {@link Set<T>} of items which can be empty, but not null.
 	 */
-	public void getItems(@NonNull final ResponseHandler<T> callback)
+	public void getItems(@Nullable final ResponseHandler<T> callback)
 	{
 		if (cacheOutdated())
 		{
@@ -77,7 +77,11 @@ public abstract class Repository<T>
 				@Override public void onSuccess(@NonNull List<T> latestItems)
 				{
 					updateItems(latestItems);
-					callback.onSuccess(latestItems);
+
+					if (callback != null)
+					{
+						callback.onSuccess(latestItems);
+					}
 				}
 
 				/**
@@ -86,7 +90,10 @@ public abstract class Repository<T>
 				 */
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					callback.onFailure(t);
+					if (callback != null)
+					{
+						callback.onFailure(t);
+					}
 				}
 			});
 		}
@@ -95,8 +102,29 @@ public abstract class Repository<T>
 			List cachedItems = new ArrayList<>();
 			cachedItems.addAll(items);
 
-			callback.onSuccess(cachedItems);
+			if (callback != null)
+			{
+				callback.onSuccess(cachedItems);
+			}
 		}
+	}
+
+	/**
+	 * Gets items from the cache synchronously, and requests new data if necessary so the next call has the correct dataset.
+	 * This should only be used for edge cases. For most cases, you should use {@link #getItems(ResponseHandler)}
+	 * @return {@link List<T>} of items which can be empty, but not null.
+	 */
+	public List<T> getItemsSynchronously()
+	{
+		ArrayList<T> cachedItems = new ArrayList<T>();
+		cachedItems.addAll(items);
+
+		if (cacheOutdated())
+		{
+			getItems(null);
+		}
+
+		return cachedItems;
 	}
 
 	/**

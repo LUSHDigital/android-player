@@ -12,14 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.EventProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.content.adapter.ContentCarouselAdapter;
-import com.cube.lush.player.mobile.events.EventTab;
 import com.cube.lush.player.mobile.events.EventTabSelection;
 import com.lush.lib.listener.OnListItemClickListener;
+import com.lush.player.api.model.Event;
+import com.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
 
 import java.util.Collections;
@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
  *
  * @author Jamie Cruwys
  */
-public class EventViewHolder extends BaseViewHolder<EventTab>
+public class EventViewHolder extends BaseViewHolder<Event>
 {
 	@BindView(R.id.section_title) public TextView title;
 	@BindView(R.id.event_recycler) public RecyclerView eventRecycler;
@@ -53,19 +53,30 @@ public class EventViewHolder extends BaseViewHolder<EventTab>
 		ButterKnife.bind(this, view);
 	}
 
-	@Override public void bind(final EventTab eventTab)
+	@Override public void bind(final Event event)
 	{
-		title.setText(eventTab.getDisplayName());
+		title.setText(event.getName());
 
 		final int MAX_HORIZONTAL_ITEMS = title.getContext().getResources().getInteger(R.integer.paging_max_items);
 		final int PAGE_SIZE = title.getContext().getResources().getInteger(R.integer.paging_page_size);
 
-		EventProgrammesRepository.INSTANCE.setEventTag(eventTab.getTag());
+		EventProgrammesRepository.INSTANCE.setEventTag(event.getTag());
 		EventProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
-				items = items.subList(0, MAX_HORIZONTAL_ITEMS);
+				int toIndex = MAX_HORIZONTAL_ITEMS;
+
+				if (items.isEmpty())
+				{
+					toIndex = 0;
+				}
+				else if (items.size() < MAX_HORIZONTAL_ITEMS)
+				{
+					toIndex = items.size() - 1;
+				}
+
+				items = items.subList(0, toIndex);
 
 				MediaSorter.MOST_RECENT_FIRST.sort(items);
 				bindProgrammes(items);
@@ -111,7 +122,7 @@ public class EventViewHolder extends BaseViewHolder<EventTab>
 		{
 			@Override public void onClick(View v)
 			{
-				tabListener.selectTab(eventTab);
+				tabListener.selectTab(event);
 			}
 		});
 	}

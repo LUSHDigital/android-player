@@ -10,10 +10,10 @@ import java.util.Date;
  */
 public class Event implements Serializable
 {
-	private String name;
-	private String tag;
-	private Date startDate;
-	private Date endDate;
+	protected String name;
+	protected String tag;
+	protected Date startDate;
+	protected Date endDate;
 
 	public String getName()
 	{
@@ -53,5 +53,51 @@ public class Event implements Serializable
 	public void setEndDate(Date endDate)
 	{
 		this.endDate = endDate;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		// Generated equals method for object comparison
+		if (this == o)
+		{
+			return true;
+		}
+
+		if (o == null || getClass() != o.getClass())
+		{
+			return false;
+		}
+
+		Event event = (Event) o;
+
+		if (name != null ? !name.equals(event.name) : event.name != null)
+		{
+			return false;
+		}
+
+		if (tag != null ? !tag.equals(event.tag) : event.tag != null)
+		{
+			return false;
+		}
+
+		if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null)
+		{
+			return false;
+		}
+
+		return endDate != null ? endDate.equals(event.endDate) : event.endDate == null;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		// Generated hashcode method for object comparison
+
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (tag != null ? tag.hashCode() : 0);
+		result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+		result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+		return result;
 	}
 }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.lush.player.api.model.Event;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -18,6 +19,8 @@ import retrofit2.Response;
  */
 public class EventRepository extends Repository<Event>
 {
+	public static final Event ALL_EVENTS = new Event("All Events");
+
 	private EventRepository() { }
 
 	public static final EventRepository INSTANCE = new EventRepository();
@@ -41,5 +44,14 @@ public class EventRepository extends Repository<Event>
 				callback.onFailure(t);
 			}
 		});
+	}
+
+	public List<Event> getEventTabs()
+	{
+		ArrayList<Event> events = new ArrayList<Event>();
+		events.add(ALL_EVENTS);
+		events.addAll(getItemsSynchronously());
+
+		return events;
 	}
 }

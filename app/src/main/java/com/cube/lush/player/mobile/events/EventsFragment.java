@@ -36,8 +36,6 @@ import uk.co.jamiecruwys.contracts.ListingData;
  */
 public class EventsFragment extends FilterableListingFragment<Programme, Event> implements OnListItemClickListener<Programme>, EventTabSelection
 {
-	private static final CustomEvent allEvents = new CustomEvent("All Events");
-
 	public EventsFragment()
 	{
 		// Required empty public constructor
@@ -53,17 +51,12 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 
 	@NonNull @Override public List<Event> provideFilterOptions()
 	{
-		List<Event> events = EventRepository.INSTANCE.getItemsSynchronously();
-
-		// Custom event to show all
-		events.add(allEvents);
-
-		return events;
+		return EventRepository.INSTANCE.getEventTabs();
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull Event event, @NonNull final ListingData callback)
 	{
-		if (event == allEvents)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
 			{
@@ -105,14 +98,14 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 
 	@NonNull @Override public Event provideDefaultTab()
 	{
-		return allEvents;
+		return EventRepository.ALL_EVENTS;
 	}
 
 	@NonNull @Override public LinearLayoutManager provideLayoutManagerForFilterOption(Event event)
 	{
 		final int NUMBER_COLUMNS;
 
-		if (event == allEvents)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			NUMBER_COLUMNS = getResources().getInteger(R.integer.paging_columns);
 		}
@@ -126,7 +119,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 
 	@NonNull @Override public RecyclerView.Adapter provideAdapterForFilterOption(Event event, @NonNull List<Programme> items)
 	{
-		if (event == allEvents)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			return new EventsAdapter(items, this, this);
 		}
@@ -139,7 +132,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 	@Nullable @Override public RecyclerView.ItemDecoration provideItemDecorationForFilterOption(Event event)
 	{
 		// TODO: Remove top spacing on phones/tablet
-		if (event == allEvents)
+		if (event == EventRepository.ALL_EVENTS)
 		{
 			int spacing = (int)(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources().getDisplayMetrics()));
 			final int NUMBER_COLUMNS = getResources().getInteger(R.integer.paging_columns);

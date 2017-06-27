@@ -1,5 +1,7 @@
 package com.lush.player.api.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +16,21 @@ public class Event implements Serializable
 	protected String tag;
 	protected Date startDate;
 	protected Date endDate;
+
+	public Event() { }
+
+	public Event(@NonNull String name)
+	{
+		this.name = name;
+		this.tag = name;
+
+		long now = System.currentTimeMillis();
+		long day = 1000 * 60 * 60 * 24;
+		long dayLater = now + day;
+
+		startDate = new Date(now);
+		endDate = new Date(dayLater);
+	}
 
 	public String getName()
 	{

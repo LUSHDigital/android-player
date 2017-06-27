@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.brightcove.player.edge.PlaylistListener;
@@ -24,13 +23,15 @@ import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.content.repository.LivePlaylistRepository;
 import com.cube.lush.player.mobile.LushTab;
 import com.cube.lush.player.mobile.MainActivity;
+import com.cube.lush.player.mobile.content.TagContentFragment;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
+import com.cube.lush.player.mobile.view.TagClickListener;
+import com.cube.lush.player.mobile.view.TagSectionView;
 import com.lush.player.api.model.ContentType;
 import com.lush.player.api.model.LivePlaylist;
 import com.lush.player.api.model.Programme;
+import com.lush.player.api.model.Tag;
 import com.squareup.picasso.Picasso;
-
-import org.apmem.tools.layouts.FlowLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,8 +59,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 	@BindView(R.id.title) TextView title;
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.time_remaining) TextView timeRemaining;
-	@BindView(R.id.tag_section) LinearLayout tagSection;
-	@BindView(R.id.tag_list) FlowLayout tagList;
+	@BindView(R.id.tag_section) TagSectionView tagSection;
 	@BindView(R.id.play_button) ImageButton playButton;
 
 	public LiveFragment()
@@ -233,6 +233,18 @@ public class LiveFragment extends StatefulFragment<Playlist>
 				play(playlistId, videoInfo);
 			}
 		});
+
+		tagSection.setTagClickListener(new TagClickListener()
+		{
+			@Override
+			public void onTagClick(@NonNull Tag tag)
+			{
+				((MainActivity)getActivity()).showFragment(TagContentFragment.newInstance(tag));
+			}
+		});
+
+		List<Tag> tags = BrightcoveUtils.getVideoTags(brightcoveVideo);
+		tagSection.setTags(tags);
 	}
 
 	private void play(@NonNull String playlistId, @NonNull final VideoInfo videoInfo)

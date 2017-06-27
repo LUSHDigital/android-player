@@ -8,9 +8,11 @@ import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
 import com.cube.lush.player.content.model.VideoInfo;
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import com.lush.player.api.model.Tag;
 
 import java.text.ParseException;
 import java.text.ParsePosition;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,9 @@ public class BrightcoveUtils
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String PROPERTY_THUMBNAIL = "thumbnail";
 
+	@SuppressWarnings("HardCodedStringLiteral")
+	private static final String PROPERTY_TAGS = "tags";
+
 	public static String getVideoName(@NonNull Video video)
 	{
 		return video.getStringProperty(PROPERTY_NAME);
@@ -62,6 +67,32 @@ public class BrightcoveUtils
 		}
 
 		return video.getStringProperty(PROPERTY_THUMBNAIL);
+	}
+
+	public static List<Tag> getVideoTags(@NonNull Video video)
+	{
+		Object tagsObject = video.getProperties().get(PROPERTY_TAGS);
+		ArrayList<Tag> tags = new ArrayList<>();
+
+		if (tagsObject instanceof List)
+		{
+			List tagsList = (List)tagsObject;
+
+			if (!tagsList.isEmpty())
+			{
+				for (Object tagItem : tagsList)
+				{
+					if (tagItem instanceof String)
+					{
+						String tagString = (String)tagItem;
+
+						tags.add(new Tag(tagString, tagString));
+					}
+				}
+			}
+		}
+
+		return tags;
 	}
 
 	/**

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.google.gson.Gson;
@@ -111,7 +111,7 @@ public abstract class Repository<T>
 							callback.onSuccess(getCachedItems());
 						}
 
-						Toast.makeText(context, "Network unavailable, using cache", Toast.LENGTH_SHORT).show();
+						Log.w(TAG, "Network unavailable, using cache");
 					}
 					else
 					{

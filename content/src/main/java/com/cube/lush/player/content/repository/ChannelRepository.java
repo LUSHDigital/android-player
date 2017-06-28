@@ -47,17 +47,26 @@ public class ChannelRepository extends Repository<Channel>
 			{
 				if (response != null && response.isSuccessful() && response.body() != null)
 				{
-					callback.onSuccess(response.body());
+					if (callback != null)
+					{
+						callback.onSuccess(response.body());
+					}
 				}
 				else
 				{
-					callback.onFailure(null);
+					if (callback != null)
+					{
+						callback.onFailure(null);
+					}
 				}
 			}
 
 			@Override public void onFailure(Call<List<Channel>> call, Throwable t)
 			{
-				callback.onFailure(t);
+				if (callback != null)
+				{
+					callback.onFailure(t);
+				}
 			}
 		});
 	}

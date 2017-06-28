@@ -63,7 +63,11 @@ public class ChannelContentFragment extends BaseContentFragment
 				if (filterOption == ProgrammeFilterOption.ALL)
 				{
 					MediaSorter.MOST_RECENT_FIRST.sort(items);
-					callback.onListingDataRetrieved(items);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(items);
+					}
 				}
 				else if (filterOption == ProgrammeFilterOption.TV)
 				{
@@ -71,7 +75,11 @@ public class ChannelContentFragment extends BaseContentFragment
 					ArrayList<Programme> programmes = new ArrayList<>(videos);
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
-					callback.onListingDataRetrieved(programmes);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(programmes);
+					}
 				}
 				else if (filterOption == ProgrammeFilterOption.RADIO)
 				{
@@ -79,13 +87,20 @@ public class ChannelContentFragment extends BaseContentFragment
 					ArrayList<Programme> programmes = new ArrayList<>(radios);
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
-					callback.onListingDataRetrieved(programmes);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(programmes);
+					}
 				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				if (callback != null)
+				{
+					callback.onListingDataError(t);
+				}
 			}
 		});
 	}

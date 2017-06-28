@@ -63,12 +63,19 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
 					MediaSorter.MOST_RECENT_FIRST.sort(items);
-					callback.onListingDataRetrieved(items);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(items);
+					}
 				}
 
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					callback.onListingDataError(t);
+					if (callback != null)
+					{
+						callback.onListingDataError(t);
+					}
 				}
 			});
 		}
@@ -80,12 +87,19 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
 					MediaSorter.MOST_RECENT_FIRST.sort(items);
-					callback.onListingDataRetrieved(items);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(items);
+					}
 				}
 
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					callback.onListingDataError(t);
+					if (callback != null)
+					{
+						callback.onListingDataError(t);
+					}
 				}
 			});
 		}

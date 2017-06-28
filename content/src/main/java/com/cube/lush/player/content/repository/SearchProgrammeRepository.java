@@ -53,13 +53,19 @@ public class SearchProgrammeRepository extends BaseProgrammeRepository
 			{
 				if (response != null && response.isSuccessful() && response.body() != null)
 				{
-					callback.onSuccess(response.body());
+					if (callback != null)
+					{
+						callback.onSuccess(response.body());
+					}
 				}
 			}
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
-				callback.onFailure(t);
+				if (callback != null)
+				{
+					callback.onFailure(t);
+				}
 			}
 		});
 	}

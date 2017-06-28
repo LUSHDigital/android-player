@@ -73,12 +73,19 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 					{
 						if (composite.isEmpty())
 						{
-							callback.onFailure(null);
+							if (callback != null)
+							{
+								callback.onFailure(null);
+							}
 						}
 						else
 						{
 							MediaSorter.MOST_RECENT_FIRST.sort(composite);
-							callback.onSuccess(composite);
+
+							if (callback != null)
+							{
+								callback.onSuccess(composite);
+							}
 						}
 					}
 				}
@@ -88,7 +95,10 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 			{
 				if (countDownLatch.getCount() == 0)
 				{
-					callback.onFailure(t);
+					if (callback != null)
+					{
+						callback.onFailure(t);
+					}
 				}
 			}
 		});
@@ -116,12 +126,19 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 					{
 						if (composite.isEmpty())
 						{
-							callback.onFailure(null);
+							if (callback != null)
+							{
+								callback.onFailure(null);
+							}
 						}
 						else
 						{
 							MediaSorter.MOST_RECENT_FIRST.sort(composite);
-							callback.onSuccess(composite);
+
+							if (callback != null)
+							{
+								callback.onSuccess(composite);
+							}
 						}
 					}
 				}
@@ -131,7 +148,10 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 			{
 				if (countDownLatch.getCount() == 0)
 				{
-					callback.onFailure(t);
+					if (callback != null)
+					{
+						callback.onFailure(t);
+					}
 				}
 			}
 		});

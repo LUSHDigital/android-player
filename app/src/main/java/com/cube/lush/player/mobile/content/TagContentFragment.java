@@ -63,7 +63,11 @@ public class TagContentFragment extends BaseContentFragment
 				if (filterOption == ProgrammeFilterOption.ALL)
 				{
 					MediaSorter.MOST_RECENT_FIRST.sort(items);
-					callback.onListingDataRetrieved(items);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(items);
+					}
 				}
 				else if (filterOption == ProgrammeFilterOption.TV)
 				{
@@ -73,7 +77,10 @@ public class TagContentFragment extends BaseContentFragment
 					videosList.addAll(videos);
 					MediaSorter.MOST_RECENT_FIRST.sort(videosList);
 
-					callback.onListingDataRetrieved(videosList);
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(videosList);
+					}
 				}
 				else if (filterOption == ProgrammeFilterOption.RADIO)
 				{
@@ -83,13 +90,19 @@ public class TagContentFragment extends BaseContentFragment
 					radiosList.addAll(radios);
 					MediaSorter.MOST_RECENT_FIRST.sort(radiosList);
 
-					callback.onListingDataRetrieved(radiosList);
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(radiosList);
+					}
 				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				if (callback != null)
+				{
+					callback.onListingDataError(t);
+				}
 			}
 		});
 	}

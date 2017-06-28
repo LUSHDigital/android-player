@@ -120,13 +120,19 @@ public class LiveFragment extends StatefulFragment<Playlist>
 			{
 				if (getActivity() == null)
 				{
-					callback.onListingDataError(null);
+					if (callback != null)
+					{
+						callback.onListingDataError(null);
+					}
 					return;
 				}
 
 				if (items.isEmpty())
 				{
-					callback.onListingDataRetrieved(Collections.EMPTY_LIST);
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(Collections.EMPTY_LIST);
+					}
 					return;
 				}
 
@@ -140,7 +146,10 @@ public class LiveFragment extends StatefulFragment<Playlist>
 					{
 						if (getActivity() == null || playlist == null)
 						{
-							callback.onListingDataError(null);
+							if (callback != null)
+							{
+								callback.onListingDataError(null);
+							}
 							return;
 						}
 
@@ -149,20 +158,29 @@ public class LiveFragment extends StatefulFragment<Playlist>
 						ArrayList<Playlist> playlists = new ArrayList<>();
 						playlists.add(playlist);
 
-						callback.onListingDataRetrieved(playlists);
+						if (callback != null)
+						{
+							callback.onListingDataRetrieved(playlists);
+						}
 					}
 
 					@Override
 					public void onError(String error)
 					{
-						callback.onListingDataError(null);
+						if (callback != null)
+						{
+							callback.onListingDataError(null);
+						}
 					}
 				});
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(null);
+				if (callback != null)
+				{
+					callback.onListingDataError(null);
+				}
 			}
 		});
 	}

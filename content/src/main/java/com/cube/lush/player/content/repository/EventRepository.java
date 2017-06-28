@@ -50,13 +50,19 @@ public class EventRepository extends Repository<Event>
 			{
 				if (response != null && response.isSuccessful() && response.body() != null)
 				{
-					callback.onSuccess(response.body());
+					if (callback != null)
+					{
+						callback.onSuccess(response.body());
+					}
 				}
 			}
 
 			@Override public void onFailure(Call<List<Event>> call, Throwable t)
 			{
-				callback.onFailure(t);
+				if (callback != null)
+				{
+					callback.onFailure(t);
+				}
 			}
 		});
 	}

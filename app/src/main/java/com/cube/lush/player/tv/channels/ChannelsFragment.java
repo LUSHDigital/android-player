@@ -33,7 +33,7 @@ public class ChannelsFragment extends BaseMediaBrowseFragment
 	{
 		adapter.clear();
 
-		ChannelRepository.INSTANCE.getItems(new ResponseHandler<Channel>()
+		ChannelRepository.getInstance(getContext()).getItems(new ResponseHandler<Channel>()
 		{
 			@Override public void onSuccess(@NonNull List<Channel> items)
 			{

@@ -55,37 +55,52 @@ public class ChannelContentFragment extends BaseContentFragment
 
 	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		ChannelProgrammesRepository.INSTANCE.setChannelTag(channel.getTag());
-		ChannelProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		ChannelProgrammesRepository.getInstance(getContext()).setChannelTag(channel.getTag());
+		ChannelProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				if (filterOption == ProgrammeFilterOption.ALL)
 				{
 					MediaSorter.MOST_RECENT_FIRST.sort(items);
-					callback.onListingDataRetrieved(items);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(items);
+					}
 				}
 				else if (filterOption == ProgrammeFilterOption.TV)
 				{
-					Set<Programme> videos = ChannelProgrammesRepository.INSTANCE.getVideos();
+					Set<Programme> videos = ChannelProgrammesRepository.getInstance(getContext()).getVideos();
 					ArrayList<Programme> programmes = new ArrayList<>(videos);
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
-					callback.onListingDataRetrieved(programmes);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(programmes);
+					}
 				}
 				else if (filterOption == ProgrammeFilterOption.RADIO)
 				{
-					Set<Programme> radios = ChannelProgrammesRepository.INSTANCE.getRadios();
+					Set<Programme> radios = ChannelProgrammesRepository.getInstance(getContext()).getRadios();
 					ArrayList<Programme> programmes = new ArrayList<>(radios);
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
-					callback.onListingDataRetrieved(programmes);
+
+					if (callback != null)
+					{
+						callback.onListingDataRetrieved(programmes);
+					}
 				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				if (callback != null)
+				{
+					callback.onListingDataError(t);
+				}
 			}
 		});
 	}

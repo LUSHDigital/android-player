@@ -63,16 +63,22 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		ChannelRepository.INSTANCE.getItems(new ResponseHandler<Channel>()
+		ChannelRepository.getInstance(getContext()).getItems(new ResponseHandler<Channel>()
 		{
 			@Override public void onSuccess(@NonNull List<Channel> items)
 			{
-				callback.onListingDataRetrieved(items);
+				if (callback != null)
+				{
+					callback.onListingDataRetrieved(items);
+				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				if (callback != null)
+				{
+					callback.onListingDataError(t);
+				}
 			}
 		});
 	}

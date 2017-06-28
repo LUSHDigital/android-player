@@ -1,9 +1,11 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
+import com.google.gson.reflect.TypeToken;
+import com.lush.player.api.model.Programme;
 
 import java.util.List;
 
@@ -20,11 +22,23 @@ import retrofit2.Response;
  */
 public class SearchProgrammeRepository extends BaseProgrammeRepository
 {
-	public static final SearchProgrammeRepository INSTANCE = new SearchProgrammeRepository();
-
+	private static SearchProgrammeRepository instance;
 	@Getter @Setter @NonNull private String searchTerm = "";
 
-	private SearchProgrammeRepository() { }
+	public SearchProgrammeRepository(@NonNull Context context)
+	{
+		super(context);
+	}
+
+	public static SearchProgrammeRepository getInstance(@NonNull Context context)
+	{
+		if (instance == null)
+		{
+			instance = new SearchProgrammeRepository(context);
+		}
+
+		return instance;
+	}
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{
@@ -39,14 +53,32 @@ public class SearchProgrammeRepository extends BaseProgrammeRepository
 			{
 				if (response != null && response.isSuccessful() && response.body() != null)
 				{
-					callback.onSuccess(response.body());
+					if (callback != null)
+					{
+						callback.onSuccess(response.body());
+					}
 				}
 			}
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
-				callback.onFailure(t);
+				if (callback != null)
+				{
+					callback.onFailure(t);
+				}
 			}
 		});
+	}
+
+	@Override
+	protected TypeToken<List<Programme>> provideGsonTypeToken()
+	{
+		return new TypeToken<List<Programme>>(){};
+	}
+
+	@Override
+	protected String providePreferenceName()
+	{
+		return "SearchProgramme";
 	}
 }

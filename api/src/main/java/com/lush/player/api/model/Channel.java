@@ -42,4 +42,24 @@ public class Channel implements Serializable
 	{
 		this.image = image;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Channel channel = (Channel) o;
+
+		if (name != null ? !name.equals(channel.name) : channel.name != null) return false;
+		return tag != null ? tag.equals(channel.tag) : channel.tag == null;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (tag != null ? tag.hashCode() : 0);
+		return result;
+	}
 }

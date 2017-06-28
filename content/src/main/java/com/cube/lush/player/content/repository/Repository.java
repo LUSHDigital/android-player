@@ -1,11 +1,16 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.lush.player.api.LushAPI;
 import com.cube.lush.player.content.handler.ResponseHandler;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.lush.player.api.LushAPI;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,6 +27,7 @@ import lombok.Getter;
 public abstract class Repository<T>
 {
 	public static final String TAG = Repository.class.getSimpleName();
+	public static final String PREFERENCE_CACHE_STORE = "RepositoryCache";
 
 	public static final int SECOND = 1000;
 	public static final int MINUTE = 60 * SECOND;
@@ -33,6 +39,7 @@ public abstract class Repository<T>
 	private long lastRequestTime = 0;
 
 	protected LushAPI api;
+	protected Context context;
 
 	public interface ItemRetrieval<T>
 	{
@@ -40,8 +47,9 @@ public abstract class Repository<T>
 		void onItemRetrievalFailed(@NonNull Throwable throwable);
 	}
 
-	public Repository()
+	public Repository(@NonNull Context context)
 	{
+		this.context = context;
 		api = APIManager.INSTANCE.getAPI();
 	}
 
@@ -66,6 +74,11 @@ public abstract class Repository<T>
 	 */
 	public void getItems(@Nullable final ResponseHandler<T> callback)
 	{
+		if (isFirstUsage())
+		{
+			loadItemsFromDisk();
+		}
+
 		if (cacheOutdated())
 		{
 			getItemsFromNetwork(new ResponseHandler<T>()
@@ -90,23 +103,46 @@ public abstract class Repository<T>
 				 */
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					if (callback != null)
+					if (items != null && !items.isEmpty())
 					{
-						callback.onFailure(t);
+						// Use cached content
+						if (callback != null)
+						{
+							callback.onSuccess(getCachedItems());
+						}
+
+						Log.w(TAG, "Network unavailable, using cache");
+					}
+					else
+					{
+						if (callback != null)
+						{
+							callback.onFailure(t);
+						}
 					}
 				}
 			});
 		}
 		else
 		{
-			List cachedItems = new ArrayList<>();
-			cachedItems.addAll(items);
-
 			if (callback != null)
 			{
-				callback.onSuccess(cachedItems);
+				callback.onSuccess(getCachedItems());
 			}
 		}
+	}
+
+	private List<T> getCachedItems()
+	{
+		List<T> cachedItems = new ArrayList<>();
+		cachedItems.addAll(items);
+
+		return cachedItems;
+	}
+
+	private boolean isFirstUsage()
+	{
+		return items.isEmpty() && newItems.isEmpty() && lastRequestTime == 0;
 	}
 
 	/**
@@ -146,7 +182,56 @@ public abstract class Repository<T>
 
 		newItems = new HashSet<>(items);
 		newItems.removeAll(latestItems);
+
+		saveItemsToDisk(items);
 	}
+
+	private Gson gson;
+
+	private void saveItemsToDisk(@Nullable Set<T> itemsToSave)
+	{
+		if (gson == null)
+		{
+			gson = new Gson();
+		}
+
+		String json = gson.toJson(itemsToSave);
+
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_CACHE_STORE, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+			.putString(providePreferenceName(), json)
+			.apply();
+	}
+
+	private void loadItemsFromDisk()
+	{
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_CACHE_STORE, Context.MODE_PRIVATE);
+		String json = sharedPreferences.getString(providePreferenceName(), null);
+
+		if (gson == null)
+		{
+			gson = new Gson();
+		}
+
+		List<T> itemsFromDisk = gson.fromJson(json, provideGsonTypeToken().getType());
+
+		if (itemsFromDisk == null || itemsFromDisk.isEmpty())
+		{
+			items = new HashSet<T>();
+		}
+		else
+		{
+			items = new HashSet<T>(itemsFromDisk);
+		}
+	}
+
+	protected abstract TypeToken<List<T>> provideGsonTypeToken();
+
+	/**
+	 * Provide the preference name to use to store cached data for this repository
+	 * @return String for the
+	 */
+	protected abstract String providePreferenceName();
 
 	/**
 	 * Is this item new?

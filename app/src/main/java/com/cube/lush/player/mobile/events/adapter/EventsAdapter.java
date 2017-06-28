@@ -28,9 +28,9 @@ public class EventsAdapter extends BaseListAdapter<Event>
 	private final OnListItemClickListener<Programme> itemListener;
 	private final EventTabSelection tabListener;
 
-	public EventsAdapter(@NonNull List<Programme> items, @NonNull OnListItemClickListener<Programme> itemListener, @NonNull EventTabSelection tabListener)
+	public EventsAdapter(@NonNull List<Event> events, @NonNull List<Programme> items, @NonNull OnListItemClickListener<Programme> itemListener, @NonNull EventTabSelection tabListener)
 	{
-		super(EventRepository.INSTANCE.getItemsSynchronously(), null);
+		super(events, null);
 		this.items = items;
 		this.itemListener = itemListener;
 		this.tabListener = tabListener;

@@ -1,7 +1,9 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.gson.reflect.TypeToken;
 import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 
@@ -20,9 +22,22 @@ import retrofit2.Response;
  */
 public class ChannelProgrammesRepository extends BaseProgrammeRepository
 {
-	public static final ChannelProgrammesRepository INSTANCE = new ChannelProgrammesRepository();
+	private static ChannelProgrammesRepository instance;
 
-	private ChannelProgrammesRepository() { }
+	public ChannelProgrammesRepository(@NonNull Context context)
+	{
+		super(context);
+	}
+
+	public static ChannelProgrammesRepository getInstance(@NonNull Context context)
+	{
+		if (instance == null)
+		{
+			instance = new ChannelProgrammesRepository(context);
+		}
+
+		return instance;
+	}
 
 	@Getter @Setter private String channelTag;
 
@@ -36,14 +51,32 @@ public class ChannelProgrammesRepository extends BaseProgrammeRepository
 			{
 				if (response != null && response.isSuccessful() && response.body() != null)
 				{
-					callback.onSuccess(response.body());
+					if (callback != null)
+					{
+						callback.onSuccess(response.body());
+					}
 				}
 			}
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
-				callback.onFailure(t);
+				if (callback != null)
+				{
+					callback.onFailure(t);
+				}
 			}
 		});
+	}
+
+	@Override
+	protected TypeToken<List<Programme>> provideGsonTypeToken()
+	{
+		return new TypeToken<List<Programme>>(){};
+	}
+
+	@Override
+	protected String providePreferenceName()
+	{
+		return "ChannelProgrammes";
 	}
 }

@@ -55,17 +55,24 @@ public class HomeFragment extends StatefulListingFragment<Programme> implements 
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		LatestProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
 				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				callback.onListingDataRetrieved(items);
+
+				if (callback != null)
+				{
+					callback.onListingDataRetrieved(items);
+				}
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				callback.onListingDataError(t);
+				if (callback != null)
+				{
+					callback.onListingDataError(t);
+				}
 			}
 		});
 	}

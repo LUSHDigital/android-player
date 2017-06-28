@@ -125,8 +125,8 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 			return;
 		}
 
-		SearchProgrammeRepository.INSTANCE.setSearchTerm(query);
-		SearchProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		SearchProgrammeRepository.getInstance(getActivity()).setSearchTerm(query);
+		SearchProgrammeRepository.getInstance(getActivity()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{

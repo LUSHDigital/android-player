@@ -57,8 +57,8 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		ChannelProgrammesRepository.INSTANCE.setChannelTag(channel.getTag());
-		ChannelProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		ChannelProgrammesRepository.getInstance(getActivity()).setChannelTag(channel.getTag());
+		ChannelProgrammesRepository.getInstance(getActivity()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{

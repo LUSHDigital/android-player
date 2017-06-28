@@ -1,9 +1,11 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.lush.player.api.model.Channel;
 import com.cube.lush.player.content.handler.ResponseHandler;
+import com.google.gson.reflect.TypeToken;
+import com.lush.player.api.model.Channel;
 
 import java.util.List;
 
@@ -18,9 +20,22 @@ import retrofit2.Response;
  */
 public class ChannelRepository extends Repository<Channel>
 {
-	private ChannelRepository() { }
+	private static ChannelRepository instance;
 
-	public static final ChannelRepository INSTANCE = new ChannelRepository();
+	public ChannelRepository(@NonNull Context context)
+	{
+		super(context);
+	}
+
+	public static ChannelRepository getInstance(@NonNull Context context)
+	{
+		if (instance == null)
+		{
+			instance = new ChannelRepository(context);
+		}
+
+		return instance;
+	}
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Channel> callback)
 	{
@@ -32,18 +47,39 @@ public class ChannelRepository extends Repository<Channel>
 			{
 				if (response != null && response.isSuccessful() && response.body() != null)
 				{
-					callback.onSuccess(response.body());
+					if (callback != null)
+					{
+						callback.onSuccess(response.body());
+					}
 				}
 				else
 				{
-					callback.onFailure(null);
+					if (callback != null)
+					{
+						callback.onFailure(null);
+					}
 				}
 			}
 
 			@Override public void onFailure(Call<List<Channel>> call, Throwable t)
 			{
-				callback.onFailure(t);
+				if (callback != null)
+				{
+					callback.onFailure(t);
+				}
 			}
 		});
+	}
+
+	@Override
+	protected TypeToken<List<Channel>> provideGsonTypeToken()
+	{
+		return new TypeToken<List<Channel>>(){};
+	}
+
+	@Override
+	protected String providePreferenceName()
+	{
+		return "Channel";
 	}
 }

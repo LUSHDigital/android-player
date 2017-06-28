@@ -99,7 +99,7 @@ public class PlaybackFragment extends BrightcovePlayerFragment
 	{
 		brightcoveVideoView.stopPlayback();
 
-		LivePlaylistRepository.INSTANCE.getItems(new ResponseHandler<LivePlaylist>()
+		LivePlaylistRepository.getInstance(getContext()).getItems(new ResponseHandler<LivePlaylist>()
 		{
 			@Override public void onSuccess(@NonNull List<LivePlaylist> items)
 			{

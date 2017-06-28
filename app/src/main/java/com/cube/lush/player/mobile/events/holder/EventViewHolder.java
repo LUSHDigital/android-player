@@ -60,8 +60,8 @@ public class EventViewHolder extends BaseViewHolder<Event>
 		final int MAX_HORIZONTAL_ITEMS = title.getContext().getResources().getInteger(R.integer.paging_max_items);
 		final int PAGE_SIZE = title.getContext().getResources().getInteger(R.integer.paging_page_size);
 
-		EventProgrammesRepository.INSTANCE.setEventTag(event.getTag());
-		EventProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		EventProgrammesRepository.getInstance(title.getContext()).setEventTag(event.getTag());
+		EventProgrammesRepository.getInstance(title.getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{

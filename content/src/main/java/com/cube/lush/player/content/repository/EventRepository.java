@@ -1,9 +1,11 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.lush.player.api.model.Event;
 import com.cube.lush.player.content.handler.ResponseHandler;
+import com.google.gson.reflect.TypeToken;
+import com.lush.player.api.model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,22 @@ public class EventRepository extends Repository<Event>
 {
 	public static final Event ALL_EVENTS = new Event("All Events");
 
-	private EventRepository() { }
+	private static EventRepository instance;
 
-	public static final EventRepository INSTANCE = new EventRepository();
+	public EventRepository(@NonNull Context context)
+	{
+		super(context);
+	}
+
+	public static EventRepository getInstance(@NonNull Context context)
+	{
+		if (instance == null)
+		{
+			instance = new EventRepository(context);
+		}
+
+		return instance;
+	}
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Event> callback)
 	{
@@ -44,6 +59,18 @@ public class EventRepository extends Repository<Event>
 				callback.onFailure(t);
 			}
 		});
+	}
+
+	@Override
+	protected TypeToken<List<Event>> provideGsonTypeToken()
+	{
+		return new TypeToken<List<Event>>(){};
+	}
+
+	@Override
+	protected String providePreferenceName()
+	{
+		return "Event";
 	}
 
 	public List<Event> getEventTabs()

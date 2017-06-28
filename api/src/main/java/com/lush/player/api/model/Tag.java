@@ -54,4 +54,25 @@ public class Tag implements Serializable
 	{
 		this.tag = tag;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Tag tag1 = (Tag) o;
+
+		if (name != null ? !name.equals(tag1.name) : tag1.name != null) return false;
+		return tag != null ? tag.equals(tag1.tag) : tag1.tag == null;
+
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (tag != null ? tag.hashCode() : 0);
+		return result;
+	}
 }

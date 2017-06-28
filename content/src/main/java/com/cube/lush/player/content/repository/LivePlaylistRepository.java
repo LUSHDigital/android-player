@@ -1,9 +1,11 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.lush.player.api.model.LivePlaylist;
 import com.cube.lush.player.content.handler.ResponseHandler;
+import com.google.gson.reflect.TypeToken;
+import com.lush.player.api.model.LivePlaylist;
 
 import java.util.Date;
 import java.util.List;
@@ -20,9 +22,22 @@ import retrofit2.Response;
  */
 public class LivePlaylistRepository extends Repository<LivePlaylist>
 {
-	private LivePlaylistRepository() { }
+	private static LivePlaylistRepository instance;
 
-	public static final LivePlaylistRepository INSTANCE = new LivePlaylistRepository();
+	public LivePlaylistRepository(@NonNull Context context)
+	{
+		super(context);
+	}
+
+	public static LivePlaylistRepository getInstance(@NonNull Context context)
+	{
+		if (instance == null)
+		{
+			instance = new LivePlaylistRepository(context);
+		}
+
+		return instance;
+	}
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<LivePlaylist> callback)
 	{
@@ -48,5 +63,17 @@ public class LivePlaylistRepository extends Repository<LivePlaylist>
 				callback.onFailure(t);
 			}
 		});
+	}
+
+	@Override
+	protected TypeToken<List<LivePlaylist>> provideGsonTypeToken()
+	{
+		return new TypeToken<List<LivePlaylist>>(){};
+	}
+
+	@Override
+	protected String providePreferenceName()
+	{
+		return "LivePlaylist";
 	}
 }

@@ -55,7 +55,7 @@ public class HomeFragment extends StatefulListingFragment<Programme> implements 
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		LatestProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{

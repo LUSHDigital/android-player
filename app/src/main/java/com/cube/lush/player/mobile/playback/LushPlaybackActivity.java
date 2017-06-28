@@ -134,7 +134,7 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 	private void playVideo(@NonNull Video video, @IntRange(from = 0) int startTimeMilliseconds)
 	{
 		// Mark programme as watched
-		ProgrammeRepository.watched(programme);
+		ProgrammeRepository.watched(this, programme);
 
 		baseVideoView.add(video);
 		baseVideoView.start();

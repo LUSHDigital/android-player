@@ -1,5 +1,6 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.lush.player.api.model.Programme;
@@ -11,29 +12,29 @@ import com.lush.player.api.model.Programme;
  */
 public class ProgrammeRepository
 {
-	public static boolean isNew(@NonNull Programme programme)
+	public static boolean isNew(@NonNull Context context, @NonNull Programme programme)
 	{
-		if (ChannelProgrammesRepository.INSTANCE.isNew(programme))
+		if (ChannelProgrammesRepository.getInstance(context).isNew(programme))
 		{
 			return true;
 		}
 
-		if (EventProgrammesRepository.INSTANCE.isNew(programme))
+		if (EventProgrammesRepository.getInstance(context).isNew(programme))
 		{
 			return true;
 		}
 
-		if (LatestProgrammesRepository.INSTANCE.isNew(programme))
+		if (LatestProgrammesRepository.getInstance(context).isNew(programme))
 		{
 			return true;
 		}
 
-		if (SearchProgrammeRepository.INSTANCE.isNew(programme))
+		if (SearchProgrammeRepository.getInstance(context).isNew(programme))
 		{
 			return true;
 		}
 
-		if (TaggedProgrammeRepository.INSTANCE.isNew(programme))
+		if (TaggedProgrammeRepository.getInstance(context).isNew(programme))
 		{
 			return true;
 		}
@@ -41,12 +42,12 @@ public class ProgrammeRepository
 		return false;
 	}
 
-	public static void watched(@NonNull Programme programme)
+	public static void watched(@NonNull Context context, @NonNull Programme programme)
 	{
-		ChannelProgrammesRepository.INSTANCE.watched(programme);
-		EventProgrammesRepository.INSTANCE.watched(programme);
-		LatestProgrammesRepository.INSTANCE.watched(programme);
-		SearchProgrammeRepository.INSTANCE.watched(programme);
-		TaggedProgrammeRepository.INSTANCE.watched(programme);
+		ChannelProgrammesRepository.getInstance(context).watched(programme);
+		EventProgrammesRepository.getInstance(context).watched(programme);
+		LatestProgrammesRepository.getInstance(context).watched(programme);
+		SearchProgrammeRepository.getInstance(context).watched(programme);
+		TaggedProgrammeRepository.getInstance(context).watched(programme);
 	}
 }

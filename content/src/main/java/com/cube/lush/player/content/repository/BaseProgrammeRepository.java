@@ -1,5 +1,6 @@
 package com.cube.lush.player.content.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.lush.player.api.model.ContentType;
@@ -23,6 +24,11 @@ abstract class BaseProgrammeRepository extends Repository<Programme>
 {
 	@Getter protected Set<Programme> videos = new HashSet<>();
 	@Getter protected Set<Programme> radios = new HashSet<>();
+
+	public BaseProgrammeRepository(@NonNull Context context)
+	{
+		super(context);
+	}
 
 	@Override protected void updateItems(@NonNull List<Programme> latestItems)
 	{

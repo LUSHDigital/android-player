@@ -114,7 +114,7 @@ public class LiveFragment extends StatefulFragment<Playlist>
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		LivePlaylistRepository.INSTANCE.getItems(new ResponseHandler<LivePlaylist>()
+		LivePlaylistRepository.getInstance(getContext()).getItems(new ResponseHandler<LivePlaylist>()
 		{
 			@Override public void onSuccess(@NonNull List<LivePlaylist> items)
 			{

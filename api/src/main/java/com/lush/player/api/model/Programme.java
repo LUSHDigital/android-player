@@ -172,4 +172,22 @@ public class Programme implements Serializable
 	{
 		this.duration = duration;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Programme programme = (Programme) o;
+
+		return id != null ? id.equals(programme.id) : programme.id == null;
+
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return id != null ? id.hashCode() : 0;
+	}
 }

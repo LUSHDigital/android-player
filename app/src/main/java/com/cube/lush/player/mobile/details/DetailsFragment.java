@@ -215,7 +215,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 			Track.event("Play", programme.getId());
 		}
 
-		ProgrammeRepository.watched(programme);
+		ProgrammeRepository.watched(getContext(), programme);
 	}
 
 	public void playVideo(@NonNull Video video)

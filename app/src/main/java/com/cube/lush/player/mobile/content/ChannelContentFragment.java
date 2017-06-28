@@ -55,8 +55,8 @@ public class ChannelContentFragment extends BaseContentFragment
 
 	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		ChannelProgrammesRepository.INSTANCE.setChannelTag(channel.getTag());
-		ChannelProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		ChannelProgrammesRepository.getInstance(getContext()).setChannelTag(channel.getTag());
+		ChannelProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
@@ -67,7 +67,7 @@ public class ChannelContentFragment extends BaseContentFragment
 				}
 				else if (filterOption == ProgrammeFilterOption.TV)
 				{
-					Set<Programme> videos = ChannelProgrammesRepository.INSTANCE.getVideos();
+					Set<Programme> videos = ChannelProgrammesRepository.getInstance(getContext()).getVideos();
 					ArrayList<Programme> programmes = new ArrayList<>(videos);
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
@@ -75,7 +75,7 @@ public class ChannelContentFragment extends BaseContentFragment
 				}
 				else if (filterOption == ProgrammeFilterOption.RADIO)
 				{
-					Set<Programme> radios = ChannelProgrammesRepository.INSTANCE.getRadios();
+					Set<Programme> radios = ChannelProgrammesRepository.getInstance(getContext()).getRadios();
 					ArrayList<Programme> programmes = new ArrayList<>(radios);
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmes);

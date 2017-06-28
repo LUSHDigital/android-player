@@ -51,14 +51,14 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 
 	@NonNull @Override public List<Event> provideFilterOptions()
 	{
-		return EventRepository.INSTANCE.getEventTabs();
+		return EventRepository.getInstance(getContext()).getEventTabs();
 	}
 
 	@Override public void getListDataForFilterOption(@NonNull Event event, @NonNull final ListingData callback)
 	{
 		if (event == EventRepository.ALL_EVENTS)
 		{
-			LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+			LatestProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 			{
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
@@ -74,8 +74,8 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 		}
 		else
 		{
-			EventProgrammesRepository.INSTANCE.setEventTag(event.getTag());
-			EventProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+			EventProgrammesRepository.getInstance(getContext()).setEventTag(event.getTag());
+			EventProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 			{
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
@@ -121,7 +121,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 	{
 		if (event == EventRepository.ALL_EVENTS)
 		{
-			return new EventsAdapter(items, this, this);
+			return new EventsAdapter(EventRepository.getInstance(getContext()).getItemsSynchronously(), items, this, this);
 		}
 		else
 		{

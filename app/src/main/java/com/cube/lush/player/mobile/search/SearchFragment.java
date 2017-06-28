@@ -84,8 +84,8 @@ public class SearchFragment extends StatefulListingFragment<Programme> implement
 
 	@Override protected void getListData(@NonNull final ListingData callback)
 	{
-		SearchProgrammeRepository.INSTANCE.setSearchTerm(query);
-		SearchProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		SearchProgrammeRepository.getInstance(getContext()).setSearchTerm(query);
+		SearchProgrammeRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{

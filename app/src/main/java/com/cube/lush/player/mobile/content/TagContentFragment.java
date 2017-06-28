@@ -55,8 +55,8 @@ public class TagContentFragment extends BaseContentFragment
 
 	@Override public void getListDataForFilterOption(@NonNull final ProgrammeFilterOption filterOption, @NonNull final ListingData callback)
 	{
-		TaggedProgrammeRepository.INSTANCE.setTag(tag.getTag());
-		TaggedProgrammeRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		TaggedProgrammeRepository.getInstance(getContext()).setTag(tag.getTag());
+		TaggedProgrammeRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
@@ -67,7 +67,7 @@ public class TagContentFragment extends BaseContentFragment
 				}
 				else if (filterOption == ProgrammeFilterOption.TV)
 				{
-					Set<Programme> videos = TaggedProgrammeRepository.INSTANCE.getVideos();
+					Set<Programme> videos = TaggedProgrammeRepository.getInstance(getContext()).getVideos();
 
 					List videosList = new ArrayList();
 					videosList.addAll(videos);
@@ -77,7 +77,7 @@ public class TagContentFragment extends BaseContentFragment
 				}
 				else if (filterOption == ProgrammeFilterOption.RADIO)
 				{
-					Set<Programme> radios = TaggedProgrammeRepository.INSTANCE.getRadios();
+					Set<Programme> radios = TaggedProgrammeRepository.getInstance(getContext()).getRadios();
 
 					List radiosList = new ArrayList();
 					radiosList.addAll(radios);

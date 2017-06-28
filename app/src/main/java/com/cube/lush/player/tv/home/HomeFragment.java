@@ -44,7 +44,7 @@ public class HomeFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		LatestProgrammesRepository.INSTANCE.getItems(new ResponseHandler<Programme>()
+		LatestProgrammesRepository.getInstance(getContext()).getItems(new ResponseHandler<Programme>()
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{

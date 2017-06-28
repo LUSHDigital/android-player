@@ -20,4 +20,22 @@ public class LivePlaylist implements Serializable
 	{
 		this.id = id;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		LivePlaylist that = (LivePlaylist) o;
+
+		return id != null ? id.equals(that.id) : that.id == null;
+
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return id != null ? id.hashCode() : 0;
+	}
 }

@@ -75,46 +75,18 @@ public class Event implements Serializable
 	@Override
 	public boolean equals(Object o)
 	{
-		// Generated equals method for object comparison
-		if (this == o)
-		{
-			return true;
-		}
-
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
 		Event event = (Event) o;
 
-		if (name != null ? !name.equals(event.name) : event.name != null)
-		{
-			return false;
-		}
+		return tag != null ? tag.equals(event.tag) : event.tag == null;
 
-		if (tag != null ? !tag.equals(event.tag) : event.tag != null)
-		{
-			return false;
-		}
-
-		if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null)
-		{
-			return false;
-		}
-
-		return endDate != null ? endDate.equals(event.endDate) : event.endDate == null;
 	}
 
 	@Override
 	public int hashCode()
 	{
-		// Generated hashcode method for object comparison
-
-		int result = name != null ? name.hashCode() : 0;
-		result = 31 * result + (tag != null ? tag.hashCode() : 0);
-		result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-		result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
-		return result;
+		return tag != null ? tag.hashCode() : 0;
 	}
 }

@@ -93,6 +93,8 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
+				countDownLatch.countDown();
+
 				if (countDownLatch.getCount() == 0)
 				{
 					if (callback != null)
@@ -146,6 +148,8 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
+				countDownLatch.countDown();
+
 				if (countDownLatch.getCount() == 0)
 				{
 					if (callback != null)

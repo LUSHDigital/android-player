@@ -108,7 +108,7 @@ public abstract class Repository<T>
 						// Use cached content
 						if (callback != null)
 						{
-							callback.onSuccess(new ArrayList<>(items));
+							callback.onSuccess(getCachedItems());
 						}
 
 						Toast.makeText(context, "Network unavailable, using cache", Toast.LENGTH_SHORT).show();
@@ -125,14 +125,19 @@ public abstract class Repository<T>
 		}
 		else
 		{
-			List cachedItems = new ArrayList<>();
-			cachedItems.addAll(items);
-
 			if (callback != null)
 			{
-				callback.onSuccess(cachedItems);
+				callback.onSuccess(getCachedItems());
 			}
 		}
+	}
+
+	private List<T> getCachedItems()
+	{
+		List<T> cachedItems = new ArrayList<>();
+		cachedItems.addAll(items);
+
+		return cachedItems;
 	}
 
 	private boolean isFirstUsage()

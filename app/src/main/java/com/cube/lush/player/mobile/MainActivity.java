@@ -86,13 +86,22 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 						DetailsFragment detailsFragment = DetailsFragment.newInstance(programme);
 						showNoHistoryFragment(detailsFragment);
 					}
+					else
+					{
+						onError();
+					}
 				}
 
 				@Override
 				public void onFailure(Call<List<Programme>> call, Throwable throwable)
 				{
-					setViewState(ViewState.ERROR);
-					Toast.makeText(MainActivity.this, "Failed to get video for app link video alias", Toast.LENGTH_SHORT).show();
+					onError();
+				}
+
+				private void onError()
+				{
+					Toast.makeText(MainActivity.this, "We weren't able to load this video. Please try again later.", Toast.LENGTH_LONG).show();
+					finish();
 				}
 			});
 		}

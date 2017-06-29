@@ -44,6 +44,24 @@ BRIGHTCOVE_POLICY_KEY=hEl1OW0rld!
 
 If you wish to add live videos, you should [follow the process outlined in this documentation.](docs/brightcove/Brightcove.md)
 
+## Testing
+
+### App linking
+
+When the user requests to view a url that starts with `http://player.lush.com/tv/` or `http://player.lush.com/radio/` (or its HTTPS variants), the app is registered to handle these links. It will launch the detail page with the relevant video based on the alias in the url.
+
+An example of this would be:
+
+```
+http://player.lush.com/tv/conversation-john-robb-alexander-hacke-and-danielle-de-picciotto
+```
+
+To test this functionality you can use the following adb command:
+
+```
+adb shell am start -W -a android.intent.action.VIEW -d "http://player.lush.com/tv/conversation-john-robb-alexander-hacke-and-danielle-de-picciotto" com.cube.lush.player
+```
+
 ## Screenshots
 
 ![Main menu](.//screenshots/main.png "Main menu")

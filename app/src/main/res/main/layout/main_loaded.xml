@@ -6,6 +6,7 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	tools:context="com.cube.lush.player.mobile.MainActivity"
+	android:background="@android:color/black"
 >
 	<FrameLayout
 		android:layout_width="match_parent"

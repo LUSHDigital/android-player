@@ -86,4 +86,11 @@ public interface LushAPI
 	 */
 	@GET("views/radio")
 	Call<List<Programme>> getRadioArchive();
+
+	/**
+	 * Gets a programme by its alias
+	 * @return programme
+	 */
+	@GET("views/programme")
+	Call<List<Programme>> getProgramme(@Query("alias") String alias);
 }

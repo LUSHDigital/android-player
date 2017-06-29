@@ -31,6 +31,11 @@ public class ChannelViewHolder extends BaseViewHolder<Channel>
 
 	@Override public void bind(Channel channel)
 	{
+		if (channel == null)
+		{
+			return;
+		}
+
 		String imageUri = channel.getImage();
 
 		if (TextUtils.isEmpty(imageUri))

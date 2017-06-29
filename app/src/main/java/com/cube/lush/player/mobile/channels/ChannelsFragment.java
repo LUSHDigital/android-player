@@ -51,6 +51,15 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 
 	@NonNull @Override protected RecyclerView.Adapter provideAdapter(@NonNull List<Channel> items)
 	{
+		final int NUMBER_COLUMNS = getResources().getInteger(R.integer.channel_columns);
+
+		int itemsToAdd = items.size() % NUMBER_COLUMNS;
+
+		for (int index = 0; index < itemsToAdd; index++)
+		{
+			items.add(null);
+		}
+
 		return new ChannelsAdapter(items, this);
 	}
 
@@ -105,6 +114,9 @@ public class ChannelsFragment extends StatefulListingFragment<Channel> implement
 
 	@Override public void onItemClick(Channel channel, View view)
 	{
-		((MainActivity)getActivity()).showFragment(ChannelContentFragment.newInstance(channel));
+		if (channel != null)
+		{
+			((MainActivity)getActivity()).showFragment(ChannelContentFragment.newInstance(channel));
+		}
 	}
 }

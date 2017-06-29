@@ -3,8 +3,8 @@
 
 | Branch        | Status        |
 | ------------- |:-------------:|
-| `develop`     | [![Build Status](https://www.bitrise.io/app/5d4e19c069f33be7/status.svg?token=5heq39U7s-QsSuHzShb53w&branch=develop)](https://www.bitrise.io/app/5d4e19c069f33be7) |
-| `master`      | [![Build Status](https://www.bitrise.io/app/5d4e19c069f33be7/status.svg?token=5heq39U7s-QsSuHzShb53w&branch=master)](https://www.bitrise.io/app/5d4e19c069f33be7) |
+| `develop`     | [![Build Status](https://www.bitrise.io/app/b238aa77ecb45abd/status.svg?token=9lXKbf8tyylEWiJFS9Ddug&branch=develop)](https://www.bitrise.io/app/b238aa77ecb45abd) |
+| `master`      | [![Build Status](https://www.bitrise.io/app/b238aa77ecb45abd/status.svg?token=9lXKbf8tyylEWiJFS9Ddug&branch=master)](https://www.bitrise.io/app/b238aa77ecb45abd) |
 
 Codebase for the Lush Player app, allowing fans to browse and play Lush TV and radio media from its various channels, and to playback live Lush TV.
 

@@ -2,19 +2,22 @@ package com.cube.lush.player.mobile;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.mobile.base.BaseMobileActivity;
 import com.cube.lush.player.mobile.channels.ChannelsFragment;
 import com.cube.lush.player.mobile.details.DetailsFragment;
@@ -23,11 +26,17 @@ import com.cube.lush.player.mobile.home.HomeFragment;
 import com.cube.lush.player.mobile.live.LiveFragment;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
 import com.cube.lush.player.mobile.search.SearchFragment;
+import com.lush.player.api.API;
+import com.lush.player.api.model.Programme;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.jamiecruwys.ViewState;
 
 /**
@@ -48,12 +57,67 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 	{
 		super.onCreate(savedInstanceState);
 		ButterKnife.bind(this);
+
 		setupNavigation();
 
 		if (savedInstanceState == null)
 		{
 			selectTab(LushTab.HOME);
 		}
+
+		String appLinkProgrammeAlias = getAppLinkProgrammeAlias(getIntent());
+
+		// Has been launched by app link
+		if (!TextUtils.isEmpty(appLinkProgrammeAlias))
+		{
+			setViewState(ViewState.LOADING);
+
+			Call<List<Programme>> programmeCall = API.INSTANCE.getApi().getProgramme(appLinkProgrammeAlias);
+			programmeCall.enqueue(new Callback<List<Programme>>()
+			{
+				@Override
+				public void onResponse(Call<List<Programme>> call, Response<List<Programme>> response)
+				{
+					if (response != null && response.body() != null && !response.body().isEmpty())
+					{
+						setViewState(ViewState.LOADED);
+
+						Programme programme = response.body().get(0);
+						DetailsFragment detailsFragment = DetailsFragment.newInstance(programme);
+						showNoHistoryFragment(detailsFragment);
+					}
+				}
+
+				@Override
+				public void onFailure(Call<List<Programme>> call, Throwable throwable)
+				{
+					setViewState(ViewState.ERROR);
+					Toast.makeText(MainActivity.this, "Failed to get video for app link video alias", Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
+	}
+
+	@Nullable private String getAppLinkProgrammeAlias(@Nullable Intent intent)
+	{
+		if (intent != null)
+		{
+			Uri data = intent.getData();
+
+			if (data != null)
+			{
+				List<String> pathSegments = data.getPathSegments();
+
+				if (pathSegments != null && !pathSegments.isEmpty() && pathSegments.size() > 1)
+				{
+					// 1st segment should be "radio" or "tv"
+					// 2nd segment should be the video id
+					return pathSegments.get(1);
+				}
+			}
+		}
+
+		return null;
 	}
 
 	private void setupNavigation()

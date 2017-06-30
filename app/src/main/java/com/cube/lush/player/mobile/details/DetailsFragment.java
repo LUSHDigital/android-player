@@ -176,11 +176,19 @@ public class DetailsFragment extends BrightcovePlayerFragment
 
 	private void loadBrightcoveStillImage()
 	{
-		// Load image into brightcove video view
-		Picasso.with(baseVideoView.getContext())
-			.load(programme.getThumbnail())
-			.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-			.into(baseVideoView.getStillView());
+		// TODO: Fix this
+		try
+		{
+			// Load image into brightcove video view
+			Picasso.with(baseVideoView.getContext())
+					.load(programme.getThumbnail())
+					.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+					.into(baseVideoView.getStillView());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@OnClick(R.id.playOverlay) void onPlayClicked()

@@ -51,6 +51,11 @@ public enum MediaSorter
 		{
 			@Override public int compare(Programme programme, Programme t1)
 			{
+				if (t1 == null || t1.getDate() == null)
+				{
+					return 1;
+				}
+				
 				int result = programme.getDate().compareTo(t1.getDate());
 
 				// Currently ordered with the oldest date first e.g. 1st July, 1st August, 1st September

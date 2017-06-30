@@ -27,9 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class API
 {
 	public static final API INSTANCE = new API();
-//	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v2/";
-	private static final String BASE_URL = "https://lushtv.stage.weissman.agency/lushtvapi/v2/";
-
+	private static final String BASE_URL = "http://admin.player.lush.com/lushtvapi/v2/";
 	private static final String DATE_FORMAT = "dd/MM/yyyy";
 
 	private LushAPI api;

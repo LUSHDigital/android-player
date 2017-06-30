@@ -83,11 +83,19 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 
 		if (programme.getType() == ContentType.RADIO)
 		{
-			// Load image into brightcove video view
-			Picasso.with(baseVideoView.getContext())
-				.load(programme.getThumbnail())
-				.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-				.into(baseVideoView.getStillView());
+			// TODO: Fix this
+			try
+			{
+				// Load image into brightcove video view
+				Picasso.with(baseVideoView.getContext())
+						.load(programme.getThumbnail())
+						.memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+						.into(baseVideoView.getStillView());
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 
 		playMediaContent(programme, startTimeMilliseconds);

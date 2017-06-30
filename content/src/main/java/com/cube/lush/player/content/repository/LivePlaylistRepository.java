@@ -39,6 +39,12 @@ public class LivePlaylistRepository extends Repository<LivePlaylist>
 		return instance;
 	}
 
+	@Override
+	public int getCacheExpiryTime()
+	{
+		return 0;
+	}
+
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<LivePlaylist> callback)
 	{
 		int utcOffsetMillis = TimeZone.getDefault().getOffset(new Date().getTime());

@@ -42,6 +42,11 @@ public class Programme implements Serializable
 
 	public long getDateTime()
 	{
+		if (date == null)
+		{
+			return 0;
+		}
+
 		long now = System.currentTimeMillis();
 
 		// Make sure we don't show content as being in the future

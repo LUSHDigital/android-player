@@ -108,7 +108,6 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 			if (childView.getText().equals(titleForOption))
 			{
 				childView.setActivated(true);
-				continue;
 			}
 		}
 

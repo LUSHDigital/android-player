@@ -4,7 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+
 import com.cube.lush.player.R;
 
 /**
@@ -48,7 +50,7 @@ public class ErrorFragment extends android.support.v17.leanback.app.ErrorFragmen
 	public void onCreate(@Nullable Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setImageDrawable(getResources().getDrawable(R.drawable.ic_cloud_off_white_48dp));
+		setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_cloud_off_white_48dp));
 		setDefaultBackground(true);
 		setMessage(getString(R.string.network_offline));
 		setButtonText(getString(R.string.retry));

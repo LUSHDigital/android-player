@@ -74,7 +74,12 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
-		view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primary));
+
+		if (view != null)
+		{
+			view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primary));
+		}
+
 		return view;
 	}
 

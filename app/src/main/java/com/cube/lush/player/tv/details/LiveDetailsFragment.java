@@ -220,22 +220,19 @@ public class LiveDetailsFragment extends BaseDetailsFragment implements BrowseFr
 	@Override
 	public void playButtonClicked(View view)
 	{
+		Context context = getActivity();
+
 		// This method is designed to be called from async methods so make sure we've not lost context since then
-		if (getActivity() == null)
+		if (context == null)
 		{
 			return;
 		}
 
-		Context context = getActivity();
-		String id = null;
-
 		if (programme != null)
 		{
-			id = programme.getId();
+			Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, programme.getId(), programme.getThumbnail());
+			getActivity().startActivity(intent);
 		}
-
-		Intent intent = PlaybackActivity.getIntent(context, PlaybackMethod.PLAYLIST, id, programme.getThumbnail());
-		getActivity().startActivity(intent);
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class LivePlaylistRepository extends Repository<LivePlaylist>
 	{
 		int utcOffsetMillis = TimeZone.getDefault().getOffset(new Date().getTime());
 		String offsetString = String.format("%d minutes", utcOffsetMillis / 1000 / 60);
-		
+
 		Call<List<LivePlaylist>> livePlaylist = api.getLivePlaylist(String.valueOf(offsetString));
 
 		livePlaylist.enqueue(new Callback<List<LivePlaylist>>()

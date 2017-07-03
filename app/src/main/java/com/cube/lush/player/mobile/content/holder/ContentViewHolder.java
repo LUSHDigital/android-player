@@ -100,18 +100,4 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 			}
 		}
 	}
-
-	private void setIsNew(@NonNull Programme programme)
-	{
-//		boolean isNew = ProgrammeRepository.isNew(programme);
-//
-//		if (isNew)
-//		{
-//			newIndicator.setVisibility(View.VISIBLE);
-//		}
-//		else
-//		{
-//			newIndicator.setVisibility(View.GONE);
-//		}
-	}
 }

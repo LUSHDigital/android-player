@@ -264,7 +264,6 @@ public class MainActivity extends BaseMobileActivity implements AHBottomNavigati
 	{
 		if (resultCode == LushPlaybackActivity.RESULT_CODE)
 		{
-			Programme programme = (Programme)data.getSerializableExtra(LushPlaybackActivity.EXTRA_MEDIA_CONTENT);
 			int startTime = data.getIntExtra(LushPlaybackActivity.EXTRA_START_TIME, 0);
 
 			Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);

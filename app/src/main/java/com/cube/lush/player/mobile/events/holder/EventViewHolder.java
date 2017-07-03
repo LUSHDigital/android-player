@@ -40,14 +40,12 @@ public class EventViewHolder extends BaseViewHolder<Event>
 	@BindView(R.id.event_more) public Button moreButton;
 	@BindView(R.id.indicator_container) public LinearLayout indicatorContainer;
 
-	private final List<Programme> items;
 	private final OnListItemClickListener<Programme> itemListener;
 	private final EventTabSelection tabListener;
 
-	public EventViewHolder(@NonNull View view, @NonNull List<Programme> items, @NonNull OnListItemClickListener<Programme> itemListener, @NonNull EventTabSelection tabListener)
+	public EventViewHolder(@NonNull View view, @NonNull OnListItemClickListener<Programme> itemListener, @NonNull EventTabSelection tabListener)
 	{
 		super(view);
-		this.items = items;
 		this.itemListener = itemListener;
 		this.tabListener = tabListener;
 		ButterKnife.bind(this, view);

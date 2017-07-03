@@ -70,7 +70,6 @@ public abstract class Repository<T>
 
 	/**
 	 * Get items from either the cache, or make a network request if the cache has expired.
-	 * @return {@link Set<T>} of items which can be empty, but not null.
 	 */
 	public void getItems(@Nullable final ResponseHandler<T> callback)
 	{

@@ -9,7 +9,6 @@
 	<integer name="search_columns">1</integer>
 
 	<integer name="paging_columns">1</integer>
-	<integer name="paging_page_size">2</integer>
 	<integer name="paging_max_items">8</integer>
 
 	<integer name="description_condensed_lines">3</integer>

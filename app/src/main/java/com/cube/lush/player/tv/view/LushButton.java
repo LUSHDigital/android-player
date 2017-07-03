@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v17.leanback.graphics.ColorOverlayDimmer;
 import android.support.v17.leanback.widget.ShadowOverlayHelper;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -14,9 +15,9 @@ import android.widget.Button;
 /**
  * Custom extension of Button that provides nicer focusing behaviour (dims and undims)
  *
- * @author
+ * @author Jamie Cruwys
  */
-public class LushButton extends Button
+public class LushButton extends AppCompatButton
 {
 	/**
 	 * This is mostly based on a non-public Leanback class of the same name.

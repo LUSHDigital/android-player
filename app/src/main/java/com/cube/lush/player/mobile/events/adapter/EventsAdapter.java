@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cube.lush.player.R;
-import com.cube.lush.player.content.repository.EventRepository;
 import com.cube.lush.player.mobile.events.EventTabSelection;
 import com.cube.lush.player.mobile.events.holder.EventViewHolder;
 import com.lush.lib.adapter.BaseListAdapter;

@@ -207,11 +207,6 @@ public class DetailsFragment extends BrightcovePlayerFragment
 				{
 					playVideo(video);
 				}
-
-				@Override public void onError(String error)
-				{
-					super.onError(error);
-				}
 			});
 		}
 		else if (programme.getType() == ContentType.RADIO)

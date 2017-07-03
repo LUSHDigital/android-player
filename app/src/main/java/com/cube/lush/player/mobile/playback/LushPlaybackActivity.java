@@ -40,7 +40,7 @@ public class LushPlaybackActivity extends BrightcovePlayerActivity
 
 	public static final int RESULT_CODE = 236;
 
-	@NonNull private Programme programme;
+	private Programme programme;
 	@IntRange(from = 0) private int startTimeMilliseconds;
 
 	public static Intent getIntent(@NonNull Context context, @NonNull Programme mediaContent, @IntRange(from = 0) int startTimeMilliseconds)

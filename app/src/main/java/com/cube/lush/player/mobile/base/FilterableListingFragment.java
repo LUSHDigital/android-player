@@ -50,47 +50,51 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 	@Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
-		tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
 
-		recycler.setBackgroundColor(provideBackgroundColor());
-		view.setBackgroundColor(provideBackgroundColor());
-
-		if (savedInstanceState == null)
+		if (view != null)
 		{
-			chosenOption = provideDefaultTab();
-		}
-		else
-		{
-			chosenOption = (FILTER_OPTION)savedInstanceState.getSerializable(ARG_FILTER_OPTION);
-		}
+			tabContainer = (LinearLayout)view.findViewById(R.id.tab_container);
 
-		final ListingData callback = this;
+			recycler.setBackgroundColor(provideBackgroundColor());
+			view.setBackgroundColor(provideBackgroundColor());
 
-		for (final FILTER_OPTION option : provideFilterOptions())
-		{
-			Button itemView = (Button)inflater.inflate(R.layout.default_filter_item, tabContainer, false);
-
-			String titleString = getTitleForFilterOption(option);
-			itemView.setText(titleString);
-
-			itemView.setOnClickListener(new View.OnClickListener()
+			if (savedInstanceState == null)
 			{
-				@Override public void onClick(View view)
+				chosenOption = provideDefaultTab();
+			}
+			else
+			{
+				chosenOption = (FILTER_OPTION)savedInstanceState.getSerializable(ARG_FILTER_OPTION);
+			}
+
+			final ListingData callback = this;
+
+			for (final FILTER_OPTION option : provideFilterOptions())
+			{
+				Button itemView = (Button)inflater.inflate(R.layout.default_filter_item, tabContainer, false);
+
+				String titleString = getTitleForFilterOption(option);
+				itemView.setText(titleString);
+
+				itemView.setOnClickListener(new View.OnClickListener()
 				{
-					chosenOption = option;
+					@Override public void onClick(View view)
+					{
+						chosenOption = option;
 
-					clearButtonStates();
-					view.setActivated(true);
+						clearButtonStates();
+						view.setActivated(true);
 
-					setViewState(ViewState.LOADING);
-					getListDataForFilterOption(option, callback);
-				}
-			});
+						setViewState(ViewState.LOADING);
+						getListDataForFilterOption(option, callback);
+					}
+				});
 
-			tabContainer.addView(itemView);
+				tabContainer.addView(itemView);
+			}
+
+			selectOption(chosenOption);
 		}
-
-		selectOption(chosenOption);
 
 		return view;
 	}
@@ -108,7 +112,6 @@ public abstract class FilterableListingFragment<ITEM_TYPE, FILTER_OPTION extends
 			if (childView.getText().equals(titleForOption))
 			{
 				childView.setActivated(true);
-				continue;
 			}
 		}
 

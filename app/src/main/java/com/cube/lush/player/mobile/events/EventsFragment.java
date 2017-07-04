@@ -135,7 +135,7 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 	{
 		if (event == EventRepository.ALL_EVENTS)
 		{
-			return new EventsAdapter(EventRepository.getInstance(getContext()).getItemsSynchronously(), items, this, this);
+			return new EventsAdapter(EventRepository.getInstance(getContext()).getItemsSynchronously(), this, this);
 		}
 		else
 		{

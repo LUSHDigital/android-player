@@ -16,6 +16,7 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v17.leanback.widget.SpeechRecognitionCallback;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,7 +74,12 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
-		view.setBackgroundColor(getResources().getColor(R.color.primary));
+
+		if (view != null)
+		{
+			view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.primary));
+		}
+
 		return view;
 	}
 

@@ -9,5 +9,5 @@ public enum PlaybackMethod
 {
 	PLAYLIST,
 	VIDEO,
-	FILE_URL;
+	FILE_URL
 }

@@ -68,8 +68,19 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 			}
 		});
 
-		getView().findViewById(R.id.text_overlay).setVisibility(View.VISIBLE);
-		((TextView)getView().findViewById(R.id.text_overlay)).setText(R.string.no_live_broadcast);
+		View view = getView();
+
+		if (view != null)
+		{
+			View textOverlayView = view.findViewById(R.id.text_overlay);
+
+			if (textOverlayView instanceof TextView)
+			{
+				TextView textOverlay = (TextView) textOverlayView;
+				textOverlay.setVisibility(View.VISIBLE);
+				textOverlay.setText(R.string.no_live_broadcast);
+			}
+		}
 	}
 
 	@Override

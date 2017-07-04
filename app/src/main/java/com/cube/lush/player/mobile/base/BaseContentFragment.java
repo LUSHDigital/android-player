@@ -33,8 +33,11 @@ public abstract class BaseContentFragment extends FilterableListingFragment<Prog
 	{
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
-		TextView contentTitle = (TextView)view.findViewById(R.id.content_title);
-		contentTitle.setText(provideContentTitle());
+		if (view != null)
+		{
+			TextView contentTitle = (TextView)view.findViewById(R.id.content_title);
+			contentTitle.setText(provideContentTitle());
+		}
 
 		return view;
 	}

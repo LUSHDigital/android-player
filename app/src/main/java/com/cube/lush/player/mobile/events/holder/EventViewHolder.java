@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.lush.player.api.model.Event;
 import com.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,33 +59,61 @@ public class EventViewHolder extends BaseViewHolder<Event>
 
 		final int MAX_HORIZONTAL_ITEMS = title.getContext().getResources().getInteger(R.integer.paging_max_items);
 
-		EventProgrammesRepository.getInstance(title.getContext()).setEventTag(event.getTag());
-		EventProgrammesRepository.getInstance(title.getContext()).getItems(new ResponseHandler<Programme>()
+		if (event != null)
 		{
-			@Override public void onSuccess(@NonNull List<Programme> items)
+			EventProgrammesRepository.getInstance(title.getContext()).setEventTag(event.getTag());
+			EventProgrammesRepository.getInstance(title.getContext()).getItems(new ResponseHandler<Programme>()
 			{
-				int toIndex = MAX_HORIZONTAL_ITEMS;
-
-				if (items.isEmpty())
+				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
-					toIndex = 0;
+					ArrayList<Programme> itemsWithMatchingTag = new ArrayList<Programme>();
+
+					// Filter items by tag, due to caching keeping hold of all tagged content and not just for this event
+					for (Programme programme : items)
+					{
+						if (programme == null)
+						{
+							continue;
+						}
+
+						String programmeEvent = programme.getEvent();
+
+						if (programmeEvent == null || TextUtils.isEmpty(programmeEvent))
+						{
+							continue;
+						}
+
+						if (programmeEvent.equals(event.getTag()))
+						{
+							itemsWithMatchingTag.add(programme);
+						}
+					}
+
+					items = itemsWithMatchingTag;
+
+					int toIndex = MAX_HORIZONTAL_ITEMS;
+
+					if (items.isEmpty())
+					{
+						toIndex = 0;
+					}
+					else if (items.size() < MAX_HORIZONTAL_ITEMS)
+					{
+						toIndex = items.size();
+					}
+
+					items = items.subList(0, toIndex);
+
+					MediaSorter.MOST_RECENT_FIRST.sort(items);
+					bindProgrammes(items);
 				}
-				else if (items.size() < MAX_HORIZONTAL_ITEMS)
+
+				@Override public void onFailure(@Nullable Throwable t)
 				{
-					toIndex = items.size();
+					bindProgrammes(Collections.EMPTY_LIST);
 				}
-
-				items = items.subList(0, toIndex);
-
-				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				bindProgrammes(items);
-			}
-
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-				bindProgrammes(Collections.EMPTY_LIST);
-			}
-		});
+			});
+		}
 
 		indicatorContainer.removeAllViews();
 

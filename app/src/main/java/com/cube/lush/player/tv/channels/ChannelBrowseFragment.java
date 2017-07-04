@@ -31,7 +31,7 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	 */
 	private DiffingAdapter<Programme> mediaAdapter = new DiffingAdapter<>(new ProgrammePresenter());
 
-	public static ChannelBrowseFragment create(Channel channel, ProgrammeFilterOption contentType)
+	public static ChannelBrowseFragment create(@NonNull Channel channel, @NonNull ProgrammeFilterOption contentType)
 	{
 		ChannelBrowseFragment channelBrowseFragment = new ChannelBrowseFragment();
 		channelBrowseFragment.channel = channel;
@@ -57,21 +57,24 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		ChannelProgrammesRepository.getInstance(getActivity()).setChannelTag(channel.getTag());
-		ChannelProgrammesRepository.getInstance(getActivity()).getItems(new ResponseHandler<Programme>()
+		if (channel != null)
 		{
-			@Override public void onSuccess(@NonNull List<Programme> items)
+			ChannelProgrammesRepository.getInstance(getActivity()).setChannelTag(channel.getTag());
+			ChannelProgrammesRepository.getInstance(getActivity()).getItems(new ResponseHandler<Programme>()
 			{
-				setLoadingFinished(false);
-				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				mediaAdapter.setItems(items);
-			}
+				@Override public void onSuccess(@NonNull List<Programme> items)
+				{
+					setLoadingFinished(false);
+					MediaSorter.MOST_RECENT_FIRST.sort(items);
+					mediaAdapter.setItems(items);
+				}
 
-			@Override public void onFailure(@Nullable Throwable t)
-			{
-				setLoadingFinished(true);
-				mediaAdapter.clear();
-			}
-		});
+				@Override public void onFailure(@Nullable Throwable t)
+				{
+					setLoadingFinished(true);
+					mediaAdapter.clear();
+				}
+			});
+		}
 	}
 }

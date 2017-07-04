@@ -51,7 +51,6 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 		setTextOrHide(programme.getTitle(), title);
 		setTextOrHide(programme.getRelativeDate(), date);
 		setType(programme.getType(), type);
-		setIsNew(programme);
 	}
 
 	private void setTextOrHide(@Nullable String text, @NonNull TextView textView)

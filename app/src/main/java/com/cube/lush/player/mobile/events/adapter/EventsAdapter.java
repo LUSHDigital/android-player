@@ -23,14 +23,12 @@ import java.util.List;
  */
 public class EventsAdapter extends BaseListAdapter<Event>
 {
-	private final List<Programme> items;
 	private final OnListItemClickListener<Programme> itemListener;
 	private final EventTabSelection tabListener;
 
-	public EventsAdapter(@NonNull List<Event> events, @NonNull List<Programme> items, @NonNull OnListItemClickListener<Programme> itemListener, @NonNull EventTabSelection tabListener)
+	public EventsAdapter(@NonNull List<Event> events, @NonNull OnListItemClickListener<Programme> itemListener, @NonNull EventTabSelection tabListener)
 	{
 		super(events, null);
-		this.items = items;
 		this.itemListener = itemListener;
 		this.tabListener = tabListener;
 	}
@@ -38,6 +36,6 @@ public class EventsAdapter extends BaseListAdapter<Event>
 	@Override public BaseViewHolder<Event> onCreateViewHolder(ViewGroup parent, int viewType)
 	{
 		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_all_item, parent, false);
-		return new EventViewHolder(view, items, itemListener, tabListener);
+		return new EventViewHolder(view, itemListener, tabListener);
 	}
 }

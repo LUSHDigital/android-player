@@ -102,7 +102,7 @@ public abstract class Repository<T>
 				 */
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					if (items != null && !items.isEmpty())
+					if (items != null)
 					{
 						// Use cached content
 						if (callback != null)

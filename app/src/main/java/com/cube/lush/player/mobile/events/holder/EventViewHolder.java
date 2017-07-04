@@ -51,7 +51,7 @@ public class EventViewHolder extends BaseViewHolder<Event>
 		ButterKnife.bind(this, view);
 	}
 
-	@Override public void bind(final Event event)
+	@Override public void bind(@NonNull final Event event)
 	{
 		title.setText(event.getName());
 

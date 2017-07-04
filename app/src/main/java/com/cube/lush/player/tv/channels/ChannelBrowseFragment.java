@@ -31,7 +31,7 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	 */
 	private DiffingAdapter<Programme> mediaAdapter = new DiffingAdapter<>(new ProgrammePresenter());
 
-	public static ChannelBrowseFragment create(Channel channel, ProgrammeFilterOption contentType)
+	public static ChannelBrowseFragment create(@NonNull Channel channel, @NonNull ProgrammeFilterOption contentType)
 	{
 		ChannelBrowseFragment channelBrowseFragment = new ChannelBrowseFragment();
 		channelBrowseFragment.channel = channel;

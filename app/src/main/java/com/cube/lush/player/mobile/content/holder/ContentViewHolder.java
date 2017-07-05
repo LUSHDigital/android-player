@@ -99,4 +99,12 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 			}
 		}
 	}
+
+	@Override
+	public void recycle()
+	{
+		super.recycle();
+		Picasso.with(image.getContext()).cancelRequest(image);
+		image.setImageDrawable(null);
+	}
 }

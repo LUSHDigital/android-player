@@ -6,20 +6,25 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brightcove.player.analytics.Analytics;
 import com.brightcove.player.appcompat.BrightcovePlayerFragment;
+import com.brightcove.player.display.ExoPlayerVideoDisplayComponent;
+import com.brightcove.player.display.VideoDisplayComponent;
 import com.brightcove.player.edge.VideoListener;
 import com.brightcove.player.media.DeliveryType;
 import com.brightcove.player.mediacontroller.BrightcoveMediaController;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
+import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
 import com.cube.lush.player.R;
 import com.cube.lush.player.analytics.Track;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
@@ -29,6 +34,8 @@ import com.cube.lush.player.mobile.content.TagContentFragment;
 import com.cube.lush.player.mobile.playback.LushPlaybackActivity;
 import com.cube.lush.player.mobile.view.TagClickListener;
 import com.cube.lush.player.mobile.view.TagSectionView;
+import com.google.android.exoplayer.ExoPlaybackException;
+import com.google.android.exoplayer.ExoPlayer;
 import com.lush.player.api.model.ContentType;
 import com.lush.player.api.model.Programme;
 import com.lush.player.api.model.Tag;
@@ -62,6 +69,7 @@ public class DetailsFragment extends BrightcovePlayerFragment
 	@BindView(R.id.description) TextView description;
 	@BindView(R.id.toggle_description_length) Button toggleDescriptionButton;
 	@BindView(R.id.tag_section) TagSectionView tagSection;
+	@BindView(R.id.brightcove_video_view) BrightcoveExoPlayerVideoView brightcoveExoPlayerVideoView;
 
 	public DetailsFragment()
 	{
@@ -207,6 +215,14 @@ public class DetailsFragment extends BrightcovePlayerFragment
 				{
 					playVideo(video);
 				}
+
+				@Override
+				public void onError(String error)
+				{
+					playOverlay.setVisibility(View.VISIBLE);
+					Toast.makeText(playOverlay.getContext(), "Error playing video, please try again later", Toast.LENGTH_SHORT).show();
+					Log.e(DetailsFragment.class.getSimpleName(), "Brightcove findVideoByID error: " + error);
+				}
 			});
 		}
 		else if (programme.getType() == ContentType.RADIO)
@@ -223,8 +239,67 @@ public class DetailsFragment extends BrightcovePlayerFragment
 
 	public void playVideo(@NonNull Video video)
 	{
+		
+
+
+		VideoDisplayComponent videoDisplay = brightcoveExoPlayerVideoView.getVideoDisplay();
+
+		if (videoDisplay instanceof ExoPlayerVideoDisplayComponent)
+		{
+			ExoPlayerVideoDisplayComponent exoPlayerVideoDisplay = (ExoPlayerVideoDisplayComponent)videoDisplay;
+
+			if (exoPlayerVideoDisplay != null)
+			{
+				ExoPlayer exoPlayer = exoPlayerVideoDisplay.getExoPlayer();
+
+				if (exoPlayer != null)
+				{
+					exoPlayer.addListener(new ExoPlayer.Listener()
+					{
+						@Override
+						public void onPlayerStateChanged(boolean b, int i)
+						{
+							// NO-OP
+						}
+
+						@Override
+						public void onPlayWhenReadyCommitted()
+						{
+							// NO-OP
+						}
+
+						@Override
+						public void onPlayerError(ExoPlaybackException e)
+						{
+							playOverlay.setVisibility(View.VISIBLE);
+							Toast.makeText(playOverlay.getContext(), "Error playing video, please try again later", Toast.LENGTH_SHORT).show();
+						}
+					});
+				}
+			}
+		}
+
 		baseVideoView.add(video);
 		baseVideoView.start();
+
+		baseVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+		{
+			@Override
+			public void onPrepared(MediaPlayer mp)
+			{
+				Log.e(DetailsFragment.class.getSimpleName(), "On Prepared");
+			}
+		});
+
+		baseVideoView.setOnInfoListener(new MediaPlayer.OnInfoListener()
+		{
+			@Override
+			public boolean onInfo(MediaPlayer mp, int what, int extra)
+			{
+				return false;
+			}
+		});
+
 		baseVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 		{
 			@Override public void onCompletion(MediaPlayer mp)

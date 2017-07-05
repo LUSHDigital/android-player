@@ -2,6 +2,7 @@ package com.cube.lush.player.content.repository;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.lush.player.api.model.ContentType;
 import com.lush.player.api.model.Programme;
@@ -41,6 +42,11 @@ abstract class BaseProgrammeRepository extends Repository<Programme>
 
 		for (Programme programme : latestItems)
 		{
+			if (programme == null || TextUtils.isEmpty(programme.getId()))
+			{
+				continue;
+			}
+
 			ContentType type = programme.getType();
 
 			if (type == TV)

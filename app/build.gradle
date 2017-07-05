@@ -99,7 +99,14 @@ dependencies {
 	compile project(":content")
 
 	// Lush Views & Fonts
-	compile 'com.github.LUSHDigital:android-lush-views:5b66299'
+	dependencies {
+		compile ("com.github.LUSHDigital:android-lush-views:faa1706"){
+			exclude group: 'com.aurelhubert', module: 'ahbottomnavigation'
+		}
+
+		// Force it so we are using the older version, which doesn't have the new google bottom nav bar design, which isn't very nice imo
+		compile 'com.aurelhubert:ahbottomnavigation:1.3.3'
+	}
 
 	// Stateful Views
 	compile 'com.github.JamieCruwys:StatefulView:5d80732'

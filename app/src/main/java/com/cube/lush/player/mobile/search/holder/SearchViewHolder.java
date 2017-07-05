@@ -40,4 +40,12 @@ public class SearchViewHolder extends BaseViewHolder<Programme>
 			.centerInside()
 			.into(image);
 	}
+
+	@Override
+	public void recycle()
+	{
+		super.recycle();
+		Picasso.with(image.getContext()).cancelRequest(image);
+		image.setImageDrawable(null);
+	}
 }

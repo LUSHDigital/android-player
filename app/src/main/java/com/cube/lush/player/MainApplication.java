@@ -3,6 +3,7 @@ package com.cube.lush.player;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.cube.lush.player.analytics.Track;
 import com.cube.lush.player.content.handler.ResponseHandler;
@@ -16,6 +17,7 @@ import com.lush.player.api.API;
 import com.lush.player.api.model.Channel;
 import com.lush.player.api.model.Event;
 import com.lush.player.api.model.Programme;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,7 +38,9 @@ public class MainApplication extends LushApplication
 		API.INSTANCE.initialise(this);
 		Track.initialise(this);
 
-		preloadData();
+		Picasso.with(context).setLoggingEnabled(true);
+		Picasso.with(context).setIndicatorsEnabled(true);
+//		preloadData();
 	}
 
 	private void preloadData()
@@ -55,7 +59,11 @@ public class MainApplication extends LushApplication
 						@Override
 						public void onSuccess(@NonNull List<Programme> items)
 						{
-							// NO-OP, just trying to initialise the data set
+							// Preload all images
+							for (Programme programme : items)
+							{
+								preloadImageUrl(programme.getThumbnail());
+							}
 						}
 
 						@Override
@@ -86,7 +94,11 @@ public class MainApplication extends LushApplication
 						@Override
 						public void onSuccess(@NonNull List<Programme> items)
 						{
-							// NO-OP, just trying to initialise the data set
+							// Preload all images
+							for (Programme programme : items)
+							{
+								preloadImageUrl(programme.getThumbnail());
+							}
 						}
 
 						@Override
@@ -110,7 +122,11 @@ public class MainApplication extends LushApplication
 			@Override
 			public void onSuccess(@NonNull List<Programme> items)
 			{
-				// NO-OP, just trying to initialise the data set
+				// Preload all images
+				for (Programme programme : items)
+				{
+					preloadImageUrl(programme.getThumbnail());
+				}
 			}
 
 			@Override
@@ -119,6 +135,16 @@ public class MainApplication extends LushApplication
 				// NO-OP, just trying to initialise the data set
 			}
 		});
+	}
+
+	private void preloadImageUrl(@Nullable String url)
+	{
+		if (!TextUtils.isEmpty(url))
+		{
+			Picasso.with(context)
+					.load(url)
+					.fetch();
+		}
 	}
 
 	public static Context getContext()

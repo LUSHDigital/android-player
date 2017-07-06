@@ -2,14 +2,14 @@ package com.cube.lush.player.tv.channels;
 
 import android.content.Context;
 import android.support.v17.leanback.widget.Presenter;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Channel;
 import com.cube.lush.player.tv.view.CardView;
+import com.lush.player.api.model.Channel;
+import com.squareup.picasso.Picasso;
 
 import lombok.Data;
 
@@ -35,17 +35,6 @@ public class ChannelPresenter extends Presenter
 		ChannelViewHolder mediaViewHolder = (ChannelViewHolder)viewHolder;
 		CardView cardView = mediaViewHolder.getCardView();
 
-		String name = channel.getName();
-
-		if (!TextUtils.isEmpty(name))
-		{
-			cardView.setContentText(name);
-		}
-		else
-		{
-			cardView.setContentText("");
-		}
-
 		int width = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.channel_card_width);
 		int imageHeight = cardView.getContext().getResources().getDimensionPixelSize(R.dimen.channel_card_height);
 		cardView.setMainImageDimensions(width, imageHeight);
@@ -53,8 +42,9 @@ public class ChannelPresenter extends Presenter
 		cardView.setMainImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
 		cardView.getMainImageView().setPadding(16, 16, 16, 16);
 
-		// TODO: Set channel logo
-		// cardView.getMainImageView().setImageResource(channel.getLogo());
+		Picasso.with(cardView.getContext())
+				.load(channel.getImage())
+				.into(cardView.getMainImageView());
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

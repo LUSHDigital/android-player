@@ -89,7 +89,7 @@ public class LiveDetailsFragment extends BaseDetailsFragment implements BrowseFr
 
 	private void fetchPlaylist()
 	{
-		LivePlaylistRepository.getInstance(getContext()).getItems(new ResponseHandler<LivePlaylist>()
+		LivePlaylistRepository.getInstance(getActivity()).getItems(new ResponseHandler<LivePlaylist>()
 		{
 			@Override public void onSuccess(@NonNull List<LivePlaylist> items)
 			{

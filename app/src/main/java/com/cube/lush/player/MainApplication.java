@@ -38,9 +38,14 @@ public class MainApplication extends LushApplication
 		API.INSTANCE.initialise(this);
 		Track.initialise(this);
 
-		Picasso.with(context).setLoggingEnabled(true);
-		Picasso.with(context).setIndicatorsEnabled(true);
-//		preloadData();
+		if (BuildConfig.DEBUG)
+		{
+			Picasso picasso = Picasso.with(context);
+			picasso.setLoggingEnabled(true);
+			picasso.setIndicatorsEnabled(true);
+		}
+
+		preloadData();
 	}
 
 	private void preloadData()
@@ -54,6 +59,12 @@ public class MainApplication extends LushApplication
 			{
 				for (Channel channel : items)
 				{
+					if (channel == null || TextUtils.isEmpty(channel.getTag()))
+					{
+						continue;
+					}
+
+					ChannelProgrammesRepository.getInstance(context).setChannelTag(channel.getTag());
 					ChannelProgrammesRepository.getInstance(context).getItems(new ResponseHandler<Programme>()
 					{
 						@Override
@@ -62,6 +73,11 @@ public class MainApplication extends LushApplication
 							// Preload all images
 							for (Programme programme : items)
 							{
+								if (programme == null || TextUtils.isEmpty(programme.getThumbnail()))
+								{
+									continue;
+								}
+
 								preloadImageUrl(programme.getThumbnail());
 							}
 						}
@@ -89,6 +105,12 @@ public class MainApplication extends LushApplication
 			{
 				for (Event event : items)
 				{
+					if (event == null || TextUtils.isEmpty(event.getTag()))
+					{
+						continue;
+					}
+
+					EventProgrammesRepository.getInstance(context).setEventTag(event.getTag());
 					EventProgrammesRepository.getInstance(context).getItems(new ResponseHandler<Programme>()
 					{
 						@Override
@@ -97,6 +119,11 @@ public class MainApplication extends LushApplication
 							// Preload all images
 							for (Programme programme : items)
 							{
+								if (programme == null || TextUtils.isEmpty(programme.getThumbnail()))
+								{
+									continue;
+								}
+
 								preloadImageUrl(programme.getThumbnail());
 							}
 						}
@@ -125,6 +152,11 @@ public class MainApplication extends LushApplication
 				// Preload all images
 				for (Programme programme : items)
 				{
+					if (programme == null || TextUtils.isEmpty(programme.getThumbnail()))
+					{
+						continue;
+					}
+
 					preloadImageUrl(programme.getThumbnail());
 				}
 			}

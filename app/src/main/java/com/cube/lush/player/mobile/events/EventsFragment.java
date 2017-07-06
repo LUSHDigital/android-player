@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -25,6 +26,7 @@ import com.lush.lib.listener.OnListItemClickListener;
 import com.lush.player.api.model.Event;
 import com.lush.player.api.model.Programme;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.jamiecruwys.contracts.ListingData;
@@ -139,7 +141,17 @@ public class EventsFragment extends FilterableListingFragment<Programme, Event> 
 		}
 		else
 		{
-			return new ContentAdapter(items, this);
+			ArrayList<Programme> programmesForEvent = new ArrayList<>();
+
+			for (Programme item : items)
+			{
+				if (item != null && !TextUtils.isEmpty(item.getEvent()) && event != null && !TextUtils.isEmpty(event.getTag()) && item.getEvent().equals(event.getTag()))
+				{
+					programmesForEvent.add(item);
+				}
+			}
+
+			return new ContentAdapter(programmesForEvent, this);
 		}
 	}
 

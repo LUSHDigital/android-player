@@ -5,19 +5,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Channel;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.mobile.base.BaseContentFragment;
 import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
+import com.lush.player.api.model.Channel;
+import com.lush.player.api.model.ContentType;
+import com.lush.player.api.model.Programme;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import uk.co.jamiecruwys.contracts.ListingData;
 
@@ -60,38 +61,22 @@ public class ChannelContentFragment extends BaseContentFragment
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
-				if (filterOption == ProgrammeFilterOption.ALL)
+				if (filterOption == ProgrammeFilterOption.TV)
 				{
-					MediaSorter.MOST_RECENT_FIRST.sort(items);
-
-					if (callback != null)
-					{
-						callback.onListingDataRetrieved(items);
-					}
-				}
-				else if (filterOption == ProgrammeFilterOption.TV)
-				{
-					Set<Programme> videos = ChannelProgrammesRepository.getInstance(getContext()).getVideos();
-					ArrayList<Programme> programmes = new ArrayList<>(videos);
-
-					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
-
-					if (callback != null)
-					{
-						callback.onListingDataRetrieved(programmes);
-					}
+					items = filterByContentType(items, ContentType.TV);
 				}
 				else if (filterOption == ProgrammeFilterOption.RADIO)
 				{
-					Set<Programme> radios = ChannelProgrammesRepository.getInstance(getContext()).getRadios();
-					ArrayList<Programme> programmes = new ArrayList<>(radios);
+					items = filterByContentType(items, ContentType.RADIO);
+				}
 
-					MediaSorter.MOST_RECENT_FIRST.sort(programmes);
+				items = filterByChannel(items, channel.getTag());
 
-					if (callback != null)
-					{
-						callback.onListingDataRetrieved(programmes);
-					}
+				MediaSorter.MOST_RECENT_FIRST.sort(items);
+
+				if (callback != null)
+				{
+					callback.onListingDataRetrieved(items);
 				}
 			}
 
@@ -103,6 +88,36 @@ public class ChannelContentFragment extends BaseContentFragment
 				}
 			}
 		});
+	}
+
+	private List<Programme> filterByChannel(@NonNull List<Programme> items, @NonNull String channelName)
+	{
+		ArrayList<Programme> channelProgrammes = new ArrayList<>();
+
+		for (Programme item : items)
+		{
+			if (item != null && !TextUtils.isEmpty(item.getChannel()) && item.getChannel().equals(channelName))
+			{
+				channelProgrammes.add(item);
+			}
+		}
+
+		return channelProgrammes;
+	}
+
+	private List<Programme> filterByContentType(@NonNull List<Programme> items, @NonNull ContentType contentType)
+	{
+		ArrayList<Programme> contentTypeProgrammes = new ArrayList<>();
+
+		for (Programme item : items)
+		{
+			if (item != null && item.getType() != null && item.getType() == contentType)
+			{
+				contentTypeProgrammes.add(item);
+			}
+		}
+
+		return contentTypeProgrammes;
 	}
 
 	@NonNull @Override public String provideContentTitle()

@@ -59,7 +59,14 @@ public class MainApplication extends LushApplication
 			{
 				for (Channel channel : items)
 				{
-					if (channel == null || TextUtils.isEmpty(channel.getTag()))
+					if (channel == null)
+					{
+						continue;
+					}
+
+					preloadImageUrl(channel.getImage());
+
+					if (TextUtils.isEmpty(channel.getTag()))
 					{
 						continue;
 					}
@@ -77,8 +84,6 @@ public class MainApplication extends LushApplication
 								{
 									continue;
 								}
-
-								preloadImageUrl(programme.getThumbnail());
 							}
 						}
 
@@ -123,8 +128,6 @@ public class MainApplication extends LushApplication
 								{
 									continue;
 								}
-
-								preloadImageUrl(programme.getThumbnail());
 							}
 						}
 
@@ -156,8 +159,6 @@ public class MainApplication extends LushApplication
 					{
 						continue;
 					}
-
-					preloadImageUrl(programme.getThumbnail());
 				}
 			}
 
@@ -173,9 +174,9 @@ public class MainApplication extends LushApplication
 	{
 		if (!TextUtils.isEmpty(url))
 		{
-//			Picasso.with(context)
-//					.load(url)
-//					.fetch();
+			Picasso.with(context)
+				.load(url)
+				.fetch();
 		}
 	}
 

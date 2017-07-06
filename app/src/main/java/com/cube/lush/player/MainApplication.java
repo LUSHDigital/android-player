@@ -173,9 +173,9 @@ public class MainApplication extends LushApplication
 	{
 		if (!TextUtils.isEmpty(url))
 		{
-			Picasso.with(context)
-					.load(url)
-					.fetch();
+//			Picasso.with(context)
+//					.load(url)
+//					.fetch();
 		}
 	}
 

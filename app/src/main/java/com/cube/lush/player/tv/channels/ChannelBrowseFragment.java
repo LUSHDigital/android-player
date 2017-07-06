@@ -3,9 +3,8 @@ package com.cube.lush.player.tv.channels;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
-import com.lush.player.api.model.Channel;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
@@ -13,7 +12,10 @@ import com.cube.lush.player.mobile.model.ProgrammeFilterOption;
 import com.cube.lush.player.tv.adapter.DiffingAdapter;
 import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
 import com.cube.lush.player.tv.browse.ProgrammePresenter;
+import com.lush.player.api.model.Channel;
+import com.lush.player.api.model.Programme;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,16 +59,38 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		if (channel != null)
+		if (channel != null && !TextUtils.isEmpty(channel.getTag()))
 		{
 			ChannelProgrammesRepository.getInstance(getActivity()).setChannelTag(channel.getTag());
 			ChannelProgrammesRepository.getInstance(getActivity()).getItems(new ResponseHandler<Programme>()
 			{
 				@Override public void onSuccess(@NonNull List<Programme> items)
 				{
+					ChannelProgrammesRepository programmesRepository = ChannelProgrammesRepository.getInstance(getActivity());
+
+					if (filterOption == ProgrammeFilterOption.RADIO)
+					{
+						items = new ArrayList<>(programmesRepository.getRadios());
+					}
+					else if (filterOption == ProgrammeFilterOption.TV)
+					{
+						items = new ArrayList<>(programmesRepository.getVideos());
+					}
+
+					ArrayList<Programme> programmesForChannel = new ArrayList<Programme>();
+
+					for (Programme item : items)
+					{
+						if (item != null && !TextUtils.isEmpty(item.getChannel()) && item.getChannel().equals(channel.getTag()))
+						{
+							programmesForChannel.add(item);
+						}
+					}
+
+					MediaSorter.MOST_RECENT_FIRST.sort(programmesForChannel);
+
 					setLoadingFinished(false);
-					MediaSorter.MOST_RECENT_FIRST.sort(items);
-					mediaAdapter.setItems(items);
+					mediaAdapter.setItems(programmesForChannel);
 				}
 
 				@Override public void onFailure(@Nullable Throwable t)

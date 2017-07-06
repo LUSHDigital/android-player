@@ -49,7 +49,11 @@ public class ChannelPresenter extends Presenter
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)
 	{
+		ChannelViewHolder mediaViewHolder = (ChannelViewHolder)viewHolder;
+		CardView cardView = mediaViewHolder.getCardView();
 
+		Picasso.with(cardView.getContext())
+			.cancelRequest(cardView.getMainImageView());
 	}
 
 	@Data

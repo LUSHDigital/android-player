@@ -60,7 +60,7 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name="com.cube.lush.player.tv.search.SearchActivity" android:theme="@style/TV.AppTheme" />
+		<activity android:name="com.cube.lush.player.tv.search.SearchActivity" android:theme="@style/TV.AppTheme" android:noHistory="false" />
 		<activity android:name=".tv.playback.PlaybackActivity" android:theme="@style/TV.AppTheme" />
 		<activity android:name="com.cube.lush.player.tv.details.ProgrammeDetailsActivity" android:theme="@style/TV.AppTheme" />
 		<activity android:name="com.cube.lush.player.tv.channels.ChannelActivity" android:theme="@style/TV.AppTheme" />

@@ -2,8 +2,11 @@ package com.cube.lush.player.tv.search;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,17 +24,17 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.SearchProgrammeRepository;
 import com.cube.lush.player.tv.browse.ProgrammePresenter;
 import com.cube.lush.player.tv.details.ProgrammeDetailsActivity;
+import com.lush.player.api.model.Programme;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 /**
  * Allows the user to perform a simple keyboard or voice search on Lush content.
@@ -42,6 +45,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
                                                                                                OnItemViewClickedListener
 {
 	private static final int REQUEST_SPEECH = 0x00000010;
+	private static final int REQUEST_SPEECH_PERMISSIONS = 1234567890;
 	private ArrayObjectAdapter rowsAdapter;
 	private ArrayObjectAdapter searchAdapter;
 
@@ -50,7 +54,75 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 	{
 		super.onCreate(savedInstanceState);
 
-		if (getActivity().getPackageManager().checkPermission(Manifest.permission.RECORD_AUDIO, getActivity().getPackageName()) == PERMISSION_GRANTED)
+		tryEnablingSpeechRecognition();
+
+		// We use a custom presenter so that we can show the results in a vertical grid type structure, as per the design requirements.
+		rowsAdapter = new ArrayObjectAdapter(new SearchResultsPresenter());
+		searchAdapter = new ArrayObjectAdapter(new ProgrammePresenter());
+
+		setSearchResultProvider(this);
+		setOnItemViewClickedListener(this);
+	}
+
+	private void tryEnablingSpeechRecognition()
+	{
+		final Activity activity = getActivity();
+
+		if (activity == null)
+		{
+			return;
+		}
+
+		ArrayList<String> permissionsToRequest = new ArrayList<>();
+
+		boolean recordAudioPermissionGranted = ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+
+		if (!recordAudioPermissionGranted)
+		{
+			permissionsToRequest.add(Manifest.permission.RECORD_AUDIO);
+		}
+
+		boolean writeExternalStoragePermissionGranted = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+		if (!writeExternalStoragePermissionGranted)
+		{
+			permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		}
+
+		if (!permissionsToRequest.isEmpty())
+		{
+			final String[] permissions = permissionsToRequest.toArray(new String[0]);
+
+			if (shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO) || shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+			{
+				// Show an explanation to the user *asynchronously* -- don't block
+				// this thread waiting for the user's response! After the user
+				// sees the explanation, try again to request the permission.
+
+				new AlertDialog.Builder(activity)
+					.setMessage("In order to use the speech functionality you must have the record audio and write to external storage permissions enabled")
+					.setPositiveButton("OK", new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							Toast.makeText(activity, "AUTOCLICK", Toast.LENGTH_LONG).show();
+							requestPermissions(permissions, REQUEST_SPEECH_PERMISSIONS);
+						}
+					})
+					.setNegativeButton("Cancel", null)
+					.create()
+					.show();
+			}
+			else
+			{
+				requestPermissions(permissions, REQUEST_SPEECH_PERMISSIONS);
+			}
+
+			return;
+		}
+
+		if (recordAudioPermissionGranted && writeExternalStoragePermissionGranted)
 		{
 			setSpeechRecognitionCallback(new SpeechRecognitionCallback()
 			{
@@ -61,13 +133,6 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 				}
 			});
 		}
-
-		// We use a custom presenter so that we can show the results in a vertical grid type structure, as per the design requirements.
-		rowsAdapter = new ArrayObjectAdapter(new SearchResultsPresenter());
-		searchAdapter = new ArrayObjectAdapter(new ProgrammePresenter());
-
-		setSearchResultProvider(this);
-		setOnItemViewClickedListener(this);
 	}
 
 	@Override
@@ -96,12 +161,26 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 				{
 					case Activity.RESULT_OK:
 					{
-						setSearchQuery(data, true);
+						if (data != null)
+						{
+							setSearchQuery(data, true);
+						}
 						break;
 					}
 				}
 				break;
 			}
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+	{
+		switch (requestCode)
+		{
+			case REQUEST_SPEECH_PERMISSIONS:
+				tryEnablingSpeechRecognition();
+				break;
 		}
 	}
 

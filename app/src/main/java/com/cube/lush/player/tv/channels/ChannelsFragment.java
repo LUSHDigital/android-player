@@ -32,7 +32,7 @@ public class ChannelsFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-
+		adapter.clear();
 
 		ChannelRepository.getInstance(getActivity()).getItems(new ResponseHandler<Channel>()
 		{
@@ -40,7 +40,6 @@ public class ChannelsFragment extends BaseMediaBrowseFragment
 			{
 				if (items.isEmpty())
 				{
-					adapter.clear();
 					Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
 				}
 				else
@@ -53,7 +52,6 @@ public class ChannelsFragment extends BaseMediaBrowseFragment
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				adapter.clear();
 				Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
 
 				setLoadingFinished(false);

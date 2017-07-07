@@ -106,7 +106,6 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
-							Toast.makeText(activity, "AUTOCLICK", Toast.LENGTH_LONG).show();
 							requestPermissions(permissions, REQUEST_SPEECH_PERMISSIONS);
 						}
 					})

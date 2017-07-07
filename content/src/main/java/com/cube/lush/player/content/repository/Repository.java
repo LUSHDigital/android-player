@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.cube.lush.player.content.handler.ResponseHandler;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lush.player.api.LushAPI;
 
@@ -185,16 +184,9 @@ public abstract class Repository<T>
 		saveItemsToDisk(items);
 	}
 
-	private Gson gson;
-
 	private void saveItemsToDisk(@Nullable Set<T> itemsToSave)
 	{
-		if (gson == null)
-		{
-			gson = new Gson();
-		}
-
-		String json = gson.toJson(itemsToSave);
+		String json = GsonSingleton.getInstance().toJson(itemsToSave);
 
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_CACHE_STORE, Context.MODE_PRIVATE);
 		sharedPreferences.edit()
@@ -207,12 +199,7 @@ public abstract class Repository<T>
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_CACHE_STORE, Context.MODE_PRIVATE);
 		String json = sharedPreferences.getString(providePreferenceName(), null);
 
-		if (gson == null)
-		{
-			gson = new Gson();
-		}
-
-		List<T> itemsFromDisk = gson.fromJson(json, provideGsonTypeToken().getType());
+		List<T> itemsFromDisk = GsonSingleton.getInstance().fromJson(json, provideGsonTypeToken().getType());
 
 		if (itemsFromDisk == null || itemsFromDisk.isEmpty())
 		{

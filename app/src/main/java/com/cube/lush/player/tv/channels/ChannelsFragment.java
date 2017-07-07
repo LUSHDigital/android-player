@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.widget.Toast;
 
-import com.lush.player.api.model.Channel;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelRepository;
 import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
+import com.lush.player.api.model.Channel;
 
 import java.util.List;
 
@@ -31,18 +32,30 @@ public class ChannelsFragment extends BaseMediaBrowseFragment
 	@Override
 	protected void fetchData()
 	{
-		adapter.clear();
+
 
 		ChannelRepository.getInstance(getActivity()).getItems(new ResponseHandler<Channel>()
 		{
 			@Override public void onSuccess(@NonNull List<Channel> items)
 			{
-				adapter.addAll(0, items);
+				if (items.isEmpty())
+				{
+					adapter.clear();
+					Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					adapter.addAll(0, items);
+				}
+
 				setLoadingFinished(false);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
+				adapter.clear();
+				Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+
 				setLoadingFinished(false);
 			}
 		});

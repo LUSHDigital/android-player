@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.ChannelProgrammesRepository;
@@ -89,14 +90,25 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 
 					MediaSorter.MOST_RECENT_FIRST.sort(programmesForChannel);
 
+					if (programmesForChannel.isEmpty())
+					{
+						mediaAdapter.clear();
+						Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+					}
+					else
+					{
+						mediaAdapter.setItems(programmesForChannel);
+					}
+
 					setLoadingFinished(false);
-					mediaAdapter.setItems(programmesForChannel);
 				}
 
 				@Override public void onFailure(@Nullable Throwable t)
 				{
-					setLoadingFinished(true);
 					mediaAdapter.clear();
+					Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+
+					setLoadingFinished(true);
 				}
 			});
 		}

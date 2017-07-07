@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.lush.player.api.model.ContentType;
 import com.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,11 +41,7 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 
 	@Override public void bind(Programme programme)
 	{
-		Picasso.with(image.getContext())
-			.load(programme.getThumbnail())
-			.fit()
-			.centerCrop()
-			.into(image);
+		LushImageLoader.display(programme.getThumbnail(), image);
 
 		setTextOrHide(programme.getChannel(), channel);
 		setTextOrHide(programme.getTitle(), title);
@@ -104,7 +100,7 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 	public void recycle()
 	{
 		super.recycle();
-		Picasso.with(image.getContext()).cancelRequest(image);
-		image.setImageDrawable(null);
+
+		LushImageLoader.cancelDisplay(image);
 	}
 }

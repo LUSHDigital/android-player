@@ -7,10 +7,10 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.tv.view.CardView;
-import com.squareup.picasso.Picasso;
+import com.lush.player.api.model.Programme;
 
 import lombok.Data;
 
@@ -91,9 +91,7 @@ public class ProgrammePresenter extends Presenter
 
 		cardView.setMainImageDimensions(width, imageHeight);
 
-		Picasso.with(cardView.getContext())
-			.load(programme.getThumbnail())
-			.into(cardView.getMainImageView());
+		LushImageLoader.display(programme.getThumbnail(), cardView.getMainImageView(), width, imageHeight);
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)

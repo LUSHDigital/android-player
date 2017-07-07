@@ -21,12 +21,12 @@ import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BaseVideoView;
 import com.brightcove.player.view.BrightcovePlayerFragment;
 import com.cube.lush.player.R;
-import com.lush.player.api.model.LivePlaylist;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.brightcove.BrightcoveUtils;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.model.VideoInfo;
 import com.cube.lush.player.content.repository.LivePlaylistRepository;
+import com.lush.player.api.model.LivePlaylist;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 

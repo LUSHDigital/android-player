@@ -9,6 +9,7 @@ import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.InvisibleRowPresenter;
 import android.support.v17.leanback.widget.PageRow;
 
+import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.lush.player.api.model.Channel;
 import com.cube.lush.player.mobile.model.ProgrammeFilterOption;

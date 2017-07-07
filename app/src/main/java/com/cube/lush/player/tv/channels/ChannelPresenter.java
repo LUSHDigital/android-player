@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.cube.lush.player.tv.view.CardView;
 import com.lush.player.api.model.Channel;
-import com.squareup.picasso.Picasso;
 
 import lombok.Data;
 
@@ -42,9 +42,7 @@ public class ChannelPresenter extends Presenter
 		cardView.setMainImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
 		cardView.getMainImageView().setPadding(16, 16, 16, 16);
 
-		Picasso.with(cardView.getContext())
-				.load(channel.getImage())
-				.into(cardView.getMainImageView());
+		LushImageLoader.display(channel.getImage(), cardView.getMainImageView(), width, imageHeight);
 	}
 
 	@Override public void onUnbindViewHolder(ViewHolder viewHolder)
@@ -52,8 +50,7 @@ public class ChannelPresenter extends Presenter
 		ChannelViewHolder mediaViewHolder = (ChannelViewHolder)viewHolder;
 		CardView cardView = mediaViewHolder.getCardView();
 
-		Picasso.with(cardView.getContext())
-			.cancelRequest(cardView.getMainImageView());
+		LushImageLoader.cancelDisplay(cardView.getMainImageView());
 	}
 
 	@Data

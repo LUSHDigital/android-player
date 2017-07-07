@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.lush.player.api.model.Channel;
 import com.lush.view.holder.BaseViewHolder;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,16 +47,14 @@ public class ChannelViewHolder extends BaseViewHolder<Channel>
 			return;
 		}
 
-		Picasso.with(this.image.getContext())
-			.load(imageUri)
-			.into(image);
+		LushImageLoader.display(imageUri, image);
 	}
 
 	@Override
 	public void recycle()
 	{
 		super.recycle();
-		Picasso.with(image.getContext()).cancelRequest(image);
-		image.setImageDrawable(null);
+
+		LushImageLoader.cancelDisplay(image);
 	}
 }

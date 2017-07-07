@@ -3,14 +3,15 @@ package com.cube.lush.player.tv.home;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
-import com.lush.player.api.model.Programme;
 import com.cube.lush.player.content.handler.ResponseHandler;
 import com.cube.lush.player.content.repository.LatestProgrammesRepository;
 import com.cube.lush.player.content.util.MediaSorter;
 import com.cube.lush.player.tv.adapter.DiffingAdapter;
 import com.cube.lush.player.tv.base.BaseMediaBrowseFragment;
 import com.cube.lush.player.tv.browse.ProgrammePresenter;
+import com.lush.player.api.model.Programme;
 
 import java.util.List;
 
@@ -48,15 +49,26 @@ public class HomeFragment extends BaseMediaBrowseFragment
 		{
 			@Override public void onSuccess(@NonNull List<Programme> items)
 			{
+				if (items.isEmpty())
+				{
+					programmeAdapter.clear();
+					Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					MediaSorter.MOST_RECENT_FIRST.sort(items);
+					programmeAdapter.setItems(items);
+				}
+
 				setLoadingFinished(false);
-				MediaSorter.MOST_RECENT_FIRST.sort(items);
-				programmeAdapter.setItems(items);
 			}
 
 			@Override public void onFailure(@Nullable Throwable t)
 			{
-				setLoadingFinished(false);
 				programmeAdapter.clear();
+				Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+
+				setLoadingFinished(false);
 			}
 		});
 	}

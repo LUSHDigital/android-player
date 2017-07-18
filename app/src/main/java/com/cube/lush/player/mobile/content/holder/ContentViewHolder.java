@@ -15,6 +15,7 @@ import com.cube.lush.player.R;
 import com.lush.player.api.model.ContentType;
 import com.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +42,11 @@ public class ContentViewHolder extends BaseViewHolder<Programme>
 
 	@Override public void bind(Programme programme)
 	{
-		LushImageLoader.display(programme.getThumbnail(), image);
+		Picasso.with(image.getContext())
+			.load(programme.getThumbnail())
+			.fit()
+			.centerCrop()
+			.into(image);
 
 		setTextOrHide(programme.getChannel(), channel);
 		setTextOrHide(programme.getTitle(), title);

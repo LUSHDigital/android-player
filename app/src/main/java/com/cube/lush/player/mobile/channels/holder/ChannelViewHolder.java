@@ -9,6 +9,7 @@ import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.lush.player.api.model.Channel;
 import com.lush.view.holder.BaseViewHolder;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +48,11 @@ public class ChannelViewHolder extends BaseViewHolder<Channel>
 			return;
 		}
 
-		LushImageLoader.display(imageUri, image);
+		Picasso.with(image.getContext())
+			.load(imageUri)
+			.fit()
+			.centerInside()
+			.into(image);
 	}
 
 	@Override

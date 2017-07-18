@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.brightcove.player.edge.PlaylistListener;
 import com.brightcove.player.model.Playlist;
 import com.brightcove.player.model.Video;
-import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.cube.lush.player.content.brightcove.BrightcoveCatalog;
 import com.cube.lush.player.content.brightcove.BrightcoveUtils;
@@ -32,6 +31,7 @@ import com.lush.player.api.model.ContentType;
 import com.lush.player.api.model.LivePlaylist;
 import com.lush.player.api.model.Programme;
 import com.lush.player.api.model.Tag;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -233,7 +233,9 @@ public class LiveFragment extends StatefulFragment<Playlist>
 		title.setText(getString(R.string.live_title, titleString));
 
 		// Thumbnail
-		LushImageLoader.display(BrightcoveUtils.getVideoThumbnail(brightcoveVideo), thumbnail);
+		Picasso.with(getContext())
+			.load(BrightcoveUtils.getVideoThumbnail(brightcoveVideo))
+			.into(thumbnail);
 
 		long nowUtc = System.currentTimeMillis();
 		long timeRemainingMillis = videoInfo.getEndTimeUtc() - nowUtc;

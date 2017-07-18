@@ -29,7 +29,6 @@ public class LushImageLoader
 		Picasso.with(imageView.getContext())
 			.load(url)
 			.resize(widthDp, heightDp)
-			.centerInside()
 			.into(imageView);
 	}
 

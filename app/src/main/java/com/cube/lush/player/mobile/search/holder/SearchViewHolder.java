@@ -8,6 +8,7 @@ import com.cube.lush.player.LushImageLoader;
 import com.cube.lush.player.R;
 import com.lush.player.api.model.Programme;
 import com.lush.view.holder.BaseViewHolder;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +35,11 @@ public class SearchViewHolder extends BaseViewHolder<Programme>
 		type.setText(searchResult.getType().getName());
 		title.setText(searchResult.getTitle());
 
-		LushImageLoader.display(searchResult.getThumbnail(), image);
+		Picasso.with(image.getContext())
+			.load(searchResult.getThumbnail())
+			.fit()
+			.centerInside()
+			.into(image);
 	}
 
 	@Override

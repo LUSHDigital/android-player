@@ -44,6 +44,8 @@ public class ChannelFragment extends LushBrowseFragment
 		super.initialiseUI();
 		channel = (Channel) getActivity().getIntent().getSerializableExtra(ChannelActivity.EXTRA_CHANNEL);
 
+		setBadgeDrawable(null);
+
 		Target target = new Target()
 		{
 			@Override

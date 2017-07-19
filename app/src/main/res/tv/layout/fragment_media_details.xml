@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/container"
+>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:weightSum="9"
+	>
+		<LinearLayout
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:id="@+id/left_panel"
+			android:orientation="vertical"
+			android:layout_weight="4"
+			android:background="@android:color/black"
+			android:gravity="center"
+			android:padding="24dp"
+		>
+			<!-- Left side content -->
+
+			<!-- First row with title and live indicator -->
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+			>
+				<ImageView
+					android:layout_width="16dp"
+					android:layout_height="16dp"
+					android:id="@+id/live_indicator"
+					android:layout_marginEnd="16dp"
+				/>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/title"
+					android:gravity="top|start"
+					android:maxLines="2"
+					style="@style/Widget.Leanback.DetailsDescriptionTitleStyle"
+					tools:text="@string/dummy_live_title"
+				/>
+			</LinearLayout>
+
+			<!-- Second row with live times -->
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/start_end_time"
+				android:layout_marginTop="16dp"
+				android:maxLines="1"
+				android:text="@string/dummy_live_time"
+				android:textColor="@color/text_dark"
+				android:textSize="13sp"
+				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
+			/>
+
+			<!-- Watch Live Button -->
+			<com.cube.lush.player.tv.view.LushButton
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/lb_action_2_lines_height"
+				android:id="@+id/play_button"
+				android:layout_gravity="start"
+				android:layout_marginBottom="24dp"
+				android:layout_marginTop="24dp"
+				android:drawablePadding="24dp"
+				android:drawableStart="@drawable/ic_play_circle_filled_black_36dp"
+				android:paddingEnd="48dp"
+				android:paddingStart="32dp"
+				android:text="@string/watch_live"
+				style="@style/TV.AppDetailsActionButtonStyle"
+			/>
+
+			<!-- Description -->
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/description"
+				android:ellipsize="end"
+				android:lineSpacingMultiplier="1.5"
+				android:maxLines="9"
+				android:textColor="@color/text_light"
+				android:textSize="13sp"
+				style="@style/Widget.Leanback.DetailsDescriptionBodyStyle"
+				tools:text="@string/dummy_live_description"
+			/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/time_remaining"
+				android:layout_marginTop="24dp"
+				android:maxLines="1"
+				android:text="@string/dummy_remaining_time"
+				android:textColor="@color/text_dark"
+				android:textSize="13sp"
+				style="@style/Widget.Leanback.DetailsDescriptionSubtitleStyle"
+			/>
+		</LinearLayout>
+
+		<FrameLayout
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="5"
+			android:background="@android:color/transparent"
+		>
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/background_image"
+				android:scaleType="centerCrop"
+			/>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="horizontal"
+				android:background="@android:color/transparent"
+			>
+				<LinearLayout
+					android:layout_width="1000dp"
+					android:layout_height="match_parent"
+					android:id="@+id/right_panel"
+					android:orientation="horizontal"
+					android:background="@android:color/black"
+				/>
+
+				<ImageView
+					android:layout_width="512dp"
+					android:layout_height="match_parent"
+					android:scaleType="fitXY"
+					android:src="@drawable/faded_background"
+				/>
+			</LinearLayout>
+		</FrameLayout>
+	</LinearLayout>
+</FrameLayout>

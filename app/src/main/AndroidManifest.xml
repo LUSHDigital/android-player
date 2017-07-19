@@ -1,0 +1,68 @@
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	package="com.cube.lush.player"
+>
+	<uses-feature android:name="android.hardware.microphone" android:required="false" />
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+	<uses-feature android:name="android.software.leanback" android:required="false" />
+
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+	<application
+		android:name=".MainApplication"
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:roundIcon="@mipmap/ic_launcher_round"
+		android:supportsRtl="true"
+		tools:replace="android:label"
+	>
+		<!-- Mobile -->
+		<activity android:name="com.cube.lush.player.mobile.MainActivity" android:theme="@style/Mobile.AppTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="http" />
+				<data android:scheme="https" />
+				<data android:host="player.lush.com" />
+				<data android:pathPrefix="/tv/" />
+				<data android:pathPrefix="/radio/" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name="com.cube.lush.player.mobile.playback.LushPlaybackActivity"
+			android:theme="@style/Mobile.AppTheme"
+			android:configChanges="orientation"
+		/>
+
+		<!-- TV -->
+		<activity
+			android:name="com.cube.lush.player.tv.MainActivity"
+			android:icon="@mipmap/ic_launcher"
+			android:label="@string/app_name"
+			android:logo="@mipmap/ic_launcher"
+			android:theme="@style/TV.AppTheme"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+			</intent-filter>
+		</activity>
+
+		<activity android:name="com.cube.lush.player.tv.search.SearchActivity" android:theme="@style/TV.AppTheme" android:noHistory="false" />
+		<activity android:name=".tv.playback.PlaybackActivity" android:theme="@style/TV.AppTheme" />
+		<activity android:name="com.cube.lush.player.tv.details.ProgrammeDetailsActivity" android:theme="@style/TV.AppTheme" />
+		<activity android:name="com.cube.lush.player.tv.channels.ChannelActivity" android:theme="@style/TV.AppTheme" />
+	</application>
+</manifest>

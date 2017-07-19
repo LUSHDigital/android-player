@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="360dp"
+	android:orientation="vertical"
+>
+	<android.support.v7.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_marginTop="16dp"
+		app:elevation="2dp"
+	>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+		>
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/image"
+				android:scaleType="centerInside"
+				tools:src="@drawable/channel_lush_times"
+			/>
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingBottom="18dp"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp"
+				android:paddingTop="18dp"
+			>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:layout_alignParentTop="true"
+				>
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/channel"
+						android:layout_marginBottom="8dp"
+						android:text="@string/dummy_content_type"
+						android:textAllCaps="true"
+						android:textColor="@color/white"
+						style="@style/SubTitle"
+					/>
+
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/title"
+						android:text="@string/dummy_content_title"
+						style="@style/Title"
+					/>
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					android:layout_alignParentBottom="true"
+				>
+					<ImageView
+						android:layout_width="30dp"
+						android:layout_height="30dp"
+						android:id="@+id/type"
+						android:layout_gravity="center"
+						android:layout_marginRight="8dp"
+						tools:src="@drawable/video_icon"
+					/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:id="@+id/date"
+						android:gravity="center"
+						android:text="@string/dummy_content_time"
+						android:textColor="@color/white"
+						style="@style/SubTitle"
+					/>
+				</LinearLayout>
+			</RelativeLayout>
+		</RelativeLayout>
+	</android.support.v7.widget.CardView>
+</LinearLayout>

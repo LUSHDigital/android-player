@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Lush Player</string>
+
+	<!-- Tabs -->
+	<string name="title_home">Home</string>
+	<string name="title_live">Live</string>
+	<string name="title_channels">Channels</string>
+	<string name="title_events">Events</string>
+	<string name="title_search">Search</string>
+
+	<!-- Dummy text -->
+	<string name="dummy_content_type">Radio</string>
+	<string name="dummy_content_title">Investigating Dogfighting | Investigator contracted to do something</string>
+	<string name="dummy_content_time">5 days ago</string>
+	<string name="dummy_live_title">LIVE: Fresh from Lush Kitchen</string>
+	<string name="dummy_live_description">Former monk and long-term peace and environmental activist, Satish Kumar was just nine when he left his family home to join the wandering Jains and 18 when he decided he could achieve more back in the world, campaigning for land reform in India and working to turn Gandhi\u2019s vision of a renewed India and a peaceful world into reality. He has now been quietly setting the Global Agenda for change for over 50 years\nOn his 80th birthday Satish stood down as editor-in-chief of Resurgence magazine, a post he had held since 1973 , but he isn\u2019t settling for an easy retirement. He will stay on at the Resurgence Trust and advise his replacement, Greg Neale, who for two years has overseen the print magazine. He also continues to teach at Schumacher college as well as continuing to tour with public speaking engagements.\nSatish came to visit Lush in Poole to talk about his trinity of Soil, Soul and Society - which is also the title and subject of his 2013 book.</string>
+	<string name="dummy_live_time">09:00am - 10:00am GMT</string>
+	<string name="dummy_remaining_time">39 minutes remaining</string>
+
+	<!-- Headings -->
+	<string name="tv">TV</string>
+	<string name="radio">Radio</string>
+
+	<!-- Buttons -->
+	<string name="watch_live">Watch Live</string>
+	<string name="play">Play</string>
+
+	<!-- Loading -->
+	<string name="loading">Loading...</string>
+	<string name="search_results">Search Results</string>
+	<string name="error_live_playlist">Error: Could not get live playlist</string>
+	<string name="no_live_broadcast">There is no live broadcast right now.</string>
+	<string name="media_unplayable">Unable to play media, please try again</string>
+	<string name="network_offline">Please check your network connection and try again</string>
+	<string name="retry">Retry</string>
+	<string name="error_retrieving_content">Error retrieving content</string>
+
+	<string name="error_with_details">Error: %1$s</string>
+	<string name="minutes_remaining">%1$d minutes remaining</string>
+	<string name="live_no_title">Live</string>
+	<string name="live_title">LIVE: %1$s</string>
+	<string name="share">Share</string>
+	<string name="show_less">Show shorter description</string>
+	<string name="show_more">Show full description</string>
+	<string name="tags">Tags</string>
+	<string name="share_via">Share via:</string>
+</resources>

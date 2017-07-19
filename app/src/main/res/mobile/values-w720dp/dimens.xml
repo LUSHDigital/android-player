@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Mobile Dimensions -->
+	<integer name="home_columns">2</integer>
+	<integer name="channel_columns">2</integer>
+	<integer name="events_columns">2</integer>
+	<integer name="channel_content_columns">2</integer>
+	<integer name="tag_content_columns">2</integer>
+	<integer name="search_columns">1</integer>
+
+	<integer name="paging_columns">1</integer>
+	<integer name="paging_max_items">8</integer>
+
+	<integer name="description_condensed_lines">3</integer>
+	<integer name="description_expanded_lines">100</integer>
+
+	<dimen name="video_height">440dp</dimen>
+	<dimen name="filter_tab_min_width">180dp</dimen>
+	<dimen name="search_item_height">165dp</dimen>
+
+	<dimen name="channel_item_height">252dp</dimen>
+	<dimen name="channel_image_size">200dp</dimen>
+</resources>

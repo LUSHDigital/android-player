@@ -40,11 +40,6 @@
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
 ### OSX template
 *.DS_Store
 .AppleDouble
@@ -125,3 +120,6 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+# Don't commit changes to this placeholder
+google-services.json

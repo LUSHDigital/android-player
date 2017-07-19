@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:width="20dp"
+	android:height="21dp"
+	android:alpha="1"
+	android:viewportHeight="21"
+	android:viewportWidth="20"
+>
+	<path
+		android:name="search"
+		android:fillColor="#FFFFFF"
+		android:pathData="M 16.192 7.346 C 15.749 3.318 12.359 0.131 7.914 0.535 C 3.836 0.905 0.569 4.255 0.898 8.577 C 1.226 12.898 4.309 15.704 8.909 15.453 C 10.308 15.377 11.224 15.127 12.291 14.518 C 13.896 16.188 14.54 16.598 16.132 18.441 L 17.164 19.653 C 18.063 20.712 19.285 20.581 19.505 20.115 C 19.725 19.653 19.374 18.675 19.173 18.441 C 17.854 16.905 16.714 15.435 14.601 13.255 C 14.53 13.181 14.413 13.06 14.283 13.039 C 15.749 11.691 16.344 8.312 16.192 7.346 Z M 2.952 7.669 C 3.508 0.885 13.945 1.43 14.275 8.048 C 13.786 15.639 2.347 15.046 2.952 7.669 Z"
+		android:strokeWidth="1"
+	/>
+</vector>

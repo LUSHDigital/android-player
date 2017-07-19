@@ -1,0 +1,140 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.noveogroup.android.check'
+
+repositories {
+	maven {
+		url 'http://repo.brightcove.com/releases'
+	}
+}
+
+android {
+	compileSdkVersion 25
+	buildToolsVersion "25.0.2"
+
+	defaultConfig {
+		applicationId "com.cube.lush.player"
+		minSdkVersion 17
+		targetSdkVersion 25
+		versionCode 3
+		versionName "1.1.0"
+
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		vectorDrawables.useSupportLibrary = true
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+
+		applicationVariants.all { variant ->
+			variant.outputs.each { output ->
+				def apk = output.outputFile;
+
+				def appName = "${applicationId}";
+				def versionName = defaultConfig.versionName;
+				def versionCode = defaultConfig.versionCode;
+
+				def newName = appName + "-v" + versionName + "-" + versionCode + ".apk";
+				output.outputFile = new File(apk.parentFile, newName);
+			}
+		}
+	}
+
+	sourceSets {
+		main {
+			res.srcDirs += 'src/main/res/channel'
+			res.srcDirs += 'src/main/res/content'
+			res.srcDirs += 'src/main/res/default'
+			res.srcDirs += 'src/main/res/detail'
+			res.srcDirs += 'src/main/res/event'
+			res.srcDirs += 'src/main/res/home'
+			res.srcDirs += 'src/main/res/launcher'
+			res.srcDirs += 'src/main/res/live'
+			res.srcDirs += 'src/main/res/main'
+			res.srcDirs += 'src/main/res/mobile'
+			res.srcDirs += 'src/main/res/playback'
+			res.srcDirs += 'src/main/res/search'
+			res.srcDirs += 'src/main/res/tag'
+			res.srcDirs += 'src/main/res/tv'
+		}
+	}
+
+	lintOptions {
+		abortOnError false
+	}
+
+	testOptions {
+		unitTests.returnDefaultValues = true
+	}
+}
+
+def supportLibraryVersion = "25.3.1"
+def butterKnifeVersion = "8.4.0"
+def daggerVersion = "2.10"
+
+dependencies {
+	// Local files
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	// Android Support
+	compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
+	compile "com.android.support:recyclerview-v7:${supportLibraryVersion}"
+	compile "com.android.support:leanback-v17:${supportLibraryVersion}"
+	compile "com.android.support:support-v4:${supportLibraryVersion}"
+	compile "com.android.support:design:${supportLibraryVersion}"
+	compile "com.android.support:support-vector-drawable:${supportLibraryVersion}"
+	compile "com.android.support:cardview-v7:${supportLibraryVersion}"
+
+	// View injection
+	compile "com.jakewharton:butterknife:${butterKnifeVersion}"
+	annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+
+	// Dependency injection
+	compile "com.google.dagger:dagger:${daggerVersion}"
+	annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+	provided 'javax.annotation:jsr250-api:1.0'
+
+	// Lush content
+	compile project(":content")
+
+	// Lush Views & Fonts
+	dependencies {
+		compile ("com.github.LUSHDigital:android-lush-views:faa1706"){
+			exclude group: 'com.aurelhubert', module: 'ahbottomnavigation'
+		}
+
+		// Force it so we are using the older version, which doesn't have the new google bottom nav bar design, which isn't very nice imo
+		compile 'com.aurelhubert:ahbottomnavigation:1.3.3'
+	}
+
+	// Stateful Views
+	compile 'com.github.JamieCruwys:StatefulView:5d80732'
+
+	// Brightcove
+	compile 'com.brightcove.player:exoplayer:4.13.5'
+	compile "com.brightcove.player:android-appcompat-plugin:4.13.4"
+
+	// Flow layout
+	compile 'org.apmem.tools:layouts:1.10@aar'
+
+	// Images
+	compile 'com.squareup.picasso:picasso:2.5.2'
+
+	// Auto generated getters, setters and constructors
+	compile 'org.projectlombok:lombok:1.16.10'
+
+	// Google Analytics
+	compile 'com.google.android.gms:play-services-analytics:10.2.6'
+
+	// Firebase crash reporting
+	compile 'com.google.firebase:firebase-core:10.2.6'
+	compile 'com.google.firebase:firebase-crash:10.2.6'
+
+	// Testing
+	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2')
+	testCompile 'org.mockito:mockito-core:1.10.19'
+	testCompile 'junit:junit:4.12'
+}
+
+apply plugin: 'com.google.gms.google-services'

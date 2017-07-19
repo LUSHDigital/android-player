@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#3F51B5</color>
+	<color name="colorPrimaryDark">#303F9F</color>
+	<color name="colorAccent">#FF4081</color>
+	<color name="grey">#252525</color>
+
+	<color name="tab_unselected">#333333</color>
+	<color name="tab_selected">#5B5B5B</color>
+
+	<!-- TV Colours -->
+	<color name="primary">@android:color/black</color>
+	<color name="primary_dark">@android:color/black</color>
+	<color name="primary_light">@android:color/black</color>
+
+	<color name="text_light">#EEEEEE</color>
+	<color name="text_dark">#B3AAAAAA</color>
+
+	<color name="material_red">#F44336</color>
+
+	<color name="bmc_seekbar_played">@color/material_red</color>
+</resources>

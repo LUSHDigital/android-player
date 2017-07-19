@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="wrap_content"
+	android:layout_height="64dp"
+	android:background="@drawable/filter_item_selector"
+	android:ellipsize="end"
+	android:gravity="center"
+	android:lines="1"
+	android:minWidth="@dimen/filter_tab_min_width"
+	android:padding="16dp"
+	android:textAllCaps="false"
+	style="@style/Text.White"
+	tools:text="All Episodes"
+/>

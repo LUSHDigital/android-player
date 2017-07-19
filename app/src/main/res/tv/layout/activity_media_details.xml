@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<fragment
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/media_details_fragment"
+	android:name="com.cube.lush.player.tv.details.ProgrammeDetailsFragment"
+	tools:context=".tv.details.ProgrammeDetailsActivity"
+	tools:deviceIds="tv"
+	tools:ignore="MergeRootFrame"
+/>

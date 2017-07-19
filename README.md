@@ -62,10 +62,42 @@ To test this functionality you can use the following adb command:
 adb shell am start -W -a android.intent.action.VIEW -d "http://player.lush.com/tv/conversation-john-robb-alexander-hacke-and-danielle-de-picciotto" com.cube.lush.player
 ```
 
-## Screenshots
+## Phone Screenshots
 
-![Main menu](.//screenshots/main.png "Main menu")
+![Home](.//screenshots/phone-home.png "Home")
 
-![Channels](.//screenshots/channels.png "Channels")
+![Item](.//screenshots/phone-item.png "Item")
 
-![Media details](./screenshots/details.png "Media details")
+![Live](.//screenshots/phone-live.png "Live")
+
+![Channels](.//screenshots/phone-channels.png "Channels")
+
+![Events](.//screenshots/phone-events.png "Events")
+
+![Search](./screenshots/phone-search.png "Search")
+
+## Tablet Screenshots
+
+![Home](.//screenshots/tablet-home.png "Home")
+
+![Item](.//screenshots/tablet-item.png "Item")
+
+![Live](.//screenshots/tablet-live.png "Live")
+
+![Channels](.//screenshots/tablet-channels.png "Channels")
+
+![Events](.//screenshots/tablet-events.png "Events")
+
+![Search](./screenshots/tablet-search.png "Search")
+
+## TV Screenshots
+
+![Main menu](.//screenshots/tv-menu.png "Main menu")
+
+![Home](.//screenshots/tv-home.png "Home")
+
+![Item](.//screenshots/tv-item.png "Item")
+
+![Channels](.//screenshots/tv-channels.png "Channels")
+
+![Search](./screenshots/tv-search.png "Search")

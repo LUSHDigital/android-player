@@ -64,40 +64,26 @@ adb shell am start -W -a android.intent.action.VIEW -d "http://player.lush.com/t
 
 ## Phone Screenshots
 
-![Home](.//screenshots/phone-home.png "Home")
-
-![Item](.//screenshots/phone-item.png "Item")
-
-![Live](.//screenshots/phone-live.png "Live")
-
-![Channels](.//screenshots/phone-channels.png "Channels")
-
-![Events](.//screenshots/phone-events.png "Events")
-
-![Search](./screenshots/phone-search.png "Search")
+<img src=".//screenshots/phone-home.png" height="507" width="274">
+<img src=".//screenshots/phone-item.png" height="507" width="274">
+<img src=".//screenshots/phone-live.png" height="507" width="274">
+<img src=".//screenshots/phone-channels.png" height="507" width="274">
+<img src=".//screenshots/phone-events.png" height="507" width="274">
+<img src=".//screenshots/phone-search.png" height="507" width="274">
 
 ## Tablet Screenshots
 
-![Home](.//screenshots/tablet-home.png "Home")
-
-![Item](.//screenshots/tablet-item.png "Item")
-
-![Live](.//screenshots/tablet-live.png "Live")
-
-![Channels](.//screenshots/tablet-channels.png "Channels")
-
-![Events](.//screenshots/tablet-events.png "Events")
-
-![Search](./screenshots/tablet-search.png "Search")
+<img src=".//screenshots/tablet-home.png" height="443" width="619">
+<img src=".//screenshots/tablet-item.png" height="443" width="619">
+<img src=".//screenshots/tablet-live.png" height="443" width="619">
+<img src=".//screenshots/tablet-channels.png" height="443" width="619">
+<img src=".//screenshots/tablet-events.png" height="443" width="619">
+<img src=".//screenshots/tablet-search.png" height="443" width="619">
 
 ## TV Screenshots
 
-![Main menu](.//screenshots/tv-menu.png "Main menu")
-
-![Home](.//screenshots/tv-home.png "Home")
-
-![Item](.//screenshots/tv-item.png "Item")
-
-![Channels](.//screenshots/tv-channels.png "Channels")
-
-![Search](./screenshots/tv-search.png "Search")
+<img src=".//screenshots/tv-menu.png" height="405" width="669">
+<img src=".//screenshots/tv-home.png" height="405" width="669">
+<img src=".//screenshots/tv-item.png" height="405" width="669">
+<img src=".//screenshots/tv-channels.png" height="405" width="669">
+<img src=".//screenshots/tv-search.png" height="405" width="669">

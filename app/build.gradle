@@ -7,6 +7,27 @@ repositories {
 	}
 }
 
+def getAnalyticsEnabled = { ->
+	def analyticsEnabled = ANALYTICS_ENABLED
+
+	if (analyticsEnabled == "true")
+	{
+		analyticsEnabled = true
+	}
+	else
+	{
+		analyticsEnabled = false
+	}
+
+	println "Analytics is enabled? " + analyticsEnabled
+	return analyticsEnabled
+}
+
+def getGoogleAnalyticsKey = { ->
+	println "Google Analytics key is set to " + GOOGLE_ANALYTICS_KEY
+	return GOOGLE_ANALYTICS_KEY
+}
+
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
@@ -17,6 +38,9 @@ android {
 		targetSdkVersion 25
 		versionCode 3
 		versionName "1.1.0"
+
+		buildConfigField "Boolean", "ANALYTICS_ENABLED", "\"" + getAnalyticsEnabled() + "\""
+		buildConfigField "String", "GOOGLE_ANALYTICS_KEY", "\"" + getGoogleAnalyticsKey() + "\""
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 		vectorDrawables.useSupportLibrary = true

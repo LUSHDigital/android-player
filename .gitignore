@@ -123,3 +123,6 @@ gradle-app.setting
 
 # Don't commit changes to this placeholder
 google-services.json
+
+# Don't commit your secrets for this project
+gradle.properties

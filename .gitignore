@@ -125,4 +125,5 @@ gradle-app.setting
 google-services.json
 
 # Don't commit your secrets for this project
+gradle.properties
 *.gradle.properties

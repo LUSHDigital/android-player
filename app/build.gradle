@@ -8,19 +8,8 @@ repositories {
 }
 
 def getAnalyticsEnabled = { ->
-	def analyticsEnabled = ANALYTICS_ENABLED
-
-	if (analyticsEnabled == "true")
-	{
-		analyticsEnabled = true
-	}
-	else
-	{
-		analyticsEnabled = false
-	}
-
-	println "Analytics is enabled? " + analyticsEnabled
-	return analyticsEnabled
+	println "Analytics is enabled? " + ANALYTICS_ENABLED
+	return ANALYTICS_ENABLED
 }
 
 def getGoogleAnalyticsKey = { ->
@@ -39,7 +28,7 @@ android {
 		versionCode 3
 		versionName "1.1.0"
 
-		buildConfigField "Boolean", "ANALYTICS_ENABLED", "\"" + getAnalyticsEnabled() + "\""
+		buildConfigField "String", "ANALYTICS_ENABLED", "\"" + getAnalyticsEnabled() + "\""
 		buildConfigField "String", "GOOGLE_ANALYTICS_KEY", "\"" + getGoogleAnalyticsKey() + "\""
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

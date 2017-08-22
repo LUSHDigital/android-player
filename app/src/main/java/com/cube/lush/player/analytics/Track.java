@@ -26,7 +26,7 @@ public class Track
 
 	public static void initialise(@NonNull Context context)
 	{
-		if (!BuildConfig.ANALYTICS_ENABLED)
+		if (!Boolean.valueOf(BuildConfig.ANALYTICS_ENABLED))
 		{
 			return;
 		}

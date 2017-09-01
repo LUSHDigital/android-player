@@ -25,8 +25,8 @@ android {
 		applicationId "com.cube.lush.player"
 		minSdkVersion 17
 		targetSdkVersion 25
-		versionCode 3
-		versionName "1.1.0"
+		versionCode 4
+		versionName "1.1.1"
 
 		buildConfigField "String", "ANALYTICS_ENABLED", "\"" + getAnalyticsEnabled() + "\""
 		buildConfigField "String", "GOOGLE_ANALYTICS_KEY", "\"" + getGoogleAnalyticsKey() + "\""

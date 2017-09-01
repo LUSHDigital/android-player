@@ -7,9 +7,7 @@ import com.cube.lush.player.content.handler.ResponseHandler;
 import com.google.gson.reflect.TypeToken;
 import com.lush.player.api.model.LivePlaylist;
 
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,10 +45,7 @@ public class LivePlaylistRepository extends Repository<LivePlaylist>
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<LivePlaylist> callback)
 	{
-		int utcOffsetMillis = TimeZone.getDefault().getOffset(new Date().getTime());
-		String offsetString = String.format("%d minutes", utcOffsetMillis / 1000 / 60);
-
-		Call<List<LivePlaylist>> livePlaylist = api.getLivePlaylist(String.valueOf(offsetString));
+		Call<List<LivePlaylist>> livePlaylist = api.getLivePlaylist("0");
 
 		livePlaylist.enqueue(new Callback<List<LivePlaylist>>()
 		{

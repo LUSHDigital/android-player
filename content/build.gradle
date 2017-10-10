@@ -65,7 +65,4 @@ dependencies {
 
 	// Brightcove
 	compile 'com.brightcove.player:exoplayer:4.11.1'
-
-	// Lombok
-	compile 'org.projectlombok:lombok:1.16.10'
 }

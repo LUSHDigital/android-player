@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import lombok.Data;
-
 /**
  * A Leanback adapter that uses {@link DiffUtil} to determine the minimal set of updates to perform in order to modify one list into another.
  * <p />
@@ -19,7 +17,6 @@ import lombok.Data;
  *
  * @author Jamie Cruwys
  */
-@Data
 public class DiffingAdapter<T> extends ObjectAdapter
 {
 	/**
@@ -131,5 +128,20 @@ public class DiffingAdapter<T> extends ObjectAdapter
 	public int size()
 	{
 		return items.size();
+	}
+
+	public List<T> getItems()
+	{
+		return items;
+	}
+
+	public EqualityTester<T> getEqualityTester()
+	{
+		return equalityTester;
+	}
+
+	public void setEqualityTester(EqualityTester<T> equalityTester)
+	{
+		this.equalityTester = equalityTester;
 	}
 }

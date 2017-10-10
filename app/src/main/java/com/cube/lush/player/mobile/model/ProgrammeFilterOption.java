@@ -3,22 +3,28 @@ package com.cube.lush.player.mobile.model;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Filter options for lists of programmes
  *
  * @author Jamie Cruwys
  */
-@AllArgsConstructor
 public enum ProgrammeFilterOption
 {
 	ALL("All Episodes"),
 	TV("TV"),
 	RADIO("Radio");
 
-	@Getter private String name;
+	private String name;
+
+	ProgrammeFilterOption(String name)
+	{
+		this.name = name;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
 
 	public static List<ProgrammeFilterOption> listValues()
 	{

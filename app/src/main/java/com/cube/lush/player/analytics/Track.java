@@ -10,8 +10,6 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import lombok.Getter;
-
 /**
  * Tracks user interactions in the app
  *
@@ -21,8 +19,8 @@ public class Track
 {
 	private static final String trackingId = BuildConfig.GOOGLE_ANALYTICS_KEY;
 
-	@Getter private static GoogleAnalytics analytics = null;
-	@Getter private static Tracker tracker = null;
+	private static GoogleAnalytics analytics = null;
+	private static Tracker tracker = null;
 
 	public static void initialise(@NonNull Context context)
 	{
@@ -47,6 +45,16 @@ public class Track
 
 			tracker.setScreenName(null);
 		}
+	}
+
+	public static GoogleAnalytics getAnalytics()
+	{
+		return analytics;
+	}
+
+	public static Tracker getTracker()
+	{
+		return tracker;
 	}
 
 	/**

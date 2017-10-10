@@ -42,7 +42,6 @@
 -keep class com.cube.lush.player.mobile.model.** { *; }
 
 -dontwarn javax.**
--dontwarn lombok.**
 -dontwarn org.apache.**
 -dontwarn com.squareup.**
 -dontwarn com.sun.**

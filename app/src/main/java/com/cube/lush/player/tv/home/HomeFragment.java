@@ -52,7 +52,11 @@ public class HomeFragment extends BaseMediaBrowseFragment
 				if (items.isEmpty())
 				{
 					programmeAdapter.clear();
-					Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+
+					if (getActivity() != null)
+					{
+						Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+					}
 				}
 				else
 				{

@@ -93,7 +93,11 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 					if (programmesForChannel.isEmpty())
 					{
 						mediaAdapter.clear();
-						Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+
+						if (getActivity() != null)
+						{
+							Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+						}
 					}
 					else
 					{
@@ -106,7 +110,11 @@ public class ChannelBrowseFragment extends BaseMediaBrowseFragment
 				@Override public void onFailure(@Nullable Throwable t)
 				{
 					mediaAdapter.clear();
-					Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+
+					if (getActivity() != null)
+					{
+						Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+					}
 
 					setLoadingFinished(true);
 				}

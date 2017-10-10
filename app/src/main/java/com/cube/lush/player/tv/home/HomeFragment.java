@@ -70,7 +70,11 @@ public class HomeFragment extends BaseMediaBrowseFragment
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				programmeAdapter.clear();
-				Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+
+				if (getActivity() != null)
+				{
+					Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+				}
 
 				setLoadingFinished(false);
 			}

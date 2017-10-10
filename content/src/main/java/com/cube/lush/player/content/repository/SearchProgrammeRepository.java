@@ -9,8 +9,6 @@ import com.lush.player.api.model.Programme;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,11 +21,22 @@ import retrofit2.Response;
 public class SearchProgrammeRepository extends BaseProgrammeRepository
 {
 	private static SearchProgrammeRepository instance;
-	@Getter @Setter @NonNull private String searchTerm = "";
+	@NonNull private String searchTerm = "";
 
 	public SearchProgrammeRepository(@NonNull Context context)
 	{
 		super(context);
+	}
+
+	@NonNull
+	public String getSearchTerm()
+	{
+		return searchTerm;
+	}
+
+	public void setSearchTerm(@NonNull String searchTerm)
+	{
+		this.searchTerm = searchTerm;
 	}
 
 	public static SearchProgrammeRepository getInstance(@NonNull Context context)

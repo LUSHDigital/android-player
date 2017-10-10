@@ -9,8 +9,6 @@ import com.lush.player.api.model.Programme;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +37,17 @@ public class EventProgrammesRepository extends BaseProgrammeRepository
 		return instance;
 	}
 
-	@Getter @Setter private String eventTag = "";
+	private String eventTag = "";
+
+	public String getEventTag()
+	{
+		return eventTag;
+	}
+
+	public void setEventTag(String eventTag)
+	{
+		this.eventTag = eventTag;
+	}
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{

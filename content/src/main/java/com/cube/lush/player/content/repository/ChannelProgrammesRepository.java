@@ -3,14 +3,12 @@ package com.cube.lush.player.content.repository;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.cube.lush.player.content.handler.ResponseHandler;
 import com.google.gson.reflect.TypeToken;
 import com.lush.player.api.model.Programme;
-import com.cube.lush.player.content.handler.ResponseHandler;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +37,17 @@ public class ChannelProgrammesRepository extends BaseProgrammeRepository
 		return instance;
 	}
 
-	@Getter @Setter private String channelTag;
+	private String channelTag;
+
+	public String getChannelTag()
+	{
+		return channelTag;
+	}
+
+	public void setChannelTag(String channelTag)
+	{
+		this.channelTag = channelTag;
+	}
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{

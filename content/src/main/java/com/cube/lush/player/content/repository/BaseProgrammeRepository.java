@@ -11,8 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import lombok.Getter;
-
 import static com.lush.player.api.model.ContentType.RADIO;
 import static com.lush.player.api.model.ContentType.TV;
 
@@ -23,12 +21,22 @@ import static com.lush.player.api.model.ContentType.TV;
  */
 abstract class BaseProgrammeRepository extends Repository<Programme>
 {
-	@Getter protected Set<Programme> videos = new HashSet<>();
-	@Getter protected Set<Programme> radios = new HashSet<>();
+	protected Set<Programme> videos = new HashSet<>();
+	protected Set<Programme> radios = new HashSet<>();
 
 	public BaseProgrammeRepository(@NonNull Context context)
 	{
 		super(context);
+	}
+
+	public Set<Programme> getVideos()
+	{
+		return videos;
+	}
+
+	public Set<Programme> getRadios()
+	{
+		return radios;
 	}
 
 	@Override protected void updateItems(@NonNull List<Programme> latestItems)

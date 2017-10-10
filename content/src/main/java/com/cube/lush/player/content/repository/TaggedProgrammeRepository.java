@@ -9,8 +9,6 @@ import com.lush.player.api.model.Programme;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,11 +21,22 @@ import retrofit2.Response;
 public class TaggedProgrammeRepository extends BaseProgrammeRepository
 {
 	private static TaggedProgrammeRepository instance;
-	@Getter @Setter @NonNull private String tag = "";
+	@NonNull private String tag = "";
 
 	public TaggedProgrammeRepository(@NonNull Context context)
 	{
 		super(context);
+	}
+
+	@NonNull
+	public String getTag()
+	{
+		return tag;
+	}
+
+	public void setTag(@NonNull String tag)
+	{
+		this.tag = tag;
 	}
 
 	public static TaggedProgrammeRepository getInstance(@NonNull Context context)

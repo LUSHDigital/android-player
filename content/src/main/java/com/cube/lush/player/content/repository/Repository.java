@@ -16,8 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import lombok.Getter;
-
 /**
  * Repository designed to be able to allow you to cache, know which content is new and get the data from the network
  *
@@ -34,7 +32,7 @@ public abstract class Repository<T>
 	public static final int DAY = 24 * HOUR;
 
 	private Set<T> items = new HashSet<>();
-	@Getter private Set<T> newItems = new HashSet<>();
+	private Set<T> newItems = new HashSet<>();
 	private long lastRequestTime = 0;
 
 	protected LushAPI api;
@@ -50,6 +48,11 @@ public abstract class Repository<T>
 	{
 		this.context = context;
 		api = APIManager.INSTANCE.getAPI();
+	}
+
+	public Set<T> getNewItems()
+	{
+		return newItems;
 	}
 
 	/**

@@ -12,8 +12,6 @@ import com.cube.lush.player.tv.view.CardView;
 import com.lush.player.api.model.Programme;
 import com.squareup.picasso.Picasso;
 
-import lombok.Data;
-
 import static android.text.format.DateUtils.DAY_IN_MILLIS;
 
 /**
@@ -103,7 +101,6 @@ public class ProgrammePresenter extends Presenter
 
 	}
 
-	@Data
 	static class ProgrammeViewHolder extends ViewHolder {
 		private Programme programme;
 		private CardView cardView;
@@ -111,6 +108,26 @@ public class ProgrammePresenter extends Presenter
 		public ProgrammeViewHolder(View view) {
 			super(view);
 			cardView = (CardView) view;
+		}
+
+		public Programme getProgramme()
+		{
+			return programme;
+		}
+
+		public void setProgramme(Programme programme)
+		{
+			this.programme = programme;
+		}
+
+		public CardView getCardView()
+		{
+			return cardView;
+		}
+
+		public void setCardView(CardView cardView)
+		{
+			this.cardView = cardView;
 		}
 	}
 }

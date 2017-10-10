@@ -12,8 +12,6 @@ import com.cube.lush.player.tv.view.CardView;
 import com.lush.player.api.model.Channel;
 import com.squareup.picasso.Picasso;
 
-import lombok.Data;
-
 /**
  * Presents information about Lush channels in a {@link CardView}.
  *
@@ -58,7 +56,6 @@ public class ChannelPresenter extends Presenter
 		LushImageLoader.cancelDisplay(cardView.getMainImageView());
 	}
 
-	@Data
 	static class ChannelViewHolder extends ViewHolder {
 		private Channel channel;
 		private CardView cardView;
@@ -66,6 +63,26 @@ public class ChannelPresenter extends Presenter
 		public ChannelViewHolder(View view) {
 			super(view);
 			cardView = (CardView) view;
+		}
+
+		public Channel getChannel()
+		{
+			return channel;
+		}
+
+		public void setChannel(Channel channel)
+		{
+			this.channel = channel;
+		}
+
+		public CardView getCardView()
+		{
+			return cardView;
+		}
+
+		public void setCardView(CardView cardView)
+		{
+			this.cardView = cardView;
 		}
 	}
 }

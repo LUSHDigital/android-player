@@ -1,14 +1,10 @@
 package com.cube.lush.player.mobile;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Lush Tab
  *
  * @author Jamie Cruwys
  */
-@AllArgsConstructor
 public enum LushTab
 {
 	HOME(0),
@@ -17,5 +13,15 @@ public enum LushTab
 	EVENTS(3),
 	SEARCH(4);
 
-	@Getter private int position;
+	private int position;
+
+	LushTab(int position)
+	{
+		this.position = position;
+	}
+
+	public int getPosition()
+	{
+		return position;
+	}
 }

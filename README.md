@@ -62,10 +62,28 @@ To test this functionality you can use the following adb command:
 adb shell am start -W -a android.intent.action.VIEW -d "http://player.lush.com/tv/conversation-john-robb-alexander-hacke-and-danielle-de-picciotto" com.cube.lush.player
 ```
 
-## Screenshots
+## Phone Screenshots
 
-![Main menu](.//screenshots/main.png "Main menu")
+<img src=".//screenshots/phone-home.png" height="507" width="274">
+<img src=".//screenshots/phone-item.png" height="507" width="274">
+<img src=".//screenshots/phone-live.png" height="507" width="274">
+<img src=".//screenshots/phone-channels.png" height="507" width="274">
+<img src=".//screenshots/phone-events.png" height="507" width="274">
+<img src=".//screenshots/phone-search.png" height="507" width="274">
 
-![Channels](.//screenshots/channels.png "Channels")
+## Tablet Screenshots
 
-![Media details](./screenshots/details.png "Media details")
+<img src=".//screenshots/tablet-home.png" height="443" width="619">
+<img src=".//screenshots/tablet-item.png" height="443" width="619">
+<img src=".//screenshots/tablet-live.png" height="443" width="619">
+<img src=".//screenshots/tablet-channels.png" height="443" width="619">
+<img src=".//screenshots/tablet-events.png" height="443" width="619">
+<img src=".//screenshots/tablet-search.png" height="443" width="619">
+
+## TV Screenshots
+
+<img src=".//screenshots/tv-menu.png" height="405" width="669">
+<img src=".//screenshots/tv-home.png" height="405" width="669">
+<img src=".//screenshots/tv-item.png" height="405" width="669">
+<img src=".//screenshots/tv-channels.png" height="405" width="669">
+<img src=".//screenshots/tv-search.png" height="405" width="669">

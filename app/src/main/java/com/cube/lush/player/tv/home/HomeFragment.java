@@ -52,7 +52,11 @@ public class HomeFragment extends BaseMediaBrowseFragment
 				if (items.isEmpty())
 				{
 					programmeAdapter.clear();
-					Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+
+					if (getActivity() != null)
+					{
+						Toast.makeText(getActivity(), "No items found", Toast.LENGTH_SHORT).show();
+					}
 				}
 				else
 				{
@@ -66,7 +70,11 @@ public class HomeFragment extends BaseMediaBrowseFragment
 			@Override public void onFailure(@Nullable Throwable t)
 			{
 				programmeAdapter.clear();
-				Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+
+				if (getActivity() != null)
+				{
+					Toast.makeText(getActivity(), "Error retrieving content, please try again later", Toast.LENGTH_SHORT).show();
+				}
 
 				setLoadingFinished(false);
 			}

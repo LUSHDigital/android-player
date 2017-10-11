@@ -3,15 +3,11 @@ package com.cube.lush.player.mobile.home;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Home Tab
  *
  * @author Jamie Cruwys
  */
-@AllArgsConstructor
 public enum HomeTab
 {
 	@SuppressWarnings("HardCodedStringLiteral")
@@ -26,12 +22,28 @@ public enum HomeTab
 	/**
 	 * The name used for the tabs in the UI
 	 */
-	@Getter private String displayName;
+	private String displayName;
 
 	/**
 	 * Name of the tag that will be used to find the content
 	 */
-	@Getter private String tag;
+	private String tag;
+
+	HomeTab(String displayName, String tag)
+	{
+		this.displayName = displayName;
+		this.tag = tag;
+	}
+
+	public String getDisplayName()
+	{
+		return displayName;
+	}
+
+	public String getTag()
+	{
+		return tag;
+	}
 
 	public static List<HomeTab> listValues()
 	{

@@ -23,3 +23,27 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Remove all logs
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+    public static int wtf(...);
+}
+
+# Keep model classes to avoid crashes and network errors
+-keep class com.lush.player.api.model.** { *; }
+-keep class com.lush.player.content.model.** { *; }
+-keep class com.brightcove.** { *; }
+-keep class com.cube.lush.player.mobile.model.** { *; }
+
+-dontwarn javax.**
+-dontwarn org.apache.**
+-dontwarn com.squareup.**
+-dontwarn com.sun.**
+-dontwarn **retrofit**
+-dontwarn **brightcove**

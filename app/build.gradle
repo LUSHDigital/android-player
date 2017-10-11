@@ -7,6 +7,16 @@ repositories {
 	}
 }
 
+def getAnalyticsEnabled = { ->
+	println "Analytics is enabled? " + ANALYTICS_ENABLED
+	return ANALYTICS_ENABLED
+}
+
+def getGoogleAnalyticsKey = { ->
+	println "Google Analytics key is set to " + GOOGLE_ANALYTICS_KEY
+	return GOOGLE_ANALYTICS_KEY
+}
+
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
@@ -15,15 +25,20 @@ android {
 		applicationId "com.cube.lush.player"
 		minSdkVersion 17
 		targetSdkVersion 25
-		versionCode 4
-		versionName "1.1.1"
+		versionCode 5
+		versionName "1.2"
+
+		buildConfigField "String", "ANALYTICS_ENABLED", "\"" + getAnalyticsEnabled() + "\""
+		buildConfigField "String", "GOOGLE_ANALYTICS_KEY", "\"" + getGoogleAnalyticsKey() + "\""
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 		vectorDrawables.useSupportLibrary = true
 	}
+
 	buildTypes {
 		release {
-			minifyEnabled false
+			minifyEnabled true
+			shrinkResources true
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 
@@ -71,7 +86,6 @@ android {
 
 def supportLibraryVersion = "25.3.1"
 def butterKnifeVersion = "8.4.0"
-def daggerVersion = "2.10"
 
 dependencies {
 	// Local files
@@ -89,11 +103,6 @@ dependencies {
 	// View injection
 	compile "com.jakewharton:butterknife:${butterKnifeVersion}"
 	annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
-
-	// Dependency injection
-	compile "com.google.dagger:dagger:${daggerVersion}"
-	annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
-	provided 'javax.annotation:jsr250-api:1.0'
 
 	// Lush content
 	compile project(":content")
@@ -120,9 +129,6 @@ dependencies {
 
 	// Images
 	compile 'com.squareup.picasso:picasso:2.5.2'
-
-	// Auto generated getters, setters and constructors
-	compile 'org.projectlombok:lombok:1.16.10'
 
 	// Google Analytics
 	compile 'com.google.android.gms:play-services-analytics:10.2.6'

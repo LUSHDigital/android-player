@@ -2,7 +2,6 @@ package com.cube.lush.player.tv.details;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.view.View;
@@ -22,9 +21,6 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 {
 	@SuppressWarnings("HardCodedStringLiteral")
 	private static final String OFFAIR_FRAGMENT_TAG = "offair";
-
-	@SuppressWarnings("HardCodedStringLiteral")
-	private static final String OFFAIR_FILE = "asset:///videos/offair.mp4";
 
 	public static void show(FragmentManager fragmentManager, View parentView)
 	{
@@ -55,18 +51,6 @@ public class OffAirFragment extends PlaybackFragment implements BrowseFragment.M
 	{
 		super.onActivityCreated(savedInstanceState);
 		getBrightcoveVideoView().setMediaController((MediaController)null);
-		playFile(OFFAIR_FILE);
-		getBrightcoveVideoView().setOnCompletionListener(new MediaPlayer.OnCompletionListener()
-		{
-			@Override
-			public void onCompletion(MediaPlayer mediaPlayer)
-			{
-				if (getActivity() != null)
-				{
-					getBrightcoveVideoView().start();
-				}
-			}
-		});
 
 		View view = getView();
 

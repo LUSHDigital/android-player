@@ -5,11 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.cube.lush.player.BuildConfig;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-
-import lombok.Getter;
 
 /**
  * Tracks user interactions in the app
@@ -18,13 +17,18 @@ import lombok.Getter;
  */
 public class Track
 {
-	private static final String trackingId = "UA-79597449-1";
+	private static final String trackingId = BuildConfig.GOOGLE_ANALYTICS_KEY;
 
-	@Getter private static GoogleAnalytics analytics = null;
-	@Getter private static Tracker tracker = null;
+	private static GoogleAnalytics analytics = null;
+	private static Tracker tracker = null;
 
 	public static void initialise(@NonNull Context context)
 	{
+		if (!Boolean.valueOf(BuildConfig.ANALYTICS_ENABLED))
+		{
+			return;
+		}
+
 		if (analytics == null)
 		{
 			analytics = GoogleAnalytics.getInstance(context.getApplicationContext());
@@ -41,6 +45,16 @@ public class Track
 
 			tracker.setScreenName(null);
 		}
+	}
+
+	public static GoogleAnalytics getAnalytics()
+	{
+		return analytics;
+	}
+
+	public static Tracker getTracker()
+	{
+		return tracker;
 	}
 
 	/**

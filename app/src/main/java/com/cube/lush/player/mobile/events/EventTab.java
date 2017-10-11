@@ -7,15 +7,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * Event Tab
  *
  * @author Jamie Cruwys
  */
-@AllArgsConstructor
 public enum EventTab
 {
 	@SuppressWarnings("HardCodedStringLiteral")
@@ -30,12 +26,28 @@ public enum EventTab
 	/**
 	 * The name used for the tabs in the UI
 	 */
-	@Getter private String displayName;
+	private String displayName;
 
 	/**
 	 * Name of the tag that will be used to find the content
 	 */
-	@Getter private String tag;
+	private String tag;
+
+	EventTab(String displayName, String tag)
+	{
+		this.displayName = displayName;
+		this.tag = tag;
+	}
+
+	public String getDisplayName()
+	{
+		return displayName;
+	}
+
+	public String getTag()
+	{
+		return tag;
+	}
 
 	public static List<EventTab> listValues()
 	{

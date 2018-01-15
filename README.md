@@ -44,12 +44,9 @@ adb shell am start -W -a android.intent.action.VIEW -d "http://player.lush.com/t
 
 ## Phone Screenshots
 
-<img src=".//screenshots/phone-home.png" height="507" width="274">
-<img src=".//screenshots/phone-item.png" height="507" width="274">
-<img src=".//screenshots/phone-live.png" height="507" width="274">
-<img src=".//screenshots/phone-channels.png" height="507" width="274">
-<img src=".//screenshots/phone-events.png" height="507" width="274">
-<img src=".//screenshots/phone-search.png" height="507" width="274">
+<img src=".//screenshots/phone-home.png" height="507" width="274"> <img src=".//screenshots/phone-item.png" height="507" width="274">
+<img src=".//screenshots/phone-live.png" height="507" width="274"> <img src=".//screenshots/phone-channels.png" height="507" width="274">
+<img src=".//screenshots/phone-events.png" height="507" width="274"> <img src=".//screenshots/phone-search.png" height="507" width="274">
 
 ## Tablet Screenshots
 

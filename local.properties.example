@@ -1,0 +1,11 @@
+# -----------------------------------------
+#            Brightcove Settings
+# -----------------------------------------
+brightcove_account_id=""
+brightcove_policy_id=""
+
+# -----------------------------------------
+#            Analytics Settings
+# -----------------------------------------
+analytics_enabled=false
+google_analytics_key=""

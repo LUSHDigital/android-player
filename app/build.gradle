@@ -7,14 +7,10 @@ repositories {
 	}
 }
 
-def getAnalyticsEnabled = { ->
-	println "Analytics is enabled? " + ANALYTICS_ENABLED
-	return ANALYTICS_ENABLED
-}
-
-def getGoogleAnalyticsKey = { ->
-	println "Google Analytics key is set to " + GOOGLE_ANALYTICS_KEY
-	return GOOGLE_ANALYTICS_KEY
+def getLocalProperty(propertyName) {
+	Properties properties = new Properties()
+	properties.load(project.rootProject.file('local.properties').newDataInputStream())
+	return properties.getProperty(propertyName, null)
 }
 
 android {
@@ -28,8 +24,10 @@ android {
 		versionCode 5
 		versionName "1.2"
 
-		buildConfigField "String", "ANALYTICS_ENABLED", "\"" + getAnalyticsEnabled() + "\""
-		buildConfigField "String", "GOOGLE_ANALYTICS_KEY", "\"" + getGoogleAnalyticsKey() + "\""
+		buildConfigField "String", "BRIGHTCOVE_ACCOUNT_ID", getLocalProperty("brightcove_account_id")
+		buildConfigField "String", "BRIGHTCOVE_POLICY_KEY", getLocalProperty("brightcove_policy_id")
+		buildConfigField "Boolean", "ANALYTICS_ENABLED", getLocalProperty("analytics_enabled")
+		buildConfigField "String", "GOOGLE_ANALYTICS_KEY", getLocalProperty("google_analytics_key")
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 		vectorDrawables.useSupportLibrary = true

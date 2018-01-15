@@ -7,28 +7,10 @@ repositories {
 	}
 }
 
-def getBrightcoveAccountId = { ->
-	def brightcoveAccountId = BRIGHTCOVE_ACCOUNT_ID
-
-	if (brightcoveAccountId == null || brightcoveAccountId == "")
-	{
-		throw new Exception("No Brightcove account id set")
-	}
-
-	println "Brightcove account id is set to " + brightcoveAccountId
-	return brightcoveAccountId
-}
-
-def getBrightcovePolicyKey = { ->
-	def policyKey = BRIGHTCOVE_POLICY_KEY
-
-	if (policyKey == null || policyKey == "")
-	{
-		throw new Exception("No Brightcove policy key set")
-	}
-
-	println "Brightcove policy key is set to " + policyKey
-	return policyKey
+def getLocalProperty(propertyName) {
+	Properties properties = new Properties()
+	properties.load(project.rootProject.file('local.properties').newDataInputStream())
+	return properties.getProperty(propertyName, null)
 }
 
 android {
@@ -41,8 +23,8 @@ android {
 		versionCode 1
 		versionName "1.0"
 
-		buildConfigField "String", "BRIGHTCOVE_ACCOUNT_ID", "\"" + getBrightcoveAccountId() + "\""
-		buildConfigField "String", "BRIGHTCOVE_POLICY_KEY", "\"" + getBrightcovePolicyKey() + "\""
+		buildConfigField "String", "BRIGHTCOVE_ACCOUNT_ID", getLocalProperty("brightcove_account_id")
+		buildConfigField "String", "BRIGHTCOVE_POLICY_KEY", getLocalProperty("brightcove_policy_id")
 	}
 
 	buildTypes {

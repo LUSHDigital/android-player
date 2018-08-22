@@ -14,7 +14,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Event Programme respository to provide a list of programmes for a event
+ * Event Programme repository to provide a list of programmes for a event
  *
  * @author Jamie Cruwys
  */

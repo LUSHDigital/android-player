@@ -21,8 +21,8 @@ android {
 		applicationId "com.cube.lush.player"
 		minSdkVersion 17
 		targetSdkVersion 25
-		versionCode 5
-		versionName "1.2"
+		versionCode 6
+		versionName "1.2.1"
 
 		buildConfigField "String", "BRIGHTCOVE_ACCOUNT_ID", getLocalProperty("brightcove_account_id")
 		buildConfigField "String", "BRIGHTCOVE_POLICY_KEY", getLocalProperty("brightcove_policy_id")

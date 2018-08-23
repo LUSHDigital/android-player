@@ -15,7 +15,7 @@ import static com.lush.player.api.model.ContentType.RADIO;
 import static com.lush.player.api.model.ContentType.TV;
 
 /**
- * Base Programme respository to provide filtering by content type
+ * Base Programme repository to provide filtering by content type
  *
  * @author Jamie Cruwys
  */

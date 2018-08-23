@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -71,9 +72,9 @@ public class API
 	private OkHttpClient getHttpClient(@NonNull Context context)
 	{
 		OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-		okHttpBuilder.connectTimeout(10, TimeUnit.SECONDS);
-		okHttpBuilder.readTimeout(10, TimeUnit.SECONDS);
-		okHttpBuilder.writeTimeout(10, TimeUnit.SECONDS);
+		okHttpBuilder.connectTimeout(5, TimeUnit.MINUTES);
+		okHttpBuilder.readTimeout(5, TimeUnit.MINUTES);
+		okHttpBuilder.writeTimeout(5, TimeUnit.MINUTES);
 
 		// Mock the playlist endpoint so it doesn't show live content
 		okHttpBuilder.addInterceptor(new MockLivePlaylistInterceptor(context));
@@ -91,6 +92,7 @@ public class API
 
 		// Tag interceptors
 		okHttpBuilder.addInterceptor(new MockTagProgrammesInterceptor(context));
+		okHttpBuilder.addInterceptor(new HttpLoggingInterceptor());
 
 		return okHttpBuilder.build();
 	}

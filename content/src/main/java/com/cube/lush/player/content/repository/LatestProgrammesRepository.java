@@ -10,9 +10,6 @@ import com.lush.player.api.model.Programme;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,19 +41,13 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 
 	@Override void getItemsFromNetwork(@NonNull final ResponseHandler<Programme> callback)
 	{
-		final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 		final List<Programme> composite = new ArrayList<>();
-
-		// Only return once the two requests have completed
-		final CountDownLatch countDownLatch = new CountDownLatch(2);
 
 		Call<List<Programme>> videoArchive = api.getVideoArchive();
 		videoArchive.enqueue(new Callback<List<Programme>>()
 		{
 			@Override public void onResponse(Call<List<Programme>> call, Response<List<Programme>> response)
 			{
-				readWriteLock.writeLock().lock();
-
 				try
 				{
 					if (response != null && response.isSuccessful() && response.body() != null)
@@ -66,26 +57,20 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 				}
 				finally
 				{
-					readWriteLock.writeLock().unlock();
-					countDownLatch.countDown();
-
-					if (countDownLatch.getCount() == 0)
+					if (composite.isEmpty())
 					{
-						if (composite.isEmpty())
+						if (callback != null)
 						{
-							if (callback != null)
-							{
-								callback.onFailure(null);
-							}
+							callback.onFailure(null);
 						}
-						else
-						{
-							MediaSorter.MOST_RECENT_FIRST.sort(composite);
+					}
+					else
+					{
+						MediaSorter.MOST_RECENT_FIRST.sort(composite);
 
-							if (callback != null)
-							{
-								callback.onSuccess(composite);
-							}
+						if (callback != null)
+						{
+							callback.onSuccess(composite);
 						}
 					}
 				}
@@ -93,14 +78,9 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
-				countDownLatch.countDown();
-
-				if (countDownLatch.getCount() == 0)
+				if (callback != null)
 				{
-					if (callback != null)
-					{
-						callback.onFailure(t);
-					}
+					callback.onFailure(t);
 				}
 			}
 		});
@@ -110,8 +90,6 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 		{
 			@Override public void onResponse(Call<List<Programme>> call, Response<List<Programme>> response)
 			{
-				readWriteLock.writeLock().lock();
-
 				try
 				{
 					if (response != null && response.isSuccessful() && response.body() != null)
@@ -121,26 +99,20 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 				}
 				finally
 				{
-					readWriteLock.writeLock().unlock();
-					countDownLatch.countDown();
-
-					if (countDownLatch.getCount() == 0)
+					if (composite.isEmpty())
 					{
-						if (composite.isEmpty())
+						if (callback != null)
 						{
-							if (callback != null)
-							{
-								callback.onFailure(null);
-							}
+							callback.onFailure(null);
 						}
-						else
-						{
-							MediaSorter.MOST_RECENT_FIRST.sort(composite);
+					}
+					else
+					{
+						MediaSorter.MOST_RECENT_FIRST.sort(composite);
 
-							if (callback != null)
-							{
-								callback.onSuccess(composite);
-							}
+						if (callback != null)
+						{
+							callback.onSuccess(composite);
 						}
 					}
 				}
@@ -148,14 +120,9 @@ public class LatestProgrammesRepository extends BaseProgrammeRepository
 
 			@Override public void onFailure(Call<List<Programme>> call, Throwable t)
 			{
-				countDownLatch.countDown();
-
-				if (countDownLatch.getCount() == 0)
+				if (callback != null)
 				{
-					if (callback != null)
-					{
-						callback.onFailure(t);
-					}
+					callback.onFailure(t);
 				}
 			}
 		});

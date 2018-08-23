@@ -30,7 +30,7 @@ public class Programme implements Serializable
 	private List<Tag> tags = new ArrayList<>();
 	private ContentType type;
 	private String file;
-	private String duration;
+	private long duration;
 
 	public String getRelativeDate()
 	{
@@ -168,12 +168,12 @@ public class Programme implements Serializable
 		this.file = file;
 	}
 
-	public String getDuration()
+	public long getDuration()
 	{
 		return duration;
 	}
 
-	public void setDuration(String duration)
+	public void setDuration(long duration)
 	{
 		this.duration = duration;
 	}

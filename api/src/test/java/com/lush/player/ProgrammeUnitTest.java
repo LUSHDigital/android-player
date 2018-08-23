@@ -46,7 +46,7 @@ public class ProgrammeUnitTest
 		programme.setTags(tags);
 		programme.setType(ContentType.RADIO);
 		programme.setFile("http://res.cloudinary.com/lush/raw/upload/v1496137851/Not%20Knowing.mp3");
-		programme.setDuration("38:48");
+		//programme.setDuration("38:48");
 	}
 
 	@Test

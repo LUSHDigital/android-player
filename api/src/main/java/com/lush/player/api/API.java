@@ -72,9 +72,9 @@ public class API
 	private OkHttpClient getHttpClient(@NonNull Context context)
 	{
 		OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-		okHttpBuilder.connectTimeout(1, TimeUnit.MINUTES);
-		okHttpBuilder.readTimeout(1, TimeUnit.MINUTES);
-		okHttpBuilder.writeTimeout(1, TimeUnit.MINUTES);
+		okHttpBuilder.connectTimeout(5, TimeUnit.MINUTES);
+		okHttpBuilder.readTimeout(5, TimeUnit.MINUTES);
+		okHttpBuilder.writeTimeout(5, TimeUnit.MINUTES);
 
 		// Mock the playlist endpoint so it doesn't show live content
 		okHttpBuilder.addInterceptor(new MockLivePlaylistInterceptor(context));

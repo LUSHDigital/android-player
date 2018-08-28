@@ -199,18 +199,25 @@ public abstract class Repository<T>
 
 	private void loadItemsFromDisk()
 	{
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_CACHE_STORE, Context.MODE_PRIVATE);
-		String json = sharedPreferences.getString(providePreferenceName(), null);
-
-		List<T> itemsFromDisk = GsonSingleton.getInstance().fromJson(json, provideGsonTypeToken().getType());
-
-		if (itemsFromDisk == null || itemsFromDisk.isEmpty())
+		try
 		{
-			items = new HashSet<T>();
+			SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_CACHE_STORE, Context.MODE_PRIVATE);
+			String json = sharedPreferences.getString(providePreferenceName(), null);
+
+			List<T> itemsFromDisk = GsonSingleton.getInstance().fromJson(json, provideGsonTypeToken().getType());
+
+			if (itemsFromDisk == null || itemsFromDisk.isEmpty())
+			{
+				items = new HashSet<T>();
+			}
+			else
+			{
+				items = new HashSet<T>(itemsFromDisk);
+			}
 		}
-		else
+		catch (Exception e)
 		{
-			items = new HashSet<T>(itemsFromDisk);
+			Log.e("Repository", "Failed to load cached JSON content");
 		}
 	}
 

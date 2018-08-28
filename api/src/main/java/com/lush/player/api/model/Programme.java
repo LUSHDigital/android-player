@@ -30,7 +30,7 @@ public class Programme implements Serializable
 	private List<Tag> tags = new ArrayList<>();
 	private ContentType type;
 	private String file;
-	private long duration;
+//	private long duration;
 
 	public String getRelativeDate()
 	{
@@ -168,15 +168,15 @@ public class Programme implements Serializable
 		this.file = file;
 	}
 
-	public long getDuration()
-	{
-		return duration;
-	}
-
-	public void setDuration(long duration)
-	{
-		this.duration = duration;
-	}
+//	public long getDuration()
+//	{
+//		return duration;
+//	}
+//
+//	public void setDuration(long duration)
+//	{
+//		this.duration = duration;
+//	}
 
 	@Override
 	public boolean equals(Object o)
